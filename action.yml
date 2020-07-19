@@ -1,0 +1,49 @@
+name: 'Waka -- Readme Stats'
+author: Anmol Pratap Singh
+description: 'Add a Wakatime Coding Activity graph in your Readme'
+
+inputs:
+  GH_TOKEN:
+    description: 'GitHub access token with Repo scope'
+    required: true
+    default: ${{ github.token }}
+
+  WAKATIME_API_KEY:
+    description: 'Your Wakatime API Key'
+    required: true
+
+  USERNAME:
+    description: 'Your GitHub username'
+    required: false
+    default: ${{ github.repository_owner }}
+
+  SHOW_OS:
+    required: false
+    description: 'Show the list of OS Worked on In dev metrics'
+    default: "True"
+
+  SHOW_PROJECTS:
+    required: false
+    description: 'Show the list of projects worked on in dev metrics'
+    default: "True"
+
+  SHOW_EDITORS:
+    required: false
+    description: 'Show the Editors used in dev metrics'
+    default: "True"
+
+  SHOW_TIMEZONE:
+    required: false
+    description: 'Show the time zone in the dev metrics'
+    default: "True"
+
+
+
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+
+branding:
+  icon: 'activity'
+  color: 'orange'
