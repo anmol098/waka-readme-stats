@@ -156,7 +156,7 @@ XML                      8 mins              ░░░░░░░░░░░�
 
 ```
 
-`SHOW_EDITORS`  flag can be set to `False` to hide the code-editor list you use
+`SHOW_EDITORS`  flag can be set to `False` to hide the list of code-editors used
 
 ```text
 💬 Languages:
