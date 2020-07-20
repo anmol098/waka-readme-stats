@@ -121,6 +121,7 @@ def generate_commit_list():
     username = result["data"]["viewer"]["login"]
     id = result["data"]["viewer"]["id"]
     print("user {} id {}".format(username, id))
+    print("on new version");
 
     result = run_query(createContributedRepoQuery.substitute(username=username))
     nodes = result["data"]["user"]["repositoriesContributedTo"]["nodes"]
@@ -187,7 +188,7 @@ def get_stats():
         os_list = make_list(data['data']['operating_systems'])
         stats = stats + '💻 Operating Systems: \n' + os_list + '\n\n'
 
-    stats = stats + '```'
+    stats = stats + '```\n\n'
 
     if showCommit.lower() in ['true', '1', 't', 'y', 'yes']:
         stats = stats + generate_commit_list() + '\n\n'
