@@ -121,7 +121,7 @@ def generate_commit_list():
     username = result["data"]["viewer"]["login"]
     id = result["data"]["viewer"]["id"]
     print("user {} id {}".format(username, id))
-    print("on new version");
+    print("on new version")
 
     result = run_query(createContributedRepoQuery.substitute(username=username))
     nodes = result["data"]["user"]["repositoriesContributedTo"]["nodes"]
@@ -160,7 +160,7 @@ def generate_commit_list():
         {"name": "🌙 Night", "text": str(night) + " commits", "percent": round((night / sumAll) * 100, 2)},
     ]
 
-    return '**' + title + '** \n\n' + '```text\n' + make_commit_list(one_day) + '```'
+    return '**' + title + '** \n\n' + '```text\n' + make_commit_list(one_day) + '\n\n```\n'
 
 
 def get_stats():
