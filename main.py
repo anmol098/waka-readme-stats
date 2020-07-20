@@ -5,10 +5,11 @@ WakaTime progress visualizer
 import re
 import os
 import base64
-import datetime
 import pytz
 import requests
 from github import Github
+import datetime
+from string import Template
 
 START_COMMENT = '<!--START_SECTION:waka-->'
 END_COMMENT = '<!--END_SECTION:waka-->'
@@ -21,8 +22,59 @@ showTimeZone = os.getenv('INPUT_SHOW_TIMEZONE')
 showProjects = os.getenv('INPUT_SHOW_PROJECTS')
 showEditors = os.getenv('INPUT_SHOW_EDITORS')
 showOs = os.getenv('INPUT_SHOW_OS')
+showCommit = os.getenv('INPUT_SHOW_COMMIT')
 
-print(showTimeZone + " " + showOs + " " + showProjects + " " + showEditors)
+headers = {"Authorization": "Bearer " + ghtoken}
+# The GraphQL query to get commit data.
+userInfoQuery = """
+{
+    viewer {
+      login
+      id
+    }
+  }
+"""
+createContributedRepoQuery = Template("""query {
+    user(login: "$username") {
+      repositoriesContributedTo(last: 100, includeUserRepositories: true) {
+        nodes {
+          isFork
+          name
+          owner {
+            login
+          }
+        }
+      }
+    }
+  }
+""")
+createCommittedDateQuery = Template("""
+query {
+    repository(owner: "$owner", name: "$name") {
+      ref(qualifiedName: "master") {
+        target {
+          ... on Commit {
+            history(first: 100, author: { id: "$id" }) {
+              edges {
+                node {
+                  committedDate
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+""")
+
+
+def run_query(query):  # A simple function to use requests.post to make the API call. Note the json= section.
+    request = requests.post('https://api.github.com/graphql', json={'query': query}, headers=headers)
+    if request.status_code == 200:
+        return request.json()
+    else:
+        raise Exception("Query failed to run by returning code of {}. {}".format(request.status_code, query))
 
 
 def this_week():
@@ -53,6 +105,63 @@ def make_list(data: list):
     return ' \n'.join(data_list)
 
 
+def make_commit_list(data: list):
+    '''Make List'''
+    data_list = []
+    for l in data[:5]:
+        ln = len(l['name'])
+        ln_text = len(l['text'])
+        op = f"{l['name']}{' ' * (13 - ln)}{l['text']}{' ' * (15 - ln_text)}{make_graph(l['percent'])}   {l['percent']}%"
+        data_list.append(op)
+    return ' \n'.join(data_list)
+
+
+def generate_commit_list():
+    result = run_query(userInfoQuery)  # Execute the query
+    username = result["data"]["viewer"]["login"]
+    id = result["data"]["viewer"]["id"]
+    print("user {} id {}".format(username, id))
+
+    result = run_query(createContributedRepoQuery.substitute(username=username))
+    nodes = result["data"]["user"]["repositoriesContributedTo"]["nodes"]
+    repos = [d for d in nodes if d['isFork'] is False]
+
+    morning = 0  # 6 - 12
+    daytime = 0  # 12 - 18
+    evening = 0  # 18 - 24
+    night = 0  # 0 - 6
+
+    for repository in repos:
+        result = run_query(
+            createCommittedDateQuery.substitute(owner=repository["owner"]["login"], name=repository["name"], id=id))
+        committed_dates = result["data"]["repository"]["ref"]["target"]["history"]["edges"]
+        for committedDate in committed_dates:
+            date = datetime.datetime.strptime(committedDate["node"]["committedDate"], "%Y-%m-%dT%H:%M:%SZ")
+            hour = date.hour
+            if 6 <= hour < 12:
+                morning += 1
+            if 12 <= hour < 18:
+                daytime += 1
+            if 18 <= hour < 24:
+                evening += 1
+            if 0 <= hour < 6:
+                night += 1
+
+    sumAll = morning + daytime + evening + night
+    if morning + daytime >= evening + night:
+        title = "I'm an early 🐤"
+    else:
+        title = "I'm a night 🦉"
+    one_day = [
+        {"name": "🌞 Morning", "text": str(morning) + " commits", "percent": round((morning / sumAll) * 100, 2)},
+        {"name": "🌆 Daytime", "text": str(daytime) + " commits", "percent": round((daytime / sumAll) * 100, 2)},
+        {"name": "🌃 Evening", "text": str(evening) + " commits", "percent": round((evening / sumAll) * 100, 2)},
+        {"name": "🌙 Night", "text": str(night) + " commits", "percent": round((night / sumAll) * 100, 2)},
+    ]
+
+    return make_commit_list(one_day)
+
+
 def get_stats():
     '''Gets API data and returns markdown progress'''
     data = requests.get(
@@ -77,6 +186,9 @@ def get_stats():
     if showOs.lower() in ['true', '1', 't', 'y', 'yes']:
         os_list = make_list(data['data']['operating_systems'])
         stats = stats + '💻 Operating Systems: \n' + os_list + '\n\n'
+
+    if showCommit.lower() in ['true', '1', 't', 'y', 'yes']:
+        stats = stats + generate_commit_list()
 
     return '```text\n' + stats + '```'
 
