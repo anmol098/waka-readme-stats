@@ -159,7 +159,7 @@ def generate_commit_list():
         {"name": "🌙 Night", "text": str(night) + " commits", "percent": round((night / sumAll) * 100, 2)},
     ]
 
-    return make_commit_list(one_day)
+    return '**' + title + '** \n\n' + '```text\n' + make_commit_list(one_day) + '```'
 
 
 def get_stats():
@@ -167,7 +167,7 @@ def get_stats():
     data = requests.get(
         f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={waka_key}").json()
 
-    stats = ''
+    stats = '```text\n'
     if showTimeZone.lower() in ['true', '1', 't', 'y', 'yes']:
         timezone = data['data']['timezone']
         stats = stats + '⌚︎ Timezone: ' + timezone + '\n\n'
@@ -187,10 +187,12 @@ def get_stats():
         os_list = make_list(data['data']['operating_systems'])
         stats = stats + '💻 Operating Systems: \n' + os_list + '\n\n'
 
-    if showCommit.lower() in ['true', '1', 't', 'y', 'yes']:
-        stats = stats + generate_commit_list()
+    stats = stats + '```'
 
-    return '```text\n' + stats + '```'
+    if showCommit.lower() in ['true', '1', 't', 'y', 'yes']:
+        stats = stats + generate_commit_list() + '\n\n'
+
+    return stats
 
 
 def decode_readme(data: str):
