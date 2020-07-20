@@ -6,7 +6,7 @@ inputs:
   GH_TOKEN:
     description: 'GitHub access token with Repo scope'
     required: true
-    default: ${{ GITHUB_TOKEN }}
+    default: ${{ github.token }}
 
   WAKATIME_API_KEY:
     description: 'Your Wakatime API Key'
