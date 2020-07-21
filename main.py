@@ -155,6 +155,13 @@ def generate_commit_list():
 def get_stats():
     '''Gets API data and returns markdown progress'''
     stats = ''
+
+    if showCommit.lower() in ['true', '1', 't', 'y', 'yes']:
+        try:
+            stats = stats + generate_commit_list() + '\n\n'
+        except Exception as ex:
+            print("GitHub Personal access token not configured properly or invalid" + str(ex))
+
     try:
         request = requests.get(
             f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={waka_key}")
@@ -188,12 +195,6 @@ def get_stats():
             print("Waka Time Api Key Not Configured Properly")
     except Exception as e:
         print("Waka Time Api Key Not Configured" + str(e))
-
-    if showCommit.lower() in ['true', '1', 't', 'y', 'yes']:
-        try:
-            stats = stats + generate_commit_list() + '\n\n'
-        except Exception as ex:
-            print("GitHub Personal access token not configured properly or invalid" + str(ex))
 
     return stats
 
