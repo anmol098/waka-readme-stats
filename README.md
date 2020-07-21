@@ -66,8 +66,6 @@ WakaTime gives you an idea of the time you really spent on coding. This helps yo
 
 ### Profile Repository
 
-*If you're executing the workflow on another repo other than `<username>/<username>`*
-
 You'll need to get a [GitHub Access Token](https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token) with a `repo` scope and save it in the Repo Secrets `GH_TOKEN = <Your GitHub Access Token>`
 
 Here is Sample Workflow File for running it:
