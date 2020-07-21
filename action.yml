@@ -37,6 +37,16 @@ inputs:
     description: 'Show the time zone in the dev metrics'
     default: "True"
 
+  SHOW_COMMIT:
+    required: false
+    description: "Shows the number of commit graph in the dev metrics"
+    default: "True"
+
+  SHOW_LANGUAGE:
+    required: false
+    description: "Show the Coding language used in dev metrics"
+    default: "True"
+
 
 
 
