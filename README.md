@@ -16,15 +16,16 @@
    <img src="https://img.shields.io/github/license/anmol098/waka-readme-stats"/>
    <img src="https://img.shields.io/github/stars/anmol098/waka-readme-stats"/>
    <img src="https://img.shields.io/github/forks/anmol098/waka-readme-stats"/>
+   <img src="https://img.shields.io/static/v1?label=%F0%9F%8C%9F&message=If%20Useful&style=style=flat&color=BC4E99" alt="Star Badge"/>
 </p>
 <p align="center">
    Are you an early 🐤 or a night 🦉?
    <br/>
    When are you most productive during the day?
    <br/>
-   The languages you code in
+   What are languages you code in?
    <br/>
-   Let's check out in your readme!
+   Let's check out in your profile readme!
 </p>
 
 ## Prep Work
