@@ -1,11 +1,10 @@
 '''
-WakaTime progress visualizer
+Readme Development Metrics With waka time progress
 '''
 
 import re
 import os
 import base64
-import pytz
 import requests
 from github import Github
 import datetime
@@ -23,8 +22,8 @@ showProjects = os.getenv('INPUT_SHOW_PROJECTS')
 showEditors = os.getenv('INPUT_SHOW_EDITORS')
 showOs = os.getenv('INPUT_SHOW_OS')
 showCommit = os.getenv('INPUT_SHOW_COMMIT')
+showLanguage = os.getenv('INPUT_SHOW_LANGUAGE')
 
-headers = {"Authorization": "Bearer " + ghtoken}
 # The GraphQL query to get commit data.
 userInfoQuery = """
 {
@@ -69,21 +68,12 @@ query {
 """)
 
 
-def run_query(query):  # A simple function to use requests.post to make the API call. Note the json= section.
+def run_query(query):
     request = requests.post('https://api.github.com/graphql', json={'query': query}, headers=headers)
     if request.status_code == 200:
         return request.json()
     else:
         raise Exception("Query failed to run by returning code of {}. {}".format(request.status_code, query))
-
-
-def this_week():
-    '''Returns current week span'''
-    week_number = datetime.date.today().isocalendar()[1]
-    month = datetime.date.today().strftime('%B')
-    week_start = datetime.datetime.today().day - datetime.datetime.today().weekday()
-    week_end = week_start + 5
-    return f"Week #{week_number} : {month} {week_start} - {week_end}"
 
 
 def make_graph(percent: float):
@@ -121,7 +111,6 @@ def generate_commit_list():
     username = result["data"]["viewer"]["login"]
     id = result["data"]["viewer"]["id"]
     print("user {} id {}".format(username, id))
-    print("on new version")
 
     result = run_query(createContributedRepoQuery.substitute(username=username))
     nodes = result["data"]["user"]["repositoriesContributedTo"]["nodes"]
@@ -165,33 +154,45 @@ def generate_commit_list():
 
 def get_stats():
     '''Gets API data and returns markdown progress'''
-    data = requests.get(
-        f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={waka_key}").json()
+    stats = ''
+    try:
+        request = requests.get(
+            f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={waka_key}")
 
-    stats = '```text\n'
-    if showTimeZone.lower() in ['true', '1', 't', 'y', 'yes']:
-        timezone = data['data']['timezone']
-        stats = stats + '⌚︎ Timezone: ' + timezone + '\n\n'
+        if request.status_code == 200:
+            data = request.json()
+            stats = stats + '```text\n'
+            if showTimeZone.lower() in ['true', '1', 't', 'y', 'yes']:
+                timezone = data['data']['timezone']
+                stats = stats + '⌚︎ Timezone: ' + timezone + '\n\n'
 
-    lang_list = make_list(data['data']['languages'])
-    stats = stats + '💬 Languages: \n' + lang_list + '\n\n'
+            if showLanguage.lower() in ['true', '1', 't', 'y', 'yes']:
+                lang_list = make_list(data['data']['languages'])
+                stats = stats + '💬 Languages: \n' + lang_list + '\n\n'
 
-    if showEditors.lower() in ['true', '1', 't', 'y', 'yes']:
-        edit_list = make_list(data['data']['editors'])
-        stats = stats + '🔥 Editors: \n' + edit_list + '\n\n'
+            if showEditors.lower() in ['true', '1', 't', 'y', 'yes']:
+                edit_list = make_list(data['data']['editors'])
+                stats = stats + '🔥 Editors: \n' + edit_list + '\n\n'
 
-    if showProjects.lower() in ['true', '1', 't', 'y', 'yes']:
-        project_list = make_list(data['data']['projects'])
-        stats = stats + '🐱‍💻 Projects: \n' + project_list + '\n\n'
+            if showProjects.lower() in ['true', '1', 't', 'y', 'yes']:
+                project_list = make_list(data['data']['projects'])
+                stats = stats + '🐱‍💻 Projects: \n' + project_list + '\n\n'
 
-    if showOs.lower() in ['true', '1', 't', 'y', 'yes']:
-        os_list = make_list(data['data']['operating_systems'])
-        stats = stats + '💻 Operating Systems: \n' + os_list + '\n\n'
+            if showOs.lower() in ['true', '1', 't', 'y', 'yes']:
+                os_list = make_list(data['data']['operating_systems'])
+                stats = stats + '💻 Operating Systems: \n' + os_list + '\n\n'
 
-    stats = stats + '```\n\n'
+            stats = stats + '```\n\n'
+        else:
+            print("Waka Time Api Key Not Configured Properly")
+    except Exception as e:
+        print("Waka Time Api Key Not Configured" + str(e))
 
     if showCommit.lower() in ['true', '1', 't', 'y', 'yes']:
-        stats = stats + generate_commit_list() + '\n\n'
+        try:
+            stats = stats + generate_commit_list() + '\n\n'
+        except Exception as ex:
+            print("GitHub Personal access token not configured properly or invalid" + str(ex))
 
     return stats
 
@@ -209,12 +210,16 @@ def generate_new_readme(stats: str, readme: str):
 
 
 if __name__ == '__main__':
-    g = Github(ghtoken)
-    repo = g.get_repo(f"{user}/{user}")
-    contents = repo.get_readme()
-    waka_stats = get_stats()
-    rdmd = decode_readme(contents.content)
-    new_readme = generate_new_readme(stats=waka_stats, readme=rdmd)
-    if new_readme != rdmd:
-        repo.update_file(path=contents.path, message='Updated with Dev Metrics',
-                         content=new_readme, sha=contents.sha, branch='master')
+    try:
+        g = Github(ghtoken)
+        repo = g.get_repo(f"{user}/{user}")
+        contents = repo.get_readme()
+        headers = {"Authorization": "Bearer " + ghtoken}
+        waka_stats = get_stats()
+        rdmd = decode_readme(contents.content)
+        new_readme = generate_new_readme(stats=waka_stats, readme=rdmd)
+        if new_readme != rdmd:
+            repo.update_file(path=contents.path, message='Updated with Dev Metrics',
+                             content=new_readme, sha=contents.sha, branch='master')
+    except Exception as e:
+        print("Exception Occurred" + str(e))
