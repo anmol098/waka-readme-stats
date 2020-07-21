@@ -161,6 +161,7 @@ def get_stats():
 
         if request.status_code == 200:
             data = request.json()
+            stats = stats + '📊 **This week I spent my time on** \n\n'
             stats = stats + '```text\n'
             if showTimeZone.lower() in ['true', '1', 't', 'y', 'yes']:
                 timezone = data['data']['timezone']
