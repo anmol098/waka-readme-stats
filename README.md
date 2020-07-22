@@ -28,6 +28,12 @@
    Let's check out in your profile readme!
 </p>
 
+<p align="center">
+    <a href="https://github.com/anmol098/waka-readme-stats/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/anmol098/waka-readme-stats/issues">Request Feature</a>
+  </p>
+
 ## Prep Work
 
 1. You need to update the markdown file(.md) with 2 comments. You can refer [here](#update-your-readme) for updating it.
