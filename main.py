@@ -124,18 +124,21 @@ def generate_commit_list():
     for repository in repos:
         result = run_query(
             createCommittedDateQuery.substitute(owner=repository["owner"]["login"], name=repository["name"], id=id))
-        committed_dates = result["data"]["repository"]["ref"]["target"]["history"]["edges"]
-        for committedDate in committed_dates:
-            date = datetime.datetime.strptime(committedDate["node"]["committedDate"], "%Y-%m-%dT%H:%M:%SZ")
-            hour = date.hour
-            if 6 <= hour < 12:
-                morning += 1
-            if 12 <= hour < 18:
-                daytime += 1
-            if 18 <= hour < 24:
-                evening += 1
-            if 0 <= hour < 6:
-                night += 1
+        try:
+            committed_dates = result["data"]["repository"]["ref"]["target"]["history"]["edges"]
+            for committedDate in committed_dates:
+                date = datetime.datetime.strptime(committedDate["node"]["committedDate"], "%Y-%m-%dT%H:%M:%SZ")
+                hour = date.hour
+                if 6 <= hour < 12:
+                    morning += 1
+                if 12 <= hour < 18:
+                    daytime += 1
+                if 18 <= hour < 24:
+                    evening += 1
+                if 0 <= hour < 6:
+                    night += 1
+        except Exception as ex:
+            print("Exception occured" + str(ex));
 
     sumAll = morning + daytime + evening + night
     if morning + daytime >= evening + night:
