@@ -16,15 +16,16 @@
    <img src="https://img.shields.io/github/license/anmol098/waka-readme-stats"/>
    <img src="https://img.shields.io/github/stars/anmol098/waka-readme-stats"/>
    <img src="https://img.shields.io/github/forks/anmol098/waka-readme-stats"/>
+   <img src="https://img.shields.io/static/v1?label=%F0%9F%8C%9F&message=If%20Useful&style=style=flat&color=BC4E99" alt="Star Badge"/>
 </p>
 <p align="center">
    Are you an early 🐤 or a night 🦉?
    <br/>
    When are you most productive during the day?
    <br/>
-   The languages you code in
+   What are languages you code in?
    <br/>
-   Let's check out in your readme!
+   Let's check out in your profile readme!
 </p>
 
 ## Prep Work
@@ -65,8 +66,6 @@ WakaTime gives you an idea of the time you really spent on coding. This helps yo
 - Paste in your API key to start the analysis.
 
 ### Profile Repository
-
-*If you're executing the workflow on another repo other than `<username>/<username>`*
 
 You'll need to get a [GitHub Access Token](https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token) with a `repo` scope and save it in the Repo Secrets `GH_TOKEN = <Your GitHub Access Token>`
 
