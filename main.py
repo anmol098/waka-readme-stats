@@ -157,10 +157,7 @@ def get_stats():
     stats = ''
 
     if showCommit.lower() in ['true', '1', 't', 'y', 'yes']:
-        try:
-            stats = stats + generate_commit_list() + '\n\n'
-        except Exception as ex:
-            print("GitHub Personal access token not configured properly or invalid" + str(ex))
+        stats = stats + generate_commit_list() + '\n\n'
 
     try:
         request = requests.get(
