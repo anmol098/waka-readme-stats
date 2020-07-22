@@ -1,6 +1,6 @@
 name: 'Profile Readme Development Stats'
 author: Anmol Pratap Singh
-description: 'Are you an early 🐤 or a night 🦉? When are you most productive during the day? What languages you code in? And other stuff... Let''s check out in your readme!'
+description: 'Are you an early 🐤 or a night 🦉? When are you most productive during the day? Let''s check out in your readme!'
 
 inputs:
   GH_TOKEN:
