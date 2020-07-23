@@ -23,6 +23,7 @@ showEditors = os.getenv('INPUT_SHOW_EDITORS')
 showOs = os.getenv('INPUT_SHOW_OS')
 showCommit = os.getenv('INPUT_SHOW_COMMIT')
 showLanguage = os.getenv('INPUT_SHOW_LANGUAGE')
+timezoneOffset = os.getenv('INPUT_TIMEZONE_OFFSET', 0)
 
 # The GraphQL query to get commit data.
 userInfoQuery = """
@@ -115,7 +116,10 @@ def generate_commit_list():
     result = run_query(createContributedRepoQuery.substitute(username=username))
     nodes = result["data"]["user"]["repositoriesContributedTo"]["nodes"]
     repos = [d for d in nodes if d['isFork'] is False]
-
+    try:
+        timezone_offset = int(timezoneOffset)
+    except ValueError:
+        timezone_offset = 0
     morning = 0  # 6 - 12
     daytime = 0  # 12 - 18
     evening = 0  # 18 - 24
@@ -128,7 +132,7 @@ def generate_commit_list():
             committed_dates = result["data"]["repository"]["ref"]["target"]["history"]["edges"]
             for committedDate in committed_dates:
                 date = datetime.datetime.strptime(committedDate["node"]["committedDate"], "%Y-%m-%dT%H:%M:%SZ")
-                hour = date.hour
+                hour = date.hour + timezone_offset
                 if 6 <= hour < 12:
                     morning += 1
                 if 12 <= hour < 18:
