@@ -192,7 +192,7 @@ def get_stats():
 
             stats = stats + '```\n\n'
         else:
-            print("Waka Time Api Key Not Configured Properly")
+            print("Error With WAKA time API returned "+request.status_code + " Response "+ request.json())
     except Exception as e:
         print("Waka Time Api Key Not Configured" + str(e))
 
