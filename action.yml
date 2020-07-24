@@ -47,8 +47,10 @@ inputs:
     description: "Show the Coding language used in dev metrics"
     default: "True"
 
-
-
+  INPUT_TIMEZONE_OFFSET:
+    required: false
+    description: "The UTC offset to consider for the time grouping."
+    default: "0"
 
 runs:
   using: 'docker'
