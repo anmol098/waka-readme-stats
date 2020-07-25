@@ -179,11 +179,11 @@ def get_stats():
 
         if request.status_code == 200:
             data = request.json()
-            stats = stats + '📊 **This week I spent my time on** \n\n'
+            stats = stats + '📊 **Recent dev stats** \n\n'
             stats = stats + '```text\n'
             if showTimeZone.lower() in ['true', '1', 't', 'y', 'yes']:
                 timezone = data['data']['timezone']
-                stats = stats + '⌚︎ Timezone: ' + timezone + '\n\n'
+                stats = stats + '⏱ Timezone: ' + timezone + '\n\n'
 
             if showLanguage.lower() in ['true', '1', 't', 'y', 'yes']:
                 lang_list = make_list(data['data']['languages'])
@@ -199,7 +199,7 @@ def get_stats():
 
             if showOs.lower() in ['true', '1', 't', 'y', 'yes']:
                 os_list = make_list(data['data']['operating_systems'])
-                stats = stats + '💻 Operating Systems: \n' + os_list + '\n\n'
+                stats = stats + '🖥 Operating Systems: \n' + os_list + '\n\n'
 
             stats = stats + '```\n\n'
         else:
