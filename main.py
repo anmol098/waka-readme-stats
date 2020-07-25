@@ -157,10 +157,10 @@ def generate_commit_list():
     else:
         title = "I'm a night 🦉"
     one_day = [
-        {"name": "🌥️ Morning", "text": str(morning) + " commits", "percent": round((morning / sumAll) * 100, 2)},
-        {"name": "☀️ Daytime", "text": str(daytime) + " commits", "percent": round((daytime / sumAll) * 100, 2)},
-        {"name": "🌤 Evening", "text": str(evening) + " commits", "percent": round((evening / sumAll) * 100, 2)},
-        {"name": "🌙 Night", "text": str(night) + " commits", "percent": round((night / sumAll) * 100, 2)},
+        {"name": "🌥️ Morning\t", "text": str(morning) + " commits", "percent": round((morning / sumAll) * 100, 2)},
+        {"name": "☀️ Daytime\t", "text": str(daytime) + " commits", "percent": round((daytime / sumAll) * 100, 2)},
+        {"name": "🌤 Evening\t", "text": str(evening) + " commits", "percent": round((evening / sumAll) * 100, 2)},
+        {"name": "🌙 Night\t", "text": str(night) + " commits", "percent": round((night / sumAll) * 100, 2)},
     ]
 
     return '**' + title + '** \n\n' + '```text\n' + make_commit_list(one_day) + '\n\n```\n'
@@ -179,7 +179,7 @@ def get_stats():
 
         if request.status_code == 200:
             data = request.json()
-            stats = stats + '📊 **Recent dev stats** \n\n'
+            stats = stats + '📊 **This week I spent my time on** \n\n'
             stats = stats + '```text\n'
             if showTimeZone.lower() in ['true', '1', 't', 'y', 'yes']:
                 timezone = data['data']['timezone']
