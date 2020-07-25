@@ -157,10 +157,10 @@ def generate_commit_list():
     else:
         title = "I'm a night 🦉"
     one_day = [
-        {"name": "🌥️ Morning\t", "text": str(morning) + " commits", "percent": round((morning / sumAll) * 100, 2)},
-        {"name": "☀️ Daytime\t", "text": str(daytime) + " commits", "percent": round((daytime / sumAll) * 100, 2)},
-        {"name": "🌤 Evening\t", "text": str(evening) + " commits", "percent": round((evening / sumAll) * 100, 2)},
-        {"name": "🌙 Night\t", "text": str(night) + " commits", "percent": round((night / sumAll) * 100, 2)},
+        {"name": "🌔 Dawn", "text": str(morning) + " commits", "percent": round((morning / sumAll) * 100, 2)},
+        {"name": "🌥️ Morning", "text": str(daytime) + " commits", "percent": round((daytime / sumAll) * 100, 2)},
+        {"name": "🌤 Evening", "text": str(evening) + " commits", "percent": round((evening / sumAll) * 100, 2)},
+        {"name": "🌒 Night", "text": str(night) + " commits", "percent": round((night / sumAll) * 100, 2)},
     ]
 
     return '**' + title + '** \n\n' + '```text\n' + make_commit_list(one_day) + '\n\n```\n'
