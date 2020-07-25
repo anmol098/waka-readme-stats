@@ -100,10 +100,9 @@ def make_commit_list(data: list):
     '''Make List'''
     data_list = []
     for l in data[:5]:
-        ln_emoji = len(l['emoji'])
         ln = len(l['name'])
         ln_text = len(l['text'])
-        op = f"{l['emoji']}{' ' * (5 - ln_emoji)}{l['name']}{' ' * (13 - ln)}{l['text']}{' ' * (15 - ln_text)}{make_graph(l['percent'])}   {l['percent']}%"
+        op = f"{l['emoji']}{' ' * 2}{l['name']}{' ' * (13 - ln)}{l['text']}{' ' * (15 - ln_text)}{make_graph(l['percent'])}   {l['percent']}%"
         data_list.append(op)
     return ' \n'.join(data_list)
 
