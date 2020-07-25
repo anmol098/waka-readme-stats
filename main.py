@@ -130,13 +130,13 @@ def generate_commit_list():
                 date = datetime.datetime.strptime(committedDate["node"]["committedDate"], "%Y-%m-%dT%H:%M:%SZ")
                 hour = date.hour
                 if 6 <= hour < 12:
-                    morning += 1
-                if 12 <= hour < 18:
                     daytime += 1
-                if 18 <= hour < 24:
+                if 12 <= hour < 18:
                     evening += 1
-                if 0 <= hour < 6:
+                if 18 <= hour < 24:
                     night += 1
+                if 0 <= hour < 6:
+                    morning += 1
         except Exception as ex:
             print("Exception occured" + str(ex));
 
