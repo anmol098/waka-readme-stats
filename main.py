@@ -102,7 +102,8 @@ def make_commit_list(data: list):
     for l in data[:5]:
         ln = len(l['name'])
         ln_text = len(l['text'])
-        op = f"{l['name']}{' ' * (13 - ln)}{l['text']}{' ' * (15 - ln_text)}{make_graph(l['percent'])}   {l['percent']}%"
+        # op = f"{l['name']}{' ' * (13 - ln)}{l['text']}{' ' * (15 - ln_text)}{make_graph(l['percent'])}   {l['percent']}%"
+        op = "{:2s} {:8s} {:4s} {} {:3s}%".format(l['emoji'], l['name'],l['text'], make_graph(l['percent']),l['percent'])
         data_list.append(op)
     return ' \n'.join(data_list)
 
@@ -156,11 +157,13 @@ def generate_commit_list():
         title = "I'm an early 🕊"
     else:
         title = "I'm a night 🦉"
+
+
     one_day = [
-        {"name": "🌔 Dawn\t", "text": str(morning) + " commits", "percent": round((morning / sumAll) * 100, 2)},
-        {"name": "🌥️ Morning\t", "text": str(daytime) + " commits", "percent": round((daytime / sumAll) * 100, 2)},
-        {"name": "🌤 Evening\t", "text": str(evening) + " commits", "percent": round((evening / sumAll) * 100, 2)},
-        {"name": "🌒 Night\t", "text": str(night) + " commits", "percent": round((night / sumAll) * 100, 2)},
+        {"emoji": "🌔", "name": "Dawn", "text": str(morning) + " commits", "percent": round((morning / sumAll) * 100, 2)},
+        {"emoji": "🌥️", "name": "Morning", "text": str(daytime) + " commits", "percent": round((daytime / sumAll) * 100, 2)},
+        {"emoji": "🌤", "name": "Evening", "text": str(evening) + " commits", "percent": round((evening / sumAll) * 100, 2)},
+        {"emoji": "🌒", "name": "Night", "text": str(night) + " commits", "percent": round((night / sumAll) * 100, 2)},
     ]
 
     return '**' + title + '** \n\n' + '```text\n' + make_commit_list(one_day) + '\n\n```\n'
