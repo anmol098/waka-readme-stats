@@ -114,8 +114,8 @@ def generate_commit_list():
     print("user {} id {}".format(username, id))
 
     result = run_query(createContributedRepoQuery.substitute(username=username))
-    repos = result["data"]["user"]["repositoriesContributedTo"]["nodes"]
-    # repos = [d for d in nodes if d['isFork'] is False]
+    nodes = result["data"]["user"]["repositoriesContributedTo"]["nodes"]
+    repos = [d for d in nodes if d['isFork'] is False]
 
     morning = 0  # 0 - 6
     daytime = 0  # 6 - 12
