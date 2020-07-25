@@ -23,6 +23,7 @@ showEditors = os.getenv('INPUT_SHOW_EDITORS')
 showOs = os.getenv('INPUT_SHOW_OS')
 showCommit = os.getenv('INPUT_SHOW_COMMIT')
 showLanguage = os.getenv('INPUT_SHOW_LANGUAGE')
+isMorningPerson = os.getenv('INPUT_MORNING_PERSON')
 
 # The GraphQL query to get commit data.
 userInfoQuery = """
@@ -116,10 +117,10 @@ def generate_commit_list():
     nodes = result["data"]["user"]["repositoriesContributedTo"]["nodes"]
     repos = [d for d in nodes if d['isFork'] is False]
 
-    morning = 0  # 6 - 12
-    daytime = 0  # 12 - 18
-    evening = 0  # 18 - 24
-    night = 0  # 0 - 6
+    morning = 0  # 0 - 6
+    daytime = 0  # 6 - 12
+    evening = 0  # 12 - 18
+    night = 0  # 18 - 24
 
     for repository in repos:
         result = run_query(
@@ -129,26 +130,36 @@ def generate_commit_list():
             for committedDate in committed_dates:
                 date = datetime.datetime.strptime(committedDate["node"]["committedDate"], "%Y-%m-%dT%H:%M:%SZ")
                 hour = date.hour
-                if 6 <= hour < 12:
-                    daytime += 1
-                if 12 <= hour < 18:
-                    evening += 1
-                if 18 <= hour < 24:
-                    night += 1
-                if 0 <= hour < 6:
-                    morning += 1
+                if isMorningPerson:
+                    if 6 <= hour < 12:
+                        daytime += 1
+                    if 12 <= hour < 18:
+                        evening += 1
+                    if 18 <= hour < 24:
+                        night += 1
+                    if 0 <= hour < 6:
+                        morning += 1
+                else:
+                    if 6 <= hour < 12:
+                        morning += 1
+                    if 12 <= hour < 18:
+                        daytime += 1
+                    if 18 <= hour < 24:
+                        evening += 1
+                    if 0 <= hour < 6:
+                        night += 1
         except Exception as ex:
             print("Exception occured" + str(ex));
 
     sumAll = morning + daytime + evening + night
     if morning + daytime >= evening + night:
-        title = "I'm an early 🐤"
+        title = "I'm an early 🕊"
     else:
         title = "I'm a night 🦉"
     one_day = [
-        {"name": "🌞 Morning", "text": str(morning) + " commits", "percent": round((morning / sumAll) * 100, 2)},
-        {"name": "🌆 Daytime", "text": str(daytime) + " commits", "percent": round((daytime / sumAll) * 100, 2)},
-        {"name": "🌃 Evening", "text": str(evening) + " commits", "percent": round((evening / sumAll) * 100, 2)},
+        {"name": "🌥️ Morning", "text": str(morning) + " commits", "percent": round((morning / sumAll) * 100, 2)},
+        {"name": "☀️ Daytime", "text": str(daytime) + " commits", "percent": round((daytime / sumAll) * 100, 2)},
+        {"name": "🌤 Evening", "text": str(evening) + " commits", "percent": round((evening / sumAll) * 100, 2)},
         {"name": "🌙 Night", "text": str(night) + " commits", "percent": round((night / sumAll) * 100, 2)},
     ]
 

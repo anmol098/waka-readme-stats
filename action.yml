@@ -47,6 +47,10 @@ inputs:
     description: "Show the Coding language used in dev metrics"
     default: "True"
 
+  MORNING_PERSON:
+    required: false
+    description: "Choose whether 0-6am is Morning or Night"
+    default: "False"
 
 
 
