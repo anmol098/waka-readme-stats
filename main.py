@@ -157,8 +157,8 @@ def generate_commit_list():
     else:
         title = "I'm a night 🦉"
     one_day = [
-        {"name": "🌔 Dawn", "text": str(morning) + " commits", "percent": round((morning / sumAll) * 100, 2)},
-        {"name": "🌥️ Morning", "text": str(daytime) + " commits", "percent": round((daytime / sumAll) * 100, 2)},
+        {"name": "🌔 Morning", "text": str(morning) + " commits", "percent": round((morning / sumAll) * 100, 2)},
+        {"name": "🌥️ Daytime", "text": str(daytime) + " commits", "percent": round((daytime / sumAll) * 100, 2)},
         {"name": "🌤 Evening", "text": str(evening) + " commits", "percent": round((evening / sumAll) * 100, 2)},
         {"name": "🌒 Night", "text": str(night) + " commits", "percent": round((night / sumAll) * 100, 2)},
     ]
