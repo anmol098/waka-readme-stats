@@ -5,27 +5,38 @@ Readme Development Metrics With waka time progress
 import re
 import os
 import base64
-import sys
-from pytz import timezone
-import pytz
 import requests
-from github import Github, GithubException
+from github import Github
 import datetime
 from string import Template
+import matplotlib.pyplot as plt
+from io import StringIO,BytesIO
+
 
 START_COMMENT = '<!--START_SECTION:waka-->'
 END_COMMENT = '<!--END_SECTION:waka-->'
 listReg = f"{START_COMMENT}[\\s\\S]+{END_COMMENT}"
 
-user = os.getenv('INPUT_USERNAME')
-waka_key = os.getenv('INPUT_WAKATIME_API_KEY')
-ghtoken = os.getenv('INPUT_GH_TOKEN')
-showTimeZone = os.getenv('INPUT_SHOW_TIMEZONE')
-showProjects = os.getenv('INPUT_SHOW_PROJECTS')
-showEditors = os.getenv('INPUT_SHOW_EDITORS')
-showOs = os.getenv('INPUT_SHOW_OS')
-showCommit = os.getenv('INPUT_SHOW_COMMIT')
-showLanguage = os.getenv('INPUT_SHOW_LANGUAGE')
+# user = os.getenv('INPUT_USERNAME')
+# waka_key = os.getenv('INPUT_WAKATIME_API_KEY')
+# ghtoken = os.getenv('INPUT_GH_TOKEN')
+# showTimeZone = os.getenv('INPUT_SHOW_TIMEZONE')
+# showProjects = os.getenv('INPUT_SHOW_PROJECTS')
+# showEditors = os.getenv('INPUT_SHOW_EDITORS')
+# showOs = os.getenv('INPUT_SHOW_OS')
+# showCommit = os.getenv('INPUT_SHOW_COMMIT')
+# showLanguage = os.getenv('INPUT_SHOW_LANGUAGE')
+# showLanguagePerRepo=os.getenv('LANGUAGE_PER_REPO')
+username = ''
+waka_key = '1647f145-ce70-4172-9f4c-aa9143300891'
+ghtoken = '20c2809f702a3db2cbe2350dd160e4e34302889e'
+showTimeZone = 'y'
+showProjects = 'y'
+showEditors = 'y'
+showOs = 'y'
+showCommit = 'y'
+showLanguage = 'y'
+showLanguagePerRepo= 'y'
 
 # The GraphQL query to get commit data.
 userInfoQuery = """
@@ -70,6 +81,47 @@ query {
   }
 """)
 
+repositoryListQuery = Template("""
+{
+  user(login: "$username") {
+    repositories(orderBy: {field: CREATED_AT, direction: ASC}, first: 100, affiliations: [OWNER, COLLABORATOR, ORGANIZATION_MEMBER]) {
+      totalCount
+      edges {
+        node {
+          object(expression:"master") {
+                ... on Commit {
+                history {
+                totalCount
+                    }
+                }
+                }
+          primaryLanguage {
+            color
+            name
+            id
+          }
+          stargazers {
+            totalCount
+          }
+          collaborators {
+            totalCount
+          }
+          createdAt
+          name
+          owner {
+            id
+            login
+          }
+          nameWithOwner
+        }
+      }
+    }
+    location
+    createdAt
+    name
+  }
+}
+""")
 
 def run_query(query):
     request = requests.post('https://api.github.com/graphql', json={'query': query}, headers=headers)
@@ -101,7 +153,7 @@ def make_list(data: list):
 def make_commit_list(data: list):
     '''Make List'''
     data_list = []
-    for l in data[:7]:
+    for l in data[:5]:
         ln = len(l['name'])
         ln_text = len(l['text'])
         op = f"{l['name']}{' ' * (13 - ln)}{l['text']}{' ' * (15 - ln_text)}{make_graph(l['percent'])}   {l['percent']}%"
@@ -109,13 +161,7 @@ def make_commit_list(data: list):
     return ' \n'.join(data_list)
 
 
-def generate_commit_list(tz):
-    string = ''
-    result = run_query(userInfoQuery)  # Execute the query
-    username = result["data"]["viewer"]["login"]
-    id = result["data"]["viewer"]["id"]
-    print("user {} id".format(username))
-
+def generate_commit_list():
     result = run_query(createContributedRepoQuery.substitute(username=username))
     nodes = result["data"]["user"]["repositoriesContributedTo"]["nodes"]
     repos = [d for d in nodes if d['isFork'] is False]
@@ -125,24 +171,14 @@ def generate_commit_list(tz):
     evening = 0  # 18 - 24
     night = 0  # 0 - 6
 
-    Monday = 0
-    Tuesday = 0
-    Wednesday = 0
-    Thursday = 0
-    Friday = 0
-    Saturday = 0
-    Sunday = 0
-
     for repository in repos:
         result = run_query(
             createCommittedDateQuery.substitute(owner=repository["owner"]["login"], name=repository["name"], id=id))
         try:
             committed_dates = result["data"]["repository"]["ref"]["target"]["history"]["edges"]
             for committedDate in committed_dates:
-                date = datetime.datetime.strptime(committedDate["node"]["committedDate"],
-                                                  "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=pytz.utc).astimezone(timezone(tz))
+                date = datetime.datetime.strptime(committedDate["node"]["committedDate"], "%Y-%m-%dT%H:%M:%SZ")
                 hour = date.hour
-                weekday = date.strftime('%A')
                 if 6 <= hour < 12:
                     morning += 1
                 if 12 <= hour < 18:
@@ -151,26 +187,10 @@ def generate_commit_list(tz):
                     evening += 1
                 if 0 <= hour < 6:
                     night += 1
-
-                if weekday == "Monday":
-                    Monday += 1
-                if weekday == "Tuesday":
-                    Tuesday += 1
-                if weekday == "Wednesday":
-                    Wednesday += 1
-                if weekday == "Thursday":
-                    Thursday += 1
-                if weekday == "Friday":
-                    Friday += 1
-                if weekday == "Saturday":
-                    Saturday += 1
-                if weekday == "Sunday":
-                    Sunday += 1
         except Exception as ex:
-            print("Please Ignore this exception " + str(ex))
+            print("Exception occured" + str(ex));
 
     sumAll = morning + daytime + evening + night
-    sum_week = Sunday + Monday + Tuesday + Friday + Saturday + Wednesday + Thursday
     if morning + daytime >= evening + night:
         title = "I'm an early 🐤"
     else:
@@ -181,77 +201,95 @@ def generate_commit_list(tz):
         {"name": "🌃 Evening", "text": str(evening) + " commits", "percent": round((evening / sumAll) * 100, 2)},
         {"name": "🌙 Night", "text": str(night) + " commits", "percent": round((night / sumAll) * 100, 2)},
     ]
-    dayOfWeek = [
-        {"name": "Monday", "text": str(Monday) + " commits", "percent": round((Monday / sum_week) * 100, 2)},
-        {"name": "Tuesday", "text": str(Tuesday) + " commits", "percent": round((Tuesday / sum_week) * 100, 2)},
-        {"name": "Wednesday", "text": str(Wednesday) + " commits", "percent": round((Wednesday / sum_week) * 100, 2)},
-        {"name": "Thursday", "text": str(Thursday) + " commits", "percent": round((Thursday / sum_week) * 100, 2)},
-        {"name": "Friday", "text": str(Friday) + " commits", "percent": round((Friday / sum_week) * 100, 2)},
-        {"name": "Saturday", "text": str(Saturday) + " commits", "percent": round((Saturday / sum_week) * 100, 2)},
-        {"name": "Sunday", "text": str(Sunday) + " commits", "percent": round((Sunday / sum_week) * 100, 2)},
-    ]
 
-    max_element = {
-        'percent': 0
-    }
+    return '**' + title + '** \n\n' + '```text\n' + make_commit_list(one_day) + '\n\n```\n'
 
-    for day in dayOfWeek:
-        if day['percent'] > max_element['percent']:
-            max_element = day
-    days_title = 'I\'m Most Productive on ' + max_element['name'] + 's'
-    string = string + '**' + title + '** \n\n' + '```text\n' + make_commit_list(one_day) + '\n\n```\n'
-    string = string + '📅 **' + days_title + '** \n\n' + '```text\n' + make_commit_list(dayOfWeek) + '\n\n```\n'
+def get_waka_time_stats():
+    stats=''
+    try:
+        request = requests.get(
+            f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={waka_key}")
 
-    return string
+        if request.status_code == 200:
+            data = request.json()
+            stats = stats + '📊 **This week I spent my time on** \n\n'
+            stats = stats + '```text\n'
+            if showTimeZone.lower() in ['true', '1', 't', 'y', 'yes']:
+                timezone = data['data']['timezone']
+                stats = stats + '⌚︎ Timezone: ' + timezone + '\n\n'
 
+            if showLanguage.lower() in ['true', '1', 't', 'y', 'yes']:
+                lang_list = make_list(data['data']['languages'])
+                stats = stats + '💬 Languages: \n' + lang_list + '\n\n'
+
+            if showEditors.lower() in ['true', '1', 't', 'y', 'yes']:
+                edit_list = make_list(data['data']['editors'])
+                stats = stats + '🔥 Editors: \n' + edit_list + '\n\n'
+
+            if showProjects.lower() in ['true', '1', 't', 'y', 'yes']:
+                project_list = make_list(data['data']['projects'])
+                stats = stats + '🐱‍💻 Projects: \n' + project_list + '\n\n'
+
+            if showOs.lower() in ['true', '1', 't', 'y', 'yes']:
+                os_list = make_list(data['data']['operating_systems'])
+                stats = stats + '💻 Operating Systems: \n' + os_list + '\n\n'
+
+            stats = stats + '```\n\n'
+        else:
+            print("Waka Time Api Key Not Configured Properly")
+    except Exception as e:
+        print("Waka Time Api Key Not Configured" + str(e))
+
+    return stats
+
+
+def generate_language_per_repo():
+    result = run_query(repositoryListQuery.substitute(username=username))
+    language_count={}
+    total=0 
+    for repo in result['data']['user']['repositories']['edges']:
+        if repo['node']['primaryLanguage'] is None:
+            continue
+        language=repo['node']['primaryLanguage']['name']
+        color_code=repo['node']['primaryLanguage']['color']
+        total+=1
+        if language not in language_count.keys():
+            language_count[language]={}
+            language_count[language]['count']=1
+            language_count[language]['color']=color_code
+        else:
+            language_count[language]['count']=language_count[language]['count']+1
+            language_count[language]['color']=color_code
+    
+
+    data=[]
+    sorted_labels=list(language_count.keys())
+    sorted_labels.sort(key= lambda x: language_count[x]['count'], reverse=True)
+    most_language_repo=sorted_labels[0]
+    for label in sorted_labels:
+        percent=round(language_count[label]['count']/total*100,2)
+        data.append({
+            "name":label,
+            "text":str(language_count[label]['count'])+ " repos",
+            "percent":percent
+            })
+
+    title='I mostly code in '+most_language_repo
+    return '**' + title + '** \n\n' + '```text\n' + make_commit_list(data) + '\n\n```\n'
+
+    
 
 def get_stats():
     '''Gets API data and returns markdown progress'''
-    stats = ''
+    
+    stats=''
+    if showCommit.lower() in ['true', '1', 't', 'y', 'yes']:
+        stats = stats + generate_commit_list() + '\n\n'
 
-    request = requests.get(f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={waka_key}")
-
-    if request.status_code == 200:
-        data = request.json()
-        if showCommit.lower() in ['true', '1', 't', 'y', 'yes']:
-            stats = stats + generate_commit_list(tz=data['data']['timezone']) + '\n\n'
-        stats = stats + '📊 **This week I spent my time on** \n\n'
-        stats = stats + '```text\n'
-        if showTimeZone.lower() in ['true', '1', 't', 'y', 'yes']:
-            timezone = data['data']['timezone']
-            stats = stats + '⌚︎ Timezone: ' + timezone + '\n\n'
-
-        if showLanguage.lower() in ['true', '1', 't', 'y', 'yes']:
-            if len(data['data']['languages']) != 0:
-                lang_list = make_list(data['data']['languages'])
-            else:
-                lang_list = "No Activity tracked this Week"
-            stats = stats + '💬 Languages: \n' + lang_list + '\n\n'
-
-        if showEditors.lower() in ['true', '1', 't', 'y', 'yes']:
-            if len(data['data']['editors']) != 0:
-                edit_list = make_list(data['data']['editors'])
-            else:
-                edit_list = "No Activity tracked this Week"
-            stats = stats + '🔥 Editors: \n' + edit_list + '\n\n'
-
-        if showProjects.lower() in ['true', '1', 't', 'y', 'yes']:
-            if len(data['data']['projects']) != 0:
-                project_list = make_list(data['data']['projects'])
-            else:
-                project_list = "No Activity tracked this Week"
-            stats = stats + '🐱‍💻 Projects: \n' + project_list + '\n\n'
-
-        if showOs.lower() in ['true', '1', 't', 'y', 'yes']:
-            if len(data['data']['operating_systems']) != 0:
-                os_list = make_list(data['data']['operating_systems'])
-            else:
-                os_list = "No Activity tracked this Week"
-            stats = stats + '💻 Operating Systems: \n' + os_list + '\n\n'
-
-        stats = stats + '```\n\n'
-    else:
-        print("Error With WAKA time API returned " + str(request.status_code) + " Response " + str(request.json()))
+    if showLanguagePerRepo.lower() in ['true', '1', 't', 'y', 'yes']:
+        stats = stats + generate_language_per_repo() + '\n\n'
+    
+    stats=stats+get_waka_time_stats()
 
     return stats
 
@@ -269,17 +307,22 @@ def generate_new_readme(stats: str, readme: str):
 
 
 if __name__ == '__main__':
-    g = Github(ghtoken)
     try:
-        repo = g.get_repo(f"{user}/{user}")
-    except GithubException:
-        print("Authentication Error. Try saving a GitHub Personal Access Token in your Repo Secrets")
-        sys.exit(1)
-    contents = repo.get_readme()
-    headers = {"Authorization": "Bearer " + ghtoken}
-    waka_stats = get_stats()
-    rdmd = decode_readme(contents.content)
-    new_readme = generate_new_readme(stats=waka_stats, readme=rdmd)
-    if new_readme != rdmd:
-        repo.update_file(path=contents.path, message='Updated with Dev Metrics',
-                         content=new_readme, sha=contents.sha, branch='master')
+        g = Github(ghtoken)
+        headers = {"Authorization": "Bearer " + ghtoken}
+        user_data = run_query(userInfoQuery)  # Execute the query
+        username = user_data["data"]["viewer"]["login"]
+        id = user_data["data"]["viewer"]["id"]
+        print("user {} id {}".format(username, id))
+        repo = g.get_repo(f"{username}/{username}")
+        contents = repo.get_readme()
+        waka_stats = get_stats()
+        rdmd = decode_readme(contents.content)
+        new_readme = generate_new_readme(stats=waka_stats, readme=rdmd)
+        print(new_readme)
+        if new_readme != rdmd:
+            repo.update_file(path=contents.path, message='Updated with Dev Metrics',
+                             content=new_readme, sha=contents.sha, branch='master')
+    except Exception as e:
+        print("Exception Occurred" + str(e))
+
