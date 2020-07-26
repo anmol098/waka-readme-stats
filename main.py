@@ -81,7 +81,7 @@ def run_v3_api(query):
         return request.json()
     else:
         raise Exception(
-            "Query failed to run by returning code of {}. {},... {}".format(request.status_code, query, request.json()))
+            "Query failed to run by returning code of {}. {},... {}".format(request.status_code, query, str(request.json())))
 
 
 def run_query(query):
