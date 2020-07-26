@@ -27,7 +27,7 @@ showEditors = os.getenv('INPUT_SHOW_EDITORS')
 showOs = os.getenv('INPUT_SHOW_OS')
 showCommit = os.getenv('INPUT_SHOW_COMMIT')
 showLanguage = os.getenv('INPUT_SHOW_LANGUAGE')
-show_loc = os.getenv('INPUT_LINES_OF_CODE')
+show_loc = os.getenv('INPUT_SHOW_LINES_OF_CODE')
 
 # The GraphQL query to get commit data.
 userInfoQuery = """
