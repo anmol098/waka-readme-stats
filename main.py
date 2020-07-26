@@ -239,7 +239,7 @@ def get_stats():
 
     request = requests.get(f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={waka_key}")
 
-    if request.status_code == 200:
+    if request.status_code != 401:
         data = request.json()
         if showCommit.lower() in ['true', '1', 't', 'y', 'yes']:
             stats = stats + generate_commit_list(tz=data['data']['timezone']) + '\n\n'
