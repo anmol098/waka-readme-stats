@@ -1,6 +1,6 @@
-name: 'Waka -- Readme Stats'
+name: 'Profile Readme Development Stats'
 author: Anmol Pratap Singh
-description: 'Add a Wakatime Coding Activity graph in your Readme'
+description: 'Are you an early 🐤 or a night 🦉? When are you most productive during the day? Let''s check out in your readme!'
 
 inputs:
   GH_TOKEN:
