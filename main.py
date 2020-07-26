@@ -8,8 +8,9 @@ import base64
 import sys
 from pytz import timezone
 import pytz
+import locale
 import requests
-from github import Github, GithubException
+from github import Github
 import datetime
 from string import Template
 
@@ -26,6 +27,7 @@ showEditors = os.getenv('INPUT_SHOW_EDITORS')
 showOs = os.getenv('INPUT_SHOW_OS')
 showCommit = os.getenv('INPUT_SHOW_COMMIT')
 showLanguage = os.getenv('INPUT_SHOW_LANGUAGE')
+show_loc = os.getenv('INPUT_SHOW_LINES_OF_CODE')
 
 # The GraphQL query to get commit data.
 userInfoQuery = """
@@ -69,6 +71,17 @@ query {
     }
   }
 """)
+
+get_loc_url = Template("""/repos/$owner/$repo/stats/code_frequency""")
+
+
+def run_v3_api(query):
+    request = requests.get('https://api.github.com' + query, headers=headers)
+    if request.status_code == 200:
+        return request.json()
+    else:
+        raise Exception(
+            "Query failed to run by returning code of {}. {},... {}".format(request.status_code, query, request.json()))
 
 
 def run_query(query):
@@ -114,7 +127,7 @@ def generate_commit_list(tz):
     result = run_query(userInfoQuery)  # Execute the query
     username = result["data"]["viewer"]["login"]
     id = result["data"]["viewer"]["id"]
-    print("user {} id".format(username))
+    print("user {}".format(username))
 
     result = run_query(createContributedRepoQuery.substitute(username=username))
     nodes = result["data"]["user"]["repositoriesContributedTo"]["nodes"]
@@ -133,14 +146,25 @@ def generate_commit_list(tz):
     Saturday = 0
     Sunday = 0
 
+    total_loc = 0
+
     for repository in repos:
+        if show_loc.lower() in ['true', '1', 't', 'y', 'yes']:
+            try:
+                datas = run_v3_api(get_loc_url.substitute(owner=repository["owner"]["login"], repo=repository["name"]))
+                for data in datas:
+                    total_loc = total_loc + data[1] - data[2]
+            except Exception as e:
+                print(e)
+
         result = run_query(
             createCommittedDateQuery.substitute(owner=repository["owner"]["login"], name=repository["name"], id=id))
         try:
             committed_dates = result["data"]["repository"]["ref"]["target"]["history"]["edges"]
             for committedDate in committed_dates:
                 date = datetime.datetime.strptime(committedDate["node"]["committedDate"],
-                                                  "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=pytz.utc).astimezone(timezone(tz))
+                                                  "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=pytz.utc).astimezone(
+                    timezone(tz))
                 hour = date.hour
                 weekday = date.strftime('%A')
                 if 6 <= hour < 12:
@@ -199,6 +223,10 @@ def generate_commit_list(tz):
         if day['percent'] > max_element['percent']:
             max_element = day
     days_title = 'I\'m Most Productive on ' + max_element['name'] + 's'
+    if show_loc.lower() in ['true', '1', 't', 'y', 'yes']:
+        string = string + '![Lines of code](https://img.shields.io/badge/From%20Hello%20World%20I\'ve%20written-' + locale.format_string(
+            "%d", total_loc,
+            grouping=True) + '%20Lines%20of%20code-blue)\n\n'
     string = string + '**' + title + '** \n\n' + '```text\n' + make_commit_list(one_day) + '\n\n```\n'
     string = string + '📅 **' + days_title + '** \n\n' + '```text\n' + make_commit_list(dayOfWeek) + '\n\n```\n'
 
@@ -211,7 +239,7 @@ def get_stats():
 
     request = requests.get(f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={waka_key}")
 
-    if request.status_code == 200:
+    if request.status_code != 401:
         data = request.json()
         if showCommit.lower() in ['true', '1', 't', 'y', 'yes']:
             stats = stats + generate_commit_list(tz=data['data']['timezone']) + '\n\n'
