@@ -1,0 +1,13 @@
+import { Config } from '../config';
+import { LayoutSizeMixins, NormalizedSpec, TopLevelSpec } from '../spec';
+import { AutoSizeParams, AutosizeType, TopLevel } from '../spec/toplevel';
+import { NormalizerParams } from './base';
+export declare function normalize(spec: TopLevelSpec & LayoutSizeMixins, config?: Config): TopLevel<NormalizedSpec> & LayoutSizeMixins;
+/**
+ * Normalize autosize and deal with width or height == "container".
+ */
+export declare function normalizeAutoSize(spec: TopLevel<NormalizedSpec>, sizeInfo: {
+    autosize: AutosizeType | AutoSizeParams;
+} & LayoutSizeMixins, config?: Config): AutoSizeParams;
+export { NormalizerParams };
+//# sourceMappingURL=index.d.ts.map

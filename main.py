@@ -11,32 +11,26 @@ import datetime
 from string import Template
 import matplotlib.pyplot as plt
 from io import StringIO,BytesIO
+from dotenv import load_dotenv
+from loc import LinesOfCode
 
+load_dotenv()
 
 START_COMMENT = '<!--START_SECTION:waka-->'
 END_COMMENT = '<!--END_SECTION:waka-->'
 listReg = f"{START_COMMENT}[\\s\\S]+{END_COMMENT}"
 
-# user = os.getenv('INPUT_USERNAME')
-# waka_key = os.getenv('INPUT_WAKATIME_API_KEY')
-# ghtoken = os.getenv('INPUT_GH_TOKEN')
-# showTimeZone = os.getenv('INPUT_SHOW_TIMEZONE')
-# showProjects = os.getenv('INPUT_SHOW_PROJECTS')
-# showEditors = os.getenv('INPUT_SHOW_EDITORS')
-# showOs = os.getenv('INPUT_SHOW_OS')
-# showCommit = os.getenv('INPUT_SHOW_COMMIT')
-# showLanguage = os.getenv('INPUT_SHOW_LANGUAGE')
-# showLanguagePerRepo=os.getenv('LANGUAGE_PER_REPO')
-username = ''
-waka_key = '1647f145-ce70-4172-9f4c-aa9143300891'
-ghtoken = '20c2809f702a3db2cbe2350dd160e4e34302889e'
-showTimeZone = 'y'
-showProjects = 'y'
-showEditors = 'y'
-showOs = 'y'
-showCommit = 'y'
-showLanguage = 'y'
-showLanguagePerRepo= 'y'
+
+waka_key = os.getenv('INPUT_WAKATIME_API_KEY')
+ghtoken = os.getenv('INPUT_GH_TOKEN')
+showTimeZone = os.getenv('INPUT_SHOW_TIMEZONE')
+showProjects = os.getenv('INPUT_SHOW_PROJECTS')
+showEditors = os.getenv('INPUT_SHOW_EDITORS')
+showOs = os.getenv('INPUT_SHOW_OS')
+showCommit = os.getenv('INPUT_SHOW_COMMIT')
+showLanguage = os.getenv('INPUT_SHOW_LANGUAGE')
+showLanguagePerRepo=os.getenv('LANGUAGE_PER_REPO')
+showLocChart=os.getenv('LOC_CHART')
 
 # The GraphQL query to get commit data.
 userInfoQuery = """
@@ -84,13 +78,13 @@ query {
 repositoryListQuery = Template("""
 {
   user(login: "$username") {
-    repositories(orderBy: {field: CREATED_AT, direction: ASC}, first: 100, affiliations: [OWNER, COLLABORATOR, ORGANIZATION_MEMBER]) {
+    repositories(orderBy: {field: CREATED_AT, direction: ASC}, last: 100, affiliations: [OWNER, COLLABORATOR, ORGANIZATION_MEMBER], isFork: false) {
       totalCount
       edges {
         node {
           object(expression:"master") {
                 ... on Commit {
-                history {
+                history (author: { id: "$id" }){
                 totalCount
                     }
                 }
@@ -243,8 +237,7 @@ def get_waka_time_stats():
     return stats
 
 
-def generate_language_per_repo():
-    result = run_query(repositoryListQuery.substitute(username=username))
+def generate_language_per_repo(result):
     language_count={}
     total=0 
     for repo in result['data']['user']['repositories']['edges']:
@@ -286,9 +279,21 @@ def get_stats():
     if showCommit.lower() in ['true', '1', 't', 'y', 'yes']:
         stats = stats + generate_commit_list() + '\n\n'
 
+    repositoryList= run_query(repositoryListQuery.substitute(username=username,id=id))
+
     if showLanguagePerRepo.lower() in ['true', '1', 't', 'y', 'yes']:
-        stats = stats + generate_language_per_repo() + '\n\n'
+        stats = stats + generate_language_per_repo(repositoryList) + '\n\n'
     
+    if showLocChart.lower() in ['true', '1', 't', 'y', 'yes']:
+        loc=LinesOfCode(id,username,ghtoken,repositoryList)
+        loc.calculateLoc()
+        stats = stats+'**Timeline**\n\n'
+        stats=stats+'![Chart not found](https://github.com/prabhatdev/prabhatdev/blob/master/charts/bar_graph.png) \n\n' 
+        # stats = stats + generate_language_per_repo(repositoryList) + '\n\n'
+    
+
+
+
     stats=stats+get_waka_time_stats()
 
     return stats
@@ -323,6 +328,7 @@ if __name__ == '__main__':
         if new_readme != rdmd:
             repo.update_file(path=contents.path, message='Updated with Dev Metrics',
                              content=new_readme, sha=contents.sha, branch='master')
+        print("Readme updated")
     except Exception as e:
         print("Exception Occurred" + str(e))
 
