@@ -3,9 +3,6 @@ import numpy as np
 import altair as alt
 import json
 
-alt.data_transformers.enable('data_server_proxied')
-
-
 # npm install vega-lite vega-cli canvas
 
 
@@ -16,7 +13,7 @@ class BarGraph:
 
     def build_graph(self):
 
-        with open('colors.json') as f:
+        with open(os.path.join(os.path.dirname(__file__), 'colors.json')) as f:
             colors = json.load(f)
         allColorsValues = []
 
