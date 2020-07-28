@@ -1,5 +1,7 @@
 FROM ubuntu:latest
 
+ARG DEBIAN_FRONTEND=noninteractive
+
 # Install dependencies.
 ADD requirements.txt /requirements.txt
 ADD main.py /main.py
