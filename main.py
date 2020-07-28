@@ -41,7 +41,7 @@ userInfoQuery = """
 """
 createContributedRepoQuery = Template("""query {
     user(login: "$username") {
-      repositoriesContributedTo(includeUserRepositories: true) {
+      repositoriesContributedTo(last: 100, includeUserRepositories: true) {
         nodes {
           isFork
           name
@@ -59,7 +59,7 @@ query {
       ref(qualifiedName: "master") {
         target {
           ... on Commit {
-            history(author: { id: "$id" }) {
+            history(first: 100, author: { id: "$id" }) {
               edges {
                 node {
                   committedDate
