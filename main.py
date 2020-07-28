@@ -218,13 +218,13 @@ def generate_commit_list(tz):
         {"emoji": "🌒", "name": "Night", "text": str(night) + " commits", "percent": round((night / sumAll) * 100, 2)},
     ]
     dayOfWeek = [
-        {"name": "Monday", "text": str(Monday) + " commits", "percent": round((Monday / sum_week) * 100, 2)},
-        {"name": "Tuesday", "text": str(Tuesday) + " commits", "percent": round((Tuesday / sum_week) * 100, 2)},
-        {"name": "Wednesday", "text": str(Wednesday) + " commits", "percent": round((Wednesday / sum_week) * 100, 2)},
-        {"name": "Thursday", "text": str(Thursday) + " commits", "percent": round((Thursday / sum_week) * 100, 2)},
-        {"name": "Friday", "text": str(Friday) + " commits", "percent": round((Friday / sum_week) * 100, 2)},
-        {"name": "Saturday", "text": str(Saturday) + " commits", "percent": round((Saturday / sum_week) * 100, 2)},
-        {"name": "Sunday", "text": str(Sunday) + " commits", "percent": round((Sunday / sum_week) * 100, 2)},
+        {"emoji": "🙂", "name": "Monday", "text": str(Monday) + " commits", "percent": round((Monday / sum_week) * 100, 2)},
+        {"emoji": "🤓", "name": "Tuesday", "text": str(Tuesday) + " commits", "percent": round((Tuesday / sum_week) * 100, 2)},
+        {"emoji": "😅", "name": "Wednesday", "text": str(Wednesday) + " commits", "percent": round((Wednesday / sum_week) * 100, 2)},
+        {"emoji": "🤩", "name": "Thursday", "text": str(Thursday) + " commits", "percent": round((Thursday / sum_week) * 100, 2)},
+        {"emoji": "🚀", "name": "Friday", "text": str(Friday) + " commits", "percent": round((Friday / sum_week) * 100, 2)},
+        {"emoji": "🧠", "name": "Saturday", "text": str(Saturday) + " commits", "percent": round((Saturday / sum_week) * 100, 2)},
+        {"emoji": "🏖", "name": "Sunday", "text": str(Sunday) + " commits", "percent": round((Sunday / sum_week) * 100, 2)},
     ]
 
     max_element = {
@@ -234,7 +234,7 @@ def generate_commit_list(tz):
     for day in dayOfWeek:
         if day['percent'] > max_element['percent']:
             max_element = day
-    days_title = 'I\'m Most Productive on ' + max_element['name'] + 's'
+    days_title = 'I\'m most productive on ' + max_element['name'] + 's ' + max_element['emoji']
     if show_loc.lower() in ['true', '1', 't', 'y', 'yes']:
         string = string + '![Lines of code](https://img.shields.io/badge/From%20Hello%20World%20I\'ve%20written-' + locale.format_string(
             "%d", total_loc,
