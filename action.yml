@@ -52,6 +52,10 @@ inputs:
     description: "Choose whether 0-6am is Morning or Night"
     default: "False"
 
+  SHOW_LINES_OF_CODE:
+    required: false
+    description: "Show the Total Lines of code written Badge till date"
+    default: "False"
 
 
 runs:
