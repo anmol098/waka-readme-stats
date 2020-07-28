@@ -278,8 +278,10 @@ def generate_commit_list(tz):
             grouping=True) + '%20Lines%20of%20code-blue)\n\n'
     string = string + '**' + title + '** \n\n' + '```text\n' + make_commit_list(one_day) + '\n\n```\n'
     string = string + '📅 **' + days_title + '** \n\n' + '```text\n' + make_commit_list(dayOfWeek) + '\n\n```\n'
+    return string
 
 
+   
 def get_waka_time_stats():
     stats = ''
     request = requests.get(
