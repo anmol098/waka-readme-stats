@@ -164,8 +164,7 @@ def generate_commit_list(tz):
             committed_dates = result["data"]["repository"]["ref"]["target"]["history"]["edges"]
             for committedDate in committed_dates:
                 date = datetime.datetime.strptime(committedDate["node"]["committedDate"],
-                                                  "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=pytz.utc).astimezone(
-                    timezone(tz))
+                                                  "%Y-%m-%dT%H:%M:%SZ")
                 hour = date.hour
                 if isMorningPerson:
                     if 6 <= hour < 12:
