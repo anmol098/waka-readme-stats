@@ -1,4 +1,4 @@
-FROM nikolaik/python-nodejs:latest
+FROM python:latest
 
 # Install dependencies.
 ADD requirements.txt /requirements.txt
@@ -7,6 +7,6 @@ ADD loc.py /loc.py
 ADD make_bar_graph.py /make_bar_graph.py
 ADD colors.json /colors.json
 RUN pip install -r requirements.txt
-RUN sudo npm install -g vega-lite vega-cli canvas
-
+RUN pip install selenium
+RUN apt-get install chromium-chromedriver
 ENTRYPOINT ["python", "/main.py"]
