@@ -1,7 +1,7 @@
 '''
 Readme Development Metrics With waka time progress
 '''
-
+import locale
 import re
 import os
 import base64
@@ -12,8 +12,6 @@ import requests
 from github import Github, GithubException
 import datetime
 from string import Template
-import matplotlib.pyplot as plt
-from io import StringIO,BytesIO
 from dotenv import load_dotenv
 from loc import LinesOfCode
 
@@ -33,9 +31,10 @@ showOs = os.getenv('INPUT_SHOW_OS')
 showCommit = os.getenv('INPUT_SHOW_COMMIT')
 showLanguage = os.getenv('INPUT_SHOW_LANGUAGE')
 show_loc = os.getenv('INPUT_SHOW_LINES_OF_CODE')
-showLanguagePerRepo= os.getenv('INPUT_LANGUAGE_PER_REPO')
-showLocChart='y' if (os.getenv('LOC_CHART') is None) else os.getenv('LOC_CHART')
-show_waka_stats='n' if waka_key is None else 'y'
+
+showLanguagePerRepo = os.getenv('INPUT_SHOW_LANGUAGE_PER_REPO')
+showLocChart = os.getenv('INPUT_SHOW_LOC_CHART')
+show_waka_stats = 'y'
 # The GraphQL query to get commit data.
 userInfoQuery = """
 {
@@ -90,10 +89,11 @@ def run_v3_api(query):
         raise Exception(
             "Query failed to run by returning code of {}. {},... {}".format(request.status_code, query, request.json()))
 
+
 repositoryListQuery = Template("""
 {
   user(login: "$username") {
-    repositories(orderBy: {field: CREATED_AT, direction: ASC}, last: 100, affiliations: [OWNER, COLLABORATOR, ORGANIZATION_MEMBER], isFork: false) {
+    repositories(orderBy: {field: CREATED_AT, direction: ASC}, last: 5, affiliations: [OWNER, COLLABORATOR, ORGANIZATION_MEMBER], isFork: false) {
       totalCount
       edges {
         node {
@@ -131,6 +131,7 @@ repositoryListQuery = Template("""
   }
 }
 """)
+
 
 def run_query(query):
     request = requests.post('https://api.github.com/graphql', json={'query': query}, headers=headers)
@@ -278,11 +279,11 @@ def generate_commit_list(tz):
     string = string + '**' + title + '** \n\n' + '```text\n' + make_commit_list(one_day) + '\n\n```\n'
     string = string + '📅 **' + days_title + '** \n\n' + '```text\n' + make_commit_list(dayOfWeek) + '\n\n```\n'
 
+
 def get_waka_time_stats():
-    stats=''
-    try:
-        request = requests.get(
-            f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={waka_key}")
+    stats = ''
+    request = requests.get(
+        f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={waka_key}")
 
     if request.status_code != 401:
         data = request.json()
@@ -366,9 +367,6 @@ def get_stats():
     '''Gets API data and returns markdown progress'''
 
     stats = ''
-    if showCommit.lower() in ['true', '1', 't', 'y', 'yes']:
-        stats = stats + generate_commit_list() + '\n\n'
-
     repositoryList = run_query(repositoryListQuery.substitute(username=username, id=id))
 
     if showLanguagePerRepo.lower() in ['true', '1', 't', 'y', 'yes']:
@@ -385,6 +383,7 @@ def get_stats():
         stats = stats + get_waka_time_stats()
 
     return stats
+
 
 def decode_readme(data: str):
     '''Decode the contets of old readme'''
@@ -420,4 +419,3 @@ if __name__ == '__main__':
         print("Readme updated")
     except Exception as e:
         print("Exception Occurred" + str(e))
-
