@@ -8,5 +8,4 @@ ADD make_bar_graph.py /make_bar_graph.py
 ADD colors.json /colors.json
 RUN pip install -r requirements.txt
 RUN pip install selenium
-RUN apt-get install chromium-chromedriver
 ENTRYPOINT ["python", "/main.py"]
