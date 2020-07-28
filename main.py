@@ -23,14 +23,16 @@ listReg = f"{START_COMMENT}[\\s\\S]+{END_COMMENT}"
 
 waka_key = os.getenv('INPUT_WAKATIME_API_KEY')
 ghtoken = os.getenv('INPUT_GH_TOKEN')
-showTimeZone = os.getenv('INPUT_SHOW_TIMEZONE')
-showProjects = os.getenv('INPUT_SHOW_PROJECTS')
-showEditors = os.getenv('INPUT_SHOW_EDITORS')
-showOs = os.getenv('INPUT_SHOW_OS')
-showCommit = os.getenv('INPUT_SHOW_COMMIT')
-showLanguage = os.getenv('INPUT_SHOW_LANGUAGE')
-showLanguagePerRepo=os.getenv('LANGUAGE_PER_REPO')
-showLocChart=os.getenv('LOC_CHART')
+showTimeZone = 'y' if (os.getenv('INPUT_SHOW_TIMEZONE') is None) else os.getenv('INPUT_SHOW_TIMEZONE')
+showProjects = 'y' if (os.getenv('INPUT_SHOW_PROJECTS') is None) else os.getenv('INPUT_SHOW_PROJECTS') 
+showEditors = 'y' if (os.getenv('INPUT_SHOW_EDITORS') is None) else os.getenv('INPUT_SHOW_EDITORS')
+showOs = 'y' if (os.getenv('INPUT_SHOW_OS') is None) else os.getenv('INPUT_SHOW_OS')
+showCommit = 'y' if (os.getenv('INPUT_SHOW_COMMIT') is None) else os.getenv('INPUT_SHOW_COMMIT')
+showLanguage = 'y' if (os.getenv('INPUT_SHOW_LANGUAGE') is None) else os.getenv('INPUT_SHOW_LANGUAGE')
+showLanguagePerRepo='y' if (os.getenv('LANGUAGE_PER_REPO') is None) else os.getenv('LANGUAGE_PER_REPO')
+showLocChart='y' if (os.getenv('LOC_CHART') is None) else os.getenv('LOC_CHART')
+show_waka_stats='n' if waka_key is None else 'y'
+
 
 # The GraphQL query to get commit data.
 userInfoQuery = """
@@ -290,11 +292,11 @@ def get_stats():
         stats = stats+'**Timeline**\n\n'
         stats=stats+'![Chart not found](https://github.com/prabhatdev/prabhatdev/blob/master/charts/bar_graph.png) \n\n' 
         # stats = stats + generate_language_per_repo(repositoryList) + '\n\n'
-    
+        
+    if show_waka_stats.lower() in ['true', '1', 't', 'y', 'yes']:
+        stats=stats+get_waka_time_stats()
+        
 
-
-
-    stats=stats+get_waka_time_stats()
 
     return stats
 
@@ -313,6 +315,8 @@ def generate_new_readme(stats: str, readme: str):
 
 if __name__ == '__main__':
     try:
+        if ghtoken is None:
+            raise Exception('Token not available')
         g = Github(ghtoken)
         headers = {"Authorization": "Bearer " + ghtoken}
         user_data = run_query(userInfoQuery)  # Execute the query
