@@ -8,11 +8,16 @@ import base64
 import sys
 from pytz import timezone
 import pytz
-import locale
 import requests
-from github import Github
+from github import Github, GithubException
 import datetime
 from string import Template
+import matplotlib.pyplot as plt
+from io import StringIO,BytesIO
+from dotenv import load_dotenv
+from loc import LinesOfCode
+
+load_dotenv()
 
 START_COMMENT = '<!--START_SECTION:waka-->'
 END_COMMENT = '<!--END_SECTION:waka-->'
@@ -28,7 +33,9 @@ showOs = os.getenv('INPUT_SHOW_OS')
 showCommit = os.getenv('INPUT_SHOW_COMMIT')
 showLanguage = os.getenv('INPUT_SHOW_LANGUAGE')
 show_loc = os.getenv('INPUT_SHOW_LINES_OF_CODE')
-
+showLanguagePerRepo= os.getenv('INPUT_LANGUAGE_PER_REPO')
+showLocChart='y' if (os.getenv('LOC_CHART') is None) else os.getenv('LOC_CHART')
+show_waka_stats='n' if waka_key is None else 'y'
 # The GraphQL query to get commit data.
 userInfoQuery = """
 {
@@ -83,6 +90,47 @@ def run_v3_api(query):
         raise Exception(
             "Query failed to run by returning code of {}. {},... {}".format(request.status_code, query, request.json()))
 
+repositoryListQuery = Template("""
+{
+  user(login: "$username") {
+    repositories(orderBy: {field: CREATED_AT, direction: ASC}, last: 100, affiliations: [OWNER, COLLABORATOR, ORGANIZATION_MEMBER], isFork: false) {
+      totalCount
+      edges {
+        node {
+          object(expression:"master") {
+                ... on Commit {
+                history (author: { id: "$id" }){
+                totalCount
+                    }
+                }
+                }
+          primaryLanguage {
+            color
+            name
+            id
+          }
+          stargazers {
+            totalCount
+          }
+          collaborators {
+            totalCount
+          }
+          createdAt
+          name
+          owner {
+            id
+            login
+          }
+          nameWithOwner
+        }
+      }
+    }
+    location
+    createdAt
+    name
+  }
+}
+""")
 
 def run_query(query):
     request = requests.post('https://api.github.com/graphql', json={'query': query}, headers=headers)
@@ -230,14 +278,11 @@ def generate_commit_list(tz):
     string = string + '**' + title + '** \n\n' + '```text\n' + make_commit_list(one_day) + '\n\n```\n'
     string = string + '📅 **' + days_title + '** \n\n' + '```text\n' + make_commit_list(dayOfWeek) + '\n\n```\n'
 
-    return string
-
-
-def get_stats():
-    '''Gets API data and returns markdown progress'''
-    stats = ''
-
-    request = requests.get(f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={waka_key}")
+def get_waka_time_stats():
+    stats=''
+    try:
+        request = requests.get(
+            f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={waka_key}")
 
     if request.status_code != 401:
         data = request.json()
@@ -284,6 +329,63 @@ def get_stats():
     return stats
 
 
+def generate_language_per_repo(result):
+    language_count = {}
+    total = 0
+    for repo in result['data']['user']['repositories']['edges']:
+        if repo['node']['primaryLanguage'] is None:
+            continue
+        language = repo['node']['primaryLanguage']['name']
+        color_code = repo['node']['primaryLanguage']['color']
+        total += 1
+        if language not in language_count.keys():
+            language_count[language] = {}
+            language_count[language]['count'] = 1
+            language_count[language]['color'] = color_code
+        else:
+            language_count[language]['count'] = language_count[language]['count'] + 1
+            language_count[language]['color'] = color_code
+
+    data = []
+    sorted_labels = list(language_count.keys())
+    sorted_labels.sort(key=lambda x: language_count[x]['count'], reverse=True)
+    most_language_repo = sorted_labels[0]
+    for label in sorted_labels:
+        percent = round(language_count[label]['count'] / total * 100, 2)
+        data.append({
+            "name": label,
+            "text": str(language_count[label]['count']) + " repos",
+            "percent": percent
+        })
+
+    title = 'I mostly code in ' + most_language_repo
+    return '**' + title + '** \n\n' + '```text\n' + make_commit_list(data) + '\n\n```\n'
+
+
+def get_stats():
+    '''Gets API data and returns markdown progress'''
+
+    stats = ''
+    if showCommit.lower() in ['true', '1', 't', 'y', 'yes']:
+        stats = stats + generate_commit_list() + '\n\n'
+
+    repositoryList = run_query(repositoryListQuery.substitute(username=username, id=id))
+
+    if showLanguagePerRepo.lower() in ['true', '1', 't', 'y', 'yes']:
+        stats = stats + generate_language_per_repo(repositoryList) + '\n\n'
+
+    if showLocChart.lower() in ['true', '1', 't', 'y', 'yes']:
+        loc = LinesOfCode(id, username, ghtoken, repositoryList)
+        loc.calculateLoc()
+        stats = stats + '**Timeline**\n\n'
+        stats = stats + '![Chart not found](https://github.com/prabhatdev/prabhatdev/blob/master/charts/bar_graph.png) \n\n'
+        # stats = stats + generate_language_per_repo(repositoryList) + '\n\n'
+
+    if show_waka_stats.lower() in ['true', '1', 't', 'y', 'yes']:
+        stats = stats + get_waka_time_stats()
+
+    return stats
+
 def decode_readme(data: str):
     '''Decode the contets of old readme'''
     decoded_bytes = base64.b64decode(data)
@@ -297,17 +399,25 @@ def generate_new_readme(stats: str, readme: str):
 
 
 if __name__ == '__main__':
-    g = Github(ghtoken)
     try:
-        repo = g.get_repo(f"{user}/{user}")
-    except GithubException:
-        print("Authentication Error. Try saving a GitHub Personal Access Token in your Repo Secrets")
-        sys.exit(1)
-    contents = repo.get_readme()
-    headers = {"Authorization": "Bearer " + ghtoken}
-    waka_stats = get_stats()
-    rdmd = decode_readme(contents.content)
-    new_readme = generate_new_readme(stats=waka_stats, readme=rdmd)
-    if new_readme != rdmd:
-        repo.update_file(path=contents.path, message='Updated with Dev Metrics',
-                         content=new_readme, sha=contents.sha, branch='master')
+        if ghtoken is None:
+            raise Exception('Token not available')
+        g = Github(ghtoken)
+        headers = {"Authorization": "Bearer " + ghtoken}
+        user_data = run_query(userInfoQuery)  # Execute the query
+        username = user_data["data"]["viewer"]["login"]
+        id = user_data["data"]["viewer"]["id"]
+        print("user {} id {}".format(username, id))
+        repo = g.get_repo(f"{username}/{username}")
+        contents = repo.get_readme()
+        waka_stats = get_stats()
+        rdmd = decode_readme(contents.content)
+        new_readme = generate_new_readme(stats=waka_stats, readme=rdmd)
+        print(new_readme)
+        if new_readme != rdmd:
+            repo.update_file(path=contents.path, message='Updated with Dev Metrics',
+                             content=new_readme, sha=contents.sha, branch='master')
+        print("Readme updated")
+    except Exception as e:
+        print("Exception Occurred" + str(e))
+
