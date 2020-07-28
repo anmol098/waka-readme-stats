@@ -93,7 +93,7 @@ def run_v3_api(query):
 repositoryListQuery = Template("""
 {
   user(login: "$username") {
-    repositories(orderBy: {field: CREATED_AT, direction: ASC}, last: 100, affiliations: [OWNER, COLLABORATOR, ORGANIZATION_MEMBER], isFork: false) {
+    repositories(orderBy: {field: CREATED_AT, direction: ASC}, last: 5, affiliations: [OWNER, COLLABORATOR, ORGANIZATION_MEMBER], isFork: false) {
       totalCount
       edges {
         node {
@@ -280,6 +280,8 @@ def generate_commit_list(tz):
     string = string + '📅 **' + days_title + '** \n\n' + '```text\n' + make_commit_list(dayOfWeek) + '\n\n```\n'
     return string
 
+
+   
 def get_waka_time_stats():
     stats = ''
     request = requests.get(

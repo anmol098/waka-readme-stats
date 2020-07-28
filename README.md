@@ -94,23 +94,27 @@ jobs:
         with:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          USERNAME: <username> # optional, it will automatically use the username of the owner of the repository who's executing the workflow.
 ```
 ## Extras
 
-1. If you want to add the other info to your stats, you can add multiple `FLAGS` in your workflow file by default all flags are enabled
+1. If you want to add the other info to your stats, you can add multiple `FLAGS` in your workflow file by default all flags are enabled 
+>except the lines of code flag due to heavy operation performed
 
 ```yml
 - uses: anmol098/waka-readme-stats@master
         with:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          USERNAME: <username>
           SHOW_OS: "False"
           SHOW_PROJECTS: "False"
 ```
 
 #### Flags Available
+`SHOW_LINES_OF_CODE`       flag can be set to `True` to show the Lines of code writen till date
+
+![Lines of code](https://img.shields.io/badge/From%20Hello%20World%20I've%20written-12,66,814%20Lines%20of%20code-blue)
+
+
 `SHOW_COMMIT`       flag can be set to `False` to hide the commit stats
 
 **I'm an early 🐤** 
@@ -119,6 +123,18 @@ jobs:
 🌆 Daytime    78 commits     ██████░░░░░░░░░░░░░░░░░░░   25.08% 
 🌃 Evening    112 commits    █████████░░░░░░░░░░░░░░░░   36.01% 
 🌙 Night      26 commits     ██░░░░░░░░░░░░░░░░░░░░░░░   8.36%
+
+```
+📅 **I'm Most Productive on Sundays** 
+
+```text
+Monday       50 commits     ███░░░░░░░░░░░░░░░░░░░░░░   13.19% 
+Tuesday      85 commits     █████░░░░░░░░░░░░░░░░░░░░   22.43% 
+Wednesday    56 commits     ███░░░░░░░░░░░░░░░░░░░░░░   14.78% 
+Thursday     44 commits     ███░░░░░░░░░░░░░░░░░░░░░░   11.61% 
+Friday       28 commits     █░░░░░░░░░░░░░░░░░░░░░░░░   7.39% 
+Saturday     30 commits     ██░░░░░░░░░░░░░░░░░░░░░░░   7.92% 
+Sunday       86 commits     █████░░░░░░░░░░░░░░░░░░░░   22.69%
 
 ```
 
@@ -166,6 +182,27 @@ WebStorm                 6 hrs 47 mins       ███████████�
 PhpStorm                 1 hr 35 mins        ████░░░░░░░░░░░░░░░░░░░░░   18.07%
 PyCharm                  23 mins             █░░░░░░░░░░░░░░░░░░░░░░░░   4.49%
 ```
+
+## :sparkling_heart: Support the project
+
+I open-source almost everything I can, and I try to reply to everyone needing help using these projects. Obviously,
+this takes time. You can use this service for free.
+
+However, if you are using this project and happy with it or just want to encourage me to continue creating stuff, there are few ways you can do it :-
+
+- Giving proper credit when you use this action on your readme, linking back to it :D
+- Starring and sharing the project :rocket:
+- [![paypal.me/aapreneur](https://ionicabizau.github.io/badges/paypal.svg)](https://www.paypal.me/aapreneur) - You can make one-time donations via PayPal. I'll probably buy a ~~beer~~ wine 🍷
+
+Thanks! :heart:
+
+---
+
+Contributions are welcomed! ♥
+
+Made with :heart: and Python 🐍.
+
+
 
 > This project is inspired by an awesome pinned-gist project [Awesome Pinned Gists](https://github.com/matchai/awesome-pinned-gists) <br/>
 >This project is inspired from [athul/waka-readme](https://github.com/athul/waka-readme)

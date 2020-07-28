@@ -6,7 +6,7 @@ from github import Github
 import datetime
 from string import Template
 import matplotlib.pyplot as plt
-from io import StringIO,BytesIO
+from io import StringIO, BytesIO
 from dotenv import load_dotenv
 import time
 
@@ -15,70 +15,70 @@ from make_bar_graph import BarGraph
 
 class LinesOfCode:
 
-    def __init__(self,id,username,ghtoken, repositoryData):
-      self.id=id
-      self.username=username
+    def __init__(self, id, username, ghtoken, repositoryData):
+        self.id = id
+        self.username = username
 
-      self.g = Github(ghtoken)
-      self.headers = {"Authorization": "Bearer " + ghtoken}
-      self.repositoryData=repositoryData
+        self.g = Github(ghtoken)
+        self.headers = {"Authorization": "Bearer " + ghtoken}
+        self.repositoryData = repositoryData
 
     def calculateLoc(self):
-        result=self.repositoryData
-        yearly_data={}
+        result = self.repositoryData
+        yearly_data = {}
         for repo in result['data']['user']['repositories']['edges']:
-          print(repo)
-          self.getCommitStat(repo['node'],yearly_data)
-          time.sleep(0.7)
+            print(repo)
+            self.getCommitStat(repo['node'], yearly_data)
+            time.sleep(0.7)
         print("\n\n")
         print(yearly_data)
-        graph=BarGraph(yearly_data)
-        graph_file=graph.build_graph()
+        print("here")
+        graph = BarGraph(yearly_data)
+        graph_file = graph.build_graph()
         self.pushChart()
 
-    def run_query_v3(self,nameWithOwner):
-        endPoint='https://api.github.com/repos/'+nameWithOwner+'/stats/code_frequency'
+    def run_query_v3(self, nameWithOwner):
+        endPoint = 'https://api.github.com/repos/' + nameWithOwner + '/stats/code_frequency'
         # print(endPoint)
         request = requests.get(endPoint, headers=self.headers)
         if request.status_code == 401:
-          raise Exception("Invalid token {}. {}".format(request.status_code, nameWithOwner))
+            raise Exception("Invalid token {}. {}".format(request.status_code, nameWithOwner))
         return request.json()
 
-    def getQuarter(self,timeStamp):
-        month=datetime.datetime.fromtimestamp(timeStamp).month
-        if month>=1 and month<=4:
-          return 1
-        elif month>=5 and month<=8:
-          return 2
-        elif month>=9 and month<=12:
-          return 3
-        
+    def getQuarter(self, timeStamp):
+        month = datetime.datetime.fromtimestamp(timeStamp).month
+        if month >= 1 and month <= 4:
+            return 1
+        elif month >= 5 and month <= 8:
+            return 2
+        elif month >= 9 and month <= 12:
+            return 3
 
-    def getCommitStat(self,repoDetails,yearly_data):
-        result= self.run_query_v3(repoDetails['nameWithOwner'])
-        this_year=datetime.datetime.utcnow().year
+    def getCommitStat(self, repoDetails, yearly_data):
+        result = self.run_query_v3(repoDetails['nameWithOwner'])
+        this_year = datetime.datetime.utcnow().year
 
         for i in range(len(result)):
-          curr_year=datetime.datetime.fromtimestamp(result[i][0]).year
-          # if  curr_year != this_year:
-          quarter=self.getQuarter(result[i][0])
-          if repoDetails['primaryLanguage'] is not None:
+            curr_year = datetime.datetime.fromtimestamp(result[i][0]).year
+            # if  curr_year != this_year:
+            quarter = self.getQuarter(result[i][0])
+            if repoDetails['primaryLanguage'] is not None:
 
-            if curr_year not in yearly_data:
-              yearly_data[curr_year]={}
-            if quarter not in yearly_data[curr_year]:
-              yearly_data[curr_year][quarter]={}
-            if repoDetails['primaryLanguage']['name'] not in yearly_data[curr_year][quarter]:
-              yearly_data[curr_year][quarter][repoDetails['primaryLanguage']['name']]=0
-            yearly_data[curr_year][quarter][repoDetails['primaryLanguage']['name']]+=(result[i][1]+result[i][2])
+                if curr_year not in yearly_data:
+                    yearly_data[curr_year] = {}
+                if quarter not in yearly_data[curr_year]:
+                    yearly_data[curr_year][quarter] = {}
+                if repoDetails['primaryLanguage']['name'] not in yearly_data[curr_year][quarter]:
+                    yearly_data[curr_year][quarter][repoDetails['primaryLanguage']['name']] = 0
+                yearly_data[curr_year][quarter][repoDetails['primaryLanguage']['name']] += (result[i][1] + result[i][2])
 
-            #to find total
+                # to find total
 
-            # if 'total' not in yearly_data[curr_year]:
-            #   yearly_data[curr_year]['total']={}
-            # if repoDetails['primaryLanguage']['name'] not in yearly_data[curr_year]['total']:
-            #   yearly_data[curr_year]['total'][repoDetails['primaryLanguage']['name']]=0
-            # yearly_data[curr_year]['total'][repoDetails['primaryLanguage']['name']]+=(result[i][1]+result[i][2])
+                # if 'total' not in yearly_data[curr_year]:
+                #   yearly_data[curr_year]['total']={}
+                # if repoDetails['primaryLanguage']['name'] not in yearly_data[curr_year]['total']:
+                #   yearly_data[curr_year]['total'][repoDetails['primaryLanguage']['name']]=0
+                # yearly_data[curr_year]['total'][repoDetails['primaryLanguage']['name']]+=(result[i][1]+result[i][2])
 
     def pushChart(self):
         repo = self.g.get_repo(f"{self.username}/{self.username}")
@@ -88,12 +88,8 @@ class LinesOfCode:
             contents = repo.get_contents("charts/bar_graph.png")
             repo.update_file(contents.path, "Charts Added", data, contents.sha)
         except Exception as e:
-            repo.create_file("charts/bar_graph.png", "Initial Commit",data)
+            repo.create_file("charts/bar_graph.png", "Initial Commit", data)
         print("pushed")
-
-
-    
-
 
 # if __name__ == '__main__':
 #     try:
@@ -103,7 +99,7 @@ class LinesOfCode:
 #         username = user_data["data"]["viewer"]["login"]
 #         id = user_data["data"]["viewer"]["id"]
 #         print("user {} id {}".format(username, id))
-        
+
 #         getLoc()
 
 #         # repo = g.get_repo(f"{username}/{username}")
