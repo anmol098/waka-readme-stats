@@ -12,7 +12,7 @@ RUN apt-get update \
   && cd /usr/local/bin \
   && ln -s /usr/bin/python3 python \
   && pip3 install --upgrade pip
-RUN apt-get install chromium-chromedriver
+RUN apt-get install -y chromium-chromedriver
 RUN pip3 install -r requirements.txt
 RUN pip3 install selenium
 ENTRYPOINT ["python", "/main.py"]
