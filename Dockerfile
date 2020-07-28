@@ -9,4 +9,4 @@ ADD colors.json /colors.json
 RUN pip install -r requirements.txt
 RUN npm install vega-lite vega-cli canvas
 
-CMD ["python", "/main.py"]
+ENTRYPOINT ["python", "/main.py"]
