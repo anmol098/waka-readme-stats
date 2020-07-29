@@ -9,6 +9,8 @@ ADD loc.py /loc.py
 ADD make_bar_graph.py /make_bar_graph.py
 ADD colors.json /colors.json
 
+RUN sudo apt-get -y install wget
+
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN sudo apt install ./google-chrome-stable_current_amd64.deb
 
