@@ -21,19 +21,19 @@ START_COMMENT = '<!--START_SECTION:waka-->'
 END_COMMENT = '<!--END_SECTION:waka-->'
 listReg = f"{START_COMMENT}[\\s\\S]+{END_COMMENT}"
 
-user = os.getenv('INPUT_USERNAME')
-waka_key = os.getenv('INPUT_WAKATIME_API_KEY')
-ghtoken = os.getenv('INPUT_GH_TOKEN')
-showTimeZone = os.getenv('INPUT_SHOW_TIMEZONE')
-showProjects = os.getenv('INPUT_SHOW_PROJECTS')
-showEditors = os.getenv('INPUT_SHOW_EDITORS')
-showOs = os.getenv('INPUT_SHOW_OS')
-showCommit = os.getenv('INPUT_SHOW_COMMIT')
-showLanguage = os.getenv('INPUT_SHOW_LANGUAGE')
-show_loc = os.getenv('INPUT_SHOW_LINES_OF_CODE')
+user = 'y' if os.getenv('INPUT_USERNAME') is None else os.getenv('INPUT_USERNAME')
+waka_key = 'y' if os.getenv('INPUT_WAKATIME_API_KEY') is None else os.getenv('INPUT_WAKATIME_API_KEY')
+ghtoken = 'y' if os.getenv('INPUT_GH_TOKEN') is None else os.getenv('INPUT_GH_TOKEN')
+showTimeZone = 'y' if os.getenv('INPUT_SHOW_TIMEZONE') is None else os.getenv('INPUT_SHOW_TIMEZONE')
+showProjects = 'y' if os.getenv('INPUT_SHOW_PROJECTS') is None else os.getenv('INPUT_SHOW_PROJECTS')
+showEditors = 'y' if os.getenv('INPUT_SHOW_EDITORS') is None else os.getenv('INPUT_SHOW_EDITORS')
+showOs = 'y' if os.getenv('INPUT_SHOW_OS') is None else os.getenv('INPUT_SHOW_OS')
+showCommit = 'y' if os.getenv('INPUT_SHOW_COMMIT') is None else os.getenv('INPUT_SHOW_COMMIT')
+showLanguage = 'y' if os.getenv('INPUT_SHOW_LANGUAGE') is None else os.getenv('INPUT_SHOW_LANGUAGE')
+show_loc = 'y' if os.getenv('INPUT_SHOW_LINES_OF_CODE') is None else os.getenv('INPUT_SHOW_LINES_OF_CODE')
 
-showLanguagePerRepo = os.getenv('INPUT_SHOW_LANGUAGE_PER_REPO')
-showLocChart = os.getenv('INPUT_SHOW_LOC_CHART')
+showLanguagePerRepo = 'y' if os.getenv('INPUT_SHOW_LANGUAGE_PER_REPO') is None else os.getenv('INPUT_SHOW_LANGUAGE_PER_REPO')
+showLocChart = 'y' if os.getenv('INPUT_SHOW_LOC_CHART') is None else os.getenv('INPUT_SHOW_LOC_CHART')
 show_waka_stats = 'y'
 # The GraphQL query to get commit data.
 userInfoQuery = """
@@ -371,6 +371,11 @@ def get_stats():
     stats = ''
     repositoryList = run_query(repositoryListQuery.substitute(username=username, id=id))
 
+
+    if show_waka_stats.lower() in ['true', '1', 't', 'y', 'yes']:
+        stats = stats + get_waka_time_stats()
+        
+
     if showLanguagePerRepo.lower() in ['true', '1', 't', 'y', 'yes']:
         stats = stats + generate_language_per_repo(repositoryList) + '\n\n'
 
@@ -381,8 +386,6 @@ def get_stats():
         stats = stats + '![Chart not found](https://github.com/prabhatdev/prabhatdev/blob/master/charts/bar_graph.png) \n\n'
         # stats = stats + generate_language_per_repo(repositoryList) + '\n\n'
 
-    if show_waka_stats.lower() in ['true', '1', 't', 'y', 'yes']:
-        stats = stats + get_waka_time_stats()
 
     return stats
 
