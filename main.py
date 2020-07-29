@@ -13,6 +13,7 @@ import requests
 from github import Github
 import datetime
 from string import Template
+from tqdm import tqdm
 
 START_COMMENT = '<!--START_SECTION:waka-->'
 END_COMMENT = '<!--END_SECTION:waka-->'
@@ -74,6 +75,8 @@ query {
 """)
 
 get_loc_url = Template("""/repos/$owner/$repo/stats/code_frequency""")
+get_commit_counts = Template("""/repos/$owner/$repo/stats/punch_card""")
+get_repos = Template("""/user/repos?per_page=100""")
 
 
 def run_v3_api(query):
@@ -130,9 +133,7 @@ def generate_commit_list(tz):
     id = result["data"]["viewer"]["id"]
     print("user {}".format(username))
 
-    result = run_query(createContributedRepoQuery.substitute(username=username))
-    nodes = result["data"]["user"]["repositoriesContributedTo"]["nodes"]
-    repos = [d for d in nodes if d['isFork'] is False]
+    repos = run_v3_api(get_repos.substitute())
 
     morning = 0  # 0 - 6
     daytime = 0  # 6 - 12
@@ -148,8 +149,8 @@ def generate_commit_list(tz):
     Sunday = 0
 
     total_loc = 0
-
-    for repository in repos:
+    print("Counting all your hard work")
+    for repository in tqdm(repos):
         if show_loc.lower() in ['true', '1', 't', 'y', 'yes']:
             try:
                 datas = run_v3_api(get_loc_url.substitute(owner=repository["owner"]["login"], repo=repository["name"]))
@@ -157,48 +158,44 @@ def generate_commit_list(tz):
                     total_loc = total_loc + data[1] - data[2]
             except Exception as e:
                 print(e)
-
-        result = run_query(
-            createCommittedDateQuery.substitute(owner=repository["owner"]["login"], name=repository["name"], id=id))
         try:
-            committed_dates = result["data"]["repository"]["ref"]["target"]["history"]["edges"]
-            for committedDate in committed_dates:
-                date = datetime.datetime.strptime(committedDate["node"]["committedDate"],
-                                                  "%Y-%m-%dT%H:%M:%SZ")
-                hour = date.hour
-                if isMorningPerson:
+            committed_dates = run_v3_api(get_commit_counts.substitute(owner=repository["owner"]["login"], repo=repository["name"]))
+
+            for [weekday, hour, total] in committed_dates:
+
+                if isMorningPerson.lower() in ['true', '1', 't', 'y', 'yes']:
                     if 6 <= hour < 12:
-                        daytime += 1
+                        daytime += total
                     if 12 <= hour < 18:
-                        evening += 1
+                        evening += total
                     if 18 <= hour < 24:
-                        night += 1
+                        night += total
                     if 0 <= hour < 6:
-                        morning += 1
+                        morning += total
                 else:
                     if 6 <= hour < 12:
-                        morning += 1
+                        morning += total
                     if 12 <= hour < 18:
-                        daytime += 1
+                        daytime += total
                     if 18 <= hour < 24:
-                        evening += 1
+                        evening += total
                     if 0 <= hour < 6:
-                        night += 1
-                weekday = date.strftime('%A')
-                if weekday == "Monday":
-                    Monday += 1
-                if weekday == "Tuesday":
-                    Tuesday += 1
-                if weekday == "Wednesday":
-                    Wednesday += 1
-                if weekday == "Thursday":
-                    Thursday += 1
-                if weekday == "Friday":
-                    Friday += 1
-                if weekday == "Saturday":
-                    Saturday += 1
-                if weekday == "Sunday":
-                    Sunday += 1
+                        night += total
+                
+                if weekday == 1:
+                    Monday += total
+                if weekday == 2:
+                    Tuesday += total
+                if weekday == 3:
+                    Wednesday += total
+                if weekday == 4:
+                    Thursday += total
+                if weekday == 5:
+                    Friday += total
+                if weekday == 6:
+                    Saturday += total
+                if weekday == 0:
+                    Sunday += total
         except Exception as ex:
             print("Please Ignore this exception " + str(ex))
 
@@ -242,6 +239,127 @@ def generate_commit_list(tz):
     string = string + '📅 **' + days_title + '** \n\n' + '```text\n' + make_commit_list(dayOfWeek) + '\n\n```\n'
 
     return string
+
+
+# def generate_commit_list(tz):
+#     string = ''
+#     result = run_query(userInfoQuery)  # Execute the query
+#     username = result["data"]["viewer"]["login"]
+#     id = result["data"]["viewer"]["id"]
+#     print("user {}".format(username))
+
+#     result = run_query(createContributedRepoQuery.substitute(username=username))
+#     nodes = result["data"]["user"]["repositoriesContributedTo"]["nodes"]
+#     repos = [d for d in nodes if d['isFork'] is False]
+
+#     morning = 0  # 0 - 6
+#     daytime = 0  # 6 - 12
+#     evening = 0  # 12 - 18
+#     night = 0  # 18 - 24
+
+#     Monday = 0
+#     Tuesday = 0
+#     Wednesday = 0
+#     Thursday = 0
+#     Friday = 0
+#     Saturday = 0
+#     Sunday = 0
+
+#     total_loc = 0
+
+#     for repository in repos:
+#         if show_loc.lower() in ['true', '1', 't', 'y', 'yes']:
+#             try:
+#                 datas = run_v3_api(get_loc_url.substitute(owner=repository["owner"]["login"], repo=repository["name"]))
+#                 for data in datas:
+#                     total_loc = total_loc + data[1] - data[2]
+#             except Exception as e:
+#                 print(e)
+
+#         result = run_query(
+#             createCommittedDateQuery.substitute(owner=repository["owner"]["login"], name=repository["name"], id=id))
+#         try:
+#             committed_dates = result["data"]["repository"]["ref"]["target"]["history"]["edges"]
+#             for committedDate in committed_dates:
+#                 date = datetime.datetime.strptime(committedDate["node"]["committedDate"],
+#                                                   "%Y-%m-%dT%H:%M:%SZ")
+#                 hour = date.hour
+#                 if isMorningPerson:
+#                     if 6 <= hour < 12:
+#                         daytime += 1
+#                     if 12 <= hour < 18:
+#                         evening += 1
+#                     if 18 <= hour < 24:
+#                         night += 1
+#                     if 0 <= hour < 6:
+#                         morning += 1
+#                 else:
+#                     if 6 <= hour < 12:
+#                         morning += 1
+#                     if 12 <= hour < 18:
+#                         daytime += 1
+#                     if 18 <= hour < 24:
+#                         evening += 1
+#                     if 0 <= hour < 6:
+#                         night += 1
+#                 weekday = date.strftime('%A')
+#                 if weekday == "Monday":
+#                     Monday += 1
+#                 if weekday == "Tuesday":
+#                     Tuesday += 1
+#                 if weekday == "Wednesday":
+#                     Wednesday += 1
+#                 if weekday == "Thursday":
+#                     Thursday += 1
+#                 if weekday == "Friday":
+#                     Friday += 1
+#                 if weekday == "Saturday":
+#                     Saturday += 1
+#                 if weekday == "Sunday":
+#                     Sunday += 1
+#         except Exception as ex:
+#             print("Please Ignore this exception " + str(ex))
+
+#     sumAll = morning + daytime + evening + night
+#     sum_week = Sunday + Monday + Tuesday + Friday + Saturday + Wednesday + Thursday
+#     if morning + daytime >= evening + night:
+#         title = "I'm an early 🕊"
+#     else:
+#         title = "I'm a night 🦉"
+
+
+#     one_day = [
+#         {"emoji": "🌔", "name": "Dawn", "text": str(morning) + " commits", "percent": round((morning / sumAll) * 100, 2)},
+#         {"emoji": "🌥️", "name": "Morning", "text": str(daytime) + " commits", "percent": round((daytime / sumAll) * 100, 2)},
+#         {"emoji": "🌤", "name": "Evening", "text": str(evening) + " commits", "percent": round((evening / sumAll) * 100, 2)},
+#         {"emoji": "🌒", "name": "Night", "text": str(night) + " commits", "percent": round((night / sumAll) * 100, 2)},
+#     ]
+#     dayOfWeek = [
+#         {"emoji": "🙂", "name": "Monday", "text": str(Monday) + " commits", "percent": round((Monday / sum_week) * 100, 2)},
+#         {"emoji": "🤓", "name": "Tuesday", "text": str(Tuesday) + " commits", "percent": round((Tuesday / sum_week) * 100, 2)},
+#         {"emoji": "😅", "name": "Wednesday", "text": str(Wednesday) + " commits", "percent": round((Wednesday / sum_week) * 100, 2)},
+#         {"emoji": "🤩", "name": "Thursday", "text": str(Thursday) + " commits", "percent": round((Thursday / sum_week) * 100, 2)},
+#         {"emoji": "🚀", "name": "Friday", "text": str(Friday) + " commits", "percent": round((Friday / sum_week) * 100, 2)},
+#         {"emoji": "🧠", "name": "Saturday", "text": str(Saturday) + " commits", "percent": round((Saturday / sum_week) * 100, 2)},
+#         {"emoji": "🏖", "name": "Sunday", "text": str(Sunday) + " commits", "percent": round((Sunday / sum_week) * 100, 2)},
+#     ]
+
+#     max_element = {
+#         'percent': 0
+#     }
+
+#     for day in dayOfWeek:
+#         if day['percent'] > max_element['percent']:
+#             max_element = day
+#     days_title = 'I\'m most productive on ' + max_element['name'] + 's ' + max_element['emoji']
+#     if show_loc.lower() in ['true', '1', 't', 'y', 'yes']:
+#         string = string + '![Lines of code](https://img.shields.io/badge/From%20Hello%20World%20I\'ve%20written-' + locale.format_string(
+#             "%d", total_loc,
+#             grouping=True) + '%20Lines%20of%20code-blue)\n\n'
+#     string = string + '**' + title + '** \n\n' + '```text\n' + make_commit_list(one_day) + '\n\n```\n'
+#     string = string + '📅 **' + days_title + '** \n\n' + '```text\n' + make_commit_list(dayOfWeek) + '\n\n```\n'
+
+#     return string
 
 
 def get_stats():
