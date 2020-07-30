@@ -13,6 +13,7 @@ import requests
 from github import Github
 import datetime
 from string import Template
+import time
 
 START_COMMENT = '<!--START_SECTION:waka-->'
 END_COMMENT = '<!--END_SECTION:waka-->'
@@ -75,13 +76,24 @@ query {
 get_loc_url = Template("""/repos/$owner/$repo/stats/code_frequency""")
 
 
+def human_format(num):
+    magnitude = 0
+    while abs(num) >= 1000:
+        magnitude += 1
+        num /= 1000.0
+    # add more suffixes if you need them
+    return '%.2f%s' % (num, ['', 'K', 'M', 'G', 'T', 'P'][magnitude])
+
+
 def run_v3_api(query):
     request = requests.get('https://api.github.com' + query, headers=headers)
     if request.status_code == 200:
         return request.json()
     else:
+        print(request.json())
         raise Exception(
-            "Query failed to run by returning code of {}. {},... {}".format(request.status_code, query, str(request.json())))
+            "Query failed to run by returning code of {}. {},... {}".format(request.status_code, query,
+                                                                            str(request.json())))
 
 
 def run_query(query):
@@ -151,6 +163,7 @@ def generate_commit_list(tz):
     for repository in repos:
         if show_loc.lower() in ['true', '1', 't', 'y', 'yes']:
             try:
+                time.sleep(0.7)
                 datas = run_v3_api(get_loc_url.substitute(owner=repository["owner"]["login"], repo=repository["name"]))
                 for data in datas:
                     total_loc = total_loc + data[1] - data[2]
@@ -224,9 +237,8 @@ def generate_commit_list(tz):
             max_element = day
     days_title = 'I\'m Most Productive on ' + max_element['name'] + 's'
     if show_loc.lower() in ['true', '1', 't', 'y', 'yes']:
-        string = string + '![Lines of code](https://img.shields.io/badge/From%20Hello%20World%20I\'ve%20written-' + locale.format_string(
-            "%d", total_loc,
-            grouping=True) + '%20Lines%20of%20code-blue)\n\n'
+        string = string + '![Lines of code](https://img.shields.io/badge/From%20Hello%20World%20I\'ve%20written-' + human_format(
+            int(total_loc)) + '%20Lines%20of%20code-blue)\n\n'
     string = string + '**' + title + '** \n\n' + '```text\n' + make_commit_list(one_day) + '\n\n```\n'
     string = string + '📅 **' + days_title + '** \n\n' + '```text\n' + make_commit_list(dayOfWeek) + '\n\n```\n'
 
