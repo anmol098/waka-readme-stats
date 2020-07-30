@@ -1,4 +1,4 @@
-altair @ git+git://github.com/altair-viz/altair.git@2ef75f731ab9e805670db973b9f1c93347c20cc0
+altair==4.1.0
 altair-data-server==0.4.1
 altair-saver==0.5.0
 altair-viewer==0.3.0
