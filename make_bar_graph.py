@@ -16,7 +16,7 @@ class BarGraph:
 
     def build_graph(self):
 
-        with open('./colors.json') as f:
+        with open(os.path.join(os.path.dirname(__file__), 'colors.json')) as f:
             colors = json.load(f)
         allColorsValues = []
 
