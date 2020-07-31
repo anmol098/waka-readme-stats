@@ -52,6 +52,15 @@ inputs:
     description: "Show the Total Lines of code written Badge till date"
     default: "False"
 
+  SHOW_LANGUAGE_PER_REPO:
+    required: false
+    description: ""
+    default: "True"
+
+  SHOW_LOC_CHART:
+    required: false
+    description: ""
+    default: "True"
 
 
 
