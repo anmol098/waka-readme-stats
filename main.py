@@ -10,6 +10,8 @@ import requests
 from github import Github, GithubException
 import datetime
 from string import Template
+from loc import LinesOfCode
+import time
 
 START_COMMENT = '<!--START_SECTION:waka-->'
 END_COMMENT = '<!--END_SECTION:waka-->'
