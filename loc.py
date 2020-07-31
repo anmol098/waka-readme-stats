@@ -30,9 +30,9 @@ class LinesOfCode:
             print(repo)
             self.getCommitStat(repo['node'], yearly_data)
             time.sleep(0.7)
-        print("\n\n")
-        print(yearly_data)
-        print("here")
+        # print("\n\n")
+        # print(yearly_data)
+        # print("here")
         graph = BarGraph(yearly_data)
         graph_file = graph.build_graph()
         self.pushChart()
@@ -89,28 +89,6 @@ class LinesOfCode:
             repo.update_file(contents.path, "Charts Added", data, contents.sha)
         except Exception as e:
             repo.create_file("charts/bar_graph.png", "Initial Commit", data)
-        print("pushed")
+        # print("pushed")
 
-# if __name__ == '__main__':
-#     try:
-#         g = Github(ghtoken)
-#         headers = {"Authorization": "Bearer " + ghtoken}
-#         user_data = run_query(userInfoQuery)  # Execute the query
-#         username = user_data["data"]["viewer"]["login"]
-#         id = user_data["data"]["viewer"]["id"]
-#         print("user {} id {}".format(username, id))
 
-#         getLoc()
-
-#         # repo = g.get_repo(f"{username}/{username}")
-#         # contents = repo.get_readme()
-#         # waka_stats = get_stats()
-#         # rdmd = decode_readme(contents.content)
-#         # new_readme = generate_new_readme(stats=waka_stats, readme=rdmd)
-#         # print(new_readme)
-#         # # if new_readme != rdmd:
-#         #     repo.update_file(path=contents.path, message='Updated with Dev Metrics',
-#         #                      content=new_readme, sha=contents.sha, branch='master')
-#         # print("Readme updated")
-#     except Exception as e:
-#         print("Exception Occurred" + str(e))

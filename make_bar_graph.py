@@ -34,8 +34,7 @@ class BarGraph:
                             top_languages[language] = 1
                         top_languages[language] += 1
 
-        print("here")
-        print(self.yearly_data)
+        # print(self.yearly_data)
 
         all_languages = list(top_languages.keys())
 
@@ -57,8 +56,7 @@ class BarGraph:
                 language_year.append(language_quarter)
             languages_all_loc[language] = language_year
 
-        print("here 2")
-        print(languages_all_loc)
+        # print(languages_all_loc)
 
         language_df = {}
 
@@ -77,7 +75,6 @@ class BarGraph:
 
         df = pd.concat(list(language_df.values()))
 
-        # print(df)
 
         chart = alt.Chart(df).mark_bar().encode(
 
