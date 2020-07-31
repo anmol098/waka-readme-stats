@@ -49,3 +49,8 @@ to run the program
 It is recommended to use proper linting. if you using Jetbrains IntelliJ IDE please reformat code before making pull request 
 for more info [How to reformat code in Intellij](https://www.jetbrains.com/help/idea/reformat-and-rearrange-code.html)
 
+
+**Commit Messages**
+
+It is recommended to use proper sementic commit messages. [Sementic commit message](https://gist.github.com/joshbuchea/6f47e86d2510bce28f8e7f42ae84c716)
+
