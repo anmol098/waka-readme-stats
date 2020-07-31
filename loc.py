@@ -27,12 +27,8 @@ class LinesOfCode:
         result = self.repositoryData
         yearly_data = {}
         for repo in result['data']['user']['repositories']['edges']:
-            print(repo)
             self.getCommitStat(repo['node'], yearly_data)
             time.sleep(0.7)
-        # print("\n\n")
-        # print(yearly_data)
-        # print("here")
         graph = BarGraph(yearly_data)
         graph_file = graph.build_graph()
         self.pushChart()
@@ -89,6 +85,3 @@ class LinesOfCode:
             repo.update_file(contents.path, "Charts Added", data, contents.sha)
         except Exception as e:
             repo.create_file("charts/bar_graph.png", "Initial Commit", data)
-        # print("pushed")
-
-

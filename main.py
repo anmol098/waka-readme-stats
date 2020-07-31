@@ -1,11 +1,9 @@
 '''
 Readme Development Metrics With waka time progress
 '''
-import locale
 import re
 import os
 import base64
-import sys
 from pytz import timezone
 import pytz
 import requests
@@ -28,8 +26,8 @@ showCommit = os.getenv('INPUT_SHOW_COMMIT')
 showLanguage = os.getenv('INPUT_SHOW_LANGUAGE')
 show_loc = os.getenv('INPUT_SHOW_LINES_OF_CODE')
 
-showLanguagePerRepo = 'y' if os.getenv('INPUT_SHOW_LANGUAGE_PER_REPO') is None else os.getenv('INPUT_SHOW_LANGUAGE_PER_REPO')
-showLocChart = 'y' if os.getenv('INPUT_SHOW_LOC_CHART') is None else os.getenv('INPUT_SHOW_LOC_CHART')
+showLanguagePerRepo = os.getenv('INPUT_SHOW_LANGUAGE_PER_REPO')
+showLocChart = os.getenv('INPUT_SHOW_LOC_CHART')
 show_waka_stats = 'y'
 # The GraphQL query to get commit data.
 userInfoQuery = """
@@ -288,7 +286,6 @@ def generate_commit_list(tz):
     return string
 
 
-
 def get_waka_time_stats():
     stats = ''
     request = requests.get(
@@ -301,8 +298,8 @@ def get_waka_time_stats():
         stats = stats + '📊 **This week I spent my time on** \n\n'
         stats = stats + '```text\n'
         if showTimeZone.lower() in ['true', '1', 't', 'y', 'yes']:
-            timezone = data['data']['timezone']
-            stats = stats + '⌚︎ Timezone: ' + timezone + '\n\n'
+            tzone = data['data']['timezone']
+            stats = stats + '⌚︎ Timezone: ' + tzone + '\n\n'
 
         if showLanguage.lower() in ['true', '1', 't', 'y', 'yes']:
             if len(data['data']['languages']) != 0:
@@ -378,10 +375,8 @@ def get_stats():
     stats = ''
     repositoryList = run_query(repositoryListQuery.substitute(username=username, id=id))
 
-
     if show_waka_stats.lower() in ['true', '1', 't', 'y', 'yes']:
         stats = stats + get_waka_time_stats()
-
 
     if showLanguagePerRepo.lower() in ['true', '1', 't', 'y', 'yes']:
         stats = stats + generate_language_per_repo(repositoryList) + '\n\n'
@@ -390,9 +385,7 @@ def get_stats():
         loc = LinesOfCode(id, username, ghtoken, repositoryList)
         loc.calculateLoc()
         stats = stats + '**Timeline**\n\n'
-        stats = stats + '![Chart not found](https://github.com/prabhatdev/prabhatdev/blob/master/charts/bar_graph.png) \n\n'
-        # stats = stats + generate_language_per_repo(repositoryList) + '\n\n'
-
+        stats = stats + '![Chart not found](https://github.com/' + username + '/' + username + '/blob/master/charts/bar_graph.png) \n\n'
 
     return stats
 
@@ -418,7 +411,6 @@ if __name__ == '__main__':
         user_data = run_query(userInfoQuery)  # Execute the query
         username = user_data["data"]["viewer"]["login"]
         id = user_data["data"]["viewer"]["id"]
-        # print("user {} id {}".format(username, id))
         repo = g.get_repo(f"{username}/{username}")
         contents = repo.get_readme()
         waka_stats = get_stats()
@@ -428,6 +420,6 @@ if __name__ == '__main__':
         if new_readme != rdmd:
             repo.update_file(path=contents.path, message='Updated with Dev Metrics',
                              content=new_readme, sha=contents.sha, branch='master')
-        print("Readme updated")
+            print("Readme updated")
     except Exception as e:
-        print("Exception Occurred" + str(e))
+        print("Exception Occurred " + str(e))
