@@ -21,19 +21,19 @@ START_COMMENT = '<!--START_SECTION:waka-->'
 END_COMMENT = '<!--END_SECTION:waka-->'
 listReg = f"{START_COMMENT}[\\s\\S]+{END_COMMENT}"
 
-user = os.getenv('INPUT_USERNAME')
-waka_key = os.getenv('INPUT_WAKATIME_API_KEY')
-ghtoken = os.getenv('INPUT_GH_TOKEN')
-showTimeZone = os.getenv('INPUT_SHOW_TIMEZONE')
-showProjects = os.getenv('INPUT_SHOW_PROJECTS')
-showEditors = os.getenv('INPUT_SHOW_EDITORS')
-showOs = os.getenv('INPUT_SHOW_OS')
-showCommit = os.getenv('INPUT_SHOW_COMMIT')
-showLanguage = os.getenv('INPUT_SHOW_LANGUAGE')
-show_loc = os.getenv('INPUT_SHOW_LINES_OF_CODE')
+user = 'y' if os.getenv('INPUT_USERNAME') is None else os.getenv('INPUT_USERNAME')
+waka_key = 'y' if os.getenv('INPUT_WAKATIME_API_KEY') is None else os.getenv('INPUT_WAKATIME_API_KEY')
+ghtoken = 'y' if os.getenv('INPUT_GH_TOKEN') is None else os.getenv('INPUT_GH_TOKEN')
+showTimeZone = 'y' if os.getenv('INPUT_SHOW_TIMEZONE') is None else os.getenv('INPUT_SHOW_TIMEZONE')
+showProjects = 'y' if os.getenv('INPUT_SHOW_PROJECTS') is None else os.getenv('INPUT_SHOW_PROJECTS')
+showEditors = 'y' if os.getenv('INPUT_SHOW_EDITORS') is None else os.getenv('INPUT_SHOW_EDITORS')
+showOs = 'y' if os.getenv('INPUT_SHOW_OS') is None else os.getenv('INPUT_SHOW_OS')
+showCommit = 'y' if os.getenv('INPUT_SHOW_COMMIT') is None else os.getenv('INPUT_SHOW_COMMIT')
+showLanguage = 'y' if os.getenv('INPUT_SHOW_LANGUAGE') is None else os.getenv('INPUT_SHOW_LANGUAGE')
+show_loc = 'y' if os.getenv('INPUT_SHOW_LINES_OF_CODE') is None else os.getenv('INPUT_SHOW_LINES_OF_CODE')
 
-showLanguagePerRepo = os.getenv('INPUT_SHOW_LANGUAGE_PER_REPO')
-showLocChart = os.getenv('INPUT_SHOW_LOC_CHART')
+showLanguagePerRepo = 'y' if os.getenv('INPUT_SHOW_LANGUAGE_PER_REPO') is None else os.getenv('INPUT_SHOW_LANGUAGE_PER_REPO')
+showLocChart = 'y' if os.getenv('INPUT_SHOW_LOC_CHART') is None else os.getenv('INPUT_SHOW_LOC_CHART')
 show_waka_stats = 'y'
 # The GraphQL query to get commit data.
 userInfoQuery = """
@@ -93,7 +93,7 @@ def run_v3_api(query):
 repositoryListQuery = Template("""
 {
   user(login: "$username") {
-    repositories(orderBy: {field: CREATED_AT, direction: ASC}, last: 5, affiliations: [OWNER, COLLABORATOR, ORGANIZATION_MEMBER], isFork: false) {
+    repositories(orderBy: {field: CREATED_AT, direction: ASC}, last: 100, affiliations: [OWNER, COLLABORATOR, ORGANIZATION_MEMBER], isFork: false) {
       totalCount
       edges {
         node {
@@ -176,7 +176,7 @@ def generate_commit_list(tz):
     result = run_query(userInfoQuery)  # Execute the query
     username = result["data"]["viewer"]["login"]
     id = result["data"]["viewer"]["id"]
-    print("user {}".format(username))
+    # print("user {}".format(username))
 
     result = run_query(createContributedRepoQuery.substitute(username=username))
     nodes = result["data"]["user"]["repositoriesContributedTo"]["nodes"]
@@ -371,6 +371,11 @@ def get_stats():
     stats = ''
     repositoryList = run_query(repositoryListQuery.substitute(username=username, id=id))
 
+
+    if show_waka_stats.lower() in ['true', '1', 't', 'y', 'yes']:
+        stats = stats + get_waka_time_stats()
+
+
     if showLanguagePerRepo.lower() in ['true', '1', 't', 'y', 'yes']:
         stats = stats + generate_language_per_repo(repositoryList) + '\n\n'
 
@@ -381,8 +386,6 @@ def get_stats():
         stats = stats + '![Chart not found](https://github.com/prabhatdev/prabhatdev/blob/master/charts/bar_graph.png) \n\n'
         # stats = stats + generate_language_per_repo(repositoryList) + '\n\n'
 
-    if show_waka_stats.lower() in ['true', '1', 't', 'y', 'yes']:
-        stats = stats + get_waka_time_stats()
 
     return stats
 
@@ -408,13 +411,13 @@ if __name__ == '__main__':
         user_data = run_query(userInfoQuery)  # Execute the query
         username = user_data["data"]["viewer"]["login"]
         id = user_data["data"]["viewer"]["id"]
-        print("user {} id {}".format(username, id))
+        # print("user {} id {}".format(username, id))
         repo = g.get_repo(f"{username}/{username}")
         contents = repo.get_readme()
         waka_stats = get_stats()
         rdmd = decode_readme(contents.content)
         new_readme = generate_new_readme(stats=waka_stats, readme=rdmd)
-        print(new_readme)
+        # print(new_readme)
         if new_readme != rdmd:
             repo.update_file(path=contents.path, message='Updated with Dev Metrics',
                              content=new_readme, sha=contents.sha, branch='master')
