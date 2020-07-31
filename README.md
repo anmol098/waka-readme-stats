@@ -112,7 +112,7 @@ jobs:
 #### Flags Available
 `SHOW_LINES_OF_CODE`       flag can be set to `True` to show the Lines of code writen till date
 
-![Lines of code](https://img.shields.io/badge/From%20Hello%20World%20I've%20written-12,66,814%20Lines%20of%20code-blue)
+![Lines of code](https://img.shields.io/badge/From%20Hello%20World%20I've%20written-1.28M%20Lines%20of%20code-blue)
 
 
 `SHOW_COMMIT`       flag can be set to `False` to hide the commit stats
@@ -182,6 +182,27 @@ WebStorm                 6 hrs 47 mins       ███████████�
 PhpStorm                 1 hr 35 mins        ████░░░░░░░░░░░░░░░░░░░░░   18.07%
 PyCharm                  23 mins             █░░░░░░░░░░░░░░░░░░░░░░░░   4.49%
 ```
+
+`SHOW_LANGUAGE_PER_REPO`  flag can be set to `False` to hide the Number of repository in different language and frameworks
+
+**I mostly code in Vue** 
+
+```text
+Vue          8 repos        ██████░░░░░░░░░░░░░░░░░░░   25.0% 
+Java         6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75% 
+JavaScript   6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75% 
+PHP          3 repos        ██░░░░░░░░░░░░░░░░░░░░░░░   9.38% 
+Python       2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25% 
+Dart         2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25% 
+CSS          2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+
+```
+
+`SHOW_LOC_CHART`  flag can be set to `False` to hide the Lines of code written in different quarters of different year
+
+**Timeline**
+
+![Chart not found](https://raw.githubusercontent.com/anmol098/anmol098/master/charts/bar_graph.png) 
 
 ## :sparkling_heart: Support the project
 

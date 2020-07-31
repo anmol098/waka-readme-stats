@@ -17,7 +17,6 @@ START_COMMENT = '<!--START_SECTION:waka-->'
 END_COMMENT = '<!--END_SECTION:waka-->'
 listReg = f"{START_COMMENT}[\\s\\S]+{END_COMMENT}"
 
-user = os.getenv('INPUT_USERNAME')
 waka_key = os.getenv('INPUT_WAKATIME_API_KEY')
 ghtoken = os.getenv('INPUT_GH_TOKEN')
 showTimeZone = os.getenv('INPUT_SHOW_TIMEZONE')
@@ -27,7 +26,7 @@ showOs = os.getenv('INPUT_SHOW_OS')
 showCommit = os.getenv('INPUT_SHOW_COMMIT')
 showLanguage = os.getenv('INPUT_SHOW_LANGUAGE')
 show_loc = os.getenv('INPUT_SHOW_LINES_OF_CODE')
-
+show_days_of_week = os.getenv('INPUT_SHOW_DAYS_OF_WEEK')
 showLanguagePerRepo = os.getenv('INPUT_SHOW_LANGUAGE_PER_REPO')
 showLocChart = os.getenv('INPUT_SHOW_LOC_CHART')
 show_waka_stats = 'y'
@@ -271,19 +270,21 @@ def generate_commit_list(tz):
         {"name": "Sunday", "text": str(Sunday) + " commits", "percent": round((Sunday / sum_week) * 100, 2)},
     ]
 
-    max_element = {
-        'percent': 0
-    }
-
-    for day in dayOfWeek:
-        if day['percent'] > max_element['percent']:
-            max_element = day
-    days_title = 'I\'m Most Productive on ' + max_element['name'] + 's'
     if show_loc.lower() in ['true', '1', 't', 'y', 'yes']:
         string = string + '![Lines of code](https://img.shields.io/badge/From%20Hello%20World%20I\'ve%20written-' + human_format(
             int(total_loc)) + '%20Lines%20of%20code-blue)\n\n'
     string = string + '**' + title + '** \n\n' + '```text\n' + make_commit_list(one_day) + '\n\n```\n'
-    string = string + '📅 **' + days_title + '** \n\n' + '```text\n' + make_commit_list(dayOfWeek) + '\n\n```\n'
+
+    if show_days_of_week.lower() in ['true', '1', 't', 'y', 'yes']:
+        max_element = {
+            'percent': 0
+        }
+
+        for day in dayOfWeek:
+            if day['percent'] > max_element['percent']:
+                max_element = day
+        days_title = 'I\'m Most Productive on ' + max_element['name'] + 's'
+        string = string + '📅 **' + days_title + '** \n\n' + '```text\n' + make_commit_list(dayOfWeek) + '\n\n```\n'
 
     return string
 
