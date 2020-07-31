@@ -125,6 +125,9 @@ jobs:
 🌙 Night      26 commits     ██░░░░░░░░░░░░░░░░░░░░░░░   8.36%
 
 ```
+
+`SHOW_DAYS_OF_WEEK`       flag can be set to `False` to hide the commits made on different days of week
+
 📅 **I'm Most Productive on Sundays** 
 
 ```text
