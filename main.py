@@ -93,7 +93,7 @@ def run_v3_api(query):
 repositoryListQuery = Template("""
 {
   user(login: "$username") {
-    repositories(orderBy: {field: CREATED_AT, direction: ASC}, last: 5, affiliations: [OWNER, COLLABORATOR, ORGANIZATION_MEMBER], isFork: false) {
+    repositories(orderBy: {field: CREATED_AT, direction: ASC}, last: 100, affiliations: [OWNER, COLLABORATOR, ORGANIZATION_MEMBER], isFork: false) {
       totalCount
       edges {
         node {
@@ -374,7 +374,7 @@ def get_stats():
 
     if show_waka_stats.lower() in ['true', '1', 't', 'y', 'yes']:
         stats = stats + get_waka_time_stats()
-        
+
 
     if showLanguagePerRepo.lower() in ['true', '1', 't', 'y', 'yes']:
         stats = stats + generate_language_per_repo(repositoryList) + '\n\n'
