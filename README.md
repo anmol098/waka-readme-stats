@@ -1,3 +1,5 @@
+>Looking For Translation to different languages #23
+
 # Dev Metrics in Readme with added feature flags 🎌
 
 ![Project Preview](https://user-images.githubusercontent.com/25841814/79395484-5081ae80-7fac-11ea-9e27-ac91472e31dd.png)
@@ -222,13 +224,73 @@ Thanks! :heart:
 
 ---
 
-Contributions are welcomed! ♥
+# Contributing
+
+Contributions are welcome! ♥! Please share any features, and add unit tests! Use the pull request and issue systems to contribute.
+
+# Selected Contributors
+
+- [Anmol Pratap Singh](https://github.com/anmol098): maintainer
+- [Prabhat Singh](https://github.com/prabhatdev): For code timeline graph
+
+<details>
+<summary><h3>Special mention for those who are currently making their profile readme more awesome :smile: :tada: </h3></summary>
+
+  - [Stanislas](https://github.com/angristan)
+  
+  - [Pratik Kumar](https://github.com/pr2tik1)
+  
+  - [Vladimir](https://github.com/sergeev-vn)
+
+  - [Pedro Torres](https://github.com/Corfucinas)
+  
+  - [leverglowh](https://github.com/leverglowh)
+  
+  - [patdc](https://github.com/patdc)
+  
+  - [极客挖掘机](https://github.com/meteor1993)
+  
+  - [Fan()](https://github.com/Fanduzi)
+  
+  - [Miller Camilo Vega](https://github.com/minoveaz)
+  
+  - [XLor](https://github.com/yjl9903)
+  
+  - [Jesse Okeya](https://github.com/jesseokeya)
+  
+  - [anaiel](https://github.com/anaiel)
+  
+  - [Dipto Mondal](https://github.com/diptomondal007)
+  
+  - [Jerry F. Zhang](https://github.com/JerryFZhang)
+  
+  - [Karan Singh](https://github.com/karan06126)
+  
+  - [Erwin Lejeune](https://github.com/guilyx)
+  
+  - [Manuel Cepeda](https://github.com/mecm1993)
+  
+  - [Jonathan S](https://github.com/TGTGamer)
+  
+  - [Tsotne Gvadzabia](https://github.com/RockiRider)
+  
+  - [Miray](https://github.com/MirayXS)
+  
+  - [Varad Patil](https://github.com/varadp2000)
+  
+  - [Prabhat Singh](https://github.com/prabhatdev)
+  
+
+</details>
+
+- And you! If ever you are using it right now and you are not on the list please tell us by sending a special mention issue [Special Mention](https://github.com/anmol098/waka-readme-stats/issues/new/choose) :blush: we are glad to add you in the list.
+
 
 Made with :heart: and Python 🐍.
 
+# Inspired From
 
+> [Awesome Pinned Gists](https://github.com/matchai/awesome-pinned-gists) <br/>
+> [athul/waka-readme](https://github.com/athul/waka-readme)
 
-> This project is inspired by an awesome pinned-gist project [Awesome Pinned Gists](https://github.com/matchai/awesome-pinned-gists) <br/>
->This project is inspired from [athul/waka-readme](https://github.com/athul/waka-readme)
-
-### Don't forget to leave a ⭐ if you found this useful.
+### This project need a **star** ⭐ from you ♥.
