@@ -12,11 +12,6 @@ inputs:
     description: 'Your Wakatime API Key'
     required: true
 
-  USERNAME:
-    description: 'Your GitHub username'
-    required: false
-    default: ${{ github.repository_owner }}
-
   SHOW_OS:
     required: false
     description: 'Show the list of OS Worked on In dev metrics'
@@ -52,6 +47,20 @@ inputs:
     description: "Show the Total Lines of code written Badge till date"
     default: "False"
 
+  SHOW_LANGUAGE_PER_REPO:
+    required: false
+    description: "Show language or framework used across different repository"
+    default: "True"
+
+  SHOW_LOC_CHART:
+    required: false
+    description: ""
+    default: "True"
+
+  SHOW_DAYS_OF_WEEK:
+    required: false
+    description: "show day of week you are most productive"
+    default: "True"
 
 
 
