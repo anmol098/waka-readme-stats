@@ -234,7 +234,7 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
 - [Prabhat Singh](https://github.com/prabhatdev): For code timeline graph
 
 <details>
-<summary><h3>Special mention for those who are currently making their profile readme more awesome :smile: :tada: </h3></summary>
+<summary>Special mention for those who are currently making their profile readme more awesome :smile: :tada:</summary>
 
   - [Stanislas](https://github.com/angristan)
   
