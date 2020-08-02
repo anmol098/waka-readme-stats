@@ -60,3 +60,4 @@ virtualenv-clone==0.5.4
 wrapt==1.12.1
 xlrd==1.2.0
 XlsxWriter==1.2.8
+humanize~=2.5.0
