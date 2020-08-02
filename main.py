@@ -12,6 +12,7 @@ import datetime
 from string import Template
 from loc import LinesOfCode
 import time
+import traceback
 
 START_COMMENT = '<!--START_SECTION:waka-->'
 END_COMMENT = '<!--END_SECTION:waka-->'
@@ -412,15 +413,16 @@ if __name__ == '__main__':
         user_data = run_query(userInfoQuery)  # Execute the query
         username = user_data["data"]["viewer"]["login"]
         id = user_data["data"]["viewer"]["id"]
+        print(username)
         repo = g.get_repo(f"{username}/{username}")
         contents = repo.get_readme()
         waka_stats = get_stats()
         rdmd = decode_readme(contents.content)
         new_readme = generate_new_readme(stats=waka_stats, readme=rdmd)
-        # print(new_readme)
         if new_readme != rdmd:
             repo.update_file(path=contents.path, message='Updated with Dev Metrics',
                              content=new_readme, sha=contents.sha, branch='master')
             print("Readme updated")
     except Exception as e:
+        traceback.print_exc()
         print("Exception Occurred " + str(e))
