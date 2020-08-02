@@ -39,7 +39,10 @@ class LinesOfCode:
         request = requests.get(endPoint, headers=self.headers)
         if request.status_code == 401:
             raise Exception("Invalid token {}. {}".format(request.status_code, nameWithOwner))
-        return request.json()
+        elif request.status_code == 204:
+            return []
+        else:
+            return request.json()
 
     def getQuarter(self, timeStamp):
         month = datetime.datetime.fromtimestamp(timeStamp).month
