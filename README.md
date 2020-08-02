@@ -41,9 +41,9 @@
 1. You need to update the markdown file(.md) with 2 comments. You can refer [here](#update-your-readme) for updating it.
 2. You'll need a WakaTime API Key. You can get that from your WakaTime Account Settings
     - You can refer [here](#new-to-wakatime), if you're new to WakaTime
-3. You'll need a GitHub API Token with `repo` scope from [here](https://github.com/settings/tokens) if you're running the action to get commit metrics
+3. You'll need a GitHub API Token with `repo` and `user` scope from [here](https://github.com/settings/tokens) if you're running the action to get commit metrics
    > enable `repo` scope seems **DANGEROUS**<br/>
-   > but this GitHub Action only accesses your commit timestamp in repository you contributed.
+   > but this GitHub Action only accesses your commit timestamp and lines of code added or deleted in repository you contributed.
    - You can use [this](#profile-repository) example to work it out
 4. You need to save the WakaTime API Key and the GitHub API Token in the repository secrets. You can find that in the Settings of your Repository.Be sure to save those as the following.
     - WakaTime-api-key as `WAKATIME_API_KEY = <your wakatime API Key>`and
@@ -114,7 +114,11 @@ jobs:
 #### Flags Available
 `SHOW_LINES_OF_CODE`       flag can be set to `True` to show the Lines of code writen till date
 
-![Lines of code](https://img.shields.io/badge/From%20Hello%20World%20I've%20written-1.28M%20Lines%20of%20code-blue)
+![Lines of code](https://img.shields.io/badge/From%20Hello%20World%20I've%20written-1.3%20million%20Lines%20of%20code-blue)
+
+`SHOW_PROFILE_VIEWS`       flag can be set to `True` to show the Profile views
+
+![Profile Views](http://img.shields.io/badge/Profile%20Views-2189-blue)
 
 
 `SHOW_COMMIT`       flag can be set to `False` to hide the commit stats
@@ -202,6 +206,21 @@ Dart         2 repos        █░░░░░░░░░░░░░░░░�
 CSS          2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
 
 ```
+
+`SHOW_SHORT_INFO`  flag can be set to `False` to hide the short fun fact info of user
+>This section requires personal access token with user permission otherwise data shown will be incorrect here
+
+**🐱 My GitHub Data** 
+
+> 🏆 433 Contributions in year 2020
+ > 
+> 📦 Used 292.3 kB in GitHub's Storage 
+ > 
+> 💼 Opted to Hire
+ > 
+> 📜 25 Public Repository 
+ > 
+> 🔑 15 Owned Private Repository 
 
 `SHOW_LOC_CHART`  flag can be set to `False` to hide the Lines of code written in different quarters of different year
 
