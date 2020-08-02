@@ -294,48 +294,48 @@ def get_waka_time_stats():
     request = requests.get(
         f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={waka_key}")
 
-    if request.status_code != 401:
+    if request.status_code == 401:
+        print("Error With WAKA time API returned " + str(request.status_code) + " Response " + str(request.json()))
+
+    else:
         data = request.json()
         if showCommit.lower() in ['true', '1', 't', 'y', 'yes']:
             stats = stats + generate_commit_list(tz=data['data']['timezone']) + '\n\n'
-        stats = stats + '📊 **This week I spent my time on** \n\n'
-        stats = stats + '```text\n'
+        stats += '📊 **This week I spent my time on** \n\n'
+        stats += '```text\n'
         if showTimeZone.lower() in ['true', '1', 't', 'y', 'yes']:
             tzone = data['data']['timezone']
             stats = stats + '⌚︎ Timezone: ' + tzone + '\n\n'
 
         if showLanguage.lower() in ['true', '1', 't', 'y', 'yes']:
-            if len(data['data']['languages']) != 0:
-                lang_list = make_list(data['data']['languages'])
-            else:
+            if len(data['data']['languages']) == 0:
                 lang_list = "No Activity tracked this Week"
+            else:
+                lang_list = make_list(data['data']['languages'])
             stats = stats + '💬 Languages: \n' + lang_list + '\n\n'
 
         if showEditors.lower() in ['true', '1', 't', 'y', 'yes']:
-            if len(data['data']['editors']) != 0:
-                edit_list = make_list(data['data']['editors'])
-            else:
+            if len(data['data']['editors']) == 0:
                 edit_list = "No Activity tracked this Week"
+            else:
+                edit_list = make_list(data['data']['editors'])
             stats = stats + '🔥 Editors: \n' + edit_list + '\n\n'
 
         if showProjects.lower() in ['true', '1', 't', 'y', 'yes']:
-            if len(data['data']['projects']) != 0:
-                project_list = make_list(data['data']['projects'])
-            else:
+            if len(data['data']['projects']) == 0:
                 project_list = "No Activity tracked this Week"
+            else:
+                project_list = make_list(data['data']['projects'])
             stats = stats + '🐱‍💻 Projects: \n' + project_list + '\n\n'
 
         if showOs.lower() in ['true', '1', 't', 'y', 'yes']:
-            if len(data['data']['operating_systems']) != 0:
-                os_list = make_list(data['data']['operating_systems'])
-            else:
+            if len(data['data']['operating_systems']) == 0:
                 os_list = "No Activity tracked this Week"
+            else:
+                os_list = make_list(data['data']['operating_systems'])
             stats = stats + '💻 Operating Systems: \n' + os_list + '\n\n'
 
-        stats = stats + '```\n\n'
-    else:
-        print("Error With WAKA time API returned " + str(request.status_code) + " Response " + str(request.json()))
-
+        stats += '```\n\n'
     return stats
 
 
@@ -351,11 +351,9 @@ def generate_language_per_repo(result):
         if language not in language_count.keys():
             language_count[language] = {}
             language_count[language]['count'] = 1
-            language_count[language]['color'] = color_code
         else:
             language_count[language]['count'] = language_count[language]['count'] + 1
-            language_count[language]['color'] = color_code
-
+        language_count[language]['color'] = color_code
     data = []
     sorted_labels = list(language_count.keys())
     sorted_labels.sort(key=lambda x: language_count[x]['count'], reverse=True)
@@ -379,7 +377,7 @@ def get_stats():
     repositoryList = run_query(repositoryListQuery.substitute(username=username, id=id))
 
     if show_waka_stats.lower() in ['true', '1', 't', 'y', 'yes']:
-        stats = stats + get_waka_time_stats()
+        stats += get_waka_time_stats()
 
     if showLanguagePerRepo.lower() in ['true', '1', 't', 'y', 'yes']:
         stats = stats + generate_language_per_repo(repositoryList) + '\n\n'
@@ -387,7 +385,7 @@ def get_stats():
     if showLocChart.lower() in ['true', '1', 't', 'y', 'yes']:
         loc = LinesOfCode(id, username, ghtoken, repositoryList)
         loc.calculateLoc()
-        stats = stats + '**Timeline**\n\n'
+        stats += '**Timeline**\n\n'
         stats = stats + '![Chart not found](https://github.com/' + username + '/' + username + '/blob/master/charts/bar_graph.png) \n\n'
 
     return stats
