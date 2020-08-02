@@ -13,6 +13,12 @@ from string import Template
 from loc import LinesOfCode
 import time
 import traceback
+import humanize
+from urllib.parse import quote
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 START_COMMENT = '<!--START_SECTION:waka-->'
 END_COMMENT = '<!--END_SECTION:waka-->'
@@ -30,6 +36,8 @@ show_loc = os.getenv('INPUT_SHOW_LINES_OF_CODE')
 show_days_of_week = os.getenv('INPUT_SHOW_DAYS_OF_WEEK')
 showLanguagePerRepo = os.getenv('INPUT_SHOW_LANGUAGE_PER_REPO')
 showLocChart = os.getenv('INPUT_SHOW_LOC_CHART')
+show_profile_view = os.getenv('INPUT_SHOW_PROFILE_VIEWS')
+show_short_info = os.getenv('INPUT_SHOW_SHORT_INFO')
 show_waka_stats = 'y'
 # The GraphQL query to get commit data.
 userInfoQuery = """
@@ -75,6 +83,8 @@ query {
 """)
 
 get_loc_url = Template("""/repos/$owner/$repo/stats/code_frequency""")
+get_profile_view = Template("""/repos/$owner/$repo/traffic/views""")
+get_profile_traffic = Template("""/repos/$owner/$repo/traffic/popular/referrers""")
 
 
 def human_format(num):
@@ -201,18 +211,7 @@ def generate_commit_list(tz):
     Saturday = 0
     Sunday = 0
 
-    total_loc = 0
-
     for repository in repos:
-        if show_loc.lower() in ['true', '1', 't', 'y', 'yes']:
-            try:
-                time.sleep(0.7)
-                datas = run_v3_api(get_loc_url.substitute(owner=repository["owner"]["login"], repo=repository["name"]))
-                for data in datas:
-                    total_loc = total_loc + data[1] - data[2]
-            except Exception as e:
-                print(e)
-
         result = run_query(
             createCommittedDateQuery.substitute(owner=repository["owner"]["login"], name=repository["name"], id=id))
         try:
@@ -271,9 +270,6 @@ def generate_commit_list(tz):
         {"name": "Sunday", "text": str(Sunday) + " commits", "percent": round((Sunday / sum_week) * 100, 2)},
     ]
 
-    if show_loc.lower() in ['true', '1', 't', 'y', 'yes']:
-        string = string + '![Lines of code](https://img.shields.io/badge/From%20Hello%20World%20I\'ve%20written-' + human_format(
-            int(total_loc)) + '%20Lines%20of%20code-blue)\n\n'
     string = string + '**' + title + '** \n\n' + '```text\n' + make_commit_list(one_day) + '\n\n```\n'
 
     if show_days_of_week.lower() in ['true', '1', 't', 'y', 'yes']:
@@ -302,6 +298,7 @@ def get_waka_time_stats():
         data = request.json()
         if showCommit.lower() in ['true', '1', 't', 'y', 'yes']:
             stats = stats + generate_commit_list(tz=data['data']['timezone']) + '\n\n'
+
         stats += '📊 **This week I spent my time on** \n\n'
         stats += '```text\n'
         if showTimeZone.lower() in ['true', '1', 't', 'y', 'yes']:
@@ -371,11 +368,70 @@ def generate_language_per_repo(result):
     return '**' + title + '** \n\n' + '```text\n' + make_commit_list(data) + '\n\n```\n'
 
 
-def get_stats():
+def get_line_of_code():
+    result = run_query(createContributedRepoQuery.substitute(username=username))
+    nodes = result["data"]["user"]["repositoriesContributedTo"]["nodes"]
+    repos = [d for d in nodes if d['isFork'] is False]
+    total_loc = 0
+    for repository in repos:
+        try:
+            time.sleep(0.7)
+            datas = run_v3_api(get_loc_url.substitute(owner=repository["owner"]["login"], repo=repository["name"]))
+            for data in datas:
+                total_loc = total_loc + data[1] - data[2]
+        except Exception as execp:
+            print(execp)
+    return humanize.intword(int(total_loc))
+
+
+def get_short_info(github):
+    string = ''
+    string += '**🐱 My GitHub Data** \n\n'
+    user_info = github.get_user()
+    if user_info.disk_usage is None:
+        disk_usage = humanize.naturalsize(0)
+        print("Please add new github personal access token with user permission")
+    else:
+        disk_usage = humanize.naturalsize(user_info.disk_usage)
+    request = requests.get('https://github-contributions.now.sh/api/v1/' + user_info.login)
+    if request.status_code == 200:
+        data = request.json()
+        total = data['years'][0]['total']
+        year = data['years'][0]['year']
+        string += '> 🏆 ' + humanize.intcomma(total) + ' Contributions in year ' + year + '\n > \n'
+
+    string += '> 📦 Used ' + disk_usage + ' in GitHub\'s Storage \n > \n'
+    is_hireable = user_info.hireable
+    public_repo = user_info.public_repos
+    private_repo = user_info.owned_private_repos
+    if is_hireable:
+        string += "> 💼 Opted to Hire\n > \n"
+    else:
+        string += "> 🚫 Not opted to Hire\n > \n"
+
+    string += '> 📜 ' + str(public_repo) + ' Public Repository \n > \n'
+    string += '> 🔑 ' + str(private_repo) + ' Owned Private Repository \n\n'
+
+    print(string)
+    return string
+
+
+def get_stats(github):
     '''Gets API data and returns markdown progress'''
 
     stats = ''
     repositoryList = run_query(repositoryListQuery.substitute(username=username, id=id))
+
+    if show_profile_view.lower() in ['true', '1', 't', 'y', 'yes']:
+        data = run_v3_api(get_profile_view.substitute(owner=username, repo=username))
+        stats += '![Profile Views](http://img.shields.io/badge/Profile%20Views-' + str(data['count']) + '-blue)\n\n'
+
+    if show_loc.lower() in ['true', '1', 't', 'y', 'yes']:
+        stats += '![Lines of code](https://img.shields.io/badge/From%20Hello%20World%20I\'ve%20written-' + quote(
+            str(get_line_of_code())) + '%20Lines%20of%20code-blue)\n\n'
+
+    if show_short_info.lower() in ['true', '1', 't', 'y', 'yes']:
+        stats += get_short_info(github)
 
     if show_waka_stats.lower() in ['true', '1', 't', 'y', 'yes']:
         stats += get_waka_time_stats()
@@ -416,7 +472,7 @@ if __name__ == '__main__':
         print(username)
         repo = g.get_repo(f"{username}/{username}")
         contents = repo.get_readme()
-        waka_stats = get_stats()
+        waka_stats = get_stats(g)
         rdmd = decode_readme(contents.content)
         new_readme = generate_new_readme(stats=waka_stats, readme=rdmd)
         if new_readme != rdmd:

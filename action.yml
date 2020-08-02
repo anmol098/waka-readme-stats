@@ -62,6 +62,16 @@ inputs:
     description: "show day of week you are most productive"
     default: "True"
 
+  SHOW_PROFILE_VIEWS:
+    required: false
+    description: "Shows the current profile views"
+    default: "True"
+
+  SHOW_SHORT_INFO:
+    required: false
+    description: "Shows the short facts"
+    default: "True"
+
 
 
 runs:
