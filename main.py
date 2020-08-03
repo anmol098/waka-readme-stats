@@ -21,7 +21,7 @@ from urllib.parse import quote
 #
 # load_dotenv()
 
-debug = True
+debug = False
 
 START_COMMENT = '<!--START_SECTION:waka-->'
 END_COMMENT = '<!--END_SECTION:waka-->'
