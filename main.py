@@ -191,7 +191,7 @@ def make_list(data: list):
 def make_commit_list(data: list):
     '''Make List'''
     data_list = []
-    for l in data[:7]:
+    for l in data[:10]:
         ln = len(l['name'])
         ln_text = len(l['text'])
         op = f"{l['emoji']}{' ' * 2}{l['name']}{' ' * (20 - ln)}{l['text']}{' ' * (15 - ln_text)}{make_graph(l['percent'])}   {l['percent']}%"
@@ -377,6 +377,7 @@ def get_waka_time_stats():
 
 
 def generate_language_per_repo(repositories):
+    
     language_count = {}
     total = 0
     for repo in tqdm(repositories, desc='Get language count'):
@@ -400,10 +401,15 @@ def generate_language_per_repo(repositories):
     sorted_labels = list(language_count.keys())
     sorted_labels.sort(key=lambda x: language_count[x]['count'], reverse=True)
     most_language_repo = sorted_labels[0]
-    for label in sorted_labels:
+
+    emoji_group = ['🥇', '🥈', '🥉']
+    rest = ['🔰'] * len(sorted_labels)
+    emoji_group = emoji_group + rest
+
+    for i, label in enumerate(sorted_labels):
         percent = round(language_count[label]['count'] / total * 100, 2)
         data.append({
-            "emoji" : '',
+            "emoji" : emoji_group[i],
             "name": label,
             "text": str(language_count[label]['count']) + " repos",
             "percent": percent
