@@ -9,7 +9,7 @@
   <h3 align="center">📌✨Awesome Readme Stats</h3>
 </p>
 
-----
+---
 
 <p align="center">
    <img src="https://img.shields.io/badge/language-python-blue?style"/>
@@ -38,16 +38,15 @@
 
 1. You need to update the markdown file(.md) with 2 comments. You can refer [here](#update-your-readme) for updating it.
 2. You'll need a WakaTime API Key. You can get that from your WakaTime Account Settings
-    - You can refer [here](#new-to-wakatime), if you're new to WakaTime
+   - You can refer [here](#new-to-wakatime), if you're new to WakaTime
 3. You'll need a GitHub API Token with `repo` scope from [here](https://github.com/settings/tokens) if you're running the action to get commit metrics
    > enable `repo` scope seems **DANGEROUS**<br/>
    > but this GitHub Action only accesses your commit timestamp in repository you contributed.
    - You can use [this](#profile-repository) example to work it out
 4. You need to save the WakaTime API Key and the GitHub API Token in the repository secrets. You can find that in the Settings of your Repository.Be sure to save those as the following.
-    - WakaTime-api-key as `WAKATIME_API_KEY = <your wakatime API Key>`and
-    - The GitHub Access Token as `GH_TOKEN=<your github access token>`
+   - WakaTime-api-key as `WAKATIME_API_KEY = <your wakatime API Key>`and
+   - The GitHub Access Token as `GH_TOKEN=<your github access token>`
 5. You can enable and disable feature flags based on requirements.
-
 
 This Action will run everyday at 00.00 IST
 
@@ -83,25 +82,26 @@ name: Waka Readme
 on:
   schedule:
     # Runs at 12am IST
-    - cron: '30 18 * * *'
+    - cron: "30 18 * * *"
 
 jobs:
   update-readme:
     name: Update Readme with Metrics
     runs-on: ubuntu-latest
     steps:
-      - uses: anmol098/waka-readme-stats@master
+      - uses: anmol098/waka-readme-stats@V1.1
         with:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 ```
+
 ## Extras
 
-1. If you want to add the other info to your stats, you can add multiple `FLAGS` in your workflow file by default all flags are enabled 
->except the lines of code flag due to heavy operation performed
+1. If you want to add the other info to your stats, you can add multiple `FLAGS` in your workflow file by default all flags are enabled
+   > except the lines of code flag due to heavy operation performed
 
 ```yml
-- uses: anmol098/waka-readme-stats@master
+- uses: anmol098/waka-readme-stats@V1.1
         with:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -110,35 +110,37 @@ jobs:
 ```
 
 #### Flags Available
-`SHOW_LINES_OF_CODE`       flag can be set to `True` to show the Lines of code writen till date
+
+`SHOW_LINES_OF_CODE` flag can be set to `True` to show the Lines of code writen till date
 
 ![Lines of code](https://img.shields.io/badge/From%20Hello%20World%20I've%20written-12,66,814%20Lines%20of%20code-blue)
 
+`SHOW_COMMIT` flag can be set to `False` to hide the commit stats
 
-`SHOW_COMMIT`       flag can be set to `False` to hide the commit stats
+**I'm an early 🐤**
 
-**I'm an early 🐤** 
 ```text
-🌞 Morning    95 commits     ███████░░░░░░░░░░░░░░░░░░   30.55% 
-🌆 Daytime    78 commits     ██████░░░░░░░░░░░░░░░░░░░   25.08% 
-🌃 Evening    112 commits    █████████░░░░░░░░░░░░░░░░   36.01% 
+🌞 Morning    95 commits     ███████░░░░░░░░░░░░░░░░░░   30.55%
+🌆 Daytime    78 commits     ██████░░░░░░░░░░░░░░░░░░░   25.08%
+🌃 Evening    112 commits    █████████░░░░░░░░░░░░░░░░   36.01%
 🌙 Night      26 commits     ██░░░░░░░░░░░░░░░░░░░░░░░   8.36%
 
 ```
-📅 **I'm Most Productive on Sundays** 
+
+📅 **I'm Most Productive on Sundays**
 
 ```text
-Monday       50 commits     ███░░░░░░░░░░░░░░░░░░░░░░   13.19% 
-Tuesday      85 commits     █████░░░░░░░░░░░░░░░░░░░░   22.43% 
-Wednesday    56 commits     ███░░░░░░░░░░░░░░░░░░░░░░   14.78% 
-Thursday     44 commits     ███░░░░░░░░░░░░░░░░░░░░░░   11.61% 
-Friday       28 commits     █░░░░░░░░░░░░░░░░░░░░░░░░   7.39% 
-Saturday     30 commits     ██░░░░░░░░░░░░░░░░░░░░░░░   7.92% 
+Monday       50 commits     ███░░░░░░░░░░░░░░░░░░░░░░   13.19%
+Tuesday      85 commits     █████░░░░░░░░░░░░░░░░░░░░   22.43%
+Wednesday    56 commits     ███░░░░░░░░░░░░░░░░░░░░░░   14.78%
+Thursday     44 commits     ███░░░░░░░░░░░░░░░░░░░░░░   11.61%
+Friday       28 commits     █░░░░░░░░░░░░░░░░░░░░░░░░   7.39%
+Saturday     30 commits     ██░░░░░░░░░░░░░░░░░░░░░░░   7.92%
 Sunday       86 commits     █████░░░░░░░░░░░░░░░░░░░░   22.69%
 
 ```
 
-`SHOW_LANGUAGE`       flag can be set to `False` to hide the Coding Language You use
+`SHOW_LANGUAGE` flag can be set to `False` to hide the Coding Language You use
 
 ```text
 💬 Languages:
@@ -149,8 +151,7 @@ Python                   22 mins             █░░░░░░░░░░�
 XML                      8 mins              ░░░░░░░░░░░░░░░░░░░░░░░░░   1.62%
 ```
 
-
-`SHOW_OS`       flag can be set to `False` to hide the OS details
+`SHOW_OS` flag can be set to `False` to hide the OS details
 
 ```text
 💻 Operating Systems:
@@ -174,7 +175,7 @@ denAPI                   40 mins             ██░░░░░░░░░�
 ⌚︎ Timezone: Asia/Calcutta
 ```
 
-`SHOW_EDITORS`  flag can be set to `False` to hide the list of code-editors used
+`SHOW_EDITORS` flag can be set to `False` to hide the list of code-editors used
 
 ```text
 🔥 Editors:
@@ -202,9 +203,7 @@ Contributions are welcomed! ♥
 
 Made with :heart: and Python 🐍.
 
-
-
 > This project is inspired by an awesome pinned-gist project [Awesome Pinned Gists](https://github.com/matchai/awesome-pinned-gists) <br/>
->This project is inspired from [athul/waka-readme](https://github.com/athul/waka-readme)
+> This project is inspired from [athul/waka-readme](https://github.com/athul/waka-readme)
 
 ### Don't forget to leave a ⭐ if you found this useful.
