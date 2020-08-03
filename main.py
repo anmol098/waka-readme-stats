@@ -409,8 +409,10 @@ def get_short_info(github):
     else:
         string += "> 🚫 Not opted to Hire\n > \n"
 
-    string += '> 📜 ' + str(public_repo) + ' Public Repository \n > \n'
-    string += '> 🔑 ' + str(private_repo) + ' Owned Private Repository \n\n'
+    string += '> 📜 ' + str(public_repo) + " Public Repositor"
+    string += 'ies \n > \n' if public_repo > 1 else 'y \n > \n'
+    string += '> 🔑 ' + str(private_repo) + " Owned Private Repositor"
+    string += 'ies \n\n' if private_repo > 1 else 'y \n > \n'
 
     print(string)
     return string
