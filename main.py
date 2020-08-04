@@ -16,9 +16,9 @@ import traceback
 import humanize
 from urllib.parse import quote
 
-# from dotenv import load_dotenv
-#
-# load_dotenv()
+from dotenv import load_dotenv
+
+load_dotenv()
 
 START_COMMENT = '<!--START_SECTION:waka-->'
 END_COMMENT = '<!--END_SECTION:waka-->'
@@ -404,6 +404,8 @@ def get_short_info(github):
     is_hireable = user_info.hireable
     public_repo = user_info.public_repos
     private_repo = user_info.owned_private_repos
+    if private_repo is None:
+        private_repo = 0
     if is_hireable:
         string += "> 💼 Opted to Hire\n > \n"
     else:
@@ -414,7 +416,6 @@ def get_short_info(github):
     string += '> 🔑 ' + str(private_repo) + " Owned Private Repositor"
     string += 'ies \n\n' if private_repo > 1 else 'y \n > \n'
 
-    print(string)
     return string
 
 
