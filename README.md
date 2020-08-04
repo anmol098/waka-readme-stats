@@ -75,7 +75,7 @@ WakaTime gives you an idea of the time you really spent on coding. This helps yo
 
 ### Profile Repository
 
-You'll need to get a [GitHub Access Token](https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token) with a `repo` scope and save it in the Repo Secrets `GH_TOKEN = <Your GitHub Access Token>`
+You'll need to get a [GitHub Access Token](https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token) with a `repo` and `user` scope and save it in the Repo Secrets `GH_TOKEN = <Your GitHub Access Token>`
 
 Here is Sample Workflow File for running it:
 
@@ -298,6 +298,16 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
   - [Varad Patil](https://github.com/varadp2000)
   
   - [Prabhat Singh](https://github.com/prabhatdev)
+  
+  - [Nikhil](https://github.com/nikhilgorantla)
+  
+  - [大白](https://github.com/2720851545)
+  
+  - [Du Yizhuo](https://github.com/dyzdyz010)
+  
+  - [Manas Talukdar](https://github.com/manastalukdar)
+  
+  - [Simranjeet Singh](https://github.com/smrnjeet222)
   
 
 </details>
