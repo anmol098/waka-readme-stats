@@ -295,17 +295,21 @@ def get_waka_time_stats():
         print("Error With WAKA time API returned " + str(request.status_code) + " Response " + str(request.json()))
 
     else:
+        empty = True
         data = request.json()
         if showCommit.lower() in ['true', '1', 't', 'y', 'yes']:
+            empty = False
             stats = stats + generate_commit_list(tz=data['data']['timezone']) + '\n\n'
 
         stats += '📊 **This week I spent my time on** \n\n'
         stats += '```text\n'
         if showTimeZone.lower() in ['true', '1', 't', 'y', 'yes']:
+            empty = False
             tzone = data['data']['timezone']
             stats = stats + '⌚︎ Timezone: ' + tzone + '\n\n'
 
         if showLanguage.lower() in ['true', '1', 't', 'y', 'yes']:
+            empty = False
             if len(data['data']['languages']) == 0:
                 lang_list = "No Activity tracked this Week"
             else:
@@ -313,6 +317,7 @@ def get_waka_time_stats():
             stats = stats + '💬 Languages: \n' + lang_list + '\n\n'
 
         if showEditors.lower() in ['true', '1', 't', 'y', 'yes']:
+            empty = False
             if len(data['data']['editors']) == 0:
                 edit_list = "No Activity tracked this Week"
             else:
@@ -320,6 +325,7 @@ def get_waka_time_stats():
             stats = stats + '🔥 Editors: \n' + edit_list + '\n\n'
 
         if showProjects.lower() in ['true', '1', 't', 'y', 'yes']:
+            empty = False
             if len(data['data']['projects']) == 0:
                 project_list = "No Activity tracked this Week"
             else:
@@ -327,6 +333,7 @@ def get_waka_time_stats():
             stats = stats + '🐱‍💻 Projects: \n' + project_list + '\n\n'
 
         if showOs.lower() in ['true', '1', 't', 'y', 'yes']:
+            empty = False
             if len(data['data']['operating_systems']) == 0:
                 os_list = "No Activity tracked this Week"
             else:
@@ -334,6 +341,8 @@ def get_waka_time_stats():
             stats = stats + '💻 Operating Systems: \n' + os_list + '\n\n'
 
         stats += '```\n\n'
+        if empty:
+            return ""
     return stats
 
 
