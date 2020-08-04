@@ -249,10 +249,12 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
 
 # Selected Contributors
 
-- [Anmol Pratap Singh](https://github.com/anmol098): maintainer
-- [Prabhat Singh](https://github.com/prabhatdev): For code timeline graph
+1. [Anmol Pratap Singh](https://github.com/anmol098): Maintainer
+2. [Prabhat Singh](https://github.com/prabhatdev): For code timeline graph [#18](https://github.com/anmol098/waka-readme-stats/pull/18)
+3. [Hedy Li](https://github.com/hedythedev): For Pull Request [#34](https://github.com/anmol098/waka-readme-stats/pull/34) and [#23](https://github.com/anmol098/waka-readme-stats/pull/23)
+4. [Pedro Torres](https://github.com/Corfucinas): For Pull Request [#29](https://github.com/anmol098/waka-readme-stats/pull/29)
 
-<details>
+<details open>
 <summary>Special mention for those who are currently making their profile readme more awesome :smile: :tada:</summary>
 
   - [Stanislas](https://github.com/angristan)
