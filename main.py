@@ -83,7 +83,7 @@ query {
 """)
 
 get_loc_url = Template("""/repos/$owner/$repo/stats/code_frequency""")
-get_profile_view = Template("""/repos/$owner/$repo/traffic/views""")
+get_profile_view = Template("""/repos/$owner/$repo/traffic/views?per=week""")
 get_profile_traffic = Template("""/repos/$owner/$repo/traffic/popular/referrers""")
 
 
@@ -374,7 +374,7 @@ def generate_language_per_repo(result):
         })
 
     title = 'I mostly code in ' + most_language_repo
-    return '**' + title + '** \n\n' + '```text\n' + make_commit_list(data) + '\n\n```\n'
+    return '**' + title + '** \n\n' + '```text\n' + make_list(data) + '\n\n```\n'
 
 
 def get_line_of_code():

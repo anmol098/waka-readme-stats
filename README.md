@@ -311,6 +311,8 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
   
   - [Simranjeet Singh](https://github.com/smrnjeet222)
   
+  - [Aaron Meese](https://github.com/ajmeese7)
+  
 
 </details>
 
