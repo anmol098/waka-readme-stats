@@ -253,6 +253,7 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
 2. [Prabhat Singh](https://github.com/prabhatdev): For code timeline graph [#18](https://github.com/anmol098/waka-readme-stats/pull/18)
 3. [Hedy Li](https://github.com/hedythedev): For Pull Request [#34](https://github.com/anmol098/waka-readme-stats/pull/34) and [#23](https://github.com/anmol098/waka-readme-stats/pull/23)
 4. [Pedro Torres](https://github.com/Corfucinas): For Pull Request [#29](https://github.com/anmol098/waka-readme-stats/pull/29)
+5. [Aaron Meese](https://github.com/ajmeese7): For Pull Request [#45](https://github.com/anmol098/waka-readme-stats/pull/45)
 
 <details open>
 <summary>Special mention for those who are currently making their profile readme more awesome :smile: :tada:</summary>
@@ -316,6 +317,12 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
   - [Prasad Narkhede](https://github.com/p014ri5)
   
   - [Manish Kushwaha](https://github.com/tzmanish)
+  
+  - [Hedy Li](https://github.com/hedythedev)
+  
+  - [SHIMIZU Taku](https://github.com/takuan-osho)
+  
+  - [Jude Wilson](https://github.com/mr-winson)
   
 
 </details>
