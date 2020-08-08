@@ -315,6 +315,8 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
   
   - [Prasad Narkhede](https://github.com/p014ri5)
   
+  - [Manish Kushwaha](https://github.com/tzmanish)
+  
 
 </details>
 
