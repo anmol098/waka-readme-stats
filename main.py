@@ -7,7 +7,7 @@ import base64
 from pytz import timezone
 import pytz
 import requests
-from github import Github, GithubException
+from github import Github, GithubException, InputGitAuthor
 import datetime
 from string import Template
 from loc import LinesOfCode
@@ -461,7 +461,7 @@ def get_stats(github):
 
 
 def decode_readme(data: str):
-    '''Decode the contets of old readme'''
+    '''Decode the contents of old readme'''
     decoded_bytes = base64.b64decode(data)
     return str(decoded_bytes, 'utf-8')
 
@@ -487,9 +487,11 @@ if __name__ == '__main__':
         waka_stats = get_stats(g)
         rdmd = decode_readme(contents.content)
         new_readme = generate_new_readme(stats=waka_stats, readme=rdmd)
+        committer = InputGitAuthor('readme-bot', 'readme-bot@example.com')
         if new_readme != rdmd:
             repo.update_file(path=contents.path, message='Updated with Dev Metrics',
-                             content=new_readme, sha=contents.sha, branch='master')
+                             content=new_readme, sha=contents.sha, branch='master',
+                             committer=committer)
             print("Readme updated")
     except Exception as e:
         traceback.print_exc()
