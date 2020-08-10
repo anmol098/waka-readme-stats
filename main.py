@@ -487,7 +487,7 @@ if __name__ == '__main__':
         waka_stats = get_stats(g)
         rdmd = decode_readme(contents.content)
         new_readme = generate_new_readme(stats=waka_stats, readme=rdmd)
-        committer = g.InputGitAuthor('readme-bot', 'readme-bot@example.com')
+        committer = InputGitAuthor('readme-bot', 'readme-bot@example.com')
         if new_readme != rdmd:
             repo.update_file(path=contents.path, message='Updated with Dev Metrics',
                              content=new_readme, sha=contents.sha, branch='master',
