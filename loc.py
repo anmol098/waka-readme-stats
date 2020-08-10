@@ -81,10 +81,11 @@ class LinesOfCode:
 
     def pushChart(self):
         repo = self.g.get_repo(f"{self.username}/{self.username}")
+        committer = InputGitAuthor('readme-bot', 'readme-bot@example.com')
         with open('bar_graph.png', 'rb') as input_file:
             data = input_file.read()
         try:
             contents = repo.get_contents("charts/bar_graph.png")
-            repo.update_file(contents.path, "Charts Added", data, contents.sha)
+            repo.update_file(contents.path, "Charts Updated", data, contents.sha, committer)
         except Exception as e:
-            repo.create_file("charts/bar_graph.png", "Initial Commit", data)
+            repo.create_file("charts/bar_graph.png", "Charts Added", data, committer)
