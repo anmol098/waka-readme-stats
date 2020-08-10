@@ -2,7 +2,7 @@ import re
 import os
 import base64
 import requests
-from github import Github
+from github import Github, InputGitAuthor
 import datetime
 from string import Template
 import matplotlib.pyplot as plt
