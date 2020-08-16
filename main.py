@@ -243,9 +243,9 @@ def generate_commit_list(tz):
     sumAll = morning + daytime + evening + night
     sum_week = Sunday + Monday + Tuesday + Friday + Saturday + Wednesday + Thursday
     if morning + daytime >= evening + night:
-        title = "I'm an early 🐤"
+        title = "I'm an Early 🐤"
     else:
-        title = "I'm a night 🦉"
+        title = "I'm a Night 🦉"
     one_day = [
         {"name": "🌞 Morning", "text": str(morning) + " commits", "percent": round((morning / sumAll) * 100, 2)},
         {"name": "🌆 Daytime", "text": str(daytime) + " commits", "percent": round((daytime / sumAll) * 100, 2)},
@@ -282,7 +282,7 @@ def get_waka_time_stats():
     stats = ''
     request = requests.get(
         f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={waka_key}")
-    no_activity = "No Activity tracked this Week"
+    no_activity = "No Activity Tracked This Week"
 
     if request.status_code == 401:
         print("Error With WAKA time API returned " + str(request.status_code) + " Response " + str(request.json()))
@@ -293,7 +293,7 @@ def get_waka_time_stats():
             empty = False
             stats = stats + generate_commit_list(tz=data['data']['timezone']) + '\n\n'
 
-        stats += '📊 **This week I spent my time on** \n\n'
+        stats += '📊 **This Week I Spent My Time On** \n\n'
         stats += '```text\n'
         if showTimeZone.lower() in truthy:
             empty = False
@@ -365,7 +365,7 @@ def generate_language_per_repo(result):
             "percent": percent
         })
 
-    title = 'I mostly code in ' + most_language_repo
+    title = 'I Mostly Code in ' + most_language_repo
     return '**' + title + '** \n\n' + '```text\n' + make_list(data) + '\n\n```\n'
 
 
@@ -398,7 +398,7 @@ def get_short_info(github):
         data = request.json()
         total = data['years'][0]['total']
         year = data['years'][0]['year']
-        string += '> 🏆 ' + humanize.intcomma(total) + ' Contributions in year ' + year + '\n > \n'
+        string += '> 🏆 ' + humanize.intcomma(total) + ' Contributions in ' + year + '\n > \n'
 
     string += '> 📦 Used ' + disk_usage + ' in GitHub\'s Storage \n > \n'
     is_hireable = user_info.hireable
@@ -409,7 +409,7 @@ def get_short_info(github):
     if is_hireable:
         string += "> 💼 Opted to Hire\n > \n"
     else:
-        string += "> 🚫 Not opted to Hire\n > \n"
+        string += "> 🚫 Not Opted to Hire\n > \n"
 
     string += '> 📜 ' + str(public_repo) + " Public Repositor"
     string += 'ies \n > \n' if public_repo > 1 else 'y \n > \n'
