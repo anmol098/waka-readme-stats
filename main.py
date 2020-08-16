@@ -492,7 +492,7 @@ if __name__ == '__main__':
         repo = g.get_repo(f"{username}/{username}")
         contents = repo.get_readme()
         try:
-            with open('translation.json', encoding='utf-8') as config_file:
+            with open(os.path.join(os.path.dirname(__file__), 'translation.json'), encoding='utf-8') as config_file:
                 data = json.load(config_file)
             translate = data[locale]
         except Exception as e:
