@@ -32,7 +32,9 @@
     "public repository": "référentiel public",
     "public repositories": "référentiels publics",
     "private repository": "référentiel privé",
-    "private repositories": "référentiels privés"
+    "private repositories": "référentiels privés",
+    "I am an Early": "Je suis un début 🐤",
+    "I am a Night": "Je suis une nuit 🦉"
   },
   "en": {
     "Monday": "Monday",
@@ -67,7 +69,9 @@
     "public repository": "Public repository",
     "public repositories": "Public repositories",
     "private repository": "Private repository",
-    "private repositories": "Private repositories"
+    "private repositories": "Private repositories",
+    "I am an Early": "I'm an Early 🐤",
+    "I am a Night": "I'm a Night 🦉"
   },
   "it": {
     "Monday": "Lunedì",
@@ -102,6 +106,8 @@
     "public repository": "Repository pubblica",
     "public repositories": "Repositories pubbliche",
     "private repository": "Repository privata",
-    "private repositories": "Repositories private"
+    "private repositories": "Repositories private",
+    "I am an Early": "Sono un mattiniero 🐤",
+    "I am a Night": "Sono un notturno 🦉"
   }
 }
