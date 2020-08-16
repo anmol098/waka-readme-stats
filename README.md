@@ -324,6 +324,8 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
   
   - [Jude Wilson](https://github.com/mr-winson)
   
+  - [Daniel Rowe](https://github.com/DanRowe1)
+    
 
 </details>
 
