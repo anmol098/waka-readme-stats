@@ -72,6 +72,10 @@ inputs:
     description: "Shows the short facts"
     default: "True"
 
+  LOCALE:
+    required: false
+    description: "Show stats in your own language"
+    default: "en"
 
 
 runs:
