@@ -328,6 +328,8 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
   
   - [Muhammad Hassan Ahmed](https://github.com/hassan11196)
   
+  - [Alessandro Maggio](https://github.com/Tkd-Alex)
+  
 
 </details>
 
