@@ -7,7 +7,7 @@ import base64
 from pytz import timezone
 import pytz
 import requests
-from github import Github, GithubException
+from github import Github, GithubException, InputGitAuthor
 import datetime
 from string import Template
 from loc import LinesOfCode
@@ -85,15 +85,7 @@ query {
 get_loc_url = Template("""/repos/$owner/$repo/stats/code_frequency""")
 get_profile_view = Template("""/repos/$owner/$repo/traffic/views?per=week""")
 get_profile_traffic = Template("""/repos/$owner/$repo/traffic/popular/referrers""")
-
-
-def human_format(num):
-    magnitude = 0
-    while abs(num) >= 1000:
-        magnitude += 1
-        num /= 1000.0
-    # add more suffixes if you need them
-    return '%.2f%s' % (num, ['', 'K', 'M', 'G', 'T', 'P'][magnitude])
+truthy = ['true', '1', 't', 'y', 'yes']
 
 
 def run_v3_api(query):
@@ -251,9 +243,9 @@ def generate_commit_list(tz):
     sumAll = morning + daytime + evening + night
     sum_week = Sunday + Monday + Tuesday + Friday + Saturday + Wednesday + Thursday
     if morning + daytime >= evening + night:
-        title = "I'm an early 🐤"
+        title = "I'm an Early 🐤"
     else:
-        title = "I'm a night 🦉"
+        title = "I'm a Night 🦉"
     one_day = [
         {"name": "🌞 Morning", "text": str(morning) + " commits", "percent": round((morning / sumAll) * 100, 2)},
         {"name": "🌆 Daytime", "text": str(daytime) + " commits", "percent": round((daytime / sumAll) * 100, 2)},
@@ -272,7 +264,7 @@ def generate_commit_list(tz):
 
     string = string + '**' + title + '** \n\n' + '```text\n' + make_commit_list(one_day) + '\n\n```\n'
 
-    if show_days_of_week.lower() in ['true', '1', 't', 'y', 'yes']:
+    if show_days_of_week.lower() in truthy:
         max_element = {
             'percent': 0
         }
@@ -290,52 +282,52 @@ def get_waka_time_stats():
     stats = ''
     request = requests.get(
         f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={waka_key}")
+    no_activity = "No Activity Tracked This Week"
 
     if request.status_code == 401:
         print("Error With WAKA time API returned " + str(request.status_code) + " Response " + str(request.json()))
-
     else:
         empty = True
         data = request.json()
-        if showCommit.lower() in ['true', '1', 't', 'y', 'yes']:
+        if showCommit.lower() in truthy:
             empty = False
             stats = stats + generate_commit_list(tz=data['data']['timezone']) + '\n\n'
 
-        stats += '📊 **This week I spent my time on** \n\n'
+        stats += '📊 **This Week I Spent My Time On** \n\n'
         stats += '```text\n'
-        if showTimeZone.lower() in ['true', '1', 't', 'y', 'yes']:
+        if showTimeZone.lower() in truthy:
             empty = False
             tzone = data['data']['timezone']
             stats = stats + '⌚︎ Timezone: ' + tzone + '\n\n'
 
-        if showLanguage.lower() in ['true', '1', 't', 'y', 'yes']:
+        if showLanguage.lower() in truthy:
             empty = False
             if len(data['data']['languages']) == 0:
-                lang_list = "No Activity tracked this Week"
+                lang_list = no_activity
             else:
                 lang_list = make_list(data['data']['languages'])
             stats = stats + '💬 Languages: \n' + lang_list + '\n\n'
 
-        if showEditors.lower() in ['true', '1', 't', 'y', 'yes']:
+        if showEditors.lower() in truthy:
             empty = False
             if len(data['data']['editors']) == 0:
-                edit_list = "No Activity tracked this Week"
+                edit_list = no_activity
             else:
                 edit_list = make_list(data['data']['editors'])
             stats = stats + '🔥 Editors: \n' + edit_list + '\n\n'
 
-        if showProjects.lower() in ['true', '1', 't', 'y', 'yes']:
+        if showProjects.lower() in truthy:
             empty = False
             if len(data['data']['projects']) == 0:
-                project_list = "No Activity tracked this Week"
+                project_list = no_activity
             else:
                 project_list = make_list(data['data']['projects'])
             stats = stats + '🐱‍💻 Projects: \n' + project_list + '\n\n'
 
-        if showOs.lower() in ['true', '1', 't', 'y', 'yes']:
+        if showOs.lower() in truthy:
             empty = False
             if len(data['data']['operating_systems']) == 0:
-                os_list = "No Activity tracked this Week"
+                os_list = no_activity
             else:
                 os_list = make_list(data['data']['operating_systems'])
             stats = stats + '💻 Operating Systems: \n' + os_list + '\n\n'
@@ -373,7 +365,7 @@ def generate_language_per_repo(result):
             "percent": percent
         })
 
-    title = 'I mostly code in ' + most_language_repo
+    title = 'I Mostly Code in ' + most_language_repo
     return '**' + title + '** \n\n' + '```text\n' + make_list(data) + '\n\n```\n'
 
 
@@ -394,8 +386,7 @@ def get_line_of_code():
 
 
 def get_short_info(github):
-    string = ''
-    string += '**🐱 My GitHub Data** \n\n'
+    string = '**🐱 My GitHub Data** \n\n'
     user_info = github.get_user()
     if user_info.disk_usage is None:
         disk_usage = humanize.naturalsize(0)
@@ -407,7 +398,7 @@ def get_short_info(github):
         data = request.json()
         total = data['years'][0]['total']
         year = data['years'][0]['year']
-        string += '> 🏆 ' + humanize.intcomma(total) + ' Contributions in year ' + year + '\n > \n'
+        string += '> 🏆 ' + humanize.intcomma(total) + ' Contributions in ' + year + '\n > \n'
 
     string += '> 📦 Used ' + disk_usage + ' in GitHub\'s Storage \n > \n'
     is_hireable = user_info.hireable
@@ -418,7 +409,7 @@ def get_short_info(github):
     if is_hireable:
         string += "> 💼 Opted to Hire\n > \n"
     else:
-        string += "> 🚫 Not opted to Hire\n > \n"
+        string += "> 🚫 Not Opted to Hire\n > \n"
 
     string += '> 📜 ' + str(public_repo) + " Public Repositor"
     string += 'ies \n > \n' if public_repo > 1 else 'y \n > \n'
@@ -434,24 +425,24 @@ def get_stats(github):
     stats = ''
     repositoryList = run_query(repositoryListQuery.substitute(username=username, id=id))
 
-    if show_profile_view.lower() in ['true', '1', 't', 'y', 'yes']:
+    if show_profile_view.lower() in truthy:
         data = run_v3_api(get_profile_view.substitute(owner=username, repo=username))
         stats += '![Profile Views](http://img.shields.io/badge/Profile%20Views-' + str(data['count']) + '-blue)\n\n'
 
-    if show_loc.lower() in ['true', '1', 't', 'y', 'yes']:
+    if show_loc.lower() in truthy:
         stats += '![Lines of code](https://img.shields.io/badge/From%20Hello%20World%20I\'ve%20written-' + quote(
             str(get_line_of_code())) + '%20Lines%20of%20code-blue)\n\n'
 
-    if show_short_info.lower() in ['true', '1', 't', 'y', 'yes']:
+    if show_short_info.lower() in truthy:
         stats += get_short_info(github)
 
-    if show_waka_stats.lower() in ['true', '1', 't', 'y', 'yes']:
+    if show_waka_stats.lower() in truthy:
         stats += get_waka_time_stats()
 
-    if showLanguagePerRepo.lower() in ['true', '1', 't', 'y', 'yes']:
+    if showLanguagePerRepo.lower() in truthy:
         stats = stats + generate_language_per_repo(repositoryList) + '\n\n'
 
-    if showLocChart.lower() in ['true', '1', 't', 'y', 'yes']:
+    if showLocChart.lower() in truthy:
         loc = LinesOfCode(id, username, ghtoken, repositoryList)
         loc.calculateLoc()
         stats += '**Timeline**\n\n'
@@ -461,7 +452,7 @@ def get_stats(github):
 
 
 def decode_readme(data: str):
-    '''Decode the contets of old readme'''
+    '''Decode the contents of old readme'''
     decoded_bytes = base64.b64decode(data)
     return str(decoded_bytes, 'utf-8')
 
@@ -487,9 +478,11 @@ if __name__ == '__main__':
         waka_stats = get_stats(g)
         rdmd = decode_readme(contents.content)
         new_readme = generate_new_readme(stats=waka_stats, readme=rdmd)
+        committer = InputGitAuthor('readme-bot', 'readme-bot@example.com')
         if new_readme != rdmd:
             repo.update_file(path=contents.path, message='Updated with Dev Metrics',
-                             content=new_readme, sha=contents.sha, branch='master')
+                             content=new_readme, sha=contents.sha, branch='master',
+                             committer=committer)
             print("Readme updated")
     except Exception as e:
         traceback.print_exc()
