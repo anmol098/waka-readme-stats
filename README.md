@@ -263,7 +263,7 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
 6. [Arnav Jindal](https://github.com/Daggy1234): For Pull Request [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
 7. [Daniel Rowe](https://github.com/DanRowe1): For Pull Request [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
 
-<details open>
+<details>
 <summary>Special mention for those who are currently making their profile readme more awesome :smile: :tada:</summary>
 
   - [Stanislas](https://github.com/angristan)
