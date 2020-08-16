@@ -32,7 +32,9 @@
     "public repository": "référentiel public",
     "public repositories": "référentiels publics",
     "private repository": "référentiel privé",
-    "private repositories": "référentiels privés"
+    "private repositories": "référentiels privés",
+    "I am an Early": "Je suis un début 🐤",
+    "I am a Night": "Je suis une nuit 🦉"
   },
   "en": {
     "Monday": "Monday",
@@ -67,6 +69,45 @@
     "public repository": "Public repository",
     "public repositories": "Public repositories",
     "private repository": "Private repository",
-    "private repositories": "Private repositories"
+    "private repositories": "Private repositories",
+    "I am an Early": "I'm an Early 🐤",
+    "I am a Night": "I'm a Night 🦉"
+  },
+  "it": {
+    "Monday": "Lunedì",
+    "Tuesday": "Martedì",
+    "Wednesday": "Mecoledì",
+    "Thursday": "Giovedì",
+    "Friday": "Venerdì",
+    "Saturday": "Sabato",
+    "Sunday": "Domenica",
+    "Morning": "Mattina",
+    "Daytime": "Giorno",
+    "Evening": "Pomeriggio",
+    "Night": "Notte",
+    "Languages": "Linguaggi di programmazione",
+    "Editors": "Editor di testo",
+    "operating system": "Sistema operativo",
+    "Projects": "Progetti",
+    "Timezone": "Fuso orario",
+    "Contributions in the year": "Contributi nell'ultimo anno",
+    "Used in GitHub's Storage": "Spazio di archiviazione di Github utilizzato",
+    "Opted to Hire": "Pronto per essere assunto",
+    "Not Opted to Hire": "Non disponibile per assunzioni/colloqui",
+    "Profile Views": "Visite al profilo",
+    "From Hello World I have written": "Dal mio primo Hello World ho scritto ",
+    "I am Most Productive on": "Sono piu' produttivo il",
+    "This Week I Spend My Time On": "Questa settimana ho speso il mio tempo su",
+    "I Mostly Code in": "Solitamente programmo in",
+    "Timeline": "Linea temporale",
+    "No Activity Tracked This Week": "Nessuna attività tracciata questa settimana",
+    "My GitHub Data": "I miei dati GitHub",
+    "Lines of code": "Linee di codice",
+    "public repository": "Repository pubblica",
+    "public repositories": "Repositories pubbliche",
+    "private repository": "Repository privata",
+    "private repositories": "Repositories private",
+    "I am an Early": "Sono un mattiniero 🐤",
+    "I am a Night": "Sono un notturno 🦉"
   }
 }
