@@ -282,7 +282,7 @@ def get_waka_time_stats():
     stats = ''
     request = requests.get(
         f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={waka_key}")
-    no_activity = "No Activity tracked this Week"
+    no_activity = "No Activity Tracked This Week"
 
     if request.status_code == 401:
         print("Error With WAKA time API returned " + str(request.status_code) + " Response " + str(request.json()))
@@ -293,7 +293,7 @@ def get_waka_time_stats():
             empty = False
             stats = stats + generate_commit_list(tz=data['data']['timezone']) + '\n\n'
 
-        stats += '📊 **This Week I Spent My Time on** \n\n'
+        stats += '📊 **This Week I Spent My Time On** \n\n'
         stats += '```text\n'
         if showTimeZone.lower() in truthy:
             empty = False
