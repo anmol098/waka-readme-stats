@@ -329,6 +329,8 @@ def get_waka_time_stats():
             if len(data['data']['projects']) == 0:
                 project_list = no_activity
             else:
+                # Re-order the project list by percentage
+                data['data']['projects'] = sorted(data['data']['projects'], key=lambda x: x["percent"], reverse=True)
                 project_list = make_list(data['data']['projects'])
             stats = stats + '🐱‍💻 ' + translate['Projects'] + ': \n' + project_list + '\n\n'
 
