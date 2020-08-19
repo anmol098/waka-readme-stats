@@ -245,10 +245,7 @@ def generate_commit_list(tz):
 
     sumAll = morning + daytime + evening + night
     sum_week = Sunday + Monday + Tuesday + Friday + Saturday + Wednesday + Thursday
-    if morning + daytime >= evening + night:
-        title = "I'm an Early 🐤"
-    else:
-        title = "I'm a Night 🦉"
+    title = translate['I am an Early'] if morning + daytime >= evening + night else translate['I am a Night']
     one_day = [
         {"name": "🌞 " + translate['Morning'], "text": str(morning) + " commits",
          "percent": round((morning / sumAll) * 100, 2)},
@@ -332,6 +329,8 @@ def get_waka_time_stats():
             if len(data['data']['projects']) == 0:
                 project_list = no_activity
             else:
+                # Re-order the project list by percentage
+                data['data']['projects'] = sorted(data['data']['projects'], key=lambda x: x["percent"], reverse=True)
                 project_list = make_list(data['data']['projects'])
             stats = stats + '🐱‍💻 ' + translate['Projects'] + ': \n' + project_list + '\n\n'
 
