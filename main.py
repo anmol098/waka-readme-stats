@@ -1,19 +1,24 @@
 '''
 Readme Development Metrics With waka time progress
 '''
-import locale
 import re
 import os
 import base64
-import sys
 from pytz import timezone
 import pytz
 import requests
-from github import Github, GithubException
+from github import Github, GithubException, InputGitAuthor
 import datetime
 from string import Template
-from dotenv import load_dotenv
 from loc import LinesOfCode
+import time
+import traceback
+import humanize
+from urllib.parse import quote
+import json
+import sys
+
+from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -21,19 +26,21 @@ START_COMMENT = '<!--START_SECTION:waka-->'
 END_COMMENT = '<!--END_SECTION:waka-->'
 listReg = f"{START_COMMENT}[\\s\\S]+{END_COMMENT}"
 
-user = 'y' if os.getenv('INPUT_USERNAME') is None else os.getenv('INPUT_USERNAME')
-waka_key = 'y' if os.getenv('INPUT_WAKATIME_API_KEY') is None else os.getenv('INPUT_WAKATIME_API_KEY')
-ghtoken = 'y' if os.getenv('INPUT_GH_TOKEN') is None else os.getenv('INPUT_GH_TOKEN')
-showTimeZone = 'y' if os.getenv('INPUT_SHOW_TIMEZONE') is None else os.getenv('INPUT_SHOW_TIMEZONE')
-showProjects = 'y' if os.getenv('INPUT_SHOW_PROJECTS') is None else os.getenv('INPUT_SHOW_PROJECTS')
-showEditors = 'y' if os.getenv('INPUT_SHOW_EDITORS') is None else os.getenv('INPUT_SHOW_EDITORS')
-showOs = 'y' if os.getenv('INPUT_SHOW_OS') is None else os.getenv('INPUT_SHOW_OS')
-showCommit = 'y' if os.getenv('INPUT_SHOW_COMMIT') is None else os.getenv('INPUT_SHOW_COMMIT')
-showLanguage = 'y' if os.getenv('INPUT_SHOW_LANGUAGE') is None else os.getenv('INPUT_SHOW_LANGUAGE')
-show_loc = 'y' if os.getenv('INPUT_SHOW_LINES_OF_CODE') is None else os.getenv('INPUT_SHOW_LINES_OF_CODE')
-
-showLanguagePerRepo = 'y' if os.getenv('INPUT_SHOW_LANGUAGE_PER_REPO') is None else os.getenv('INPUT_SHOW_LANGUAGE_PER_REPO')
-showLocChart = 'y' if os.getenv('INPUT_SHOW_LOC_CHART') is None else os.getenv('INPUT_SHOW_LOC_CHART')
+waka_key = os.getenv('INPUT_WAKATIME_API_KEY')
+ghtoken = os.getenv('INPUT_GH_TOKEN')
+showTimeZone = os.getenv('INPUT_SHOW_TIMEZONE')
+showProjects = os.getenv('INPUT_SHOW_PROJECTS')
+showEditors = os.getenv('INPUT_SHOW_EDITORS')
+showOs = os.getenv('INPUT_SHOW_OS')
+showCommit = os.getenv('INPUT_SHOW_COMMIT')
+showLanguage = os.getenv('INPUT_SHOW_LANGUAGE')
+show_loc = os.getenv('INPUT_SHOW_LINES_OF_CODE')
+show_days_of_week = os.getenv('INPUT_SHOW_DAYS_OF_WEEK')
+showLanguagePerRepo = os.getenv('INPUT_SHOW_LANGUAGE_PER_REPO')
+showLocChart = os.getenv('INPUT_SHOW_LOC_CHART')
+show_profile_view = os.getenv('INPUT_SHOW_PROFILE_VIEWS')
+show_short_info = os.getenv('INPUT_SHOW_SHORT_INFO')
+locale = os.getenv('INPUT_LOCALE')
 show_waka_stats = 'y'
 # The GraphQL query to get commit data.
 userInfoQuery = """
@@ -79,6 +86,9 @@ query {
 """)
 
 get_loc_url = Template("""/repos/$owner/$repo/stats/code_frequency""")
+get_profile_view = Template("""/repos/$owner/$repo/traffic/views?per=week""")
+get_profile_traffic = Template("""/repos/$owner/$repo/traffic/popular/referrers""")
+truthy = ['true', '1', 't', 'y', 'yes']
 
 
 def run_v3_api(query):
@@ -87,7 +97,8 @@ def run_v3_api(query):
         return request.json()
     else:
         raise Exception(
-            "Query failed to run by returning code of {}. {},... {}".format(request.status_code, query, request.json()))
+            "Query failed to run by returning code of {}. {},... {}".format(request.status_code, query,
+                                                                            str(request.json())))
 
 
 repositoryListQuery = Template("""
@@ -195,17 +206,7 @@ def generate_commit_list(tz):
     Saturday = 0
     Sunday = 0
 
-    total_loc = 0
-
     for repository in repos:
-        if show_loc.lower() in ['true', '1', 't', 'y', 'yes']:
-            try:
-                datas = run_v3_api(get_loc_url.substitute(owner=repository["owner"]["login"], repo=repository["name"]))
-                for data in datas:
-                    total_loc = total_loc + data[1] - data[2]
-            except Exception as e:
-                print(e)
-
         result = run_query(
             createCommittedDateQuery.substitute(owner=repository["owner"]["login"], name=repository["name"], id=id))
         try:
@@ -244,91 +245,106 @@ def generate_commit_list(tz):
 
     sumAll = morning + daytime + evening + night
     sum_week = Sunday + Monday + Tuesday + Friday + Saturday + Wednesday + Thursday
-    if morning + daytime >= evening + night:
-        title = "I'm an early 🐤"
-    else:
-        title = "I'm a night 🦉"
+    title = translate['I am an Early'] if morning + daytime >= evening + night else translate['I am a Night']
     one_day = [
-        {"name": "🌞 Morning", "text": str(morning) + " commits", "percent": round((morning / sumAll) * 100, 2)},
-        {"name": "🌆 Daytime", "text": str(daytime) + " commits", "percent": round((daytime / sumAll) * 100, 2)},
-        {"name": "🌃 Evening", "text": str(evening) + " commits", "percent": round((evening / sumAll) * 100, 2)},
-        {"name": "🌙 Night", "text": str(night) + " commits", "percent": round((night / sumAll) * 100, 2)},
+        {"name": "🌞 " + translate['Morning'], "text": str(morning) + " commits",
+         "percent": round((morning / sumAll) * 100, 2)},
+        {"name": "🌆 " + translate['Daytime'], "text": str(daytime) + " commits",
+         "percent": round((daytime / sumAll) * 100, 2)},
+        {"name": "🌃 " + translate['Evening'], "text": str(evening) + " commits",
+         "percent": round((evening / sumAll) * 100, 2)},
+        {"name": "🌙 " + translate['Night'], "text": str(night) + " commits",
+         "percent": round((night / sumAll) * 100, 2)},
     ]
     dayOfWeek = [
-        {"name": "Monday", "text": str(Monday) + " commits", "percent": round((Monday / sum_week) * 100, 2)},
-        {"name": "Tuesday", "text": str(Tuesday) + " commits", "percent": round((Tuesday / sum_week) * 100, 2)},
-        {"name": "Wednesday", "text": str(Wednesday) + " commits", "percent": round((Wednesday / sum_week) * 100, 2)},
-        {"name": "Thursday", "text": str(Thursday) + " commits", "percent": round((Thursday / sum_week) * 100, 2)},
-        {"name": "Friday", "text": str(Friday) + " commits", "percent": round((Friday / sum_week) * 100, 2)},
-        {"name": "Saturday", "text": str(Saturday) + " commits", "percent": round((Saturday / sum_week) * 100, 2)},
-        {"name": "Sunday", "text": str(Sunday) + " commits", "percent": round((Sunday / sum_week) * 100, 2)},
+        {"name": translate['Monday'], "text": str(Monday) + " commits", "percent": round((Monday / sum_week) * 100, 2)},
+        {"name": translate['Tuesday'], "text": str(Tuesday) + " commits",
+         "percent": round((Tuesday / sum_week) * 100, 2)},
+        {"name": translate['Wednesday'], "text": str(Wednesday) + " commits",
+         "percent": round((Wednesday / sum_week) * 100, 2)},
+        {"name": translate['Thursday'], "text": str(Thursday) + " commits",
+         "percent": round((Thursday / sum_week) * 100, 2)},
+        {"name": translate['Friday'], "text": str(Friday) + " commits", "percent": round((Friday / sum_week) * 100, 2)},
+        {"name": translate['Saturday'], "text": str(Saturday) + " commits",
+         "percent": round((Saturday / sum_week) * 100, 2)},
+        {"name": translate['Sunday'], "text": str(Sunday) + " commits", "percent": round((Sunday / sum_week) * 100, 2)},
     ]
 
-    max_element = {
-        'percent': 0
-    }
-
-    for day in dayOfWeek:
-        if day['percent'] > max_element['percent']:
-            max_element = day
-    days_title = 'I\'m Most Productive on ' + max_element['name'] + 's'
-    if show_loc.lower() in ['true', '1', 't', 'y', 'yes']:
-        string = string + '![Lines of code](https://img.shields.io/badge/From%20Hello%20World%20I\'ve%20written-' + locale.format_string(
-            "%d", total_loc,
-            grouping=True) + '%20Lines%20of%20code-blue)\n\n'
     string = string + '**' + title + '** \n\n' + '```text\n' + make_commit_list(one_day) + '\n\n```\n'
-    string = string + '📅 **' + days_title + '** \n\n' + '```text\n' + make_commit_list(dayOfWeek) + '\n\n```\n'
+
+    if show_days_of_week.lower() in truthy:
+        max_element = {
+            'percent': 0
+        }
+
+        for day in dayOfWeek:
+            if day['percent'] > max_element['percent']:
+                max_element = day
+        days_title = translate['I am Most Productive on'] + ' ' + max_element['name']
+        string = string + '📅 **' + days_title + '** \n\n' + '```text\n' + make_commit_list(dayOfWeek) + '\n\n```\n'
+
     return string
 
 
-   
 def get_waka_time_stats():
     stats = ''
     request = requests.get(
         f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={waka_key}")
+    no_activity = translate["No Activity Tracked This Week"]
 
-    if request.status_code != 401:
-        data = request.json()
-        if showCommit.lower() in ['true', '1', 't', 'y', 'yes']:
-            stats = stats + generate_commit_list(tz=data['data']['timezone']) + '\n\n'
-        stats = stats + '📊 **This week I spent my time on** \n\n'
-        stats = stats + '```text\n'
-        if showTimeZone.lower() in ['true', '1', 't', 'y', 'yes']:
-            timezone = data['data']['timezone']
-            stats = stats + '⌚︎ Timezone: ' + timezone + '\n\n'
-
-        if showLanguage.lower() in ['true', '1', 't', 'y', 'yes']:
-            if len(data['data']['languages']) != 0:
-                lang_list = make_list(data['data']['languages'])
-            else:
-                lang_list = "No Activity tracked this Week"
-            stats = stats + '💬 Languages: \n' + lang_list + '\n\n'
-
-        if showEditors.lower() in ['true', '1', 't', 'y', 'yes']:
-            if len(data['data']['editors']) != 0:
-                edit_list = make_list(data['data']['editors'])
-            else:
-                edit_list = "No Activity tracked this Week"
-            stats = stats + '🔥 Editors: \n' + edit_list + '\n\n'
-
-        if showProjects.lower() in ['true', '1', 't', 'y', 'yes']:
-            if len(data['data']['projects']) != 0:
-                project_list = make_list(data['data']['projects'])
-            else:
-                project_list = "No Activity tracked this Week"
-            stats = stats + '🐱‍💻 Projects: \n' + project_list + '\n\n'
-
-        if showOs.lower() in ['true', '1', 't', 'y', 'yes']:
-            if len(data['data']['operating_systems']) != 0:
-                os_list = make_list(data['data']['operating_systems'])
-            else:
-                os_list = "No Activity tracked this Week"
-            stats = stats + '💻 Operating Systems: \n' + os_list + '\n\n'
-
-        stats = stats + '```\n\n'
-    else:
+    if request.status_code == 401:
         print("Error With WAKA time API returned " + str(request.status_code) + " Response " + str(request.json()))
+    else:
+        empty = True
+        data = request.json()
+        if showCommit.lower() in truthy:
+            empty = False
+            stats = stats + generate_commit_list(tz=data['data']['timezone']) + '\n\n'
 
+        stats += '📊 **' + translate['This Week I Spend My Time On'] + '** \n\n'
+        stats += '```text\n'
+        if showTimeZone.lower() in truthy:
+            empty = False
+            tzone = data['data']['timezone']
+            stats = stats + '⌚︎ ' + translate['Timezone'] + ': ' + tzone + '\n\n'
+
+        if showLanguage.lower() in truthy:
+            empty = False
+            if len(data['data']['languages']) == 0:
+                lang_list = no_activity
+            else:
+                lang_list = make_list(data['data']['languages'])
+            stats = stats + '💬 ' + translate['Languages'] + ': \n' + lang_list + '\n\n'
+
+        if showEditors.lower() in truthy:
+            empty = False
+            if len(data['data']['editors']) == 0:
+                edit_list = no_activity
+            else:
+                edit_list = make_list(data['data']['editors'])
+            stats = stats + '🔥 ' + translate['Editors'] + ': \n' + edit_list + '\n\n'
+
+        if showProjects.lower() in truthy:
+            empty = False
+            if len(data['data']['projects']) == 0:
+                project_list = no_activity
+            else:
+                # Re-order the project list by percentage
+                data['data']['projects'] = sorted(data['data']['projects'], key=lambda x: x["percent"], reverse=True)
+                project_list = make_list(data['data']['projects'])
+            stats = stats + '🐱‍💻 ' + translate['Projects'] + ': \n' + project_list + '\n\n'
+
+        if showOs.lower() in truthy:
+            empty = False
+            if len(data['data']['operating_systems']) == 0:
+                os_list = no_activity
+            else:
+                os_list = make_list(data['data']['operating_systems'])
+            stats = stats + '💻 ' + translate['operating system'] + ': \n' + os_list + '\n\n'
+
+        stats += '```\n\n'
+        if empty:
+            return ""
     return stats
 
 
@@ -344,11 +360,9 @@ def generate_language_per_repo(result):
         if language not in language_count.keys():
             language_count[language] = {}
             language_count[language]['count'] = 1
-            language_count[language]['color'] = color_code
         else:
             language_count[language]['count'] = language_count[language]['count'] + 1
-            language_count[language]['color'] = color_code
-
+        language_count[language]['color'] = color_code
     data = []
     sorted_labels = list(language_count.keys())
     sorted_labels.sort(key=lambda x: language_count[x]['count'], reverse=True)
@@ -361,37 +375,103 @@ def generate_language_per_repo(result):
             "percent": percent
         })
 
-    title = 'I mostly code in ' + most_language_repo
-    return '**' + title + '** \n\n' + '```text\n' + make_commit_list(data) + '\n\n```\n'
+    title = translate['I Mostly Code in'] + ' ' + most_language_repo
+    return '**' + title + '** \n\n' + '```text\n' + make_list(data) + '\n\n```\n'
 
 
-def get_stats():
+def get_line_of_code():
+    result = run_query(createContributedRepoQuery.substitute(username=username))
+    nodes = result["data"]["user"]["repositoriesContributedTo"]["nodes"]
+    repos = [d for d in nodes if d['isFork'] is False]
+    total_loc = 0
+    for repository in repos:
+        try:
+            time.sleep(0.7)
+            datas = run_v3_api(get_loc_url.substitute(owner=repository["owner"]["login"], repo=repository["name"]))
+            for data in datas:
+                total_loc = total_loc + data[1] - data[2]
+        except Exception as execp:
+            print(execp)
+    return humanize.intword(int(total_loc))
+
+
+def get_short_info(github):
+    string = '**🐱 ' + translate['My GitHub Data'] + '** \n\n'
+    user_info = github.get_user()
+    if user_info.disk_usage is None:
+        disk_usage = humanize.naturalsize(0)
+        print("Please add new github personal access token with user permission")
+    else:
+        disk_usage = humanize.naturalsize(user_info.disk_usage)
+    request = requests.get('https://github-contributions.now.sh/api/v1/' + user_info.login)
+    if request.status_code == 200:
+        data = request.json()
+        total = data['years'][0]['total']
+        year = data['years'][0]['year']
+        string += '> 🏆 ' + humanize.intcomma(total) + " " + translate[
+            'Contributions in the year'] + " " + year + '\n > \n'
+
+    string += '> 📦 ' + disk_usage + " " + translate["Used in GitHub's Storage"] + ' \n > \n'
+    is_hireable = user_info.hireable
+    public_repo = user_info.public_repos
+    private_repo = user_info.owned_private_repos
+    if private_repo is None:
+        private_repo = 0
+    if is_hireable:
+        string += "> 💼 " + translate["Opted to Hire"] + "\n > \n"
+    else:
+        string += "> 🚫 " + translate["Not Opted to Hire"] + "\n > \n"
+
+    string += '> 📜 ' + str(public_repo) + " "
+    string += translate['public repositories'] + '\n > \n' if public_repo > 1 else translate[
+                                                                                       'public repository'] + ' \n > \n'
+    string += '> 🔑 ' + str(private_repo) + " "
+    string += translate['private repositories'] + ' \n\n' if private_repo > 1 else translate[
+                                                                                       'private repository'] + ' \n > \n'
+
+    return string
+
+
+def get_stats(github):
     '''Gets API data and returns markdown progress'''
 
     stats = ''
     repositoryList = run_query(repositoryListQuery.substitute(username=username, id=id))
 
+    if show_profile_view.lower() in truthy:
+        data = run_v3_api(get_profile_view.substitute(owner=username, repo=username))
+        stats += '![Profile Views](http://img.shields.io/badge/' + quote(str(translate['Profile Views'])) + '-' + str(
+            data['count']) + '-blue)\n\n'
 
-    if show_waka_stats.lower() in ['true', '1', 't', 'y', 'yes']:
-        stats = stats + get_waka_time_stats()
+    if show_loc.lower() in truthy:
+        stats += '![Lines of code](https://img.shields.io/badge/' + quote(
+            str(translate['From Hello World I have written'])) + '-' + quote(
+            str(get_line_of_code())) + '%20' + quote(str(translate['Lines of code'])) + '-blue)\n\n'
 
+    if show_short_info.lower() in truthy:
+        stats += get_short_info(github)
 
-    if showLanguagePerRepo.lower() in ['true', '1', 't', 'y', 'yes']:
+    if show_waka_stats.lower() in truthy:
+        stats += get_waka_time_stats()
+
+    if showLanguagePerRepo.lower() in truthy:
         stats = stats + generate_language_per_repo(repositoryList) + '\n\n'
 
-    if showLocChart.lower() in ['true', '1', 't', 'y', 'yes']:
+    if showLocChart.lower() in truthy:
         loc = LinesOfCode(id, username, ghtoken, repositoryList)
         loc.calculateLoc()
-        stats = stats + '**Timeline**\n\n'
-        stats = stats + '![Chart not found](https://github.com/prabhatdev/prabhatdev/blob/master/charts/bar_graph.png) \n\n'
-        # stats = stats + generate_language_per_repo(repositoryList) + '\n\n'
-
+        stats += '**' + translate['Timeline'] + '**\n\n'
+        stats = stats + '![Chart not found](https://github.com/' + username + '/' + username + '/blob/master/charts/bar_graph.png) \n\n'
 
     return stats
 
 
+def star_me():
+    request = requests.put("https://api.github.com/user/starred/anmol098/waka-readme-stats", headers=headers)
+
+
 def decode_readme(data: str):
-    '''Decode the contets of old readme'''
+    '''Decode the contents of old readme'''
     decoded_bytes = base64.b64decode(data)
     return str(decoded_bytes, 'utf-8')
 
@@ -411,16 +491,26 @@ if __name__ == '__main__':
         user_data = run_query(userInfoQuery)  # Execute the query
         username = user_data["data"]["viewer"]["login"]
         id = user_data["data"]["viewer"]["id"]
-        # print("user {} id {}".format(username, id))
+        print(username)
         repo = g.get_repo(f"{username}/{username}")
         contents = repo.get_readme()
-        waka_stats = get_stats()
+        try:
+            with open(os.path.join(os.path.dirname(__file__), 'translation.json'), encoding='utf-8') as config_file:
+                data = json.load(config_file)
+            translate = data[locale]
+        except Exception as e:
+            print("Cannot find the Locale choosing default to english")
+            translate = data['en']
+        waka_stats = get_stats(g)
+        star_me()
         rdmd = decode_readme(contents.content)
         new_readme = generate_new_readme(stats=waka_stats, readme=rdmd)
-        # print(new_readme)
+        committer = InputGitAuthor('readme-bot', 'readme-bot@example.com')
         if new_readme != rdmd:
             repo.update_file(path=contents.path, message='Updated with Dev Metrics',
-                             content=new_readme, sha=contents.sha, branch='master')
-        print("Readme updated")
+                             content=new_readme, sha=contents.sha, branch='master',
+                             committer=committer)
+            print("Readme updated")
     except Exception as e:
-        print("Exception Occurred" + str(e))
+        traceback.print_exc()
+        print("Exception Occurred " + str(e))

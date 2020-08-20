@@ -2,7 +2,7 @@ import re
 import os
 import base64
 import requests
-from github import Github
+from github import Github, InputGitAuthor
 import datetime
 from string import Template
 import matplotlib.pyplot as plt
@@ -27,12 +27,8 @@ class LinesOfCode:
         result = self.repositoryData
         yearly_data = {}
         for repo in result['data']['user']['repositories']['edges']:
-            print(repo)
             self.getCommitStat(repo['node'], yearly_data)
             time.sleep(0.7)
-        # print("\n\n")
-        # print(yearly_data)
-        # print("here")
         graph = BarGraph(yearly_data)
         graph_file = graph.build_graph()
         self.pushChart()
@@ -43,7 +39,10 @@ class LinesOfCode:
         request = requests.get(endPoint, headers=self.headers)
         if request.status_code == 401:
             raise Exception("Invalid token {}. {}".format(request.status_code, nameWithOwner))
-        return request.json()
+        elif request.status_code == 204:
+            return []
+        else:
+            return request.json()
 
     def getQuarter(self, timeStamp):
         month = datetime.datetime.fromtimestamp(timeStamp).month
@@ -82,13 +81,11 @@ class LinesOfCode:
 
     def pushChart(self):
         repo = self.g.get_repo(f"{self.username}/{self.username}")
+        committer = InputGitAuthor('readme-bot', 'readme-bot@example.com')
         with open('bar_graph.png', 'rb') as input_file:
             data = input_file.read()
         try:
             contents = repo.get_contents("charts/bar_graph.png")
-            repo.update_file(contents.path, "Charts Added", data, contents.sha)
+            repo.update_file(contents.path, "Charts Updated", data, contents.sha, committer=committer)
         except Exception as e:
-            repo.create_file("charts/bar_graph.png", "Initial Commit", data)
-        # print("pushed")
-
-
+            repo.create_file("charts/bar_graph.png", "Charts Added", data, committer=committer)
