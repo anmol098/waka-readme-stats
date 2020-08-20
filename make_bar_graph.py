@@ -13,6 +13,7 @@ class BarGraph:
         self.yearly_data = yearly_data
 
     def build_graph(self):
+        print(self.yearly_data)
 
         with open(os.path.join(os.path.dirname(__file__), 'colors.json')) as f:
             colors = json.load(f)
@@ -48,7 +49,7 @@ class BarGraph:
         for language in all_languages:
             language_year = []
             for year in self.yearly_data.keys():
-                language_quarter = [0, 0, 0]
+                language_quarter = [0, 0, 0, 0]
                 for quarter in self.yearly_data[year].keys():
                     if language in self.yearly_data[year][quarter]['top']:
                         language_quarter[quarter - 1] = self.yearly_data[year][quarter]['top'][language]
@@ -69,7 +70,7 @@ class BarGraph:
 
         for language in languages_all_loc.keys():
             language_df[language] = pd.DataFrame(languages_all_loc[language], index=list(self.yearly_data.keys()),
-                                                 columns=["Q1", "Q2", "Q3"])
+                                                 columns=["Q1", "Q2", "Q3", "Q4"])
 
         for language in language_df.keys():
             language_df[language] = prep_df(language_df[language], language)

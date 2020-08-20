@@ -104,7 +104,7 @@ def run_v3_api(query):
 repositoryListQuery = Template("""
 {
   user(login: "$username") {
-    repositories(orderBy: {field: CREATED_AT, direction: ASC}, last: 100, affiliations: [OWNER, COLLABORATOR, ORGANIZATION_MEMBER], isFork: false) {
+    repositories(orderBy: {field: CREATED_AT, direction: ASC}, last: 10, affiliations: [OWNER, COLLABORATOR, ORGANIZATION_MEMBER], isFork: false) {
       totalCount
       edges {
         node {

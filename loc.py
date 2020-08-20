@@ -46,13 +46,15 @@ class LinesOfCode:
 
     def getQuarter(self, timeStamp):
         month = datetime.datetime.fromtimestamp(timeStamp).month
-        if month >= 1 and month <= 4:
+        if month >= 1 and month <= 3:
             return 1
-        elif month >= 5 and month <= 8:
+        elif month >= 4 and month <= 6:
             return 2
-        elif month >= 9 and month <= 12:
+        elif month >= 7 and month <= 9:
             return 3
-
+        elif month >= 10 and month <= 12:
+            return 4
+        
     def getCommitStat(self, repoDetails, yearly_data):
         result = self.run_query_v3(repoDetails['nameWithOwner'])
         this_year = datetime.datetime.utcnow().year
@@ -69,7 +71,7 @@ class LinesOfCode:
                     yearly_data[curr_year][quarter] = {}
                 if repoDetails['primaryLanguage']['name'] not in yearly_data[curr_year][quarter]:
                     yearly_data[curr_year][quarter][repoDetails['primaryLanguage']['name']] = 0
-                yearly_data[curr_year][quarter][repoDetails['primaryLanguage']['name']] += (result[i][1] + result[i][2])
+                yearly_data[curr_year][quarter][repoDetails['primaryLanguage']['name']] += (result[i][1])
 
                 # to find total
 
