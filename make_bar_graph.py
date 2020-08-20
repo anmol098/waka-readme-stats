@@ -13,8 +13,7 @@ class BarGraph:
         self.yearly_data = yearly_data
 
     def build_graph(self):
-        print(self.yearly_data)
-
+        
         with open(os.path.join(os.path.dirname(__file__), 'colors.json')) as f:
             colors = json.load(f)
         allColorsValues = []
