@@ -129,13 +129,13 @@
     "Timezone": "时区",
     "Contributions in the year": "今年的贡献",
     "Used in GitHub's Storage": "占用了 GitHub 内存",
-    "Opted to Hire": "选择雇用",
-    "Not Opted to Hire": "不选择雇用",
+    "Opted to Hire": "开放招聘",
+    "Not Opted to Hire": "不开放招聘",
     "Profile Views": "个人封面观看次数",
-    "From Hello World I have written": "从你好世界我已经写了",
+    "From Hello World I have written": "从「你好世界」我已经写了",
     "I am Most Productive on": "我最有效率是",
-    "This Week I Spend My Time On": "这周我花我的时间在",
-    "I Mostly Code in": "我主要编程在于",
+    "This Week I Spend My Time On": "这周我的时间花在了",
+    "I Mostly Code in": "我主要编写",
     "Timeline": "时间线",
     "No Activity Tracked This Week": "本周没有记录任何活动",
     "My GitHub Data": "我的 GitHub 数据",
@@ -145,6 +145,6 @@
     "private repository": "私人仓库",
     "private repositories": "私人仓库",
     "I am an Early": "我是早起的 🐤",
-    "I am a Night": "我是晚起的 🦉"
+    "I am a Night": "我是晚睡的 🦉"
   }
 }
