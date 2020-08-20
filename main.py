@@ -466,6 +466,10 @@ def get_stats(github):
     return stats
 
 
+def star_me():
+    request = requests.put("https://api.github.com/user/starred/anmol098/waka-readme-stats", headers=headers)
+
+
 def decode_readme(data: str):
     '''Decode the contents of old readme'''
     decoded_bytes = base64.b64decode(data)
@@ -498,6 +502,7 @@ if __name__ == '__main__':
             print("Cannot find the Locale choosing default to english")
             translate = data['en']
         waka_stats = get_stats(g)
+        star_me()
         rdmd = decode_readme(contents.content)
         new_readme = generate_new_readme(stats=waka_stats, readme=rdmd)
         committer = InputGitAuthor('readme-bot', 'readme-bot@example.com')
