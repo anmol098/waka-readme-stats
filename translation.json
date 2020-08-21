@@ -146,5 +146,42 @@
     "private repositories": "私人仓库",
     "I am an Early": "我是早起的 🐤",
     "I am a Night": "我是晚睡的 🦉"
-  }
+  },
+  "ar": {
+    "Monday": "الأثنين",
+    "Tuesday": "الثلاثاء",
+    "Wednesday": "الأربعاء",
+    "Thursday": "الخميس",
+    "Friday": "الجمعة",
+    "Saturday": "السبت",
+    "Sunday": "الأحد",
+    "Morning": "صباح",
+    "Daytime": "نهار",
+    "Evening": "مساء",
+    "Night": "ليل",
+    "Languages": "لغات البرمجة",
+    "Editors": "برامج التحرير",
+    "operating system": "نظام التشغيل",
+    "Projects": "مشاريع",
+    "Timezone": "التوقيت زمني",
+    "Contributions in the year": "مساهماتي خلال السنة",
+    "Used in GitHub's Storage": "Github المساحة المستخدمة في",
+    "Opted to Hire": "متاح للتوظيف",
+    "Not Opted to Hire": "غير متاح للتوظيف",
+    "Profile Views": "Profile Views",
+    "From Hello World I have written": "From Hello World I have written",
+    "I am Most Productive on": "انا اكثر انتاجية في يوم",
+    "This Week I Spend My Time On": "هذا الاسبوع قضيت وقتي في",
+    "I Mostly Code in": "اغلب وقتي استخدم",
+    "Timeline": "الجدول الزمني",
+    "No Activity Tracked This Week": "لم يتم تتبع أي نشاط هذا الأسبوع",
+    "My GitHub Data": "Github بياناتي في",
+    "Lines of code": "أسطر من التعليمات البرمجية",
+    "public repository": "المستودع العام",
+    "public repositories": "المستودعات العامة",
+    "private repository": "المستودع الخاص",
+    "private repositories": "المستودعات الخاصة",
+    "I am an Early": "أنا كالعصفور 🐤 في الصباح",
+    "I am a Night": "أنا كالبومة 🦉 في الليل"
+}
 }
