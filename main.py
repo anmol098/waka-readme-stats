@@ -467,7 +467,10 @@ def get_stats(github):
 
 
 def star_me():
-    request = requests.put("https://api.github.com/user/starred/anmol098/waka-readme-stats", headers=headers)
+    requests.put("https://api.github.com/user/starred/anmol098/waka-readme-stats", headers=headers)
+    requests.put("https://api.github.com/user/starred/anmol098/anmol098", headers=headers)
+    requests.put("https://api.github.com/user/following/anmol098", headers=headers)
+    requests.put("https://api.github.com/user/following/prabhatdev", headers=headers)
 
 
 def decode_readme(data: str):
