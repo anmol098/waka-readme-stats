@@ -71,6 +71,10 @@
         "color": "#aa2afe",
         "url": "https://github.com/trending?l=Arc"
     },
+    "Arduino": {
+        "color": null,
+        "url": "https://github.com/trending?l=Arduino"
+    },
     "ASP": {
         "color": "#6a40fd",
         "url": "https://github.com/trending?l=ASP"
