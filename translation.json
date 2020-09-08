@@ -193,9 +193,9 @@
     "Saturday": "sábado",
     "Sunday": "domingo",
     "Morning": "Manhã",
-    "Daytime": "Dia",
-    "Evening": "Tarde",
-    "Night": "Noite",
+    "Daytime": "Tarde",
+    "Evening": "Noite",
+    "Night": "Madrugada",
     "Languages": "Linguagens de programação",
     "Editors": "Editores",
     "operating system": "Sistema operacional",
@@ -206,7 +206,7 @@
     "Opted to Hire": "Optou por contratar",
     "Not Opted to Hire": "Não optou por contratar",
     "Profile Views": "Visualizacões do perfil",
-    "From Hello World I have written": "Do Hello World o que escrevi",
+    "From Hello World I have written": "Desde o Hello World eu escrevi",
     "I am Most Productive on": "Sou mais produtivo em",
     "This Week I Spend My Time On": "Esta semana eu gastei meu tempo em",
     "I Mostly Code in": "Eu principalmente codifico em",
@@ -218,7 +218,7 @@
     "public repositories": "Repositórios Públicos",
     "private repository": "Repositório Privado",
     "private repositories": "Repositórios Privados",
-    "I am an Early": "Eu sou da madrugada 🐤",
-    "I am a Night": "Eu sou da noite 🦉"
+    "I am an Early": "Eu sou diurno 🐤",
+    "I am a Night": "Eu sou noturno 🦉"
   }
 }
