@@ -1299,6 +1299,10 @@
         "color": null,
         "url": "https://github.com/trending?l=Scilab"
     },
+    "SCSS": {
+        "color": "#c6538c",
+        "url": "https://github.com/trending?l=SCSS"
+    },
     "sed": {
         "color": "#64b970",
         "url": "https://github.com/trending?l=sed"
