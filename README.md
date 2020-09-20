@@ -349,6 +349,15 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
   - [Korel Kashri](https://github.com/korelkashri)
   
   - [Gustavo Barbosa](https://github.com/gusbdev)
+
+  - [eagleanurag](https://github.com/eagleanurag)
+  
+  - [Aravind V. Nair](https://github.com/aravindvnair99)
+  
+  - [Raman Preet Singh](https://github.com/raman08)
+  
+  - [Hayat Tamboli](https://github.com/hayat-tamboli)
+
   
 
 </details>

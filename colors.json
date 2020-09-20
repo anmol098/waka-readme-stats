@@ -71,6 +71,10 @@
         "color": "#aa2afe",
         "url": "https://github.com/trending?l=Arc"
     },
+    "Arduino": {
+        "color": null,
+        "url": "https://github.com/trending?l=Arduino"
+    },
     "ASP": {
         "color": "#6a40fd",
         "url": "https://github.com/trending?l=ASP"
@@ -1294,6 +1298,10 @@
     "Scilab": {
         "color": null,
         "url": "https://github.com/trending?l=Scilab"
+    },
+    "SCSS": {
+        "color": "#c6538c",
+        "url": "https://github.com/trending?l=SCSS"
     },
     "sed": {
         "color": "#64b970",
