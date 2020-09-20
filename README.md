@@ -340,6 +340,8 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
   
   - [Siddharth Gupta](https://github.com/siddg97)
   
+  - [Dev-Mehta](https://github.com/Dev-Mehta/)
+  
 
 </details>
 
