@@ -338,6 +338,18 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
   
   - [Alessandro Maggio](https://github.com/Tkd-Alex)
   
+  - [Siddharth Gupta](https://github.com/siddg97)
+  
+  - [Dev-Mehta](https://github.com/Dev-Mehta/)
+  
+  - [> EdgyCoder ✌](https://github.com/edgycoder)
+  
+  - [> EdgyCoder ✌](https://github.com/edgycoder)
+  
+  - [Korel Kashri](https://github.com/korelkashri)
+  
+  - [Gustavo Barbosa](https://github.com/gusbdev)
+
   - [eagleanurag](https://github.com/eagleanurag)
   
   - [Aravind V. Nair](https://github.com/aravindvnair99)
@@ -345,7 +357,6 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
   - [Raman Preet Singh](https://github.com/raman08)
   
   - [Hayat Tamboli](https://github.com/hayat-tamboli)
-
 
   
 
