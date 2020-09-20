@@ -338,6 +338,8 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
   
   - [Alessandro Maggio](https://github.com/Tkd-Alex)
   
+  - [Siddharth Gupta](https://github.com/siddg97)
+  
 
 </details>
 
