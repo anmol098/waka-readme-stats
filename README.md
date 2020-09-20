@@ -342,6 +342,8 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
   
   - [Dev-Mehta](https://github.com/Dev-Mehta/)
   
+  - [> EdgyCoder ✌](https://github.com/edgycoder)
+  
 
 </details>
 
