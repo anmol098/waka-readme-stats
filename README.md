@@ -344,6 +344,10 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
   
   - [> EdgyCoder ✌](https://github.com/edgycoder)
   
+  - [> EdgyCoder ✌](https://github.com/edgycoder)
+  
+  - [Korel Kashri](https://github.com/korelkashri)
+  
 
 </details>
 
