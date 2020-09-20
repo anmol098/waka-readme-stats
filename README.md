@@ -348,6 +348,8 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
   
   - [Korel Kashri](https://github.com/korelkashri)
   
+  - [Gustavo Barbosa](https://github.com/gusbdev)
+  
 
 </details>
 
