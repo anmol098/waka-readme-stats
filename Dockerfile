@@ -1,6 +1,4 @@
-FROM nikolaik/python-nodejs:python3.8-nodejs12-alpine
-
-RUN apk update && apk add --no-cache gcc
+FROM nikolaik/python-nodejs:python3.8-nodejs12
 
 # Install dependencies.
 ADD requirements.txt /requirements.txt
