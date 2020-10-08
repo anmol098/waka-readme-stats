@@ -1,4 +1,4 @@
-FROM nikolaik/python-nodejs:latest
+FROM nikolaik/python-nodejs:python3.8-nodejs12
 
 # Install dependencies.
 ADD requirements.txt /requirements.txt
@@ -16,4 +16,3 @@ RUN npm -g config set user root
 RUN npm install -g vega-lite vega-cli canvas
 
 ENTRYPOINT ["python", "/main.py"]
-
