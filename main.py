@@ -508,7 +508,7 @@ if __name__ == '__main__':
         committer = InputGitAuthor('readme-bot', 'readme-bot@example.com')
         if new_readme != rdmd:
             repo.update_file(path=contents.path, message='Updated with Dev Metrics',
-                             content=new_readme, sha=contents.sha, branch='master',
+                             content=new_readme, sha=contents.sha, branch='main',
                              committer=committer)
             print("Readme updated")
     except Exception as e:
