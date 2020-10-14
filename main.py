@@ -369,9 +369,12 @@ def generate_language_per_repo(result):
     most_language_repo = sorted_labels[0]
     for label in sorted_labels:
         percent = round(language_count[label]['count'] / total * 100, 2)
+        extension = " repos"
+        if language_count[label]['count'] == 1:
+            extension = " repo"
         data.append({
             "name": label,
-            "text": str(language_count[label]['count']) + " repos",
+            "text": str(language_count[label]['count']) + extension,
             "percent": percent
         })
 
