@@ -510,9 +510,14 @@ if __name__ == '__main__':
         new_readme = generate_new_readme(stats=waka_stats, readme=rdmd)
         committer = InputGitAuthor('readme-bot', 'readme-bot@example.com')
         if new_readme != rdmd:
-            repo.update_file(path=contents.path, message='Updated with Dev Metrics',
-                             content=new_readme, sha=contents.sha, branch='master',
-                             committer=committer)
+            try:
+                repo.update_file(path=contents.path, message='Updated with Dev Metrics',
+                                 content=new_readme, sha=contents.sha, branch='master',
+                                 committer=committer)
+            except:
+                repo.update_file(path=contents.path, message='Updated with Dev Metrics',
+                                 content=new_readme, sha=contents.sha, branch='main',
+                                 committer=committer)
             print("Readme updated")
     except Exception as e:
         traceback.print_exc()
