@@ -72,6 +72,11 @@ inputs:
     description: "Shows the short facts"
     default: "True"
 
+  DEFAULT_BRANCH:
+    required: false
+    description: "Set the default branch"
+    default: "master"
+
   LOCALE:
     required: false
     description: "Show stats in your own language"

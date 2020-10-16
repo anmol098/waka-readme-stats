@@ -40,6 +40,7 @@ showLanguagePerRepo = os.getenv('INPUT_SHOW_LANGUAGE_PER_REPO')
 showLocChart = os.getenv('INPUT_SHOW_LOC_CHART')
 show_profile_view = os.getenv('INPUT_SHOW_PROFILE_VIEWS')
 show_short_info = os.getenv('INPUT_SHOW_SHORT_INFO')
+default_branch = os.getenv('INPUT_DEFAULT_BRANCH')
 locale = os.getenv('INPUT_LOCALE')
 show_waka_stats = 'y'
 # The GraphQL query to get commit data.
@@ -463,8 +464,11 @@ def get_stats(github):
     if showLocChart.lower() in truthy:
         loc = LinesOfCode(id, username, ghtoken, repositoryList)
         loc.calculateLoc()
+        branch = default_branch.strip(" ")
+        if not branch:
+            branch = "master"
         stats += '**' + translate['Timeline'] + '**\n\n'
-        stats = stats + '![Chart not found](https://github.com/' + username + '/' + username + '/blob/master/charts/bar_graph.png) \n\n'
+        stats = stats + '![Chart not found](https://github.com/' + username + '/' + username + '/blob/' + branch + '/charts/bar_graph.png) \n\n'
 
     return stats
 
