@@ -261,7 +261,7 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
 4. [Pedro Torres](https://github.com/Corfucinas): For Pull Request [#29](https://github.com/anmol098/waka-readme-stats/pull/29)
 5. [Aaron Meese](https://github.com/ajmeese7): For Pull Request [#45](https://github.com/anmol098/waka-readme-stats/pull/45)
 6. [Arnav Jindal](https://github.com/Daggy1234): For Pull Request [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
-7. [Daniel Rowe](https://github.com/DanRowe1): For Pull Request [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
+7. [Daniel Rowe](https://github.com/DanRowe): For Pull Request [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
 
 <details>
 <summary>Special mention for those who are currently making their profile readme more awesome :smile: :tada:</summary>
@@ -332,7 +332,7 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
   
   - [Jude Wilson](https://github.com/mr-winson)
   
-  - [Daniel Rowe](https://github.com/DanRowe1)
+  - [Daniel Rowe](https://github.com/DanRowe)
   
   - [Muhammad Hassan Ahmed](https://github.com/hassan11196)
   
