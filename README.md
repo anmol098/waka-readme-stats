@@ -357,6 +357,10 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
   - [Raman Preet Singh](https://github.com/raman08)
   
   - [Hayat Tamboli](https://github.com/hayat-tamboli)
+  
+  - [Henry Boisdequin](https://github.com/henryboisdequin)
+   
+  - [Raman Preet Singh](https://github.com/raman08)
 
   
 
