@@ -464,7 +464,7 @@ def get_stats(github):
         loc = LinesOfCode(id, username, ghtoken, repositoryList)
         loc.calculateLoc()
         stats += '**' + translate['Timeline'] + '**\n\n'
-        stats = stats + '![Chart not found](https://github.com/' + username + '/' + username + '/blob/master/charts/bar_graph.png) \n\n'
+        stats = stats + '![Chart not found](https://raw.githubusercontent.com/' + username + '/' + username + '/master/charts/bar_graph.png) \n\n'
 
     return stats
 
