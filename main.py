@@ -280,7 +280,7 @@ def generate_commit_list(tz):
         for day in dayOfWeek:
             if day['percent'] > max_element['percent']:
                 max_element = day
-        days_title = translate['I am Most Productive on'] + ' ' + max_element['name']
+        days_title = translate['I am Most Productive on'] % max_element['name']
         string = string + '📅 **' + days_title + '** \n\n' + '```text\n' + make_commit_list(dayOfWeek) + '\n\n```\n'
 
     return string
@@ -378,7 +378,7 @@ def generate_language_per_repo(result):
             "percent": percent
         })
 
-    title = translate['I Mostly Code in'] + ' ' + most_language_repo
+    title = translate['I Mostly Code in'] % most_language_repo
     return '**' + title + '** \n\n' + '```text\n' + make_list(data) + '\n\n```\n'
 
 
@@ -411,10 +411,9 @@ def get_short_info(github):
         data = request.json()
         total = data['years'][0]['total']
         year = data['years'][0]['year']
-        string += '> 🏆 ' + humanize.intcomma(total) + " " + translate[
-            'Contributions in the year'] + " " + year + '\n > \n'
+        string += '> 🏆 ' + translate['Contributions in the year'] % (humanize.intcomma(total), year) + '\n > \n'
 
-    string += '> 📦 ' + disk_usage + " " + translate["Used in GitHub's Storage"] + ' \n > \n'
+    string += '> 📦 ' + translate["Used in GitHub's Storage"] % disk_usage + ' \n > \n'
     is_hireable = user_info.hireable
     public_repo = user_info.public_repos
     private_repo = user_info.owned_private_repos
@@ -425,12 +424,10 @@ def get_short_info(github):
     else:
         string += "> 🚫 " + translate["Not Opted to Hire"] + "\n > \n"
 
-    string += '> 📜 ' + str(public_repo) + " "
-    string += translate['public repositories'] + '\n > \n' if public_repo > 1 else translate[
-                                                                                       'public repository'] + ' \n > \n'
-    string += '> 🔑 ' + str(private_repo) + " "
-    string += translate['private repositories'] + ' \n\n' if private_repo > 1 else translate[
-                                                                                       'private repository'] + ' \n > \n'
+    string += '> 📜 ' + translate['public repositories'] % public_repo + " " + '\n > \n' if public_repo > 1 else translate[
+        'public repository'] % public_repo + ' \n > \n'
+    string += '> 🔑 ' + translate['private repositories'] % private_repo + " " +' \n\n' if private_repo > 1 else translate[
+        'private repository'] % public_repo + ' \n > \n'
 
     return string
 
