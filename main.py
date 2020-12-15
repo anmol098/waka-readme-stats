@@ -425,9 +425,9 @@ def get_short_info(github):
         string += "> 🚫 " + translate["Not Opted to Hire"] + "\n > \n"
 
     string += '> 📜 ' 
-    string += translate['public repositories'] % public_repo + " " + '\n > \n' if public_repo != 1 else translate['public repositories'] % public_repo + " " + '\n > \n'
+    string += translate['public repositories'] % public_repo + " " + '\n > \n' if public_repo != 1 else translate['public repository'] % public_repo + " " + '\n > \n'
     string += '> 🔑 '
-    string += translate['private repositories'] % private_repo + " " +' \n > \n' if private_repo != 1 else translate['public repositories'] % private_repo + " " + '\n > \n'
+    string += translate['private repositories'] % private_repo + " " +' \n > \n' if private_repo != 1 else translate['public repository'] % private_repo + " " + '\n > \n'
 
     return string
 
