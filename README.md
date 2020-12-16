@@ -86,7 +86,7 @@ on:
   schedule:
     # Runs at 12am IST
     - cron: '30 18 * * *'
-
+  workflow_dispatch:
 jobs:
   update-readme:
     name: Update Readme with Metrics
@@ -97,6 +97,8 @@ jobs:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 ```
+- Now you can commit and wait for run automatically, but you can also trigger to run it to see the result now. Just go to the `Actions` in your repo and select your `Profile Readme Development Stats` workflow and click in `Run workflow`. Now wait for a minute or two and you will see your changes.
+
 ## Extras
 
 1. If you want to add the other info to your stats, you can add multiple `FLAGS` in your workflow file by default all flags are enabled 
