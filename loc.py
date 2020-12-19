@@ -29,23 +29,25 @@ class LinesOfCode:
         for repo in result['data']['user']['repositories']['edges']:
             self.getCommitStat(repo['node'], yearly_data)
             time.sleep(0.7)
+        return yearly_data
+
+    def plotLoc(self, yearly_data):
         graph = BarGraph(yearly_data)
-        graph_file = graph.build_graph()
+        graph.build_graph()
         self.pushChart()
 
-    def run_query_v3(self, nameWithOwner):
-        endPoint = 'https://api.github.com/repos/' + nameWithOwner + '/stats/code_frequency'
+    def run_query_v3(self, endPoint):
         # print(endPoint)
         request = requests.get(endPoint, headers=self.headers)
         if request.status_code == 401:
-            raise Exception("Invalid token {}. {}".format(request.status_code, nameWithOwner))
+            raise Exception("Invalid token {}.".format(request.status_code))
         elif request.status_code == 204:
             return []
         else:
             return request.json()
 
     def getQuarter(self, timeStamp):
-        month = datetime.datetime.fromtimestamp(timeStamp).month
+        month = datetime.datetime.fromisoformat(timeStamp).month
         if month >= 1 and month <= 3:
             return 1
         elif month >= 4 and month <= 6:
@@ -56,13 +58,25 @@ class LinesOfCode:
             return 4
         
     def getCommitStat(self, repoDetails, yearly_data):
-        result = self.run_query_v3(repoDetails['nameWithOwner'])
+        allCommitsEndPoint = 'https://api.github.com/repos/' + repoDetails['nameWithOwner'] + '/commits'
+        allCommitsResult = self.run_query_v3(allCommitsEndPoint)
+        # This ignores the error message you get when you try to list commits for an empty repository
+        if not type(allCommitsResult) == list:
+            return
         this_year = datetime.datetime.utcnow().year
 
-        for i in range(len(result)):
-            curr_year = datetime.datetime.fromtimestamp(result[i][0]).year
+        for i in range(len(allCommitsResult)):
+            author = allCommitsResult[i]["commit"]["author"]
+            if author["name"] != self.username:
+                continue
+            date = re.search(r'\d+-\d+-\d+', author["date"]).group(0)
+            curr_year = datetime.datetime.fromisoformat(date).year
             # if  curr_year != this_year:
-            quarter = self.getQuarter(result[i][0])
+
+            individualCommitEndPoint = allCommitsResult[i]["url"]
+            individualCommitResult = self.run_query_v3(individualCommitEndPoint)
+
+            quarter = self.getQuarter(date)
             if repoDetails['primaryLanguage'] is not None:
 
                 if curr_year not in yearly_data:
@@ -71,7 +85,7 @@ class LinesOfCode:
                     yearly_data[curr_year][quarter] = {}
                 if repoDetails['primaryLanguage']['name'] not in yearly_data[curr_year][quarter]:
                     yearly_data[curr_year][quarter][repoDetails['primaryLanguage']['name']] = 0
-                yearly_data[curr_year][quarter][repoDetails['primaryLanguage']['name']] += (result[i][1])
+                yearly_data[curr_year][quarter][repoDetails['primaryLanguage']['name']] += individualCommitResult["stats"]["additions"]
 
                 # to find total
 
