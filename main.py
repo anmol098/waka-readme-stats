@@ -383,18 +383,10 @@ def generate_language_per_repo(result):
 
 
 def get_line_of_code():
-    result = run_query(createContributedRepoQuery.substitute(username=username))
-    nodes = result["data"]["user"]["repositoriesContributedTo"]["nodes"]
-    repos = [d for d in nodes if d['isFork'] is False]
-    total_loc = 0
-    for repository in repos:
-        try:
-            time.sleep(0.7)
-            datas = run_v3_api(get_loc_url.substitute(owner=repository["owner"]["login"], repo=repository["name"]))
-            for data in datas:
-                total_loc = total_loc + data[1] - data[2]
-        except Exception as execp:
-            print(execp)
+    repositoryList = run_query(repositoryListQuery.substitute(username=username, id=id))
+    loc = LinesOfCode(id, username, ghtoken, repositoryList)
+    yearly_data = loc.calculateLoc()
+    total_loc = sum([yearly_data[year][quarter][lang] for year in yearly_data for quarter in yearly_data[year] for lang in yearly_data[year][quarter]])
     return humanize.intword(int(total_loc))
 
 
@@ -459,7 +451,8 @@ def get_stats(github):
 
     if showLocChart.lower() in truthy:
         loc = LinesOfCode(id, username, ghtoken, repositoryList)
-        loc.calculateLoc()
+        yearly_data = loc.calculateLoc()
+        loc.plotLoc(yearly_data)
         stats += '**' + translate['Timeline'] + '**\n\n'
         stats = stats + '![Chart not found](https://raw.githubusercontent.com/' + username + '/' + username + '/master/charts/bar_graph.png) \n\n'
 
