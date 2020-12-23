@@ -56,24 +56,23 @@ class LinesOfCode:
             return 3
         elif month >= 10 and month <= 12:
             return 4
-        
+
     def getCommitStat(self, repoDetails, yearly_data):
-        allCommitsEndPoint = 'https://api.github.com/repos/' + repoDetails['nameWithOwner'] + '/commits'
-        allCommitsResult = self.run_query_v3(allCommitsEndPoint)
+        commitsURL = 'https://api.github.com/repos/' + repoDetails['nameWithOwner'] + '/commits'
+        filteredCommitsEndPoint = commitsURL + '?author=' + self.username
+        filteredCommitsResult = self.run_query_v3(filteredCommitsEndPoint)
         # This ignores the error message you get when you try to list commits for an empty repository
-        if not type(allCommitsResult) == list:
+        if not type(filteredCommitsResult) == list:
             return
         this_year = datetime.datetime.utcnow().year
 
-        for i in range(len(allCommitsResult)):
-            author = allCommitsResult[i]["commit"]["author"]
-            if author["name"] != self.username:
-                continue
-            date = re.search(r'\d+-\d+-\d+', author["date"]).group(0)
+        for i in range(len(filteredCommitsResult)):
+            iso_date = filteredCommitsResult[i]["commit"]["author"]["date"]
+            date = re.search(r'\d+-\d+-\d+', iso_date).group(0)
             curr_year = datetime.datetime.fromisoformat(date).year
             # if  curr_year != this_year:
 
-            individualCommitEndPoint = allCommitsResult[i]["url"]
+            individualCommitEndPoint = commitsURL + '/' + filteredCommitsResult[i]["sha"]
             individualCommitResult = self.run_query_v3(individualCommitEndPoint)
 
             quarter = self.getQuarter(date)
