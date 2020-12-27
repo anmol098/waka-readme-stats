@@ -454,7 +454,12 @@ def get_stats(github):
         yearly_data = loc.calculateLoc()
         loc.plotLoc(yearly_data)
         stats += '**' + translate['Timeline'] + '**\n\n'
-        stats = stats + '![Chart not found](https://raw.githubusercontent.com/' + username + '/' + username + '/master/charts/bar_graph.png) \n\n'
+        try:
+            github.get_repo(f'{username}/{username}').get_branch('main')
+            branch_name = 'main'
+        except GithubException:
+            branch_name = 'master'
+        stats = stats + '![Chart not found](https://raw.githubusercontent.com/' + username + '/' + username + '/' + branch_name + '/charts/bar_graph.png) \n\n'
 
     return stats
 
