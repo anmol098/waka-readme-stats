@@ -498,7 +498,7 @@ if __name__ == '__main__':
         star_me()
         rdmd = decode_readme(contents.content)
         new_readme = generate_new_readme(stats=waka_stats, readme=rdmd)
-        committer = InputGitAuthor('readme-bot', 'readme-bot@example.com')
+        committer = InputGitAuthor('readme-bot', '41898282+github-actions[bot]@users.noreply.github.com')
         if new_readme != rdmd:
             try:
                 repo.update_file(path=contents.path, message='Updated with Dev Metrics',
