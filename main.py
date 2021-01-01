@@ -455,7 +455,7 @@ def render_image(url, text):
 def get_stats(github):
     '''Gets API data and returns markdown progress'''
 
-    stats = ''
+    stats = '<div class="waka-stats">'
     repositoryList = run_query(repositoryListQuery.substitute(username=username, id=id))
 
     if show_profile_view.lower() in truthy:
@@ -489,7 +489,7 @@ def get_stats(github):
         url = f'https://raw.githubusercontent.com/{username}/{username}/master/charts/bar_graph.png'
         stats += render_image(text, url)
 
-    return stats
+    return stats + '</div>'
 
 
 def star_me():
