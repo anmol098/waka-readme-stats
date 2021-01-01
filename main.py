@@ -28,6 +28,7 @@ listReg = f"{START_COMMENT}[\\s\\S]+{END_COMMENT}"
 
 waka_key = os.getenv('INPUT_WAKATIME_API_KEY')
 ghtoken = os.getenv('INPUT_GH_TOKEN')
+renderHTML = os.getenv('INPUT_RENDER_HTML')
 showTimeZone = os.getenv('INPUT_SHOW_TIMEZONE')
 showProjects = os.getenv('INPUT_SHOW_PROJECTS')
 showEditors = os.getenv('INPUT_SHOW_EDITORS')
@@ -170,6 +171,17 @@ def make_list(data: list):
         data_list.append(op)
     return ' \n'.join(data_list)
 
+def render_title(logo, title):
+    if renderHTML.lower() in truthy:
+        return f'<strong>{logo}{title}</strong>\n'''
+    else:
+        return f'{logo}**{title}** \n\n'
+
+def render_commit_data(logo, title, day):
+    if renderHTML.lower() in truthy:
+        return f'<pre lang="text">\n{render_title(logo, title)}<code>{make_commit_list(day)}</code>\n</pre>'
+    else:
+        return f'```text\n{render_title(logo, title)}{make_commit_list(day)}\n\n```\n'
 
 def make_commit_list(data: list):
     '''Make List'''
@@ -269,8 +281,7 @@ def generate_commit_list(tz):
          "percent": round((Saturday / sum_week) * 100, 2)},
         {"name": translate['Sunday'], "text": str(Sunday) + " commits", "percent": round((Sunday / sum_week) * 100, 2)},
     ]
-
-    string = string + '**' + title + '** \n\n' + '```text\n' + make_commit_list(one_day) + '\n\n```\n'
+    string += render_commit_data(logo='', title=title, day=one_day)
 
     if show_days_of_week.lower() in truthy:
         max_element = {
@@ -280,11 +291,12 @@ def generate_commit_list(tz):
         for day in dayOfWeek:
             if day['percent'] > max_element['percent']:
                 max_element = day
-        days_title = translate['I am Most Productive on'] % max_element['name']
-        string = string + '📅 **' + days_title + '** \n\n' + '```text\n' + make_commit_list(dayOfWeek) + '\n\n```\n'
+        string = render_commit_data(logo= '📅 ', title=translate['I am Most Productive on'] % max_element['name'], day=dayOfWeek)
 
     return string
 
+def render_stats(logo, heading, data, has_newline=True):
+    return f'{logo} {heading}: ' + '\n' if has_newline in truthy else '' + f'{data}\n\n'
 
 def get_waka_time_stats():
     stats = ''
@@ -299,14 +311,14 @@ def get_waka_time_stats():
         data = request.json()
         if showCommit.lower() in truthy:
             empty = False
-            stats = stats + generate_commit_list(tz=data['data']['timezone']) + '\n\n'
+            stats += generate_commit_list(tz=data['data']['timezone']) + '\n\n'
 
-        stats += '📊 **' + translate['This Week I Spend My Time On'] + '** \n\n'
-        stats += '```text\n'
+        stats += render_title(logo='📊 ', title=translate['This Week I Spend My Time On'])
+
         if showTimeZone.lower() in truthy:
             empty = False
             tzone = data['data']['timezone']
-            stats = stats + '⌚︎ ' + translate['Timezone'] + ': ' + tzone + '\n\n'
+            stats += render_stats(logo='⌚︎ ', heading=translate['Timezone'], data=tzone, has_newline=False)
 
         if showLanguage.lower() in truthy:
             empty = False
@@ -314,7 +326,7 @@ def get_waka_time_stats():
                 lang_list = no_activity
             else:
                 lang_list = make_list(data['data']['languages'])
-            stats = stats + '💬 ' + translate['Languages'] + ': \n' + lang_list + '\n\n'
+            stats += render_stats(logo='💬︎ ', heading=translate['Languages'], data=lang_list)
 
         if showEditors.lower() in truthy:
             empty = False
@@ -322,7 +334,7 @@ def get_waka_time_stats():
                 edit_list = no_activity
             else:
                 edit_list = make_list(data['data']['editors'])
-            stats = stats + '🔥 ' + translate['Editors'] + ': \n' + edit_list + '\n\n'
+            stats += render_stats(logo='🔥 ', heading=translate['Editors'], data=edit_list)
 
         if showProjects.lower() in truthy:
             empty = False
@@ -332,7 +344,7 @@ def get_waka_time_stats():
                 # Re-order the project list by percentage
                 data['data']['projects'] = sorted(data['data']['projects'], key=lambda x: x["percent"], reverse=True)
                 project_list = make_list(data['data']['projects'])
-            stats = stats + '🐱‍💻 ' + translate['Projects'] + ': \n' + project_list + '\n\n'
+            stats += render_stats(logo='🐱‍‍💻  ', heading=translate['Projects'], data=project_list)
 
         if showOs.lower() in truthy:
             empty = False
@@ -340,9 +352,9 @@ def get_waka_time_stats():
                 os_list = no_activity
             else:
                 os_list = make_list(data['data']['operating_systems'])
-            stats = stats + '💻 ' + translate['operating system'] + ': \n' + os_list + '\n\n'
+            stats += render_stats(logo='‍‍💻  ', heading=translate['operating_system'], data=os_list)
 
-        stats += '```\n\n'
+        stats += '```\n\n' if renderHTML.lower() in truthy else '</code></pre>'
         if empty:
             return ""
     return stats
@@ -378,8 +390,8 @@ def generate_language_per_repo(result):
             "percent": percent
         })
 
-    title = translate['I Mostly Code in'] % most_language_repo
-    return '**' + title + '** \n\n' + '```text\n' + make_list(data) + '\n\n```\n'
+    render_repo_data = render_commit_data
+    return render_repo_data(logo='', title=translate['I Mostly Code in'] % most_language_repo, day=make_list(data))
 
 
 def get_line_of_code():
@@ -390,8 +402,16 @@ def get_line_of_code():
     return humanize.intword(int(total_loc))
 
 
+def render_list_item(logo, description):
+    if renderHTML.lower() in truthy:
+        return f'<li>{logo}{description}\n'
+    else:
+        return f'> {logo} {description}\n > \n'
+
 def get_short_info(github):
-    string = '**🐱 ' + translate['My GitHub Data'] + '** \n\n'
+    string = render_title(logo='🐱 ', title=translate['My GitHub data'])
+    if renderHTML.lower() in truthy:
+        string += '<ul>\n'
     user_info = github.get_user()
     if user_info.disk_usage is None:
         disk_usage = humanize.naturalsize(0)
@@ -403,25 +423,33 @@ def get_short_info(github):
         data = request.json()
         total = data['years'][0]['total']
         year = data['years'][0]['year']
-        string += '> 🏆 ' + translate['Contributions in the year'] % (humanize.intcomma(total), year) + '\n > \n'
+        string += render_list_item(logo='🏆 ', description=translate['Contributions in the year']% (humanize.intcomma(total), year))
 
-    string += '> 📦 ' + translate["Used in GitHub's Storage"] % disk_usage + ' \n > \n'
+    string += render_list_item(logo='📦 ', description=translate["Used in GitHub's Storage"] % disk_usage)
     is_hireable = user_info.hireable
     public_repo = user_info.public_repos
     private_repo = user_info.owned_private_repos
     if private_repo is None:
         private_repo = 0
     if is_hireable:
-        string += "> 💼 " + translate["Opted to Hire"] + "\n > \n"
+        string += render_list_item(logo='💼 ', description=translate["Opted to Hire"])
     else:
-        string += "> 🚫 " + translate["Not Opted to Hire"] + "\n > \n"
+        string += render_list_item(logo='🚫 ', description=translate["Opted to Hire"])
 
-    string += '> 📜 ' 
-    string += translate['public repositories'] % public_repo + " " + '\n > \n' if public_repo != 1 else translate['public repository'] % public_repo + " " + '\n > \n'
-    string += '> 🔑 '
-    string += translate['private repositories'] % private_repo + " " +' \n > \n' if private_repo != 1 else translate['private repository'] % private_repo + " " + '\n > \n'
+    description = translate['public repositories'] % public_repo + " " + '\n > \n' if public_repo != 1 else translate['public repository'] % public_repo + " " + '\n > \n'
+    string += render_list_item(logo='📜 ', description=description)
 
-    return string
+    description  = translate['private repositories'] % private_repo + " " +' \n > \n' if private_repo != 1 else translate['private repository'] % private_repo + " " + '\n > \n'
+    string += render_list_item(logo='> 🔑 ', description=description)
+    return string + '</ul>'
+
+
+def render_image(url, text):
+    if show_profile_view.lower() in truthy:
+        if renderHTML.lower() in truthy:
+            return f'<img src="{url}" alt="{text}"><br><br>'
+        else:
+            return f'![{text}]({url})\n\n'
 
 
 def get_stats(github):
@@ -432,13 +460,14 @@ def get_stats(github):
 
     if show_profile_view.lower() in truthy:
         data = run_v3_api(get_profile_view.substitute(owner=username, repo=username))
-        stats += '![Profile Views](http://img.shields.io/badge/' + quote(str(translate['Profile Views'])) + '-' + str(
-            data['count']) + '-blue)\n\n'
+        text = 'Profile Views'
+        url = f'http://img.shields.io/badge/{quote(str(translate[text]))}-{str(data["count"])}-blue'
+        stats += render_image(text, url)
 
     if show_loc.lower() in truthy:
-        stats += '![Lines of code](https://img.shields.io/badge/' + quote(
-            str(translate['From Hello World I have written'])) + '-' + quote(
-            str(get_line_of_code())) + '%20' + quote(str(translate['Lines of code'])) + '-blue)\n\n'
+        url = f'https://img.shields.io/badge/{quote(str(translate["From Hello World I have written"]))}-{quote(str(get_line_of_code()))}'
+        f'%20{quote(str(translate["Lines of code"]))}-blue'
+        stats += render_image(text='Lines of code', url=url)
 
     if show_short_info.lower() in truthy:
         stats += get_short_info(github)
@@ -447,14 +476,18 @@ def get_stats(github):
         stats += get_waka_time_stats()
 
     if showLanguagePerRepo.lower() in truthy:
-        stats = stats + generate_language_per_repo(repositoryList) + '\n\n'
+        stats += generate_language_per_repo(repositoryList) + '\n\n'
 
     if showLocChart.lower() in truthy:
         loc = LinesOfCode(id, username, ghtoken, repositoryList)
         yearly_data = loc.calculateLoc()
         loc.plotLoc(yearly_data)
-        stats += '**' + translate['Timeline'] + '**\n\n'
-        stats = stats + '![Chart not found](https://raw.githubusercontent.com/' + username + '/' + username + '/master/charts/bar_graph.png) \n\n'
+        logo = ''
+        title = translate['Timeline']
+        stats += render_title(logo, title)
+        text = 'Chart not found'
+        url = f'https://raw.githubusercontent.com/{username}/{username}/master/charts/bar_graph.png'
+        stats += render_image(text, url)
 
     return stats
 
