@@ -171,17 +171,20 @@ def make_list(data: list):
         data_list.append(op)
     return ' \n'.join(data_list)
 
+
 def render_title(logo, title):
     if renderHTML.lower() in truthy:
         return f'<strong>{logo}{title}</strong>\n'''
     else:
         return f'{logo}**{title}** \n\n'
 
-def render_commit_data(logo, title, day):
+
+def render_commit_data(logo, title, data):
     if renderHTML.lower() in truthy:
-        return f'<pre lang="text">\n{render_title(logo, title)}<code>{make_commit_list(day)}</code>\n</pre>'
+        return f'<pre lang="text">\n{render_title(logo, title)}<code>{data}</code>\n</pre>'
     else:
-        return f'```text\n{render_title(logo, title)}{make_commit_list(day)}\n\n```\n'
+        return f'```text\n{render_title(logo, title)}{data}\n\n```\n'
+
 
 def make_commit_list(data: list):
     '''Make List'''
@@ -281,7 +284,7 @@ def generate_commit_list(tz):
          "percent": round((Saturday / sum_week) * 100, 2)},
         {"name": translate['Sunday'], "text": str(Sunday) + " commits", "percent": round((Sunday / sum_week) * 100, 2)},
     ]
-    string += render_commit_data(logo='', title=title, day=one_day)
+    string += render_commit_data(logo='', title=title, data=make_commit_list(one_day))
 
     if show_days_of_week.lower() in truthy:
         max_element = {
@@ -291,12 +294,16 @@ def generate_commit_list(tz):
         for day in dayOfWeek:
             if day['percent'] > max_element['percent']:
                 max_element = day
-        string = render_commit_data(logo= '📅 ', title=translate['I am Most Productive on'] % max_element['name'], day=dayOfWeek)
+        string = render_commit_data(logo= '📅 ', title=translate['I am Most Productive on'] % max_element['name'], data=make_commit_list(dayOfWeek))
 
     return string
 
-def render_stats(logo, heading, data, has_newline=True):
-    return f'{logo} {heading}: ' + '\n' if has_newline in truthy else '' + f'{data}\n\n'
+
+def render_stats(logo, heading, data, has_markup=True):
+    end_char = '\n' if has_markup else ''
+    wrapped_data = f'<code>\n{data}\n</code>\n' if has_markup else f'{data}\n\n'
+    return f'{logo} {heading}: {end_char}{wrapped_data}'
+
 
 def get_waka_time_stats():
     stats = ''
@@ -318,7 +325,7 @@ def get_waka_time_stats():
         if showTimeZone.lower() in truthy:
             empty = False
             tzone = data['data']['timezone']
-            stats += render_stats(logo='⌚︎ ', heading=translate['Timezone'], data=tzone, has_newline=False)
+            stats += render_stats(logo='⌚︎ ', heading=translate['Timezone'], data=tzone, has_markup=False)
 
         if showLanguage.lower() in truthy:
             empty = False
@@ -352,7 +359,7 @@ def get_waka_time_stats():
                 os_list = no_activity
             else:
                 os_list = make_list(data['data']['operating_systems'])
-            stats += render_stats(logo='‍‍💻  ', heading=translate['operating_system'], data=os_list)
+            stats += render_stats(logo='‍‍💻  ', heading=translate['operating system'], data=os_list)
 
         stats += '```\n\n' if renderHTML.lower() in truthy else '</code></pre>'
         if empty:
@@ -391,7 +398,7 @@ def generate_language_per_repo(result):
         })
 
     render_repo_data = render_commit_data
-    return render_repo_data(logo='', title=translate['I Mostly Code in'] % most_language_repo, day=make_list(data))
+    return render_repo_data(logo='', title=translate['I Mostly Code in'] % most_language_repo, data=make_list(data))
 
 
 def get_line_of_code():
@@ -408,8 +415,9 @@ def render_list_item(logo, description):
     else:
         return f'> {logo} {description}\n > \n'
 
+
 def get_short_info(github):
-    string = render_title(logo='🐱 ', title=translate['My GitHub data'])
+    string = render_title(logo='🐱 ', title=translate['My GitHub Data'])
     if renderHTML.lower() in truthy:
         string += '<ul>\n'
     user_info = github.get_user()
@@ -436,11 +444,11 @@ def get_short_info(github):
     else:
         string += render_list_item(logo='🚫 ', description=translate["Opted to Hire"])
 
-    description = translate['public repositories'] % public_repo + " " + '\n > \n' if public_repo != 1 else translate['public repository'] % public_repo + " " + '\n > \n'
+    description = translate['public repositories'] % public_repo if public_repo != 1 else translate['public repository'] % private_repo
     string += render_list_item(logo='📜 ', description=description)
 
-    description  = translate['private repositories'] % private_repo + " " +' \n > \n' if private_repo != 1 else translate['private repository'] % private_repo + " " + '\n > \n'
-    string += render_list_item(logo='> 🔑 ', description=description)
+    description = translate['private repositories'] % private_repo if private_repo != 1 else translate['private repository'] % private_repo
+    string += render_list_item(logo='🔑 ', description=description)
     return string + '</ul>'
 
 
