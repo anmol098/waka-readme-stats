@@ -453,11 +453,10 @@ def get_short_info(github):
 
 
 def render_image(url, text):
-    if show_profile_view.lower() in truthy:
-        if renderHTML.lower() in truthy:
-            return f'<img src="{url}" alt="{text}"><br><br>'
-        else:
-            return f'![{text}]({url})\n\n'
+    if renderHTML.lower() in truthy:
+        return f'<img src="{url}" alt="{text}"><br><br>'
+    else:
+        return f'![{text}]({url})\n\n'
 
 
 def get_stats(github):
