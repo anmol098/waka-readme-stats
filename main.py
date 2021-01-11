@@ -301,8 +301,7 @@ def generate_commit_list(tz):
 
 def render_stats(logo, heading, data, has_markup=True):
     end_char = '\n' if has_markup else ''
-    wrapped_data = f'<code>\n{data}\n</code>\n' if has_markup else f'{data}\n\n'
-    return f'{logo} {heading}: {end_char}{wrapped_data}'
+    return f'{logo} {heading}: {end_char}{data}'
 
 
 def get_waka_time_stats():
@@ -320,7 +319,9 @@ def get_waka_time_stats():
             empty = False
             stats += generate_commit_list(tz=data['data']['timezone']) + '\n\n'
 
+        stats += '<pre lang="text">' if renderHTML.lower() in truthy else ''
         stats += render_title(logo='📊 ', title=translate['This Week I Spend My Time On'])
+        stats += '<code>' if renderHTML.lower() in truthy else ''
 
         if showTimeZone.lower() in truthy:
             empty = False
@@ -360,8 +361,7 @@ def get_waka_time_stats():
             else:
                 os_list = make_list(data['data']['operating_systems'])
             stats += render_stats(logo='‍‍💻  ', heading=translate['operating system'], data=os_list)
-
-        stats += '```\n\n' if renderHTML.lower() in truthy else '</code></pre>'
+        stats += '</code></pre>' if renderHTML.lower() in truthy else '```\n\n'
         if empty:
             return ""
     return stats
