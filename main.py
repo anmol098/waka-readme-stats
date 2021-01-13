@@ -472,7 +472,7 @@ def get_stats(github):
         stats += render_image(text, url)
 
     if show_loc.lower() in truthy:
-        url = f'https://img.shields.io/badge/{quote(str(translate["From Hello World I have written"]))}-{quote(str(get_line_of_code()))}'
+        url = f'https://img.shields.io/badge/{quote(str(translate["From Hello World I have written"]))}-{quote(str(get_line_of_code()))}' + 
         f'%20{quote(str(translate["Lines of code"]))}-blue'
         stats += render_image(text='Lines of code', url=url)
 
