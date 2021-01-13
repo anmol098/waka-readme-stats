@@ -472,8 +472,7 @@ def get_stats(github):
         stats += render_image(text, url)
 
     if show_loc.lower() in truthy:
-        url = f'https://img.shields.io/badge/{quote(str(translate["From Hello World I have written"]))}-{quote(str(get_line_of_code()))}' + 
-        f'%20{quote(str(translate["Lines of code"]))}-blue'
+        url = f'https://img.shields.io/badge/{quote(str(translate["From Hello World I have written"]))}-{quote(str(get_line_of_code()))}' + f'%20{quote(str(translate["Lines of code"]))}-blue'
         stats += render_image(text='Lines of code', url=url)
 
     if show_short_info.lower() in truthy:
@@ -489,22 +488,9 @@ def get_stats(github):
         loc = LinesOfCode(id, username, ghtoken, repositoryList)
         yearly_data = loc.calculateLoc()
         loc.plotLoc(yearly_data)
-<<<<<<< HEAD
-        logo = ''
-        title = translate['Timeline']
-        stats += render_title(logo, title)
-        text = 'Chart not found'
-        url = f'https://raw.githubusercontent.com/{username}/{username}/master/charts/bar_graph.png'
-        stats += render_image(text, url)
-=======
         stats += '**' + translate['Timeline'] + '**\n\n'
-        try:
-            github.get_repo(f'{username}/{username}').get_branch('main')
-            branch_name = 'main'
-        except GithubException:
-            branch_name = 'master'
-        stats = stats + '![Chart not found](https://raw.githubusercontent.com/' + username + '/' + username + '/' + branch_name + '/charts/bar_graph.png) \n\n'
->>>>>>> 96f79dc (Detect main branch)
+        branch_name = github.get_repo(f'{username}/{username}').default_branch
+        stats += '![Chart not found](https://raw.githubusercontent.com/' + username + '/' + username + '/' + branch_name + '/charts/bar_graph.png) \n\n'
 
     return stats + '</div>'
 
