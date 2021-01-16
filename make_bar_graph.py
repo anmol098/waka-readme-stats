@@ -74,8 +74,7 @@ class BarGraph:
         for language in language_df.keys():
             language_df[language] = prep_df(language_df[language], language)
 
-        df = pd.concat(list(language_df.values()))
-
+        df = pd.concat(language_df.values())
 
         chart = alt.Chart(df).mark_bar().encode(
 
