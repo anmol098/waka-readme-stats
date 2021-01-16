@@ -460,8 +460,8 @@ def get_stats(github):
     return stats
 
 
-def star_me():
-    requests.put("https://api.github.com/user/starred/anmol098/waka-readme-stats", headers=headers)
+# def star_me():
+    # requests.put("https://api.github.com/user/starred/anmol098/waka-readme-stats", headers=headers)
     
 
 def decode_readme(data: str):
@@ -496,7 +496,7 @@ if __name__ == '__main__':
             print("Cannot find the Locale choosing default to english")
             translate = data['en']
         waka_stats = get_stats(g)
-        star_me()
+        # star_me()
         rdmd = decode_readme(contents.content)
         new_readme = generate_new_readme(stats=waka_stats, readme=rdmd)
         committer = InputGitAuthor('readme-bot', '41898282+github-actions[bot]@users.noreply.github.com')
