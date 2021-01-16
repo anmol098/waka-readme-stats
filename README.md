@@ -364,6 +364,10 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
   - [Henry Boisdequin](https://github.com/henryboisdequin)
    
   - [Raman Preet Singh](https://github.com/raman08)
+  
+  - [Aadit Kamat](https://github.com/aaditkamat)
+    
+  - [Subhalingam D](https://github.com/subhalingamd)
 
   
 
