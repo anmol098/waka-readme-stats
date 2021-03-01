@@ -13,6 +13,8 @@ ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 
 RUN npm -g config set user root
 
+RUN npm install -g vega@^5.19.1 
+
 RUN npm install -g vega-lite vega-cli canvas
 
 ENTRYPOINT ["python", "/main.py"]
