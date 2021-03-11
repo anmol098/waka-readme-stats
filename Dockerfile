@@ -7,7 +7,7 @@ ADD make_bar_graph.py /make_bar_graph.py
 ADD colors.json /colors.json
 ADD translation.json /translation.json
 
-ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
+ENV PATH "$PATH:/home/root/.npm-global/bin"
 
 RUN pip install -r requirements.txt
 RUN npm -g config set user root
