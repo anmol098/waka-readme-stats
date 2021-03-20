@@ -17,7 +17,7 @@ filelock==3.0.12
 gitdb==4.0.5
 GitPython==3.1.7
 idna==2.10
-Jinja2==2.11.2
+Jinja2==2.11.3
 jsonschema==3.2.0
 kiwisolver==1.2.0
 lizard==1.17.4
