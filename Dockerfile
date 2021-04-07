@@ -1,4 +1,4 @@
-FROM nikolaik/python-nodejs:python3.8-nodejs15
+FROM nikolaik/python-nodejs:python3.8-nodejs15-slim
 
 ADD requirements.txt /requirements.txt
 ADD main.py /main.py
