@@ -7,6 +7,7 @@ ADD make_bar_graph.py /make_bar_graph.py
 ADD colors.json /colors.json
 ADD translation.json /translation.json
 
+ENV FONTCONFIG_PATH "/etc/fonts"
 ENV PATH "$PATH:/home/root/.npm-global/bin"
 
 RUN python -m pip install --upgrade pip wheel setuptools
