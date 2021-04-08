@@ -241,7 +241,8 @@ def generate_commit_list(tz):
                 if weekday == "Sunday":
                     Sunday += 1
         except Exception as ex:
-            print("Please Ignore this exception " + str(ex))
+            if str(ex) != "'NoneType' object is not subscriptable":
+                print("Exception occurred " + str(ex))
 
     sumAll = morning + daytime + evening + night
     sum_week = Sunday + Monday + Tuesday + Friday + Saturday + Wednesday + Thursday
@@ -416,7 +417,7 @@ def get_short_info(github):
     else:
         string += "> 🚫 " + translate["Not Opted to Hire"] + "\n > \n"
 
-    string += '> 📜 ' 
+    string += '> 📜 '
     string += translate['public repositories'] % public_repo + " " + '\n > \n' if public_repo != 1 else translate['public repository'] % public_repo + " " + '\n > \n'
     string += '> 🔑 '
     string += translate['private repositories'] % private_repo + " " +' \n > \n' if private_repo != 1 else translate['private repository'] % private_repo + " " + '\n > \n'
@@ -462,7 +463,7 @@ def get_stats(github):
 
 # def star_me():
     # requests.put("https://api.github.com/user/starred/anmol098/waka-readme-stats", headers=headers)
-    
+
 
 def decode_readme(data: str):
     '''Decode the contents of old readme'''
