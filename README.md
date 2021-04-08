@@ -119,6 +119,7 @@ jobs:
 
 `LOCALE`  This Flag can be used to show stats in your language default is english uses Locale [Short Hand](https://saimana.com/list-of-country-locale-code/) to be passed in the flag variable example of the final result can be found [here](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)
 
+`COMMIT_BY_ME`        flag can be set to `True` to commit the code using your name and email
 
 `SHOW_LINES_OF_CODE`       flag can be set to `True` to show the Lines of code writen till date
 
