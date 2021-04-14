@@ -369,6 +369,8 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
   - [Aadit Kamat](https://github.com/aaditkamat)
     
   - [Subhalingam D](https://github.com/subhalingamd)
+  
+  - [Isaac Maldonado](https://github.com/einjunge99)
 
   
 
