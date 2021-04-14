@@ -77,6 +77,10 @@ inputs:
     description: "Show stats in your own language"
     default: "en"
 
+  COMMIT_BY_ME:
+    required: false
+    description: "Git commit with your own name and email"
+    default: "False"
 
 runs:
   using: 'docker'
