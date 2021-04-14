@@ -373,6 +373,8 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
   - [Adil Akhmetov](https://github.com/weeebdev)
   
   - [Isaac Maldonado](https://github.com/einjunge99)
+  
+  - [Syed Faateh Sultan Kazmi](https://github.com/faatehsultan)
 
   
 
