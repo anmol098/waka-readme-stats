@@ -488,7 +488,7 @@ if __name__ == '__main__':
         username = user_data["data"]["viewer"]["login"]
         email = user_data["data"]["viewer"]["email"]
         id = user_data["data"]["viewer"]["id"]
-        print("Username " + username + ", Email " + email)
+        print("Username " + username)
         repo = g.get_repo(f"{username}/{username}")
         contents = repo.get_readme()
         try:
