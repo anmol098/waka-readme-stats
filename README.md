@@ -370,6 +370,8 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
     
   - [Subhalingam D](https://github.com/subhalingamd)
   
+  - [Adil Akhmetov](https://github.com/weeebdev)
+  
   - [Isaac Maldonado](https://github.com/einjunge99)
 
   
