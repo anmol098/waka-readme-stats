@@ -42,6 +42,7 @@ show_profile_view = os.getenv('INPUT_SHOW_PROFILE_VIEWS')
 show_short_info = os.getenv('INPUT_SHOW_SHORT_INFO')
 locale = os.getenv('INPUT_LOCALE')
 commit_by_me = os.getenv('INPUT_COMMIT_BY_ME')
+ignored_repos_name = str(os.getenv('INPUT_IGNORED_REPOS') or '').replace(' ', '').split(',')
 show_waka_stats = 'y'
 # The GraphQL query to get commit data.
 userInfoQuery = """
@@ -387,7 +388,7 @@ def generate_language_per_repo(result):
 
 def get_line_of_code():
     repositoryList = run_query(repositoryListQuery.substitute(username=username, id=id))
-    loc = LinesOfCode(id, username, ghtoken, repositoryList)
+    loc = LinesOfCode(id, username, ghtoken, repositoryList, ignored_repos_name)
     yearly_data = loc.calculateLoc()
     total_loc = sum([yearly_data[year][quarter][lang] for year in yearly_data for quarter in yearly_data[year] for lang in yearly_data[year][quarter]])
     return humanize.intword(int(total_loc))
@@ -453,7 +454,7 @@ def get_stats(github):
         stats = stats + generate_language_per_repo(repositoryList) + '\n\n'
 
     if showLocChart.lower() in truthy:
-        loc = LinesOfCode(id, username, ghtoken, repositoryList)
+        loc = LinesOfCode(id, username, ghtoken, repositoryList, ignored_repos_name)
         yearly_data = loc.calculateLoc()
         loc.plotLoc(yearly_data)
         stats += '**' + translate['Timeline'] + '**\n\n'

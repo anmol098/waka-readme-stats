@@ -82,6 +82,11 @@ inputs:
     description: "Git commit with your own name and email"
     default: "False"
 
+  IGNORED_REPOS:
+    required: false
+    description: "Repos you don't want to be counted"
+    default: ""
+
 runs:
   using: 'docker'
   image: 'Dockerfile'
