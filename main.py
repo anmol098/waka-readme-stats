@@ -454,7 +454,7 @@ def get_stats(github):
         stats = stats + generate_language_per_repo(repositoryList) + '\n\n'
 
     if showLocChart.lower() in truthy:
-        lloc = LinesOfCode(id, username, ghtoken, repositoryList, ignored_repos_name)
+        loc = LinesOfCode(id, username, ghtoken, repositoryList, ignored_repos_name)
         yearly_data = loc.calculateLoc()
         loc.plotLoc(yearly_data)
         stats += '**' + translate['Timeline'] + '**\n\n'
