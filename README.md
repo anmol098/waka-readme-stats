@@ -233,6 +233,8 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 
 `SHOW_LOC_CHART`  flag can be set to `False` to hide the Lines of code written in different quarters of different year
 
+`IGNORED_REPOS`  flag can be set to `"waka-readme-stats, my-first-repo"` (just an example) to ignore some repos you don’t want to be counted
+
 **Timeline**
 
 ![Chart not found](https://raw.githubusercontent.com/anmol098/anmol098/master/charts/bar_graph.png) 
