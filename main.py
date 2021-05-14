@@ -70,7 +70,7 @@ createContributedRepoQuery = Template("""query {
 createCommittedDateQuery = Template("""
 query {
     repository(owner: "$owner", name: "$name") {
-      ref(qualifiedName: "master") {
+      defaultBranchRef {
         target {
           ... on Commit {
             history(first: 100, author: { id: "$id" }) {
@@ -212,7 +212,7 @@ def generate_commit_list(tz):
         result = run_query(
             createCommittedDateQuery.substitute(owner=repository["owner"]["login"], name=repository["name"], id=id))
         try:
-            committed_dates = result["data"]["repository"]["ref"]["target"]["history"]["edges"]
+            committed_dates = result["data"]["repository"]["defaultBranchRef"]["target"]["history"]["edges"]
             for committedDate in committed_dates:
                 date = datetime.datetime.strptime(committedDate["node"]["committedDate"],
                                                   "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=pytz.utc).astimezone(
