@@ -3,6 +3,7 @@ FROM nikolaik/python-nodejs:python3.8-nodejs15
 ADD requirements.txt /requirements.txt
 ADD main.py /main.py
 ADD loc.py /loc.py
+ADD utils.py /utils.py
 ADD make_bar_graph.py /make_bar_graph.py
 ADD colors.json /colors.json
 ADD translation.json /translation.json

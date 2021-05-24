@@ -177,6 +177,8 @@ Windows                  8 hrs 46 mins       ███████████�
 
 `SHOW_PROJECTS` flag can be set to `False` to hide the Projects worked on
 
+`IGNORED_REPOS`  flag can be set to `"waka-readme-stats, my-first-repo"` (just an example) to ignore some repos you don’t want to be appear here
+
 ```text
 🐱‍💻 Projects:
 ctx_connector            4 hrs 3 mins        ███████████░░░░░░░░░░░░░░   46.33%
@@ -233,7 +235,7 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 
 `SHOW_LOC_CHART`  flag can be set to `False` to hide the Lines of code written in different quarters of different year
 
-`IGNORED_REPOS`  flag can be set to `"waka-readme-stats, my-first-repo"` (just an example) to ignore some repos you don’t want to be counted
+`IGNORED_REPOS`  flag will also interact here, ignoring projects you don’t want to be counted
 
 **Timeline**
 
