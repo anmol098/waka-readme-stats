@@ -163,8 +163,8 @@ def run_query(query):
 
 def make_graph(percent: float):
     '''Make progress graph from API graph'''
-    done_block = '\u2588'  #  █
-    empty_block = '\u2591'  # ░
+    done_block = '\u25A0'  # ■
+    empty_block = '\u25A8'  # ▨
     pc_rnd = round(percent)
     return f"{done_block * int(pc_rnd / 4)}{empty_block * int(25 - int(pc_rnd / 4))}"
 
