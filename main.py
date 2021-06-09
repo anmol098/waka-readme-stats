@@ -17,6 +17,7 @@ import humanize
 from urllib.parse import quote
 import json
 import sys
+from datetime import date
 
 from dotenv import load_dotenv
 
@@ -390,7 +391,9 @@ def get_line_of_code():
     repositoryList = run_query(repositoryListQuery.substitute(username=username, id=id))
     loc = LinesOfCode(id, username, ghtoken, repositoryList, ignored_repos_name)
     yearly_data = loc.calculateLoc()
-    total_loc = sum([yearly_data[year][quarter][lang] for year in yearly_data for quarter in yearly_data[year] for lang in yearly_data[year][quarter]])
+    total_loc = sum(
+        [yearly_data[year][quarter][lang] for year in yearly_data for quarter in yearly_data[year] for lang in
+         yearly_data[year][quarter]])
     return humanize.intword(int(total_loc))
 
 
@@ -421,9 +424,11 @@ def get_short_info(github):
         string += "> 🚫 " + translate["Not Opted to Hire"] + "\n > \n"
 
     string += '> 📜 '
-    string += translate['public repositories'] % public_repo + " " + '\n > \n' if public_repo != 1 else translate['public repository'] % public_repo + " " + '\n > \n'
+    string += translate['public repositories'] % public_repo + " " + '\n > \n' if public_repo != 1 else translate[
+                                                                                                            'public repository'] % public_repo + " " + '\n > \n'
     string += '> 🔑 '
-    string += translate['private repositories'] % private_repo + " " +' \n > \n' if private_repo != 1 else translate['private repository'] % private_repo + " " + '\n > \n'
+    string += translate['private repositories'] % private_repo + " " + ' \n > \n' if private_repo != 1 else translate[
+                                                                                                                'private repository'] % private_repo + " " + '\n > \n'
 
     return string
 
@@ -460,12 +465,12 @@ def get_stats(github):
         stats += '**' + translate['Timeline'] + '**\n\n'
         branch_name = github.get_repo(f'{username}/{username}').default_branch
         stats = stats + '![Chart not found](https://raw.githubusercontent.com/' + username + '/' + username + '/' + branch_name + '/charts/bar_graph.png) \n\n'
-
+    stats = stats + "\n Last Updated on " + date.today()
     return stats
 
 
 # def star_me():
-    # requests.put("https://api.github.com/user/starred/anmol098/waka-readme-stats", headers=headers)
+# requests.put("https://api.github.com/user/starred/anmol098/waka-readme-stats", headers=headers)
 
 
 def decode_readme(data: str):
