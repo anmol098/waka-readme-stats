@@ -1,25 +1,26 @@
 '''
 Readme Development Metrics With waka time progress
 '''
-import re
-import os
 import base64
-from pytz import timezone
-import pytz
-import requests
-from github import Github, GithubException, InputGitAuthor
 import datetime
-from string import Template
-from loc import LinesOfCode
+import json
+import os
+import re
+import sys
 import time
 import traceback
-import humanize
-from urllib.parse import quote
-import json
-import sys
 from datetime import date
+from string import Template
+from urllib.parse import quote
 
+import humanize
+import pytz
+import requests
 from dotenv import load_dotenv
+from github import Github, GithubException, InputGitAuthor
+from pytz import timezone
+
+from loc import LinesOfCode
 
 load_dotenv()
 
@@ -43,7 +44,9 @@ show_profile_view = os.getenv('INPUT_SHOW_PROFILE_VIEWS')
 show_short_info = os.getenv('INPUT_SHOW_SHORT_INFO')
 locale = os.getenv('INPUT_LOCALE')
 commit_by_me = os.getenv('INPUT_COMMIT_BY_ME')
-ignored_repos_name = str(os.getenv('INPUT_IGNORED_REPOS') or '').replace(' ', '').split(',')
+ignored_repos_name = str(
+    os.getenv('INPUT_IGNORED_REPOS') or '').replace(
+    ' ', '').split(',')
 show_waka_stats = 'y'
 # The GraphQL query to get commit data.
 userInfoQuery = """
@@ -100,9 +103,8 @@ def run_v3_api(query):
     if request.status_code == 200:
         return request.json()
     else:
-        raise Exception(
-            "Query failed to run by returning code of {}. {},... {}".format(request.status_code, query,
-                                                                            str(request.json())))
+        raise Exception("Query failed to run by returning code of {}. {},... {}".format(
+            request.status_code, query, str(request.json())))
 
 
 repositoryListQuery = Template("""
@@ -149,17 +151,20 @@ repositoryListQuery = Template("""
 
 
 def run_query(query):
-    request = requests.post('https://api.github.com/graphql', json={'query': query}, headers=headers)
+    request = requests.post('https://api.github.com/graphql',
+                            json={'query': query}, headers=headers)
     if request.status_code == 200:
         return request.json()
     else:
-        raise Exception("Query failed to run by returning code of {}. {}".format(request.status_code, query))
+        raise Exception(
+            "Query failed to run by returning code of {}. {}".format(
+                request.status_code, query))
 
 
 def make_graph(percent: float):
     '''Make progress graph from API graph'''
-    done_block = '█'
-    empty_block = '░'
+    done_block = '\u2588'  #  █
+    empty_block = '\u2591'  # ░
     pc_rnd = round(percent)
     return f"{done_block * int(pc_rnd / 4)}{empty_block * int(25 - int(pc_rnd / 4))}"
 
@@ -212,12 +217,18 @@ def generate_commit_list(tz):
 
     for repository in repos:
         result = run_query(
-            createCommittedDateQuery.substitute(owner=repository["owner"]["login"], name=repository["name"], id=id))
+            createCommittedDateQuery.substitute(
+                owner=repository["owner"]["login"],
+                name=repository["name"],
+                id=id))
         try:
-            committed_dates = result["data"]["repository"]["defaultBranchRef"]["target"]["history"]["edges"]
+            committed_dates = result["data"]["repository"]["defaultBranchRef"][
+                "target"]["history"]["edges"]
             for committedDate in committed_dates:
-                date = datetime.datetime.strptime(committedDate["node"]["committedDate"],
-                                                  "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=pytz.utc).astimezone(
+                date = datetime.datetime.strptime(
+                    committedDate["node"]["committedDate"],
+                    "%Y-%m-%dT%H:%M:%SZ").replace(
+                    tzinfo=pytz.utc).astimezone(
                     timezone(tz))
                 hour = date.hour
                 weekday = date.strftime('%A')
@@ -250,7 +261,8 @@ def generate_commit_list(tz):
 
     sumAll = morning + daytime + evening + night
     sum_week = Sunday + Monday + Tuesday + Friday + Saturday + Wednesday + Thursday
-    title = translate['I am an Early'] if morning + daytime >= evening + night else translate['I am a Night']
+    title = translate['I am an Early'] if morning + \
+        daytime >= evening + night else translate['I am a Night']
     one_day = [
         {"name": "🌞 " + translate['Morning'], "text": str(morning) + " commits",
          "percent": round((morning / sumAll) * 100, 2)},
@@ -261,21 +273,30 @@ def generate_commit_list(tz):
         {"name": "🌙 " + translate['Night'], "text": str(night) + " commits",
          "percent": round((night / sumAll) * 100, 2)},
     ]
-    dayOfWeek = [
-        {"name": translate['Monday'], "text": str(Monday) + " commits", "percent": round((Monday / sum_week) * 100, 2)},
-        {"name": translate['Tuesday'], "text": str(Tuesday) + " commits",
-         "percent": round((Tuesday / sum_week) * 100, 2)},
-        {"name": translate['Wednesday'], "text": str(Wednesday) + " commits",
-         "percent": round((Wednesday / sum_week) * 100, 2)},
-        {"name": translate['Thursday'], "text": str(Thursday) + " commits",
-         "percent": round((Thursday / sum_week) * 100, 2)},
-        {"name": translate['Friday'], "text": str(Friday) + " commits", "percent": round((Friday / sum_week) * 100, 2)},
-        {"name": translate['Saturday'], "text": str(Saturday) + " commits",
-         "percent": round((Saturday / sum_week) * 100, 2)},
-        {"name": translate['Sunday'], "text": str(Sunday) + " commits", "percent": round((Sunday / sum_week) * 100, 2)},
-    ]
+    dayOfWeek = [{"name": translate['Monday'],
+                  "text": str(Monday) + " commits",
+                  "percent": round((Monday / sum_week) * 100, 2)},
+                 {"name": translate['Tuesday'],
+                  "text": str(Tuesday) + " commits",
+                  "percent": round((Tuesday / sum_week) * 100, 2)},
+                 {"name": translate['Wednesday'],
+                  "text": str(Wednesday) + " commits",
+                  "percent": round((Wednesday / sum_week) * 100, 2)},
+                 {"name": translate['Thursday'],
+                  "text": str(Thursday) + " commits",
+                  "percent": round((Thursday / sum_week) * 100, 2)},
+                 {"name": translate['Friday'],
+                  "text": str(Friday) + " commits",
+                  "percent": round((Friday / sum_week) * 100, 2)},
+                 {"name": translate['Saturday'],
+                  "text": str(Saturday) + " commits",
+                  "percent": round((Saturday / sum_week) * 100, 2)},
+                 {"name": translate['Sunday'],
+                  "text": str(Sunday) + " commits",
+                  "percent": round((Sunday / sum_week) * 100, 2)}, ]
 
-    string = string + '**' + title + '** \n\n' + '```text\n' + make_commit_list(one_day) + '\n\n```\n'
+    string = string + '**' + title + '** \n\n' + \
+        '```text\n' + make_commit_list(one_day) + '\n\n```\n'
 
     if show_days_of_week.lower() in truthy:
         max_element = {
@@ -286,7 +307,8 @@ def generate_commit_list(tz):
             if day['percent'] > max_element['percent']:
                 max_element = day
         days_title = translate['I am Most Productive on'] % max_element['name']
-        string = string + '📅 **' + days_title + '** \n\n' + '```text\n' + make_commit_list(dayOfWeek) + '\n\n```\n'
+        string = string + '📅 **' + days_title + '** \n\n' + \
+            '```text\n' + make_commit_list(dayOfWeek) + '\n\n```\n'
 
     return string
 
@@ -298,7 +320,8 @@ def get_waka_time_stats():
     no_activity = translate["No Activity Tracked This Week"]
 
     if request.status_code == 401:
-        print("Error With WAKA time API returned " + str(request.status_code) + " Response " + str(request.json()))
+        print("Error With WAKA time API returned " + str(request.status_code) +
+              " Response " + str(request.json()))
     else:
         empty = True
         data = request.json()
@@ -335,7 +358,10 @@ def get_waka_time_stats():
                 project_list = no_activity
             else:
                 # Re-order the project list by percentage
-                data['data']['projects'] = sorted(data['data']['projects'], key=lambda x: x["percent"], reverse=True)
+                data['data']['projects'] = sorted(
+                    data['data']['projects'],
+                    key=lambda x: x["percent"],
+                    reverse=True)
                 project_list = make_list(data['data']['projects'])
             stats = stats + '🐱‍💻 ' + translate['Projects'] + ': \n' + project_list + '\n\n'
 
@@ -392,8 +418,9 @@ def get_line_of_code():
     loc = LinesOfCode(id, username, ghtoken, repositoryList, ignored_repos_name)
     yearly_data = loc.calculateLoc()
     total_loc = sum(
-        [yearly_data[year][quarter][lang] for year in yearly_data for quarter in yearly_data[year] for lang in
-         yearly_data[year][quarter]])
+        [yearly_data[year][quarter][lang]
+         for year in yearly_data
+         for quarter in yearly_data[year] for lang in yearly_data[year][quarter]])
     return humanize.intword(int(total_loc))
 
 
@@ -405,12 +432,14 @@ def get_short_info(github):
         print("Please add new github personal access token with user permission")
     else:
         disk_usage = humanize.naturalsize(user_info.disk_usage)
-    request = requests.get('https://github-contributions.now.sh/api/v1/' + user_info.login)
+    request = requests.get(
+        'https://github-contributions.now.sh/api/v1/' + user_info.login)
     if request.status_code == 200:
         data = request.json()
         total = data['years'][0]['total']
         year = data['years'][0]['year']
-        string += '> 🏆 ' + translate['Contributions in the year'] % (humanize.intcomma(total), year) + '\n > \n'
+        string += '> 🏆 ' + translate['Contributions in the year'] % (
+            humanize.intcomma(total), year) + '\n > \n'
 
     string += '> 📦 ' + translate["Used in GitHub's Storage"] % disk_usage + ' \n > \n'
     is_hireable = user_info.hireable
@@ -424,11 +453,11 @@ def get_short_info(github):
         string += "> 🚫 " + translate["Not Opted to Hire"] + "\n > \n"
 
     string += '> 📜 '
-    string += translate['public repositories'] % public_repo + " " + '\n > \n' if public_repo != 1 else translate[
-                                                                                                            'public repository'] % public_repo + " " + '\n > \n'
+    string += translate['public repositories'] % public_repo + " " + \
+        '\n > \n' if public_repo != 1 else translate['public repository'] % public_repo + " " + '\n > \n'
     string += '> 🔑 '
-    string += translate['private repositories'] % private_repo + " " + ' \n > \n' if private_repo != 1 else translate[
-                                                                                                                'private repository'] % private_repo + " " + '\n > \n'
+    string += translate['private repositories'] % private_repo + " " + \
+        ' \n > \n' if private_repo != 1 else translate['private repository'] % private_repo + " " + '\n > \n'
 
     return string
 
@@ -441,8 +470,8 @@ def get_stats(github):
 
     if show_profile_view.lower() in truthy:
         data = run_v3_api(get_profile_view.substitute(owner=username, repo=username))
-        stats += '![Profile Views](http://img.shields.io/badge/' + quote(str(translate['Profile Views'])) + '-' + str(
-            data['count']) + '-blue)\n\n'
+        stats += '![Profile Views](http://img.shields.io/badge/' + quote(
+            str(translate['Profile Views'])) + '-' + str(data['count']) + '-blue)\n\n'
 
     if show_loc.lower() in truthy:
         stats += '![Lines of code](https://img.shields.io/badge/' + quote(
@@ -464,11 +493,12 @@ def get_stats(github):
         loc.plotLoc(yearly_data)
         stats += '**' + translate['Timeline'] + '**\n\n'
         branch_name = github.get_repo(f'{username}/{username}').default_branch
-        stats = stats + '![Chart not found](https://raw.githubusercontent.com/' + username + '/' + username + '/' + branch_name + '/charts/bar_graph.png) \n\n'
+        stats = stats + '![Chart not found](https://raw.githubusercontent.com/' + \
+            username + '/' + username + '/' + branch_name + '/charts/bar_graph.png) \n\n'
     today = date.today()
     d1 = today.strftime("%d/%m/%Y")
     stats = stats + "\n Last Updated on " + d1
-    
+
     return stats
 
 
@@ -515,7 +545,8 @@ if __name__ == '__main__':
         if commit_by_me.lower() in truthy:
             committer = InputGitAuthor(username, email)
         else:
-            committer = InputGitAuthor('readme-bot', '41898282+github-actions[bot]@users.noreply.github.com')
+            committer = InputGitAuthor(
+                'readme-bot', '41898282+github-actions[bot]@users.noreply.github.com')
         if new_readme != rdmd:
             try:
                 repo.update_file(path=contents.path, message='Updated with Dev Metrics',
