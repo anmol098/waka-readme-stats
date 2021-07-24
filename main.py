@@ -170,7 +170,7 @@ def make_list(data: list):
     for l in data[:5]:
         ln = len(l['name'])
         ln_text = len(l['text'])
-        op = f"{l['name'][:25]}{' ' * (25 - ln)}{l['text']}{' ' * (20 - ln_text)}{make_graph(l['percent'])}   {l['percent']}%"
+        op = f"  <tr><td>{l['name'][:25]}</td><td>{l['text']}</td><td>{make_graph(l['percent'])}   {l['percent']}%</td></tr>"
         data_list.append(op)
     return ' \n'.join(data_list)
 
@@ -181,7 +181,7 @@ def make_commit_list(data: list):
     for l in data[:7]:
         ln = len(l['name'])
         ln_text = len(l['text'])
-        op = f"{l['name']}{' ' * (13 - ln)}{l['text']}{' ' * (15 - ln_text)}{make_graph(l['percent'])}   {l['percent']}%"
+        op = f"  <tr><td>{l['name']}</td><td>{l['text']}</td><td>{make_graph(l['percent'])}   {l['percent']}%</td></tr>"
         data_list.append(op)
     return ' \n'.join(data_list)
 
@@ -275,7 +275,7 @@ def generate_commit_list(tz):
         {"name": translate['Sunday'], "text": str(Sunday) + " commits", "percent": round((Sunday / sum_week) * 100, 2)},
     ]
 
-    string = string + '**' + title + '** \n\n' + '```text\n' + make_commit_list(one_day) + '\n\n```\n'
+    string = string + '**' + title + '** \n\n' + '<table>\n' + make_commit_list(one_day) + '\n</table>\n'
 
     if show_days_of_week.lower() in truthy:
         max_element = {
@@ -286,7 +286,7 @@ def generate_commit_list(tz):
             if day['percent'] > max_element['percent']:
                 max_element = day
         days_title = translate['I am Most Productive on'] % max_element['name']
-        string = string + '📅 **' + days_title + '** \n\n' + '```text\n' + make_commit_list(dayOfWeek) + '\n\n```\n'
+        string = string + '\n📅 **' + days_title + '** \n\n' + '<table>\n' + make_commit_list(dayOfWeek) + '\n</table>\n'
 
     return string
 
@@ -304,14 +304,14 @@ def get_waka_time_stats():
         data = request.json()
         if showCommit.lower() in truthy:
             empty = False
-            stats = stats + generate_commit_list(tz=data['data']['timezone']) + '\n\n'
+            stats = stats + generate_commit_list(tz=data['data']['timezone']) + '\n'
 
         stats += '📊 **' + translate['This Week I Spend My Time On'] + '** \n\n'
-        stats += '```text\n'
+        stats += '<table>\n'
         if showTimeZone.lower() in truthy:
             empty = False
             tzone = data['data']['timezone']
-            stats = stats + '⌚︎ ' + translate['Timezone'] + ': ' + tzone + '\n\n'
+            stats = '`⌚︎ ' + translate['Timezone'] + ': ' + tzone + '`\n\n' + stats
 
         if showLanguage.lower() in truthy:
             empty = False
@@ -319,7 +319,7 @@ def get_waka_time_stats():
                 lang_list = no_activity
             else:
                 lang_list = make_list(data['data']['languages'])
-            stats = stats + '💬 ' + translate['Languages'] + ': \n' + lang_list + '\n\n'
+            stats = stats + '<tr><th colspan="3"><br>💬 <i>' + translate['Languages'] + '</i></th></tr> \n' + lang_list + '\n\n'
 
         if showEditors.lower() in truthy:
             empty = False
@@ -327,7 +327,7 @@ def get_waka_time_stats():
                 edit_list = no_activity
             else:
                 edit_list = make_list(data['data']['editors'])
-            stats = stats + '🔥 ' + translate['Editors'] + ': \n' + edit_list + '\n\n'
+            stats = stats + '<tr><th colspan="3"><br>🔥 <i>' + translate['Editors'] + '</i></th></tr> \n' + edit_list + '\n\n'
 
         if showProjects.lower() in truthy:
             empty = False
@@ -337,7 +337,7 @@ def get_waka_time_stats():
                 # Re-order the project list by percentage
                 data['data']['projects'] = sorted(data['data']['projects'], key=lambda x: x["percent"], reverse=True)
                 project_list = make_list(data['data']['projects'])
-            stats = stats + '🐱‍💻 ' + translate['Projects'] + ': \n' + project_list + '\n\n'
+            stats = stats + '<tr><th colspan="3"><br>🐱‍💻 <i>' + translate['Projects'] + '</i></th></tr> \n' + project_list + '\n\n'
 
         if showOs.lower() in truthy:
             empty = False
@@ -345,9 +345,9 @@ def get_waka_time_stats():
                 os_list = no_activity
             else:
                 os_list = make_list(data['data']['operating_systems'])
-            stats = stats + '💻 ' + translate['operating system'] + ': \n' + os_list + '\n\n'
+            stats = stats + '<tr><th colspan="3"><br>💻 <i>' + translate['operating system'] + '</i></th></tr> \n' + os_list + '\n'
 
-        stats += '```\n\n'
+        stats += '</table>\n\n'
         if empty:
             return ""
     return stats
@@ -384,7 +384,7 @@ def generate_language_per_repo(result):
         })
 
     title = translate['I Mostly Code in'] % most_language_repo
-    return '**' + title + '** \n\n' + '```text\n' + make_list(data) + '\n\n```\n'
+    return '**' + title + '** \n\n' + '<table>\n' + make_list(data) + '\n</table>\n'
 
 
 def get_line_of_code():
