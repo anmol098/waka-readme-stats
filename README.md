@@ -268,7 +268,7 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
 5. [Aaron Meese](https://github.com/ajmeese7): For Pull Request [#45](https://github.com/anmol098/waka-readme-stats/pull/45)
 6. [Arnav Jindal](https://github.com/Daggy1234): For Pull Request [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
 7. [Daniel Rowe](https://github.com/DanRowe): For Pull Request [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
-8. [Ss5h](https://github.com/tlatkdgus1): For adding support for natural sentence writing for translatio [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
+8. [Ss5h](https://github.com/tlatkdgus1): For adding support for natural sentence writing for translation [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
 
 <details>
 <summary>Special mention for those who are currently making their profile readme more awesome :smile: :tada:</summary>
