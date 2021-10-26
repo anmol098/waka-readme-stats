@@ -121,6 +121,10 @@ jobs:
 
 `COMMIT_BY_ME`        flag can be set to `True` to commit the code using your name and email
 
+`COMMIT_MESSAGE`        flag can be to set message commit, default is "Updated with Dev Metrics"
+
+`SHOW_UPDATED_DATE`        flag can be set to `True` to show updated date in end of paragraph
+
 `SHOW_LINES_OF_CODE`       flag can be set to `True` to show the Lines of code writen till date
 
 ![Lines of code](https://img.shields.io/badge/From%20Hello%20World%20I've%20written-1.3%20million%20Lines%20of%20code-blue)
