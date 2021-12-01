@@ -18,6 +18,7 @@ from urllib.parse import quote
 import json
 import sys
 from datetime import date
+import math
 
 from dotenv import load_dotenv
 
@@ -148,6 +149,16 @@ repositoryListQuery = Template("""
   }
 }
 """)
+
+def millify(n):
+    millnames = ['', ' Thousand', ' Million', ' Billion', ' Trillion']
+    n = float(n)
+    millidx = max(0, min(len(millnames) - 1,
+                         int(math.floor(0
+                                        if n == 0
+                                        else math.log10(abs(n)) / 3))))
+
+    return '{:.0f}{}'.format(n / 10 ** (3 * millidx), millnames[millidx])
 
 
 def run_query(query):
@@ -402,7 +413,7 @@ def get_line_of_code(yearly_data):
     total_loc = sum(
         [yearly_data[year][quarter][lang] for year in yearly_data for quarter in yearly_data[year] for lang in
          yearly_data[year][quarter]])
-    return humanize.intword(int(total_loc))
+    return millify(int(total_loc))
 
 
 def get_short_info(github):
