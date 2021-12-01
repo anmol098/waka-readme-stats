@@ -383,6 +383,14 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
   
   - [Syed Faateh Sultan Kazmi](https://github.com/faatehsultan)
 
+  - [Shreyam Maity](https://github.com/ShreyamMaity)
+
+  - [Sufiane](https://github.com/sufiane)
+
+  - [Muhammad Bilal](https://github.com/BilalJaved15)
+
+  - [Waterdev](https://github.com/UnrealValentin)
+
   
 
 </details>
