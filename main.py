@@ -500,8 +500,9 @@ if __name__ == '__main__':
         headers = {"Authorization": "Bearer " + ghtoken}
         user_data = run_query(userInfoQuery)  # Execute the query
         username = user_data["data"]["viewer"]["login"]
-        email = user_data["data"]["viewer"]["email"]
         id = user_data["data"]["viewer"]["id"]
+        emails_user = run_v3_api("/user/emails") # Execute the api
+        email = emails_user[0]['email']
         print("Username " + username)
         repo = g.get_repo(f"{username}/{username}")
         contents = repo.get_readme()
