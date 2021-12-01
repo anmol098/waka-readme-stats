@@ -47,6 +47,7 @@ commit_by_me = os.getenv('INPUT_COMMIT_BY_ME')
 ignored_repos_name = str(os.getenv('INPUT_IGNORED_REPOS') or '').replace(' ', '').split(',')
 show_updated_date = os.getenv('INPUT_SHOW_UPDATED_DATE')
 commit_message = os.getenv('INPUT_COMMIT_MESSAGE')
+show_total_code_time = os.getenv('INPUT_SHOW_TOTAL_CODE_TIME')
 show_waka_stats = 'y'
 # The GraphQL query to get commit data.
 userInfoQuery = """
@@ -149,6 +150,7 @@ repositoryListQuery = Template("""
   }
 }
 """)
+
 
 def millify(n):
     millnames = ['', ' Thousand', ' Million', ' Billion', ' Trillion']
@@ -461,6 +463,17 @@ def get_stats(github):
     if (show_loc.lower() or showLocChart.lower()) in truthy:
         # This condition is written to calculate the lines of code because it is heavy process soo needs to be calculate once this will reduce the execution time
         yearly_data = get_yearly_data()
+
+    if show_total_code_time.lower() in truthy:
+        request = requests.get(
+            f"https://wakatime.com/api/v1/users/current/all_time_since_today?api_key={waka_key}")
+        if request.status_code == 401:
+            print("Error With WAKA time API returned " + str(request.status_code) + " Response " + str(request.json()))
+        else:
+            data = request.json()
+            stats += '![Code Time](http://img.shields.io/badge/' + quote(
+                str("Code Time")) + '-' + quote(str(
+                data['data']['text'])) + '-blue)\n\n'
 
     if show_profile_view.lower() in truthy:
         data = run_v3_api(get_profile_view.substitute(owner=username, repo=username))
