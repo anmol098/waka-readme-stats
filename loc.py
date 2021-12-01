@@ -86,7 +86,7 @@ class LinesOfCode:
                     yearly_data[curr_year][quarter] = {}
                 if repoDetails['primaryLanguage']['name'] not in yearly_data[curr_year][quarter]:
                     yearly_data[curr_year][quarter][repoDetails['primaryLanguage']['name']] = 0
-                yearly_data[curr_year][quarter][repoDetails['primaryLanguage']['name']] += individualCommitResult["stats"]["additions"]
+                yearly_data[curr_year][quarter][repoDetails['primaryLanguage']['name']] += (individualCommitResult["stats"]["additions"] - individualCommitResult["stats"]['deletions'])
 
                 # to find total
 

@@ -389,10 +389,16 @@ def generate_language_per_repo(result):
     return '**' + title + '** \n\n' + '```text\n' + make_list(data) + '\n\n```\n'
 
 
-def get_line_of_code():
-    repositoryList = run_query(repositoryListQuery.substitute(username=username, id=id))
-    loc = LinesOfCode(id, username, ghtoken, repositoryList, ignored_repos_name)
+def get_yearly_data():
+    repository_list = run_query(repositoryListQuery.substitute(username=username, id=id))
+    loc = LinesOfCode(id, username, ghtoken, repository_list, ignored_repos_name)
     yearly_data = loc.calculateLoc()
+    if showLocChart.lower() in truthy:
+        loc.plotLoc(yearly_data)
+    return yearly_data
+
+
+def get_line_of_code(yearly_data):
     total_loc = sum(
         [yearly_data[year][quarter][lang] for year in yearly_data for quarter in yearly_data[year] for lang in
          yearly_data[year][quarter]])
@@ -441,6 +447,10 @@ def get_stats(github):
     stats = ''
     repositoryList = run_query(repositoryListQuery.substitute(username=username, id=id))
 
+    if (show_loc.lower() or showLocChart.lower()) in truthy:
+        # This condition is written to calculate the lines of code because it is heavy process soo needs to be calculate once this will reduce the execution time
+        yearly_data = get_yearly_data()
+
     if show_profile_view.lower() in truthy:
         data = run_v3_api(get_profile_view.substitute(owner=username, repo=username))
         stats += '![Profile Views](http://img.shields.io/badge/' + quote(str(translate['Profile Views'])) + '-' + str(
@@ -449,7 +459,7 @@ def get_stats(github):
     if show_loc.lower() in truthy:
         stats += '![Lines of code](https://img.shields.io/badge/' + quote(
             str(translate['From Hello World I have written'])) + '-' + quote(
-            str(get_line_of_code())) + '%20' + quote(str(translate['Lines of code'])) + '-blue)\n\n'
+            str(get_line_of_code(yearly_data))) + '%20' + quote(str(translate['Lines of code'])) + '-blue)\n\n'
 
     if show_short_info.lower() in truthy:
         stats += get_short_info(github)
@@ -461,18 +471,15 @@ def get_stats(github):
         stats = stats + generate_language_per_repo(repositoryList) + '\n\n'
 
     if showLocChart.lower() in truthy:
-        loc = LinesOfCode(id, username, ghtoken, repositoryList, ignored_repos_name)
-        yearly_data = loc.calculateLoc()
-        loc.plotLoc(yearly_data)
         stats += '**' + translate['Timeline'] + '**\n\n'
         branch_name = github.get_repo(f'{username}/{username}').default_branch
         stats = stats + '![Chart not found](https://raw.githubusercontent.com/' + username + '/' + username + '/' + branch_name + '/charts/bar_graph.png) \n\n'
-    
+
     if show_updated_date.lower() in truthy:
         today = date.today()
         d1 = today.strftime("%d/%m/%Y")
         stats = stats + "\n Last Updated on " + d1
-    
+
     return stats
 
 
@@ -494,6 +501,7 @@ def generate_new_readme(stats: str, readme: str):
 
 if __name__ == '__main__':
     try:
+        start_time = datetime.datetime.now().timestamp() * 1000
         if ghtoken is None:
             raise Exception('Token not available')
         g = Github(ghtoken)
@@ -501,7 +509,7 @@ if __name__ == '__main__':
         user_data = run_query(userInfoQuery)  # Execute the query
         username = user_data["data"]["viewer"]["login"]
         id = user_data["data"]["viewer"]["id"]
-        emails_user = run_v3_api("/user/emails") # Execute the api
+        emails_user = run_v3_api("/user/emails")  # Execute the api
         email = emails_user[0]['email']
         print("Username " + username)
         repo = g.get_repo(f"{username}/{username}")
@@ -531,6 +539,8 @@ if __name__ == '__main__':
                                  content=new_readme, sha=contents.sha, branch='main',
                                  committer=committer)
             print("Readme updated")
+        end_time = datetime.datetime.now().timestamp() * 1000
+        print("Program processed in {} miliseconds.".format(round(end_time - start_time, 0)))
     except Exception as e:
         traceback.print_exc()
         print("Exception Occurred " + str(e))
