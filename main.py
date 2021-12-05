@@ -472,6 +472,8 @@ def get_stats(github):
             f"https://wakatime.com/api/v1/users/current/all_time_since_today?api_key={waka_key}")
         if request.status_code == 401:
             print("Error With WAKA time API returned " + str(request.status_code) + " Response " + str(request.json()))
+        elif "text" not in request.json()["data"]:
+            print("User stats are calculating. Try again later.")
         else:
             data = request.json()
             stats += '![Code Time](http://img.shields.io/badge/' + quote(
