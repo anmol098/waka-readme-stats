@@ -411,11 +411,14 @@ def get_yearly_data():
     return yearly_data
 
 
-def get_line_of_code(yearly_data):
+def get_line_of_code():
+    repositoryList = run_query(repositoryListQuery.substitute(username=username, id=id))
+    loc = LinesOfCode(id, username, ghtoken, repositoryList, ignored_repos_name)
+    yearly_data = loc.calculateLoc()
     total_loc = sum(
         [yearly_data[year][quarter][lang] for year in yearly_data for quarter in yearly_data[year] for lang in
          yearly_data[year][quarter]])
-    return millify(int(total_loc))
+    return humanize.intword(int(total_loc))
 
 
 def get_short_info(github):
@@ -483,7 +486,7 @@ def get_stats(github):
     if show_loc.lower() in truthy:
         stats += '![Lines of code](https://img.shields.io/badge/' + quote(
             str(translate['From Hello World I have written'])) + '-' + quote(
-            str(get_line_of_code(yearly_data))) + '%20' + quote(str(translate['Lines of code'])) + '-blue)\n\n'
+            str(get_line_of_code())) + '%20' + quote(str(translate['Lines of code'])) + '-blue)\n\n'
 
     if show_short_info.lower() in truthy:
         stats += get_short_info(github)
