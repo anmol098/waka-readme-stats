@@ -418,7 +418,7 @@ def get_line_of_code():
     total_loc = sum(
         [yearly_data[year][quarter][lang] for year in yearly_data for quarter in yearly_data[year] for lang in
          yearly_data[year][quarter]])
-    return humanize.intword(int(total_loc))
+    return millify(int(total_loc))
 
 
 def get_short_info(github):
