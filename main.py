@@ -462,8 +462,8 @@ def get_stats(github):
 
     stats = ''
     repositoryList = run_query(repositoryListQuery.substitute(username=username, id=id))
-
-    if (show_loc.lower() or showLocChart.lower()) in truthy:
+    
+    if show_loc.lower() in truthy or showLocChart.lower() in truthy:
         # This condition is written to calculate the lines of code because it is heavy process soo needs to be calculate once this will reduce the execution time
         yearly_data = get_yearly_data()
 
