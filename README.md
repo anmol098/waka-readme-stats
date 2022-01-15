@@ -239,6 +239,8 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 
 `IGNORED_REPOS`  flag can be set to `"waka-readme-stats, my-first-repo"` (just an example) to ignore some repos you don’t want to be counted
 
+`WAKATIME_API_URL` flag can be set if you are hosting your own wakatime compliant backend like [wakapi](https://github.com/muety/wakapi). You only have to supply your base url like so `https://wakapi.dev`
+
 **Timeline**
 
 ![Chart not found](https://raw.githubusercontent.com/anmol098/anmol098/master/charts/bar_graph.png) 
