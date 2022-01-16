@@ -99,7 +99,6 @@ get_profile_view = Template("""/repos/$owner/$repo/traffic/views?per=week""")
 get_profile_traffic = Template("""/repos/$owner/$repo/traffic/popular/referrers""")
 truthy = ['true', '1', 't', 'y', 'yes']
 
-exit()
 def run_v3_api(query):
     request = requests.get('https://api.github.com' + query, headers=headers)
     if request.status_code == 200:
