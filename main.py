@@ -505,9 +505,9 @@ def get_stats(github):
         stats = stats + '![Chart not found](https://raw.githubusercontent.com/' + username + '/' + username + '/' + branch_name + '/charts/bar_graph.png) \n\n'
 
     if show_updated_date.lower() in truthy:
-        today = date.today()
-        d1 = today.strftime("%d/%m/%Y")
-        stats = stats + "\n Last Updated on " + d1
+        now = datetime.datetime.utcnow()
+        d1 = now.strftime("%d/%m/%Y %H:%M:%S")
+        stats = stats + "\n Last Updated on " + d1 + " UTC"
 
     return stats
 
