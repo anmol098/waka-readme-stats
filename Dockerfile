@@ -12,6 +12,6 @@ ENV PATH "$PATH:/home/root/.npm-global/bin"
 RUN python -m pip install --upgrade pip wheel setuptools
 RUN pip install -r requirements.txt
 RUN npm -g config set user root
-RUN npm i -g agentkeepalive npm@latest vega vega-lite vega-cli canvas
+RUN npm i -g npm@latest vega vega-lite vega-cli canvas
 
 ENTRYPOINT ["python", "/main.py"]
