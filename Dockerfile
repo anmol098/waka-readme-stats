@@ -1,4 +1,4 @@
-FROM nikolaik/python-nodejs:python3.8-nodejs15
+FROM nikolaik/python-nodejs:python3.9-nodejs16
 
 ADD requirements.txt /requirements.txt
 ADD main.py /main.py
@@ -12,6 +12,7 @@ ENV PATH "$PATH:/home/root/.npm-global/bin"
 RUN python -m pip install --upgrade pip wheel setuptools
 RUN pip install -r requirements.txt
 RUN npm -g config set user root
-RUN npm i -g agentkeepalive npm@latest vega vega-lite vega-cli canvas
+RUN npm i -g npm@latest
+RUN npm i -g vega vega-lite vega-cli canvas
 
 ENTRYPOINT ["python", "/main.py"]
