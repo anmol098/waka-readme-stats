@@ -426,7 +426,6 @@ def get_line_of_code():
          yearly_data[year][quarter]])
     return millify(int(total_loc))
 
-
 def get_short_info(github):
     string = '**🐱 ' + translate['My GitHub Data'] + '** \n\n'
     user_info = github.get_user()
@@ -440,24 +439,30 @@ def get_short_info(github):
         data = request.json()
         total = data['years'][0]['total']
         year = data['years'][0]['year']
-        string += '> 🏆 ' + translate['Contributions in the year'] % (humanize.intcomma(total), year) + '\n > \n'
+        if show_short_info_contributions.lower() in truthy:
+            string += '> 🏆 ' + translate['Contributions in the year'] % (humanize.intcomma(total), year) + '\n > \n'
 
-    string += '> 📦 ' + translate["Used in GitHub's Storage"] % disk_usage + ' \n > \n'
+    if show_short_info_storage.lower() in truthy:
+        string += '> 📦 ' + translate["Used in GitHub's Storage"] % disk_usage + ' \n > \n'
+    
     is_hireable = user_info.hireable
     public_repo = user_info.public_repos
     private_repo = user_info.owned_private_repos
     if private_repo is None:
         private_repo = 0
-    if is_hireable:
-        string += "> 💼 " + translate["Opted to Hire"] + "\n > \n"
-    else:
-        string += "> 🚫 " + translate["Not Opted to Hire"] + "\n > \n"
+    if show_short_info_hire.lower() in truthy:
+        if is_hireable:
+                string += "> 💼 " + translate["Opted to Hire"] + "\n > \n"
+        else:
+            string += "> 🚫 " + translate["Not Opted to Hire"] + "\n > \n"
 
-    string += '> 📜 '
-    string += translate['public repositories'] % public_repo + " " + '\n > \n' if public_repo != 1 else translate[
-                                                                                                            'public repository'] % public_repo + " " + '\n > \n'
-    string += '> 🔑 '
-    string += translate['private repositories'] % private_repo + " " + ' \n > \n' if private_repo != 1 else translate[
+    if show_short_info_public.lower() in truthy:
+        string += '> 📜 '
+        string += translate['public repositories'] % public_repo + " " + '\n > \n' if public_repo != 1 else translate[
+        
+    if show_short_info_private.lower() in truthy:                                                                                                    'public repository'] % public_repo + " " + '\n > \n'
+        string += '> 🔑 '
+        string += translate['private repositories'] % private_repo + " " + ' \n > \n' if private_repo != 1 else translate[
                                                                                                                 'private repository'] % private_repo + " " + '\n > \n'
 
     return string
