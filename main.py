@@ -48,6 +48,12 @@ ignored_repos_name = str(os.getenv('INPUT_IGNORED_REPOS') or '').replace(' ', ''
 show_updated_date = os.getenv('INPUT_SHOW_UPDATED_DATE')
 commit_message = os.getenv('INPUT_COMMIT_MESSAGE')
 show_total_code_time = os.getenv('INPUT_SHOW_TOTAL_CODE_TIME')
+show_short_info_contributions = os.getenv('SHOW_SHORT_INFO_CONTRIBUTIONS')
+show_short_info_storage = os.getenv('SHOW_SHORT_INFO_STORAGE')
+show_short_info_hire = os.getenv('SHOW_SHORT_INFO_HIRE')
+show_short_info_public = os.getenv('SHOW_SHORT_INFO_PUBLIC')
+show_short_info_private = os.getenv('SHOW_SHORT_INFO_PRIVATE')
+
 show_waka_stats = 'y'
 # The GraphQL query to get commit data.
 userInfoQuery = """
