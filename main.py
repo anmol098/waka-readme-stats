@@ -48,6 +48,7 @@ ignored_repos_name = str(os.getenv('INPUT_IGNORED_REPOS') or '').replace(' ', ''
 show_updated_date = os.getenv('INPUT_SHOW_UPDATED_DATE')
 commit_message = os.getenv('INPUT_COMMIT_MESSAGE')
 show_total_code_time = os.getenv('INPUT_SHOW_TOTAL_CODE_TIME')
+symbol_version = os.getenv('INPUT_SYMBOL_VERSION').strip()
 show_waka_stats = 'y'
 # The GraphQL query to get commit data.
 userInfoQuery = """
@@ -173,8 +174,16 @@ def run_query(query):
 
 def make_graph(percent: float):
     '''Make progress graph from API graph'''
-    done_block = '█'
-    empty_block = '░'
+    if (symbol_version == '1'): # version 1
+        done_block = '█'
+        empty_block = '░'
+    elif (symbol_version == '2'): #version 2
+        done_block = '⣿'
+        empty_block = '⣀'
+    else:
+        done_block = '█' #default is version 1
+        empty_block = '░'
+        
     pc_rnd = round(percent)
     return f"{done_block * int(pc_rnd / 4)}{empty_block * int(25 - int(pc_rnd / 4))}"
 
