@@ -180,6 +180,9 @@ def make_graph(percent: float):
     elif (symbol_version == '2'): #version 2
         done_block = '⣿'
         empty_block = '⣀'
+    elif (symbol_version == '3'): # version 3
+        done_block = '⬛'
+        empty_block = '⬜'
     else:
         done_block = '█' #default is version 1
         empty_block = '░'
