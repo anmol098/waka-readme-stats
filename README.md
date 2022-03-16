@@ -250,6 +250,8 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 
 `IGNORED_REPOS`  flag can be set to `"waka-readme-stats, my-first-repo"` (just an example) to ignore some repos you don’t want to be counted
 
+`SYMBOL_VERSION` flag can be set to `1` to use █ & ░; set to `2` to use ⣿ & ⣀ for progress bar (default: `1`)
+
 **Timeline**
 
 ![Chart not found](https://raw.githubusercontent.com/anmol098/anmol098/master/charts/bar_graph.png) 

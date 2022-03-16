@@ -127,6 +127,11 @@ inputs:
     description: "Show private repos in short description"
     default: "False"
 
+  SYMBOL_VERSION:
+    required: false
+    description: "Version of the symbol block and empty of the progress bar"
+    default: "1"
+
 runs:
   using: 'docker'
   image: 'Dockerfile'
