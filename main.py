@@ -517,6 +517,8 @@ def get_stats(github):
             stats += '![Code Time](http://img.shields.io/badge/' + quote(
                 str("Code Time")) + '-' + quote(str(
                     data['data']['text'])) + '-blue)\n\n'
+    else:
+        print("Show total code time is set to false!")
 
     if show_profile_view.lower() in truthy:
         data = run_v3_api(get_profile_view.substitute(
