@@ -329,7 +329,7 @@ def generate_commit_list(tz):
 def get_waka_time_stats():
     stats = ''
     request = requests.get(
-        "https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={waka_key}")
+        f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={waka_key}")
     no_activity = translate["No Activity Tracked This Week"]
 
     if request.status_code == 401:
@@ -506,7 +506,7 @@ def get_stats(github):
 
     if show_total_code_time.lower() in truthy:
         request = requests.get(
-            "https://wakatime.com/api/v1/users/current/all_time_since_today?api_key={waka_key}")
+            f"https://wakatime.com/api/v1/users/current/all_time_since_today?api_key={waka_key}")
         if request.status_code == 401:
             print("Error With WAKA time API returned " +
                   str(request.status_code) + " Response " + str(request.json()))
