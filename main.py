@@ -14,7 +14,10 @@ from loc import LinesOfCode
 import time
 import traceback
 import humanize
-from urllib.parse import quote
+try:
+    from urllib import quote  # Python 2.X
+except ImportError:
+    from urllib.parse import quote  # Python 3+
 import json
 import sys
 from datetime import date
