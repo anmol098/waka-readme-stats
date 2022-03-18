@@ -11,6 +11,7 @@ ENV PATH "$PATH:/home/root/.npm-global/bin"
 
 RUN python -m pip install --upgrade pip wheel setuptools
 RUN pip install -r requirements.txt
+RUN python -m pip install "requests[security]"
 RUN npm -g config set user root
 RUN npm i -g npm@latest
 RUN npm i -g vega vega-lite vega-cli canvas

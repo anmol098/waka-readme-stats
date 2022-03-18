@@ -14,7 +14,10 @@ from loc import LinesOfCode
 import time
 import traceback
 import humanize
-from urllib.parse import quote
+try:
+    from urllib import quote  # Python 2.X
+except ImportError:
+    from urllib.parse import quote  # Python 3+
 import json
 import sys
 from datetime import date
@@ -44,7 +47,8 @@ show_profile_view = os.getenv('INPUT_SHOW_PROFILE_VIEWS')
 show_short_info = os.getenv('INPUT_SHOW_SHORT_INFO')
 locale = os.getenv('INPUT_LOCALE')
 commit_by_me = os.getenv('INPUT_COMMIT_BY_ME')
-ignored_repos_name = str(os.getenv('INPUT_IGNORED_REPOS') or '').replace(' ', '').split(',')
+ignored_repos_name = str(os.getenv('INPUT_IGNORED_REPOS')
+                         or '').replace(' ', '').split(',')
 show_updated_date = os.getenv('INPUT_SHOW_UPDATED_DATE')
 commit_message = os.getenv('INPUT_COMMIT_MESSAGE')
 show_total_code_time = os.getenv('INPUT_SHOW_TOTAL_CODE_TIME')
@@ -96,7 +100,8 @@ query {
 
 get_loc_url = Template("""/repos/$owner/$repo/stats/code_frequency""")
 get_profile_view = Template("""/repos/$owner/$repo/traffic/views?per=week""")
-get_profile_traffic = Template("""/repos/$owner/$repo/traffic/popular/referrers""")
+get_profile_traffic = Template(
+    """/repos/$owner/$repo/traffic/popular/referrers""")
 truthy = ['true', '1', 't', 'y', 'yes']
 
 
@@ -165,28 +170,30 @@ def millify(n):
 
 
 def run_query(query):
-    request = requests.post('https://api.github.com/graphql', json={'query': query}, headers=headers)
+    request = requests.post('https://api.github.com/graphql',
+                            json={'query': query}, headers=headers)
     if request.status_code == 200:
         return request.json()
     else:
-        raise Exception("Query failed to run by returning code of {}. {}".format(request.status_code, query))
+        raise Exception("Query failed to run by returning code of {}. {}".format(
+            request.status_code, query))
 
 
 def make_graph(percent: float):
     '''Make progress graph from API graph'''
-    if (symbol_version == '1'): # version 1
+    if (symbol_version == '1'):  # version 1
         done_block = '█'
         empty_block = '░'
-    elif (symbol_version == '2'): #version 2
+    elif (symbol_version == '2'):  # version 2
         done_block = '⣿'
         empty_block = '⣀'
     elif (symbol_version == '3'): # version 3
         done_block = '⬛'
         empty_block = '⬜'
     else:
-        done_block = '█' #default is version 1
+        done_block = '█'  # default is version 1
         empty_block = '░'
-        
+
     pc_rnd = round(percent)
     return f"{done_block * int(pc_rnd / 4)}{empty_block * int(25 - int(pc_rnd / 4))}"
 
@@ -220,7 +227,8 @@ def generate_commit_list(tz):
     id = result["data"]["viewer"]["id"]
     # print("user {}".format(username))
 
-    result = run_query(createContributedRepoQuery.substitute(username=username))
+    result = run_query(
+        createContributedRepoQuery.substitute(username=username))
     nodes = result["data"]["user"]["repositoriesContributedTo"]["nodes"]
     repos = [d for d in nodes if d['isFork'] is False]
 
@@ -277,7 +285,8 @@ def generate_commit_list(tz):
 
     sumAll = morning + daytime + evening + night
     sum_week = Sunday + Monday + Tuesday + Friday + Saturday + Wednesday + Thursday
-    title = translate['I am an Early'] if morning + daytime >= evening + night else translate['I am a Night']
+    title = translate['I am an Early'] if morning + \
+        daytime >= evening + night else translate['I am a Night']
     one_day = [
         {"name": "🌞 " + translate['Morning'], "text": str(morning) + " commits",
          "percent": round((morning / sumAll) * 100, 2)},
@@ -289,20 +298,24 @@ def generate_commit_list(tz):
          "percent": round((night / sumAll) * 100, 2)},
     ]
     dayOfWeek = [
-        {"name": translate['Monday'], "text": str(Monday) + " commits", "percent": round((Monday / sum_week) * 100, 2)},
+        {"name": translate['Monday'], "text": str(
+            Monday) + " commits", "percent": round((Monday / sum_week) * 100, 2)},
         {"name": translate['Tuesday'], "text": str(Tuesday) + " commits",
          "percent": round((Tuesday / sum_week) * 100, 2)},
         {"name": translate['Wednesday'], "text": str(Wednesday) + " commits",
          "percent": round((Wednesday / sum_week) * 100, 2)},
         {"name": translate['Thursday'], "text": str(Thursday) + " commits",
          "percent": round((Thursday / sum_week) * 100, 2)},
-        {"name": translate['Friday'], "text": str(Friday) + " commits", "percent": round((Friday / sum_week) * 100, 2)},
+        {"name": translate['Friday'], "text": str(
+            Friday) + " commits", "percent": round((Friday / sum_week) * 100, 2)},
         {"name": translate['Saturday'], "text": str(Saturday) + " commits",
          "percent": round((Saturday / sum_week) * 100, 2)},
-        {"name": translate['Sunday'], "text": str(Sunday) + " commits", "percent": round((Sunday / sum_week) * 100, 2)},
+        {"name": translate['Sunday'], "text": str(
+            Sunday) + " commits", "percent": round((Sunday / sum_week) * 100, 2)},
     ]
 
-    string = string + '**' + title + '** \n\n' + '```text\n' + make_commit_list(one_day) + '\n\n```\n'
+    string = string + '**' + title + '** \n\n' + \
+        '```text\n' + make_commit_list(one_day) + '\n\n```\n'
 
     if show_days_of_week.lower() in truthy:
         max_element = {
@@ -313,7 +326,8 @@ def generate_commit_list(tz):
             if day['percent'] > max_element['percent']:
                 max_element = day
         days_title = translate['I am Most Productive on'] % max_element['name']
-        string = string + '📅 **' + days_title + '** \n\n' + '```text\n' + make_commit_list(dayOfWeek) + '\n\n```\n'
+        string = string + '📅 **' + days_title + '** \n\n' + \
+            '```text\n' + make_commit_list(dayOfWeek) + '\n\n```\n'
 
     return string
 
@@ -325,20 +339,23 @@ def get_waka_time_stats():
     no_activity = translate["No Activity Tracked This Week"]
 
     if request.status_code == 401:
-        print("Error With WAKA time API returned " + str(request.status_code) + " Response " + str(request.json()))
+        print("Error With WAKA time API returned " +
+              str(request.status_code) + " Response " + str(request.json()))
     else:
         empty = True
         data = request.json()
         if showCommit.lower() in truthy:
             empty = False
-            stats = stats + generate_commit_list(tz=data['data']['timezone']) + '\n\n'
+            stats = stats + \
+                generate_commit_list(tz=data['data']['timezone']) + '\n\n'
 
         stats += '📊 **' + translate['This Week I Spend My Time On'] + '** \n\n'
         stats += '```text\n'
         if showTimeZone.lower() in truthy:
             empty = False
             tzone = data['data']['timezone']
-            stats = stats + '⌚︎ ' + translate['Timezone'] + ': ' + tzone + '\n\n'
+            stats = stats + '⌚︎ ' + \
+                translate['Timezone'] + ': ' + tzone + '\n\n'
 
         if showLanguage.lower() in truthy:
             empty = False
@@ -346,7 +363,8 @@ def get_waka_time_stats():
                 lang_list = no_activity
             else:
                 lang_list = make_list(data['data']['languages'])
-            stats = stats + '💬 ' + translate['Languages'] + ': \n' + lang_list + '\n\n'
+            stats = stats + '💬 ' + \
+                translate['Languages'] + ': \n' + lang_list + '\n\n'
 
         if showEditors.lower() in truthy:
             empty = False
@@ -354,7 +372,8 @@ def get_waka_time_stats():
                 edit_list = no_activity
             else:
                 edit_list = make_list(data['data']['editors'])
-            stats = stats + '🔥 ' + translate['Editors'] + ': \n' + edit_list + '\n\n'
+            stats = stats + '🔥 ' + \
+                translate['Editors'] + ': \n' + edit_list + '\n\n'
 
         if showProjects.lower() in truthy:
             empty = False
@@ -362,9 +381,11 @@ def get_waka_time_stats():
                 project_list = no_activity
             else:
                 # Re-order the project list by percentage
-                data['data']['projects'] = sorted(data['data']['projects'], key=lambda x: x["percent"], reverse=True)
+                data['data']['projects'] = sorted(
+                    data['data']['projects'], key=lambda x: x["percent"], reverse=True)
                 project_list = make_list(data['data']['projects'])
-            stats = stats + '🐱‍💻 ' + translate['Projects'] + ': \n' + project_list + '\n\n'
+            stats = stats + '🐱‍💻 ' + \
+                translate['Projects'] + ': \n' + project_list + '\n\n'
 
         if showOs.lower() in truthy:
             empty = False
@@ -372,7 +393,8 @@ def get_waka_time_stats():
                 os_list = no_activity
             else:
                 os_list = make_list(data['data']['operating_systems'])
-            stats = stats + '💻 ' + translate['operating system'] + ': \n' + os_list + '\n\n'
+            stats = stats + '💻 ' + \
+                translate['operating system'] + ': \n' + os_list + '\n\n'
 
         stats += '```\n\n'
         if empty:
@@ -415,8 +437,10 @@ def generate_language_per_repo(result):
 
 
 def get_yearly_data():
-    repository_list = run_query(repositoryListQuery.substitute(username=username, id=id))
-    loc = LinesOfCode(id, username, ghtoken, repository_list, ignored_repos_name)
+    repository_list = run_query(
+        repositoryListQuery.substitute(username=username, id=id))
+    loc = LinesOfCode(id, username, ghtoken,
+                      repository_list, ignored_repos_name)
     yearly_data = loc.calculateLoc()
     if showLocChart.lower() in truthy:
         loc.plotLoc(yearly_data)
@@ -424,8 +448,10 @@ def get_yearly_data():
 
 
 def get_line_of_code():
-    repositoryList = run_query(repositoryListQuery.substitute(username=username, id=id))
-    loc = LinesOfCode(id, username, ghtoken, repositoryList, ignored_repos_name)
+    repositoryList = run_query(
+        repositoryListQuery.substitute(username=username, id=id))
+    loc = LinesOfCode(id, username, ghtoken,
+                      repositoryList, ignored_repos_name)
     yearly_data = loc.calculateLoc()
     total_loc = sum(
         [yearly_data[year][quarter][lang] for year in yearly_data for quarter in yearly_data[year] for lang in
@@ -441,14 +467,18 @@ def get_short_info(github):
         print("Please add new github personal access token with user permission")
     else:
         disk_usage = humanize.naturalsize(user_info.disk_usage)
-    request = requests.get('https://github-contributions.now.sh/api/v1/' + user_info.login)
+    request = requests.get(
+        'https://github-contributions.now.sh/api/v1/' + user_info.login)
     if request.status_code == 200:
         data = request.json()
         total = data['years'][0]['total']
         year = data['years'][0]['year']
-        string += '> 🏆 ' + translate['Contributions in the year'] % (humanize.intcomma(total), year) + '\n > \n'
+        string += '> 🏆 ' + \
+            translate['Contributions in the year'] % (
+                humanize.intcomma(total), year) + '\n > \n'
 
-    string += '> 📦 ' + translate["Used in GitHub's Storage"] % disk_usage + ' \n > \n'
+    string += '> 📦 ' + \
+        translate["Used in GitHub's Storage"] % disk_usage + ' \n > \n'
     is_hireable = user_info.hireable
     public_repo = user_info.public_repos
     private_repo = user_info.owned_private_repos
@@ -461,10 +491,10 @@ def get_short_info(github):
 
     string += '> 📜 '
     string += translate['public repositories'] % public_repo + " " + '\n > \n' if public_repo != 1 else translate[
-                                                                                                            'public repository'] % public_repo + " " + '\n > \n'
+        'public repository'] % public_repo + " " + '\n > \n'
     string += '> 🔑 '
     string += translate['private repositories'] % private_repo + " " + ' \n > \n' if private_repo != 1 else translate[
-                                                                                                                'private repository'] % private_repo + " " + '\n > \n'
+        'private repository'] % private_repo + " " + '\n > \n'
 
     return string
 
@@ -473,8 +503,9 @@ def get_stats(github):
     '''Gets API data and returns markdown progress'''
 
     stats = ''
-    repositoryList = run_query(repositoryListQuery.substitute(username=username, id=id))
-    
+    repositoryList = run_query(
+        repositoryListQuery.substitute(username=username, id=id))
+
     if show_loc.lower() in truthy or showLocChart.lower() in truthy:
         # This condition is written to calculate the lines of code because it is heavy process soo needs to be calculate once this will reduce the execution time
         yearly_data = get_yearly_data()
@@ -483,17 +514,21 @@ def get_stats(github):
         request = requests.get(
             f"https://wakatime.com/api/v1/users/current/all_time_since_today?api_key={waka_key}")
         if request.status_code == 401:
-            print("Error With WAKA time API returned " + str(request.status_code) + " Response " + str(request.json()))
+            print("Error With WAKA time API returned " +
+                  str(request.status_code) + " Response " + str(request.json()))
         elif "text" not in request.json()["data"]:
             print("User stats are calculating. Try again later.")
         else:
             data = request.json()
             stats += '![Code Time](http://img.shields.io/badge/' + quote(
                 str("Code Time")) + '-' + quote(str(
-                data['data']['text'])) + '-blue)\n\n'
+                    data['data']['text'])) + '-blue)\n\n'
+    else:
+        print("Show total code time is set to false!")
 
     if show_profile_view.lower() in truthy:
-        data = run_v3_api(get_profile_view.substitute(owner=username, repo=username))
+        data = run_v3_api(get_profile_view.substitute(
+            owner=username, repo=username))
         stats += '![Profile Views](http://img.shields.io/badge/' + quote(str(translate['Profile Views'])) + '-' + str(
             data['count']) + '-blue)\n\n'
 
@@ -514,7 +549,8 @@ def get_stats(github):
     if showLocChart.lower() in truthy:
         stats += '**' + translate['Timeline'] + '**\n\n'
         branch_name = github.get_repo(f'{username}/{username}').default_branch
-        stats = stats + '![Chart not found](https://raw.githubusercontent.com/' + username + '/' + username + '/' + branch_name + '/charts/bar_graph.png) \n\n'
+        stats = stats + '![Chart not found](https://raw.githubusercontent.com/' + \
+            username + '/' + username + '/' + branch_name + '/charts/bar_graph.png) \n\n'
 
     if show_updated_date.lower() in truthy:
         now = datetime.datetime.utcnow()
@@ -569,7 +605,8 @@ if __name__ == '__main__':
         if commit_by_me.lower() in truthy:
             committer = InputGitAuthor(username, email)
         else:
-            committer = InputGitAuthor('readme-bot', '41898282+github-actions[bot]@users.noreply.github.com')
+            committer = InputGitAuthor(
+                'readme-bot', '41898282+github-actions[bot]@users.noreply.github.com')
         if new_readme != rdmd:
             try:
                 repo.update_file(path=contents.path, message=commit_message,
@@ -581,7 +618,8 @@ if __name__ == '__main__':
                                  committer=committer)
             print("Readme updated")
         end_time = datetime.datetime.now().timestamp() * 1000
-        print("Program processed in {} miliseconds.".format(round(end_time - start_time, 0)))
+        print("Program processed in {} miliseconds.".format(
+            round(end_time - start_time, 0)))
     except Exception as e:
         traceback.print_exc()
         print("Exception Occurred " + str(e))
