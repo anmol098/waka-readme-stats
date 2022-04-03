@@ -5,9 +5,9 @@
 ![Project Preview](https://user-images.githubusercontent.com/25841814/79395484-5081ae80-7fac-11ea-9e27-ac91472e31dd.png)
 
 <p align="center">
-  
+
   ![Project Preview](https://user-images.githubusercontent.com/15426564/88030180-8e1c4780-cb58-11ea-8a8b-b3576dd73652.png)
-  
+
   <h3 align="center">📌✨Awesome Readme Stats</h3>
 </p>
 
@@ -102,7 +102,7 @@ jobs:
 ## Extras
 
 1. If you want to add the other info to your stats, you can add multiple `FLAGS` in your workflow file by default all flags are enabled
-   > except the lines of code flag due to heavy operation performed
+>except the lines of code flag due to heavy operation performed
 
 ```yml
 - uses: anmol098/waka-readme-stats@master
@@ -125,11 +125,13 @@ jobs:
 
 `SHOW_UPDATED_DATE` flag can be set to `True` to show updated date in end of paragraph
 
+`UPDATED_DATE_FORMAT`        flag can be set to put updated date into a format, default is `"%d/%m/%Y %H:%M:%S"`
+
 `SHOW_TOTAL_CODE_TIME` flag can be set to `False` to hide the total code time
 
 ![Code Time](http://img.shields.io/badge/Code%20Time-2%20hrs%2015%20mins-blue)
 
-`SHOW_LINES_OF_CODE` flag can be set to `True` to show the Lines of code writen till date
+`SHOW_LINES_OF_CODE`       flag can be set to `True` to show the Lines of code writen till date
 
 ![Lines of code](https://img.shields.io/badge/From%20Hello%20World%20I've%20written-1.3%20million%20Lines%20of%20code-blue)
 
@@ -141,6 +143,7 @@ jobs:
 
 **I'm an early 🐤**
 
+**I'm an early 🐤**
 ```text
 🌞 Morning    95 commits     ███████░░░░░░░░░░░░░░░░░░   30.55%
 🌆 Daytime    78 commits     ██████░░░░░░░░░░░░░░░░░░░   25.08%
@@ -225,25 +228,28 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 
 `SHOW_SHORT_INFO` flag can be set to `False` to hide the short fun fact info of user
 
-> This section requires personal access token with user permission otherwise data shown will be incorrect here
-
 **🐱 My GitHub Data**
 
 > 🏆 433 Contributions in year 2020
->
+ >
 > 📦 Used 292.3 kB in GitHub's Storage
->
+ >
 > 💼 Opted to Hire
->
+ >
 > 📜 25 Public Repository
->
+ >
 > 🔑 15 Owned Private Repository
 
 `SHOW_LOC_CHART` flag can be set to `False` to hide the Lines of code written in different quarters of different year
 
 `IGNORED_REPOS` flag can be set to `"waka-readme-stats, my-first-repo"` (just an example) to ignore some repos you don’t want to be counted
 
-`SYMBOL_VERSION` flag can be set to `1` to use █ & ░; set to `2` to use ⣿ & ⣀ for progress bar (default: `1`)
+`SYMBOL_VERSION` flag can be set symbol for progress bar (default: `1`)
+| Version | Done block | Empty block |
+|-------- | ---------- | ----------- |
+|    1    |      █     |       ░     |
+|    2    |      ⣿     |       ⣀     |
+|    3    |      ⬛    |       ⬜    |
 
 **Timeline**
 
@@ -283,11 +289,111 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
 <details>
 <summary>Special mention for those who are currently making their profile readme more awesome :smile: :tada:</summary>
 
-- [Stanislas](https://github.com/angristan)
+  - [Stanislas](https://github.com/angristan)
 
-- [Pratik Kumar](https://github.com/pr2tik1)
+  - [Pratik Kumar](https://github.com/pr2tik1)
 
-- [Vladimir](https://github.com/sergeev-vn)
+  - [Vladimir](https://github.com/sergeev-vn)
+
+  - [Pedro Torres](https://github.com/Corfucinas)
+
+  - [leverglowh](https://github.com/leverglowh)
+
+  - [patdc](https://github.com/patdc)
+
+  - [极客挖掘机](https://github.com/meteor1993)
+
+  - [Fan()](https://github.com/Fanduzi)
+
+  - [Miller Camilo Vega](https://github.com/minoveaz)
+
+  - [XLor](https://github.com/yjl9903)
+
+  - [Jesse Okeya](https://github.com/jesseokeya)
+
+  - [anaiel](https://github.com/anaiel)
+
+  - [Dipto Mondal](https://github.com/diptomondal007)
+
+  - [Jerry F. Zhang](https://github.com/JerryFZhang)
+
+  - [Karan Singh](https://github.com/karan06126)
+
+  - [Erwin Lejeune](https://github.com/guilyx)
+
+  - [Manuel Cepeda](https://github.com/mecm1993)
+
+  - [Jonathan S](https://github.com/TGTGamer)
+
+  - [Tsotne Gvadzabia](https://github.com/RockiRider)
+
+  - [Miray](https://github.com/MirayXS)
+
+  - [Varad Patil](https://github.com/varadp2000)
+
+  - [Prabhat Singh](https://github.com/prabhatdev)
+
+  - [Nikhil](https://github.com/nikhilgorantla)
+
+  - [大白](https://github.com/2720851545)
+
+  - [Du Yizhuo](https://github.com/dyzdyz010)
+
+  - [Manas Talukdar](https://github.com/manastalukdar)
+
+  - [Simranjeet Singh](https://github.com/smrnjeet222)
+
+  - [Aaron Meese](https://github.com/ajmeese7)
+
+  - [Prasad Narkhede](https://github.com/p014ri5)
+
+  - [Manish Kushwaha](https://github.com/tzmanish)
+
+  - [Hedy Li](https://github.com/hedythedev)
+
+  - [SHIMIZU Taku](https://github.com/takuan-osho)
+
+  - [Jude Wilson](https://github.com/mr-winson)
+
+  - [Daniel Rowe](https://github.com/DanRowe)
+
+  - [Muhammad Hassan Ahmed](https://github.com/hassan11196)
+
+  - [Alessandro Maggio](https://github.com/Tkd-Alex)
+
+  - [Siddharth Gupta](https://github.com/siddg97)
+
+  - [Dev-Mehta](https://github.com/Dev-Mehta/)
+
+  - [> EdgyCoder ✌](https://github.com/edgycoder)
+
+  - [> EdgyCoder ✌](https://github.com/edgycoder)
+
+  - [Korel Kashri](https://github.com/korelkashri)
+
+  - [Gustavo Barbosa](https://github.com/gusbdev)
+
+  - [eagleanurag](https://github.com/eagleanurag)
+
+  - [Aravind V. Nair](https://github.com/aravindvnair99)
+
+  - [Raman Preet Singh](https://github.com/raman08)
+
+  - [Hayat Tamboli](https://github.com/hayat-tamboli)
+
+  - [Henry Boisdequin](https://github.com/henryboisdequin)
+
+  - [Raman Preet Singh](https://github.com/raman08)
+
+  - [Aadit Kamat](https://github.com/aaditkamat)
+
+  - [Subhalingam D](https://github.com/subhalingamd)
+
+  - [Adil Akhmetov](https://github.com/weeebdev)
+
+  - [Isaac Maldonado](https://github.com/einjunge99)
+
+  - [Syed Faateh Sultan Kazmi](https://github.com/faatehsultan)
 
 - [Pedro Torres](https://github.com/Corfucinas)
 
@@ -297,104 +403,6 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
 
 - [极客挖掘机](https://github.com/meteor1993)
 
-- [Fan()](https://github.com/Fanduzi)
-
-- [Miller Camilo Vega](https://github.com/minoveaz)
-
-- [XLor](https://github.com/yjl9903)
-
-- [Jesse Okeya](https://github.com/jesseokeya)
-
-- [anaiel](https://github.com/anaiel)
-
-- [Dipto Mondal](https://github.com/diptomondal007)
-
-- [Jerry F. Zhang](https://github.com/JerryFZhang)
-
-- [Karan Singh](https://github.com/karan06126)
-
-- [Erwin Lejeune](https://github.com/guilyx)
-
-- [Manuel Cepeda](https://github.com/mecm1993)
-
-- [Jonathan S](https://github.com/TGTGamer)
-
-- [Tsotne Gvadzabia](https://github.com/RockiRider)
-
-- [Miray](https://github.com/MirayXS)
-
-- [Varad Patil](https://github.com/varadp2000)
-
-- [Prabhat Singh](https://github.com/prabhatdev)
-
-- [Nikhil](https://github.com/nikhilgorantla)
-
-- [大白](https://github.com/2720851545)
-
-- [Du Yizhuo](https://github.com/dyzdyz010)
-
-- [Manas Talukdar](https://github.com/manastalukdar)
-
-- [Simranjeet Singh](https://github.com/smrnjeet222)
-
-- [Aaron Meese](https://github.com/ajmeese7)
-
-- [Prasad Narkhede](https://github.com/p014ri5)
-
-- [Manish Kushwaha](https://github.com/tzmanish)
-
-- [Hedy Li](https://github.com/hedythedev)
-
-- [SHIMIZU Taku](https://github.com/takuan-osho)
-
-- [Jude Wilson](https://github.com/mr-winson)
-
-- [Daniel Rowe](https://github.com/DanRowe)
-
-- [Muhammad Hassan Ahmed](https://github.com/hassan11196)
-
-- [Alessandro Maggio](https://github.com/Tkd-Alex)
-
-- [Siddharth Gupta](https://github.com/siddg97)
-
-- [Dev-Mehta](https://github.com/Dev-Mehta/)
-
-- [> EdgyCoder ✌](https://github.com/edgycoder)
-
-- [> EdgyCoder ✌](https://github.com/edgycoder)
-
-- [Korel Kashri](https://github.com/korelkashri)
-
-- [Gustavo Barbosa](https://github.com/gusbdev)
-
-- [eagleanurag](https://github.com/eagleanurag)
-
-- [Aravind V. Nair](https://github.com/aravindvnair99)
-
-- [Raman Preet Singh](https://github.com/raman08)
-
-- [Hayat Tamboli](https://github.com/hayat-tamboli)
-
-- [Henry Boisdequin](https://github.com/henryboisdequin)
-
-- [Raman Preet Singh](https://github.com/raman08)
-
-- [Aadit Kamat](https://github.com/aaditkamat)
-- [Subhalingam D](https://github.com/subhalingamd)
-
-- [Adil Akhmetov](https://github.com/weeebdev)
-
-- [Isaac Maldonado](https://github.com/einjunge99)
-
-- [Syed Faateh Sultan Kazmi](https://github.com/faatehsultan)
-
-- [Shreyam Maity](https://github.com/ShreyamMaity)
-
-- [Sufiane](https://github.com/sufiane)
-
-- [Muhammad Bilal](https://github.com/BilalJaved15)
-
-- [Waterdev](https://github.com/UnrealValentin)
 
 </details>
 
