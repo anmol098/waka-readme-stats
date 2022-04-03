@@ -125,6 +125,8 @@ jobs:
 
 `SHOW_UPDATED_DATE`        flag can be set to `True` to show updated date in end of paragraph
 
+`UPDATED_DATE_FORMAT`        flag can be set to put updated date into a format, default is `"%d/%m/%Y %H:%M:%S"`
+
 `SHOW_LINES_OF_CODE`       flag can be set to `True` to show the Lines of code writen till date
 
 ![Lines of code](https://img.shields.io/badge/From%20Hello%20World%20I've%20written-1.3%20million%20Lines%20of%20code-blue)
@@ -239,7 +241,12 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 
 `IGNORED_REPOS`  flag can be set to `"waka-readme-stats, my-first-repo"` (just an example) to ignore some repos you don’t want to be counted
 
-`SYMBOL_VERSION` flag can be set to `1` to use █ & ░; set to `2` to use ⣿ & ⣀ for progress bar (default: `1`)
+`SYMBOL_VERSION` flag can be set symbol for progress bar (default: `1`)
+| Version | Done block | Empty block |
+|-------- | ---------- | ----------- |
+|    1    |      █     |       ░     |
+|    2    |      ⣿     |       ⣀     |
+|    3    |      ⬛    |       ⬜    |
 
 **Timeline**
 

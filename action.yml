@@ -97,6 +97,11 @@ inputs:
     description: "Show updated date"
     default: "True"
 
+  UPDATED_DATE_FORMAT:
+    required: false
+    description: "Updated date format"
+    default: "%d/%m/%Y %H:%M:%S"
+
   SHOW_TOTAL_CODE_TIME:
     required: false
     description: "Show Total Time you have coded"
