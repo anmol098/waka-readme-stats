@@ -5,9 +5,9 @@
 ![Project Preview](https://user-images.githubusercontent.com/25841814/79395484-5081ae80-7fac-11ea-9e27-ac91472e31dd.png)
 
 <p align="center">
-  
+
   ![Project Preview](https://user-images.githubusercontent.com/15426564/88030180-8e1c4780-cb58-11ea-8a8b-b3576dd73652.png)
-  
+
   <h3 align="center">📌✨Awesome Readme Stats</h3>
 </p>
 
@@ -101,7 +101,7 @@ jobs:
 
 ## Extras
 
-1. If you want to add the other info to your stats, you can add multiple `FLAGS` in your workflow file by default all flags are enabled 
+1. If you want to add the other info to your stats, you can add multiple `FLAGS` in your workflow file by default all flags are enabled
 >except the lines of code flag due to heavy operation performed
 
 ```yml
@@ -136,26 +136,26 @@ jobs:
 
 `SHOW_COMMIT`       flag can be set to `False` to hide the commit stats
 
-**I'm an early 🐤** 
+**I'm an early 🐤**
 ```text
-🌞 Morning    95 commits     ███████░░░░░░░░░░░░░░░░░░   30.55% 
-🌆 Daytime    78 commits     ██████░░░░░░░░░░░░░░░░░░░   25.08% 
-🌃 Evening    112 commits    █████████░░░░░░░░░░░░░░░░   36.01% 
+🌞 Morning    95 commits     ███████░░░░░░░░░░░░░░░░░░   30.55%
+🌆 Daytime    78 commits     ██████░░░░░░░░░░░░░░░░░░░   25.08%
+🌃 Evening    112 commits    █████████░░░░░░░░░░░░░░░░   36.01%
 🌙 Night      26 commits     ██░░░░░░░░░░░░░░░░░░░░░░░   8.36%
 
 ```
 
 `SHOW_DAYS_OF_WEEK`       flag can be set to `False` to hide the commits made on different days of week
 
-📅 **I'm Most Productive on Sundays** 
+📅 **I'm Most Productive on Sundays**
 
 ```text
-Monday       50 commits     ███░░░░░░░░░░░░░░░░░░░░░░   13.19% 
-Tuesday      85 commits     █████░░░░░░░░░░░░░░░░░░░░   22.43% 
-Wednesday    56 commits     ███░░░░░░░░░░░░░░░░░░░░░░   14.78% 
-Thursday     44 commits     ███░░░░░░░░░░░░░░░░░░░░░░   11.61% 
-Friday       28 commits     █░░░░░░░░░░░░░░░░░░░░░░░░   7.39% 
-Saturday     30 commits     ██░░░░░░░░░░░░░░░░░░░░░░░   7.92% 
+Monday       50 commits     ███░░░░░░░░░░░░░░░░░░░░░░   13.19%
+Tuesday      85 commits     █████░░░░░░░░░░░░░░░░░░░░   22.43%
+Wednesday    56 commits     ███░░░░░░░░░░░░░░░░░░░░░░   14.78%
+Thursday     44 commits     ███░░░░░░░░░░░░░░░░░░░░░░   11.61%
+Friday       28 commits     █░░░░░░░░░░░░░░░░░░░░░░░░   7.39%
+Saturday     30 commits     ██░░░░░░░░░░░░░░░░░░░░░░░   7.92%
 Sunday       86 commits     █████░░░░░░░░░░░░░░░░░░░░   22.69%
 
 ```
@@ -207,15 +207,15 @@ PyCharm                  23 mins             █░░░░░░░░░░�
 
 `SHOW_LANGUAGE_PER_REPO`  flag can be set to `False` to hide the Number of repository in different language and frameworks
 
-**I mostly code in Vue** 
+**I mostly code in Vue**
 
 ```text
-Vue          8 repos        ██████░░░░░░░░░░░░░░░░░░░   25.0% 
-Java         6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75% 
-JavaScript   6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75% 
-PHP          3 repos        ██░░░░░░░░░░░░░░░░░░░░░░░   9.38% 
-Python       2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25% 
-Dart         2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25% 
+Vue          8 repos        ██████░░░░░░░░░░░░░░░░░░░   25.0%
+Java         6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75%
+JavaScript   6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75%
+PHP          3 repos        ██░░░░░░░░░░░░░░░░░░░░░░░   9.38%
+Python       2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+Dart         2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
 CSS          2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
 
 ```
@@ -223,17 +223,17 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 `SHOW_SHORT_INFO`  flag can be set to `False` to hide the short fun fact info of user
 >This section requires personal access token with user permission otherwise data shown will be incorrect here
 
-**🐱 My GitHub Data** 
+**🐱 My GitHub Data**
 
 > 🏆 433 Contributions in year 2020
- > 
-> 📦 Used 292.3 kB in GitHub's Storage 
- > 
+ >
+> 📦 Used 292.3 kB in GitHub's Storage
+ >
 > 💼 Opted to Hire
- > 
-> 📜 25 Public Repository 
- > 
-> 🔑 15 Owned Private Repository 
+ >
+> 📜 25 Public Repository
+ >
+> 🔑 15 Owned Private Repository
 
 `SHOW_LOC_CHART`  flag can be set to `False` to hide the Lines of code written in different quarters of different year
 
@@ -243,7 +243,7 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 
 **Timeline**
 
-![Chart not found](https://raw.githubusercontent.com/anmol098/anmol098/master/charts/bar_graph.png) 
+![Chart not found](https://raw.githubusercontent.com/anmol098/anmol098/master/charts/bar_graph.png)
 
 ## :sparkling_heart: Support the project
 
@@ -280,109 +280,109 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
 <summary>Special mention for those who are currently making their profile readme more awesome :smile: :tada:</summary>
 
   - [Stanislas](https://github.com/angristan)
-  
+
   - [Pratik Kumar](https://github.com/pr2tik1)
-  
+
   - [Vladimir](https://github.com/sergeev-vn)
 
   - [Pedro Torres](https://github.com/Corfucinas)
-  
+
   - [leverglowh](https://github.com/leverglowh)
-  
+
   - [patdc](https://github.com/patdc)
-  
+
   - [极客挖掘机](https://github.com/meteor1993)
-  
+
   - [Fan()](https://github.com/Fanduzi)
-  
+
   - [Miller Camilo Vega](https://github.com/minoveaz)
-  
+
   - [XLor](https://github.com/yjl9903)
-  
+
   - [Jesse Okeya](https://github.com/jesseokeya)
-  
+
   - [anaiel](https://github.com/anaiel)
-  
+
   - [Dipto Mondal](https://github.com/diptomondal007)
-  
+
   - [Jerry F. Zhang](https://github.com/JerryFZhang)
-  
+
   - [Karan Singh](https://github.com/karan06126)
-  
+
   - [Erwin Lejeune](https://github.com/guilyx)
-  
+
   - [Manuel Cepeda](https://github.com/mecm1993)
-  
+
   - [Jonathan S](https://github.com/TGTGamer)
-  
+
   - [Tsotne Gvadzabia](https://github.com/RockiRider)
-  
+
   - [Miray](https://github.com/MirayXS)
-  
+
   - [Varad Patil](https://github.com/varadp2000)
-  
+
   - [Prabhat Singh](https://github.com/prabhatdev)
-  
+
   - [Nikhil](https://github.com/nikhilgorantla)
-  
+
   - [大白](https://github.com/2720851545)
-  
+
   - [Du Yizhuo](https://github.com/dyzdyz010)
-  
+
   - [Manas Talukdar](https://github.com/manastalukdar)
-  
+
   - [Simranjeet Singh](https://github.com/smrnjeet222)
-  
+
   - [Aaron Meese](https://github.com/ajmeese7)
-  
+
   - [Prasad Narkhede](https://github.com/p014ri5)
-  
+
   - [Manish Kushwaha](https://github.com/tzmanish)
-  
+
   - [Hedy Li](https://github.com/hedythedev)
-  
+
   - [SHIMIZU Taku](https://github.com/takuan-osho)
-  
+
   - [Jude Wilson](https://github.com/mr-winson)
-  
+
   - [Daniel Rowe](https://github.com/DanRowe)
-  
+
   - [Muhammad Hassan Ahmed](https://github.com/hassan11196)
-  
+
   - [Alessandro Maggio](https://github.com/Tkd-Alex)
-  
+
   - [Siddharth Gupta](https://github.com/siddg97)
-  
+
   - [Dev-Mehta](https://github.com/Dev-Mehta/)
-  
+
   - [> EdgyCoder ✌](https://github.com/edgycoder)
-  
+
   - [> EdgyCoder ✌](https://github.com/edgycoder)
-  
+
   - [Korel Kashri](https://github.com/korelkashri)
-  
+
   - [Gustavo Barbosa](https://github.com/gusbdev)
 
   - [eagleanurag](https://github.com/eagleanurag)
-  
+
   - [Aravind V. Nair](https://github.com/aravindvnair99)
-  
+
   - [Raman Preet Singh](https://github.com/raman08)
-  
+
   - [Hayat Tamboli](https://github.com/hayat-tamboli)
-  
+
   - [Henry Boisdequin](https://github.com/henryboisdequin)
-   
+
   - [Raman Preet Singh](https://github.com/raman08)
-  
+
   - [Aadit Kamat](https://github.com/aaditkamat)
-    
+
   - [Subhalingam D](https://github.com/subhalingamd)
-  
+
   - [Adil Akhmetov](https://github.com/weeebdev)
-  
+
   - [Isaac Maldonado](https://github.com/einjunge99)
-  
+
   - [Syed Faateh Sultan Kazmi](https://github.com/faatehsultan)
 
   - [Shreyam Maity](https://github.com/ShreyamMaity)
@@ -393,7 +393,7 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
 
   - [Waterdev](https://github.com/UnrealValentin)
 
-  
+
 
 </details>
 
