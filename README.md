@@ -117,6 +117,8 @@ jobs:
 
 ---
 
+`LAYOUT` is a special flag that allows you to sort all the components in the README. It can be set as a string that contains all other flags separated by a - `LAYOUT: "SHOW_LANGUAGE-SHOW_SHORT_INFO-SHOW_PROJECTS-SHOW_TOTAL_CODE_TIME"`
+
 `LOCALE`  This Flag can be used to show stats in your language default is english uses Locale [Short Hand](https://saimana.com/list-of-country-locale-code/) to be passed in the flag variable example of the final result can be found [here](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)
 
 `COMMIT_BY_ME`        flag can be set to `True` to commit the code using your name and email

@@ -30,6 +30,7 @@ listReg = f"{START_COMMENT}[\\s\\S]+{END_COMMENT}"
 
 waka_key = os.getenv('INPUT_WAKATIME_API_KEY')
 ghtoken = os.getenv('INPUT_GH_TOKEN')
+layout = os.getenv('INPUT_LAYOUT')
 showTimeZone = os.getenv('INPUT_SHOW_TIMEZONE')
 showProjects = os.getenv('INPUT_SHOW_PROJECTS')
 showEditors = os.getenv('INPUT_SHOW_EDITORS')
@@ -179,6 +180,24 @@ def millify(n):
     return '{:.0f}{}'.format(n / 10 ** (3 * millidx), millnames[millidx])
 
 
+functionNoParamsDict = {
+    "SHOW_TOTAL_CODE_TIME": "get_total_time_of_code",
+    "SHOW_PROFILE_VIEWS": "get_profile_view",
+    "SHOW_LINES_OF_CODE": "get_line_of_code",
+    "SHOW_SHORT_INFO": "get_short_info",
+    "SHOW_LANGUAGE_PER_REPO": "get_language_per_repo",
+    "SHOW_LOC_CHART": "get_chart",
+    "SHOW_UPDATED_DATE": "get_last_update"
+}
+
+functionWithParamsDict = {
+    "SHOW_COMMIT": "get_commit_list",
+    "SHOW_TIMEZONE": "get_time_zone",
+    "SHOW_LANGUAGE": "get_language",
+    "SHOW_EDITORS": "get_editor",
+    "SHOW_PROJECTS": "get_projects"
+}
+
 def get_stats(github):
     # variable used to concat every part of readme
     readme_string = ''
@@ -190,49 +209,60 @@ def get_stats(github):
     else:
         waka_request = waka_request.json()
 
-        if show_loc.lower() in truthy or showLocChart.lower() in truthy:
-            # This condition is written to calculate the lines of code because it is heavy process soo needs to be
-            # calculated once this will reduce the execution time
-            yearly_data = get_yearly_data()
+        if len(layout) > 0:
+            keys = layout.split("-")
+            for key in keys:
+                if functionNoParamsDict.get(key) is not None:
+                    f = getattr(sys.modules[__name__], functionNoParamsDict.get(key))
+                    readme_string += f()
+                else:
+                    f = getattr(sys.modules[__name__], functionWithParamsDict.get(key))
+                    readme_string += f(waka_request)
 
-        if show_total_code_time.lower() in truthy:
-            readme_string += get_total_line_of_code()
+        else:
+            if show_loc.lower() in truthy or showLocChart.lower() in truthy:
+                # This condition is written to calculate the lines of code because it is heavy process soo needs to be
+                # calculated once this will reduce the execution time
+                yearly_data = get_yearly_data()
 
-        if show_profile_view.lower() in truthy:
-            readme_string += get_profile_view()
+            if show_total_code_time.lower() in truthy:
+                readme_string += get_total_time_of_code()
 
-        if show_loc.lower() in truthy:
-            readme_string += get_line_of_code()
+            if show_profile_view.lower() in truthy:
+                readme_string += get_profile_view()
 
-        if show_short_info.lower() in truthy:
-            readme_string += get_short_info()
+            if show_loc.lower() in truthy:
+                readme_string += get_line_of_code()
 
-        if showCommit.lower() in truthy:
-            readme_string += get_commit_list(waka_request)
+            if show_short_info.lower() in truthy:
+                readme_string += get_short_info()
 
-        if showTimeZone.lower() in truthy:
-            readme_string += get_time_zone(waka_request)
+            if showCommit.lower() in truthy:
+                readme_string += get_commit_list(waka_request)
 
-        if showLanguage.lower() in truthy:
-            readme_string += get_language(waka_request)
+            if showTimeZone.lower() in truthy:
+                readme_string += get_time_zone(waka_request)
 
-        if showEditors.lower() in truthy:
-            readme_string += get_editor(waka_request)
+            if showLanguage.lower() in truthy:
+                readme_string += get_language(waka_request)
 
-        if showProjects.lower() in truthy:
-            readme_string += get_projects(waka_request)
+            if showEditors.lower() in truthy:
+                readme_string += get_editor(waka_request)
 
-        if showOs.lower() in truthy:
-            readme_string += get_os(waka_request)
+            if showProjects.lower() in truthy:
+                readme_string += get_projects(waka_request)
 
-        if showLanguagePerRepo.lower() in truthy:
-            readme_string += get_language_per_repo()
+            if showOs.lower() in truthy:
+                readme_string += get_os(waka_request)
 
-        if showLocChart.lower() in truthy:
-            readme_string += get_chart()
+            if showLanguagePerRepo.lower() in truthy:
+                readme_string += get_language_per_repo()
 
-        if show_updated_date.lower() in truthy:
-            readme_string += get_last_update()
+            if showLocChart.lower() in truthy:
+                readme_string += get_chart()
+
+            if show_updated_date.lower() in truthy:
+                readme_string += get_last_update()
 
         return readme_string
 
@@ -250,7 +280,7 @@ def get_yearly_data():
     return yearly_data
 
 
-def get_total_line_of_code():
+def get_total_time_of_code():
     request = requests.get(f"https://wakatime.com/api/v1/users/current/all_time_since_today?api_key={waka_key}")
     if request.status_code == 401:
         print("Error With WAKA time API returned " + str(request.status_code) + " Response " + str(request.json()))
