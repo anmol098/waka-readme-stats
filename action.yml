@@ -12,6 +12,11 @@ inputs:
     description: 'Your Wakatime API Key'
     required: true
 
+  LAYOUT:
+    description: 'Layout of README'
+    required: true
+    default: ""
+
   SHOW_OS:
     required: false
     description: 'Show the list of OS Worked on In dev metrics'

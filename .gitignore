@@ -2,5 +2,6 @@
 *.png
 node_modules/
 __pycache__/
+.idea/
 
 .vscode

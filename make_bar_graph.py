@@ -1,9 +1,10 @@
-import os
 import pandas as pd
-import numpy as np
-import altair as alt
-import json
 import os
+
+import altair as alt
+import pandas as pd
+
+
 # npm install vega-lite vega-cli canvas
 
 
