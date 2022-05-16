@@ -127,6 +127,10 @@ jobs:
 
 `UPDATED_DATE_FORMAT`        flag can be set to put updated date into a format, default is `"%d/%m/%Y %H:%M:%S"`
 
+`SHOW_TOTAL_CODE_TIME` flag can be set to `False` to hide the total code time
+
+![Code Time](http://img.shields.io/badge/Code%20Time-2%20hrs%2015%20mins-blue)
+
 `SHOW_LINES_OF_CODE`       flag can be set to `True` to show the Lines of code writen till date
 
 ![Lines of code](https://img.shields.io/badge/From%20Hello%20World%20I've%20written-1.3%20million%20Lines%20of%20code-blue)
