@@ -419,3 +419,9 @@ Made with :heart: and Python 🐍.
 > [athul/waka-readme](https://github.com/athul/waka-readme)
 
 ### This project need a **star** ⭐ from you ♥.
+
+
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/anmol098/waka-readme-stats.svg)](https://starchart.cc/anmol098/waka-readme-stats)
+
