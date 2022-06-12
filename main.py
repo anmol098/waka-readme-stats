@@ -175,19 +175,19 @@ def run_query(query):
 
 def make_graph(percent: float):
     '''Make progress graph from API graph'''
-    if (symbol_version == '1'): # version 1
+    if (symbol_version == '1'):  # version 1
         done_block = '█'
         empty_block = '░'
-    elif (symbol_version == '2'): #version 2
+    elif (symbol_version == '2'):  # version 2
         done_block = '⣿'
         empty_block = '⣀'
-    elif (symbol_version == '3'): # version 3
+    elif (symbol_version == '3'):  # version 3
         done_block = '⬛'
         empty_block = '⬜'
     else:
-        done_block = '█' #default is version 1
+        done_block = '█'  # default is version 1
         empty_block = '░'
-        
+
     pc_rnd = round(percent)
     return f"{done_block * int(pc_rnd / 4)}{empty_block * int(25 - int(pc_rnd / 4))}"
 
@@ -328,56 +328,52 @@ def get_waka_time_stats():
     if request.status_code == 401:
         print("Error With WAKA time API returned " + str(request.status_code) + " Response " + str(request.json()))
     else:
-        empty = True
         data = request.json()
         if showCommit.lower() in truthy:
-            empty = False
             stats = stats + generate_commit_list(tz=data['data']['timezone']) + '\n\n'
 
-        stats += '📊 **' + translate['This Week I Spend My Time On'] + '** \n\n'
-        stats += '```text\n'
-        if showTimeZone.lower() in truthy:
-            empty = False
-            tzone = data['data']['timezone']
-            stats = stats + '⌚︎ ' + translate['Timezone'] + ': ' + tzone + '\n\n'
+        if showTimeZone.lower() in truthy or showLanguage.lower() in truthy or showEditors.lower() in truthy or \
+                showProjects.lower() in truthy or showOs.lower() in truthy:
+            stats += '📊 **' + translate['This Week I Spend My Time On'] + '** \n\n'
+            stats += '```text\n'
 
-        if showLanguage.lower() in truthy:
-            empty = False
-            if len(data['data']['languages']) == 0:
-                lang_list = no_activity
-            else:
-                lang_list = make_list(data['data']['languages'])
-            stats = stats + '💬 ' + translate['Languages'] + ': \n' + lang_list + '\n\n'
+            if showTimeZone.lower() in truthy:
+                tzone = data['data']['timezone']
+                stats = stats + '⌚︎ ' + translate['Timezone'] + ': ' + tzone + '\n\n'
 
-        if showEditors.lower() in truthy:
-            empty = False
-            if len(data['data']['editors']) == 0:
-                edit_list = no_activity
-            else:
-                edit_list = make_list(data['data']['editors'])
-            stats = stats + '🔥 ' + translate['Editors'] + ': \n' + edit_list + '\n\n'
+            if showLanguage.lower() in truthy:
+                if len(data['data']['languages']) == 0:
+                    lang_list = no_activity
+                else:
+                    lang_list = make_list(data['data']['languages'])
+                stats = stats + '💬 ' + translate['Languages'] + ': \n' + lang_list + '\n\n'
 
-        if showProjects.lower() in truthy:
-            empty = False
-            if len(data['data']['projects']) == 0:
-                project_list = no_activity
-            else:
-                # Re-order the project list by percentage
-                data['data']['projects'] = sorted(data['data']['projects'], key=lambda x: x["percent"], reverse=True)
-                project_list = make_list(data['data']['projects'])
-            stats = stats + '🐱‍💻 ' + translate['Projects'] + ': \n' + project_list + '\n\n'
+            if showEditors.lower() in truthy:
+                if len(data['data']['editors']) == 0:
+                    edit_list = no_activity
+                else:
+                    edit_list = make_list(data['data']['editors'])
+                stats = stats + '🔥 ' + translate['Editors'] + ': \n' + edit_list + '\n\n'
 
-        if showOs.lower() in truthy:
-            empty = False
-            if len(data['data']['operating_systems']) == 0:
-                os_list = no_activity
-            else:
-                os_list = make_list(data['data']['operating_systems'])
-            stats = stats + '💻 ' + translate['operating system'] + ': \n' + os_list + '\n\n'
+            if showProjects.lower() in truthy:
+                if len(data['data']['projects']) == 0:
+                    project_list = no_activity
+                else:
+                    # Re-order the project list by percentage
+                    data['data']['projects'] = sorted(data['data']['projects'], key=lambda x: x["percent"],
+                                                      reverse=True)
+                    project_list = make_list(data['data']['projects'])
+                stats = stats + '🐱‍💻 ' + translate['Projects'] + ': \n' + project_list + '\n\n'
 
-        stats += '```\n\n'
-        if empty:
-            return ""
+            if showOs.lower() in truthy:
+                if len(data['data']['operating_systems']) == 0:
+                    os_list = no_activity
+                else:
+                    os_list = make_list(data['data']['operating_systems'])
+                stats = stats + '💻 ' + translate['operating system'] + ': \n' + os_list + '\n\n'
+
+            stats += '```\n\n'
+
     return stats
 
 
@@ -475,7 +471,7 @@ def get_stats(github):
 
     stats = ''
     repositoryList = run_query(repositoryListQuery.substitute(username=username, id=id))
-    
+
     if show_loc.lower() in truthy or showLocChart.lower() in truthy:
         # This condition is written to calculate the lines of code because it is heavy process soo needs to be calculate once this will reduce the execution time
         yearly_data = get_yearly_data()
@@ -551,8 +547,7 @@ if __name__ == '__main__':
         user_data = run_query(userInfoQuery)  # Execute the query
         username = user_data["data"]["viewer"]["login"]
         id = user_data["data"]["viewer"]["id"]
-        emails_user = run_v3_api("/user/emails")  # Execute the api
-        email = emails_user[0]['email']
+        email = user_data["data"]["viewer"]["email"]
         print("Username " + username)
         repo = g.get_repo(f"{username}/{username}")
         contents = repo.get_readme()
