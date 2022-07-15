@@ -30,6 +30,7 @@ listReg = f"{START_COMMENT}[\\s\\S]+{END_COMMENT}"
 
 waka_key = os.getenv('INPUT_WAKATIME_API_KEY')
 ghtoken = os.getenv('INPUT_GH_TOKEN')
+branchName = os.getenv('INPUT_PUSH_BRANCH_NAME')
 showTimeZone = os.getenv('INPUT_SHOW_TIMEZONE')
 showProjects = os.getenv('INPUT_SHOW_PROJECTS')
 showEditors = os.getenv('INPUT_SHOW_EDITORS')
@@ -569,7 +570,7 @@ if __name__ == '__main__':
         if new_readme != rdmd:
             try:
                 repo.update_file(path=contents.path, message=commit_message,
-                                 content=new_readme, sha=contents.sha, branch='master',
+                                 content=new_readme, sha=contents.sha, branch=branchName,
                                  committer=committer)
             except:
                 repo.update_file(path=contents.path, message=commit_message,
