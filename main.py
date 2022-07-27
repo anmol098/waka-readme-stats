@@ -325,7 +325,7 @@ def get_waka_time_stats():
         f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={waka_key}")
     no_activity = translate["No Activity Tracked This Week"]
 
-    if request.status_code == 401:
+    if request.status_code == 401 or request.status_code != 200:
         print("Error With WAKA time API returned " + str(request.status_code) + " Response " + str(request.json()))
     else:
         data = request.json()
