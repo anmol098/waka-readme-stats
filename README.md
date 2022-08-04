@@ -368,8 +368,6 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
   
   - [> EdgyCoder ✌](https://github.com/edgycoder)
   
-  - [> EdgyCoder ✌](https://github.com/edgycoder)
-  
   - [Korel Kashri](https://github.com/korelkashri)
   
   - [Gustavo Barbosa](https://github.com/gusbdev)
@@ -404,7 +402,7 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
 
   - [Waterdev](https://github.com/UnrealValentin)
   
-  - [Aditya Prasad S](https://github.com/UnrealValentin](https://github.com/adityaprasad502)
+  - [Aditya Prasad S](https://github.com/adityaprasad502)
   
   - [C. Vinicius Santos](https://github.com/c-viniciussantos)
   
