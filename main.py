@@ -565,7 +565,7 @@ if __name__ == '__main__':
         rdmd = decode_readme(contents.content)
         new_readme = generate_new_readme(stats=waka_stats, readme=rdmd)
         if commit_by_me.lower() in truthy:
-            committer = InputGitAuthor(username, email)
+            committer = InputGitAuthor(username or commit_username, email or commit_email)
         else:
             committer = InputGitAuthor(
                 commit_username or 'readme-bot',
