@@ -12,6 +12,11 @@ inputs:
     description: 'Your Wakatime API Key'
     required: true
 
+  PUSH_BRANCH_NAME:
+    required: false
+    description: "The branch to update the readme in"
+    default: "master"
+
   SHOW_OS:
     required: false
     description: 'Show the list of OS Worked on In dev metrics'
