@@ -48,6 +48,8 @@ ignored_repos_name = str(os.getenv('INPUT_IGNORED_REPOS') or '').replace(' ', ''
 show_updated_date = os.getenv('INPUT_SHOW_UPDATED_DATE')
 updated_date_format = os.getenv('INPUT_UPDATED_DATE_FORMAT')
 commit_message = os.getenv('INPUT_COMMIT_MESSAGE')
+commit_username = os.getenv('INPUT_COMMIT_USERNAME')
+commit_email = os.getenv('INPUT_COMMIT_EMAIL')
 show_total_code_time = os.getenv('INPUT_SHOW_TOTAL_CODE_TIME')
 symbol_version = os.getenv('INPUT_SYMBOL_VERSION').strip()
 show_waka_stats = 'y'
@@ -565,7 +567,10 @@ if __name__ == '__main__':
         if commit_by_me.lower() in truthy:
             committer = InputGitAuthor(username, email)
         else:
-            committer = InputGitAuthor('readme-bot', '41898282+github-actions[bot]@users.noreply.github.com')
+            committer = InputGitAuthor(
+                commit_username or 'readme-bot',
+                commit_email or '41898282+github-actions[bot]@users.noreply.github.com'
+            )
         if new_readme != rdmd:
             try:
                 repo.update_file(path=contents.path, message=commit_message,
