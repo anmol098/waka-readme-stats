@@ -548,6 +548,8 @@ if __name__ == '__main__':
         g = Github(ghtoken)
         headers = {"Authorization": "Bearer " + ghtoken}
         user_data = run_query(userInfoQuery)  # Execute the query
+        if "errors" in user_data:
+            raise Exception(user_data)
         username = user_data["data"]["viewer"]["login"]
         id = user_data["data"]["viewer"]["id"]
         email = user_data["data"]["viewer"]["email"]
