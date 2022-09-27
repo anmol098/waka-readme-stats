@@ -342,6 +342,7 @@ def get_waka_time_stats():
             stats += '```text\n'
 
             if showTimeZone.lower() in truthy:
+                global wakaTimeZone
                 wakaTimeZone = data['data']['timezone']
                 stats = stats + '⌚︎ ' + translate['Timezone'] + ': ' + wakaTimeZone + '\n\n'
 
