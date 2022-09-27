@@ -32,6 +32,7 @@ waka_key = os.getenv('INPUT_WAKATIME_API_KEY')
 ghtoken = os.getenv('INPUT_GH_TOKEN')
 branchName = os.getenv('INPUT_PUSH_BRANCH_NAME')
 showTimeZone = os.getenv('INPUT_SHOW_TIMEZONE')
+wakaTimeZone = str()
 showProjects = os.getenv('INPUT_SHOW_PROJECTS')
 showEditors = os.getenv('INPUT_SHOW_EDITORS')
 showOs = os.getenv('INPUT_SHOW_OS')
@@ -341,8 +342,9 @@ def get_waka_time_stats():
             stats += '```text\n'
 
             if showTimeZone.lower() in truthy:
-                tzone = data['data']['timezone']
-                stats = stats + '⌚︎ ' + translate['Timezone'] + ': ' + tzone + '\n\n'
+                global wakaTimeZone
+                wakaTimeZone = data['data']['timezone']
+                stats = stats + '⌚︎ ' + translate['Timezone'] + ': ' + wakaTimeZone + '\n\n'
 
             if showLanguage.lower() in truthy:
                 if len(data['data']['languages']) == 0:
@@ -517,9 +519,9 @@ def get_stats(github):
         stats = stats + '![Chart not found](https://raw.githubusercontent.com/' + username + '/' + username + '/' + branch_name + '/charts/bar_graph.png) \n\n'
 
     if show_updated_date.lower() in truthy:
-        now = datetime.datetime.utcnow()
-        d1 = now.strftime(updated_date_format)
-        stats = stats + "\n Last Updated on " + d1 + " UTC"
+        now = datetime.datetime.now(pytz.timezone(wakaTimeZone))
+        format_date = now.strftime(updated_date_format)
+        stats = stats + "\n Last Updated on " + format_date
 
     return stats
 
