@@ -106,16 +106,6 @@ inputs:
     required: false
     description: "Git commit custom email"
     default: ""
-  
-  COMMIT_USERNAME:
-    required: false
-    description: "Git commit custom username"
-    default: ""
-
-  COMMIT_EMAIL:
-    required: false
-    description: "Git commit custom email"
-    default: ""
 
   SHOW_UPDATED_DATE:
     required: false
