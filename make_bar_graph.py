@@ -40,8 +40,13 @@ class BarGraph:
         all_languages = list(top_languages.keys())
 
         for language in all_languages:
-            if colors[language]['color'] is not None:
-                allColorsValues.append(colors[language]['color'])
+            try:
+                color = colors[language]['color']
+                if color is not None:
+                    allColorsValues.append(color)
+            except KeyError:
+                print(f"{language} is not supported")
+                continue
 
         languages_all_loc = {}
 
