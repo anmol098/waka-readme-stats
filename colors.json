@@ -135,6 +135,10 @@
         "color": "#6E4C13",
         "url": "https://github.com/trending?l=Assembly"
     },
+    "Astro": {
+        "color": "#ff5a03",
+        "url": "https://github.com/trending?l=Astro"
+    },
     "Asymptote": {
         "color": "#4a0c0c",
         "url": "https://github.com/trending?l=Asymptote"
