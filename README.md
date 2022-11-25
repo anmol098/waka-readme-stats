@@ -245,6 +245,17 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
  > 
 > 🔑 15 Owned Private Repository 
 
+
+`SHOW_SHORT_INFO_CONTRIBUTIONS`  flag can be set to `True` to hide the contributions displayed in short info
+
+`SHOW_SHORT_INFO_STORAGE`  flag can be set to `True` to hide the storage displayed in short info
+
+`SHOW_SHORT_INFO_HIRE`  flag can be set to `True` to hide the hire status displayed in short info
+
+`SHOW_SHORT_INFO_PUBLIC`  flag can be set to `True` to hide the public repos displayed in short info
+
+`SHOW_SHORT_INFO_PRIVATE` flag can be set to `True` to hide the private repos displayed in short info
+
 `SHOW_LOC_CHART`  flag can be set to `False` to hide the Lines of code written in different quarters of different year
 
 `IGNORED_REPOS`  flag can be set to `"waka-readme-stats, my-first-repo"` (just an example) to ignore some repos you don’t want to be counted
