@@ -24,8 +24,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-START_COMMENT = '<!--START_SECTION:waka-->'
-END_COMMENT = '<!--END_SECTION:waka-->'
+START_COMMENT = f'<!--START_SECTION:{os.getenv("INPUT_SECTION_NAME")}-->'
+END_COMMENT = f'<!--END_SECTION:{os.getenv("INPUT_SECTION_NAME")}-->'
 listReg = f"{START_COMMENT}[\\s\\S]+{END_COMMENT}"
 
 waka_key = os.getenv('INPUT_WAKATIME_API_KEY')
