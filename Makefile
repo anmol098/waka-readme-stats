@@ -39,5 +39,6 @@ image:
 clean:
 	rm -rf venv
 	rm -rf node_modules
+	rm -r package*.json
 	docker rmi -f waka-readme-stats 2>/dev/null
 .PHONY: clean
