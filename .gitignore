@@ -1,6 +1,8 @@
 *.env
 *.png
 node_modules/
+venv/
 __pycache__/
 
 .vscode
+.idea
