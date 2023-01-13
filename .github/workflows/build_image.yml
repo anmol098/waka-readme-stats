@@ -5,7 +5,7 @@ on:
 
 jobs:
   publish-server-image:
-    name: Publish `waka-readme-stats` Container
+    name: Publish 'waka-readme-stats' image
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -15,7 +15,7 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
 
-      - name: Log in to the Container registry 🚪
+      - name: Log in to the container registry 🚪
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
