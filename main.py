@@ -441,7 +441,7 @@ def get_short_info(github):
         print("Please add new github personal access token with user permission")
     else:
         disk_usage = humanize.naturalsize(user_info.disk_usage)
-    request = requests.get('https://github-contributions.now.sh/api/v1/' + user_info.login)
+    request = requests.get('https://github-contributions.vercel.app/api/v1/' + user_info.login)
     if request.status_code == 200:
         data = request.json()
         total = data['years'][0]['total']
