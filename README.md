@@ -62,6 +62,8 @@ Add a comment to your `README.md` like this:
 <!--END_SECTION:waka-->
 ```
 
+`waka` can be replaced by any string specified in the `SECTION_NAME` flag as per (the available flags section)[#flags-available]
+
 These lines will be our entry-points for the dev metrics.
 
 ## New to WakaTime
@@ -118,6 +120,8 @@ jobs:
 ---
 
 `LOCALE`  This Flag can be used to show stats in your language default is english uses Locale [Short Hand](https://saimana.com/list-of-country-locale-code/) to be passed in the flag variable example of the final result can be found [here](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)
+
+`SECTION_NAME`        flag can be set to any string, and will be the name of the section to replace in the readme
 
 `COMMIT_BY_ME`        flag can be set to `True` to commit the code using your name and email
 
