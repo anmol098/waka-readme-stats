@@ -442,10 +442,10 @@ def get_short_info(github):
     else:
         disk_usage = humanize.naturalsize(user_info.disk_usage)
     request = requests.get('https://github-contributions.vercel.app/api/v1/' + user_info.login)
-    if request.status_code == 200:
-        data = request.json()
-        total = data['years'][0]['total']
-        year = data['years'][0]['year']
+    if request.status_code == 200 and len(request.json()['years']) > 0:
+        this_year_data = request.json()['years'][0]
+        total = this_year_data['total']
+        year = this_year_data['year']
         string += '> 🏆 ' + translate['Contributions in the year'] % (humanize.intcomma(total), year) + '\n > \n'
 
     string += '> 📦 ' + translate["Used in GitHub's Storage"] % disk_usage + ' \n > \n'
