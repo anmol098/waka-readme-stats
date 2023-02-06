@@ -214,7 +214,7 @@ def make_commit_list(data: list):
         ln = len(l['name'])
         ln_text = len(l['text'])
         percent = "{:05.2f}".format(float(l['percent']))
-        op = f"{l['name']}{' ' * ((15 - ln) + (12 - ln_text))}{l['text']}{' ' * (7)}{make_graph(l['percent'])}   {percent} % "
+        op = f"{l['name']}{' ' * ((15 - ln) + (11 - ln_text))}{l['text']}{' ' * (7)}{make_graph(l['percent'])}   {percent} % "
         data_list.append(op)
     return '\n'.join(data_list)
 
