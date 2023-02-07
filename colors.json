@@ -283,6 +283,10 @@
         "color": null,
         "url": "https://github.com/trending?l=Cabal-Config"
     },
+    "Cairo": {
+        "color": null,
+        "url": "https://github.com/trending?l=Cairo"
+    },
     "Cap'n Proto": {
         "color": null,
         "url": "https://github.com/trending?l=Cap'n-Proto"
