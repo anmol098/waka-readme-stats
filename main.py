@@ -201,9 +201,10 @@ def make_list(data: list):
     for l in data[:5]:
         ln = len(l['name'])
         ln_text = len(l['text'])
-        op = f"{l['name'][:25]}{' ' * (25 - ln)}{l['text']}{' ' * (20 - ln_text)}{make_graph(l['percent'])}   {l['percent']}%"
+        percent = "{:05.2f}".format(float(l['percent']))
+        op = f"{l['name'][:25]}{' ' * (25 - ln)}{l['text']}{' ' * (20 - ln_text)}{make_graph(l['percent'])}   {percent} % "
         data_list.append(op)
-    return ' \n'.join(data_list)
+    return '\n'.join(data_list)
 
 
 def make_commit_list(data: list):
@@ -212,9 +213,10 @@ def make_commit_list(data: list):
     for l in data[:7]:
         ln = len(l['name'])
         ln_text = len(l['text'])
-        op = f"{l['name']}{' ' * (13 - ln)}{l['text']}{' ' * (15 - ln_text)}{make_graph(l['percent'])}   {l['percent']}%"
+        percent = "{:05.2f}".format(float(l['percent']))
+        op = f"{l['name']}{' ' * ((15 - ln) + (11 - ln_text))}{l['text']}{' ' * (7)}{make_graph(l['percent'])}   {percent} % "
         data_list.append(op)
-    return ' \n'.join(data_list)
+    return '\n'.join(data_list)
 
 
 def generate_commit_list(tz):
