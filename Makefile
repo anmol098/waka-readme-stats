@@ -35,7 +35,7 @@ run-locally: venv node_modules
 run-container:
 	@ # Run action in container
 	docker build -t waka-readme-stats -f Dockerfile .
-	docker run --env-file .env.example -v ./charts:/waka-readme-stats/charts waka-readme-stats
+	docker run --env-file .env.example waka-readme-stats
 .PHONY: run-container
 
 
@@ -44,7 +44,6 @@ clean:
 	rm -rf venv
 	rm -rf node_modules
 	rm -f package*.json
-	rm -rf charts
 	docker rm -f waka-readme-stats 2>/dev/null || true
 	docker rmi $(docker images | grep "waka-readme-stats") 2> /dev/null || true
 .PHONY: clean
