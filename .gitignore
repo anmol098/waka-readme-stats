@@ -2,7 +2,7 @@
 *.env
 
 # Generated graph images:
-*.png
+charts/
 
 # Library roots:
 node_modules/
