@@ -26,11 +26,8 @@ node_modules:
 	npm i npm@next-8
 	npm i vega vega-lite vega-cli canvas
 
-dependencies: venv node_modules
-.PHONY: dependencies
 
-
-run-locally: dependencies
+run-locally: venv node_modules
 	@ # Run action locally
 	source <(cat .env.example | sed 's/=/=/' | sed 's/^/export /') && python3 ./sources/main.py
 .PHONY: run-locally
