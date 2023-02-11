@@ -9,7 +9,7 @@ help:
 	@echo "The action can be tested locally with: 'make run'."
 	@echo "NB! For local testing Python version 3.6+ and NodeJS version between 14 and 16 are required."
 	@echo "The action image can be built locally with: 'make container'."
-	@echo "NB! For local container building Docker version between ??? and ??? is required."
+	@echo "NB! For local container building Docker version 20+ is required."
 	@echo "The action directory and image can be cleaned with: 'make clean'."
 .PHONY: help
 
@@ -40,5 +40,6 @@ clean:
 	rm -rf venv
 	rm -rf node_modules
 	rm -r package*.json
-	docker rmi -f waka-readme-stats 2>/dev/null
+	docker rmi -f waka-readme-stats 2>/dev/null || true
+	docker rmi $(docker images | grep "waka-readme-stats") 2> /dev/null || true
 .PHONY: clean

@@ -134,7 +134,7 @@ inputs:
 
 runs:
   using: 'docker'
-  image: 'ghcr.io/anmol098/waka-readme-stats:master'
+  image: 'waka-readme-stats:master'
 
 branding:
   icon: 'activity'
