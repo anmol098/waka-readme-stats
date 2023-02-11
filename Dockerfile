@@ -7,8 +7,8 @@ WORKDIR ./waka-readme-stats
 
 ADD requirements.txt ./requirements.txt
 ADD Makefile ./Makefile
-ADD sources/* ./
 
 RUN make dependencies
+ADD sources/* ./
 
 ENTRYPOINT python3 ./main.py

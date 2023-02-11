@@ -30,16 +30,16 @@ dependencies: venv node_modules
 .PHONY: dependencies
 
 
-run: dependencies
+run-locally: dependencies
 	@ # Run action locally
 	source <(cat .env.example | sed 's/=/=/' | sed 's/^/export /') && python3 ./sources/main.py
-.PHONY: run
+.PHONY: run-locally
 
-
-image:
-	@ # Build docker image
+run-container:
+	@ # Run action in container
 	docker build -t waka-readme-stats -f Dockerfile .
-.PHONY: image
+	docker run --env-file .env.example waka-readme-stats
+.PHONY: run-container
 
 
 clean:
