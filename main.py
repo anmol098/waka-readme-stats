@@ -400,7 +400,6 @@ def generate_language_per_repo(result):
     data = []
     sorted_labels = list(language_count.keys())
     sorted_labels.sort(key=lambda x: language_count[x]['count'], reverse=True)
-    most_language_repo = sorted_labels[0]
     for label in sorted_labels:
         percent = round(language_count[label]['count'] / total * 100, 2)
         extension = " repos"
@@ -411,9 +410,8 @@ def generate_language_per_repo(result):
             "text": str(language_count[label]['count']) + extension,
             "percent": percent
         })
-
-    title = translate['I Mostly Code in'] % most_language_repo
-    return '**' + title + '** \n\n' + '```text\n' + make_list(data) + '\n\n```\n'
+    title = '**' + translate['I Mostly Code in'] % sorted_labels[0] + '** \n\n' if len(sorted_labels) > 0 else ''
+    return title + '```text\n' + make_list(data) + '\n\n```\n'
 
 
 def get_yearly_data():
