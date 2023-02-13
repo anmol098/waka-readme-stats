@@ -4,12 +4,16 @@ Readme Development Metrics With waka time progress
 import re
 import os
 import base64
+from asyncio import run
+
 from pytz import timezone
 import pytz
 import requests
 from github import Github, GithubException, InputGitAuthor
 import datetime
 from string import Template
+
+from download_manager import init_download_manager
 from loc import LinesOfCode
 import time
 import traceback
@@ -543,6 +547,7 @@ def generate_new_readme(stats: str, readme: str):
 
 
 if __name__ == '__main__':
+    run(init_download_manager())
     try:
         start_time = datetime.datetime.now().timestamp() * 1000
         if ghtoken is None:

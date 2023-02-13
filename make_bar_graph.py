@@ -1,9 +1,15 @@
 import os
+from asyncio import run
+
 import pandas as pd
 import numpy as np
 import altair as alt
 import json
 import os
+
+from download_manager import DownloadManager
+
+
 # npm install vega-lite vega-cli canvas
 
 
@@ -14,8 +20,7 @@ class BarGraph:
 
     def build_graph(self):
         
-        with open(os.path.join(os.path.dirname(__file__), 'colors.json')) as f:
-            colors = json.load(f)
+        colors = run(DownloadManager.get_remote_yaml("linguist"))
         allColorsValues = []
 
         # filter data
