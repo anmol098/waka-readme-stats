@@ -1,4 +1,4 @@
-FROM python:3.9-slim
+FROM python:3.9-alpine
 
 ADD requirements.txt /requirements.txt
 RUN pip3 install --upgrade pip wheel setuptools
