@@ -4,7 +4,6 @@ ADD requirements.txt /requirements.txt
 ADD main.py /main.py
 ADD loc.py /loc.py
 ADD make_bar_graph.py /make_bar_graph.py
-ADD colors.json /colors.json
 ADD translation.json /translation.json
 
 ENV PATH "$PATH:/home/root/.npm-global/bin"
