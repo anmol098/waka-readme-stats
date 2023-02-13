@@ -5,6 +5,7 @@ ADD main.py /main.py
 ADD loc.py /loc.py
 ADD make_bar_graph.py /make_bar_graph.py
 ADD translation.json /translation.json
+ADD download_manager.py /download_manager.py
 
 ENV PATH "$PATH:/home/root/.npm-global/bin"
 

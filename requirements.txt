@@ -4,11 +4,10 @@ altair-saver==0.5.0
 altair-viewer==0.3.0
 attrs==20.3.0
 certifi==2020.12.5
-chardet==4.0.0
 cycler==0.10.0
 Deprecated==1.2.12
 entrypoints==0.3
-http3==0.6.7
+httpx==0.23.3
 humanize==3.3.0
 idna==2.10
 Jinja2==2.11.3
@@ -28,7 +27,6 @@ pyrsistent==0.17.3
 python-dateutil==2.8.1
 python-dotenv==0.17.0
 pytz==2021.1
-requests==2.25.1
 selenium==3.141.0
 six==1.15.0
 toolz==0.11.1

@@ -18,9 +18,9 @@ class BarGraph:
     def __init__(self, yearly_data):
         self.yearly_data = yearly_data
 
-    def build_graph(self):
+    async def build_graph(self):
         
-        colors = run(DownloadManager.get_remote_yaml("linguist"))
+        colors = await DownloadManager.get_remote_yaml("linguist")
         allColorsValues = []
 
         # filter data
