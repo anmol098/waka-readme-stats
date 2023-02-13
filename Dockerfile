@@ -1,8 +1,7 @@
 FROM python:3.9-alpine
 
 ADD requirements.txt /requirements.txt
-RUN pip3 install --upgrade pip wheel setuptools
-RUN apk add --no-cache --virtual .build-deps g++ jpeg-dev zlib-dev libjpeg make && pip3 install -r requirements.txt && apk del .build-deps
+RUN apk add --no-cache g++ jpeg-dev zlib-dev libjpeg make && pip3 install -r requirements.txt
 
 ADD main.py /main.py
 ADD loc.py /loc.py
