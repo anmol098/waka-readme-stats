@@ -10,7 +10,7 @@ from io import StringIO, BytesIO
 from dotenv import load_dotenv
 import time
 
-from make_bar_graph import BarGraph
+from make_bar_graph import build_graph
 
 
 class LinesOfCode:
@@ -34,8 +34,7 @@ class LinesOfCode:
         return yearly_data
 
     def plotLoc(self, yearly_data):
-        graph = BarGraph(yearly_data)
-        graph.build_graph()
+        build_graph(yearly_data)
         self.pushChart()
 
     def run_query_v3(self, endPoint):
