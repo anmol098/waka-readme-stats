@@ -1,6 +1,9 @@
-FROM nikolaik/python-nodejs:python3.9-nodejs16
+FROM python:3.9-slim
 
 ADD requirements.txt /requirements.txt
+RUN pip3 install --upgrade pip wheel setuptools
+RUN apk add --no-cache --virtual .build-deps g++ jpeg-dev zlib-dev libjpeg make && pip3 install -r requirements.txt && apk del .build-deps
+
 ADD main.py /main.py
 ADD loc.py /loc.py
 ADD make_bar_graph.py /make_bar_graph.py
@@ -8,11 +11,5 @@ ADD colors.json /colors.json
 ADD translation.json /translation.json
 
 ENV PATH "$PATH:/home/root/.npm-global/bin"
-
-RUN python -m pip install --upgrade pip wheel setuptools
-RUN pip install -r requirements.txt
-RUN npm -g config set user root
-RUN npm i -g npm@next-8
-RUN npm i -g vega vega-lite vega-cli canvas
 
 ENTRYPOINT ["python", "/main.py"]
