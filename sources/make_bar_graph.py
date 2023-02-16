@@ -6,11 +6,13 @@ import numpy as np
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 
+from download_manager import DownloadManager
+
 
 MAX_LANGUAGES = 5
 
 
-def build_graph(yearly_data: Dict) -> str:
+async def build_graph(yearly_data: Dict) -> str:
     """
     Draws graph of lines of code written by user by quarters of years.
     Picks top `MAX_LANGUAGES` languages from each quarter only.
@@ -18,8 +20,7 @@ def build_graph(yearly_data: Dict) -> str:
     :param yearly_data: GitHub user yearly data.
     :return: String, path to graph file.
     """
-    with open(join(dirname(__file__), "colors.json")) as f:
-        colors = load(f)
+    colors = await DownloadManager.get_remote_yaml("linguist")
 
     languages_all_loc = dict()
     years = len(yearly_data.keys())
