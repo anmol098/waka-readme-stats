@@ -11,4 +11,4 @@ RUN npm i npm@next-8 && npm i vega vega-lite vega-cli canvas
 
 ADD sources/* ./
 
-ENTRYPOINT python3 ./main.py
+ENTRYPOINT python3 /waka-readme-stats/main.py
