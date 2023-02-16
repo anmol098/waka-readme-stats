@@ -22,7 +22,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: waka-readme-stats
+          images: wakareadmestats/waka-readme-stats
           tags: |
             type=ref,event=branch
             type=ref,event=pr
