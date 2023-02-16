@@ -2,7 +2,8 @@
 .DEFAULT_GOAL = help
 SHELL = /bin/bash
 
-PATH := venv/bin:node_modules/.bin:$(PATH)
+ENV = .env.example
+include $(ENV)
 
 
 help:
@@ -24,13 +25,13 @@ venv:
 
 run-locally: venv
 	@ # Run action locally
-	source <(cat .env.example | sed 's/=/=/' | sed 's/^/export /') && python3 ./sources/main.py
+	python3 ./sources/main.py
 .PHONY: run-locally
 
 run-container:
 	@ # Run action in container
 	docker build -t waka-readme-stats -f Dockerfile .
-	docker run --env-file .env.example waka-readme-stats
+	docker run --env-file $(ENV) waka-readme-stats
 .PHONY: run-container
 
 
