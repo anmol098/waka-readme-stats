@@ -1,11 +1,5 @@
-import os
-from asyncio import run
-
 import pandas as pd
-import numpy as np
 import altair as alt
-import json
-import os
 
 from download_manager import DownloadManager
 

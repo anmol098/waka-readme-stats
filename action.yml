@@ -11,7 +11,7 @@ inputs:
   WAKATIME_API_KEY:
     description: 'Your Wakatime API Key'
     required: true
-    
+
   SECTION_NAME:
     description: 'Name used in readme to scope the updated section'
     required: false
@@ -134,7 +134,7 @@ inputs:
 
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: 'docker://wakareadmestats/waka-readme-stats:master'
 
 branding:
   icon: 'activity'
