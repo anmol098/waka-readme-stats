@@ -5,7 +5,7 @@ from github import Github, InputGitAuthor, AuthenticatedUser
 import datetime
 
 from download_manager import DownloadManager
-from make_bar_graph import BarGraph
+from make_bar_graph import build_graph
 
 
 class LinesOfCode:
@@ -28,8 +28,7 @@ class LinesOfCode:
         return yearly_data
 
     async def plotLoc(self, yearly_data):
-        graph = BarGraph(yearly_data)
-        await graph.build_graph()
+        await build_graph(yearly_data)
         self.pushChart()
 
     def getQuarter(self, timeStamp):

@@ -1,105 +1,69 @@
-import pandas as pd
-import altair as alt
+from typing import Dict
+from os.path import join, dirname
+from json import load
+
+import numpy as np
+import matplotlib.patches as mpatches
+import matplotlib.pyplot as plt
 
 from download_manager import DownloadManager
 
 
-# npm install vega-lite vega-cli canvas
+MAX_LANGUAGES = 5
 
 
-class BarGraph:
+async def build_graph(yearly_data: Dict) -> str:
+    """
+    Draws graph of lines of code written by user by quarters of years.
+    Picks top `MAX_LANGUAGES` languages from each quarter only.
 
-    def __init__(self, yearly_data):
-        self.yearly_data = yearly_data
+    :param yearly_data: GitHub user yearly data.
+    :return: String, path to graph file.
+    """
+    colors = await DownloadManager.get_remote_yaml("linguist")
 
-    async def build_graph(self):
-        
-        colors = await DownloadManager.get_remote_yaml("linguist")
-        allColorsValues = []
+    languages_all_loc = dict()
+    years = len(yearly_data.keys())
+    year_indexes = np.arange(years)
 
-        # filter data
-        max_languages = 5
-        top_languages = {}
-        for year in self.yearly_data.keys():
-            for quarter in self.yearly_data[year].keys():
-                for language in sorted(list(self.yearly_data[year][quarter].keys()),
-                                       key=lambda lang: self.yearly_data[year][quarter][lang], reverse=True)[
-                                0:max_languages]:
-                    if 'top' not in self.yearly_data[year][quarter]:
-                        self.yearly_data[year][quarter]['top'] = {}
-                    if self.yearly_data[year][quarter][language] != 0:
-                        self.yearly_data[year][quarter]['top'][language] = self.yearly_data[year][quarter][language]
+    for i, y in enumerate(sorted(yearly_data.keys())):
+        for q in yearly_data[y].keys():
+            langs = sorted(yearly_data[y][q].keys(), key=lambda l: yearly_data[y][q][l], reverse=True)[0:MAX_LANGUAGES]
 
-                        if language not in top_languages:
-                            top_languages[language] = 1
-                        top_languages[language] += 1
+            for lang in langs:
+                if lang not in languages_all_loc:
+                    languages_all_loc[lang] = np.array([[0] * years] * 4)
+                languages_all_loc[lang][q - 1][i] = yearly_data[y][q][lang]
 
-        # print(self.yearly_data)
+    fig = plt.figure()
+    ax = fig.add_axes([0, 0, 1.5, 1])
 
-        all_languages = list(top_languages.keys())
+    language_handles = []
+    cumulative = np.array([[0] * years] * 4)
 
-        for language in all_languages:
-            if colors[language]['color'] is not None:
-                allColorsValues.append(colors[language]['color'])
+    for key, value in languages_all_loc.items():
+        color = colors[key]["color"] if colors[key]["color"] is not None else "w"
+        language_handles += [mpatches.Patch(color=color, label=key)]
 
-        languages_all_loc = {}
+        for quarter in range(4):
+            ax.bar(year_indexes + quarter * 0.21, value[quarter], 0.2, bottom=cumulative[quarter], color=color)
+            cumulative[quarter] = np.add(cumulative[quarter], value[quarter])
 
-        for language in all_languages:
-            language_year = []
-            for year in self.yearly_data.keys():
-                language_quarter = [0, 0, 0, 0]
-                for quarter in self.yearly_data[year].keys():
-                    if language in self.yearly_data[year][quarter]['top']:
-                        language_quarter[quarter - 1] = self.yearly_data[year][quarter]['top'][language]
-                    else:
-                        language_quarter[quarter - 1] = 0
-                language_year.append(language_quarter)
-            languages_all_loc[language] = language_year
+    ax.set_ylabel("LOC added", fontdict=dict(weight="bold"))
+    ax.set_xticks(np.array([np.arange(i, i + 0.84, step=0.21) for i in year_indexes]).flatten(), labels=["Q1", "Q2", "Q3", "Q4"] * years)
 
-        # print(languages_all_loc)
+    sax = ax.secondary_xaxis("top")
+    sax.set_xticks(year_indexes + 0.42, labels=sorted(yearly_data.keys()))
+    sax.spines["top"].set_visible(False)
 
-        language_df = {}
+    ax.legend(title="Language", handles=language_handles, loc="upper left", bbox_to_anchor=(1, 1), framealpha=0, title_fontproperties=dict(weight="bold"))
 
-        def prep_df(df, name):
-            df = df.stack().reset_index()
-            df.columns = ['c1', 'c2', 'values']
-            df['Language'] = name
-            return df
+    sax.tick_params(axis="both", length=0)
+    sax.spines["top"].set_visible(False)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
 
-        for language in languages_all_loc.keys():
-            language_df[language] = pd.DataFrame(languages_all_loc[language], index=list(self.yearly_data.keys()),
-                                                 columns=["Q1", "Q2", "Q3", "Q4"])
-
-        for language in language_df.keys():
-            language_df[language] = prep_df(language_df[language], language)
-
-        df = pd.concat(language_df.values())
-
-        chart = alt.Chart(df).mark_bar().encode(
-
-            # tell Altair which field to group columns on
-            x=alt.X('c2:N', title=None),
-
-            # tell Altair which field to use as Y values and how to calculate
-            y=alt.Y('sum(values):Q',
-                    axis=alt.Axis(
-                        grid=False,
-                        title='LOC added')),
-
-            # tell Altair which field to use to use as the set of columns to be  represented in each group
-            column=alt.Column('c1:N', title=None),
-
-            # tell Altair which field to use for color segmentation
-            color=alt.Color('Language:N',
-                            scale=alt.Scale(
-                                domain=all_languages,
-                                # make it look pretty with an enjoyable color pallet
-                                range=allColorsValues,
-                            ),
-                            )) \
-            .configure_view(
-            # remove grid lines around column clusters
-            strokeOpacity=0
-        )
-        chart.save('bar_graph.png')
-        return 'bar_graph.png'
+    plt.ylim(0, 1.05 * np.amax(cumulative))
+    plt.savefig("bar_graph.png", bbox_inches="tight")
+    plt.close(fig)
+    return "bar_graph.png"

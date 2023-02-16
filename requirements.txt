@@ -1,10 +1,7 @@
 PyGithub==1.54.1
-matplotlib==3.4.1
+matplotlib==3.6.3
+numpy==1.24.2
 python-dotenv==0.17.0
-numpy==1.24.1
-pandas==1.2.3
-altair==4.1.0
-altair-saver==0.5.0
 pytz==2021.1
 humanize==3.3.0
 httpx==0.23.3
