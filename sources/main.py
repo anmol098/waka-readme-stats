@@ -383,7 +383,7 @@ async def get_stats(github) -> str:
     if showLocChart.lower() in truthy:
         stats += '**' + translate['Timeline'] + '**\n\n'
         branch_name = github.get_repo(f'{user.login}/{user.login}').default_branch
-        stats = stats + '![Chart not found](https://raw.githubusercontent.com/' + user.login + '/' + user.login + '/' + branch_name + '/charts/bar_graph.png) \n\n'
+        stats = stats + '![Chart not found](https://raw.githubusercontent.com/' + user.login + '/' + user.login + '/' + branch_name + '/' + LinesOfCode.GRAPH_PATH + ') \n\n'
 
     if show_updated_date.lower() in truthy:
         now = datetime.datetime.utcnow()

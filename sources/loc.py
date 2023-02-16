@@ -5,10 +5,11 @@ from github import Github, InputGitAuthor, AuthenticatedUser
 import datetime
 
 from download_manager import DownloadManager
-from make_bar_graph import build_graph
+from graph_drawer import create_loc_graph
 
 
 class LinesOfCode:
+    GRAPH_PATH = "assets/bar_graph.png"
 
     def __init__(self, user: AuthenticatedUser, ghtoken, repositoryData, ignored_repos):
         self.g = Github(ghtoken)
@@ -28,7 +29,7 @@ class LinesOfCode:
         return yearly_data
 
     async def plotLoc(self, yearly_data):
-        await build_graph(yearly_data)
+        await create_loc_graph(yearly_data, LinesOfCode.GRAPH_PATH)
         self.pushChart()
 
     def getQuarter(self, timeStamp):
@@ -67,10 +68,10 @@ class LinesOfCode:
     def pushChart(self):
         repo = self.g.get_repo(f"{self.user.login}/{self.user.login}")
         committer = InputGitAuthor('readme-bot', '41898282+github-actions[bot]@users.noreply.github.com')
-        with open('bar_graph.png', 'rb') as input_file:
+        with open(LinesOfCode.GRAPH_PATH, 'rb') as input_file:
             data = input_file.read()
         try:
-            contents = repo.get_contents("charts/bar_graph.png")
+            contents = repo.get_contents(LinesOfCode.GRAPH_PATH)
             repo.update_file(contents.path, "Charts Updated", data, contents.sha, committer=committer)
         except Exception as e:
-            repo.create_file("charts/bar_graph.png", "Charts Added", data, committer=committer)
+            repo.create_file(LinesOfCode.GRAPH_PATH, "Charts Added", data, committer=committer)

@@ -31,13 +31,14 @@ run-locally: venv
 run-container:
 	@ # Run action in container
 	docker build -t waka-readme-stats -f Dockerfile .
-	docker run --env-file $(ENV) waka-readme-stats
+	docker run --env-file $(ENV) -v ./assets/:/waka-readme-stats/assets/ waka-readme-stats
 .PHONY: run-container
 
 
 clean:
 	@ # Clean all build files, including: libraries, package manager configs, docker images and containers
 	rm -rf venv
+	rm -rf assets
 	rm -f package*.json
 	docker rm -f waka-readme-stats 2>/dev/null || true
 	docker rmi $(docker images | grep "waka-readme-stats") 2> /dev/null || true
