@@ -1,6 +1,20 @@
+# Environment files:
 *.env
+
+# Generated graph images:
 *.png
+
+# Library roots:
 node_modules/
+venv/
+
+# Python caches:
 __pycache__/
 
+# Package manager configuration files:
+package.json
+package-lock.json
+
+# IDE configuration files:
 .vscode
+.idea
