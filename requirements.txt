@@ -7,3 +7,5 @@ altair==4.1.0
 altair-saver==0.5.0
 pytz==2021.1
 humanize==3.3.0
+httpx==0.23.3
+PyYAML==6.0
