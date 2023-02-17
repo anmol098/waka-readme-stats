@@ -2,7 +2,6 @@
 Readme Development Metrics With waka time progress
 """
 from asyncio import run
-from typing import Dict, Tuple
 from datetime import datetime
 from urllib.parse import quote
 
@@ -12,8 +11,9 @@ from manager_download import init_download_manager, DownloadManager as DM
 from manager_environment import EnvironmentManager as EM
 from manager_github import init_github_manager, GitHubManager as GHM
 from manager_localization import init_localization_manager, LocalizationManager as LM
-from loc import LinesOfCode  # TODO: refactor
-from graphics_list_formatter import make_list, generate_commit_list, make_language_per_repo_list
+from graphics_chart_drawer import create_loc_graph
+from yearly_commit_calculator import GRAPH_PATH, calculate_yearly_commit_data
+from graphics_list_formatter import make_list, make_commit_day_time_list, make_language_per_repo_list
 
 
 async def get_waka_time_stats() -> str:
@@ -21,7 +21,7 @@ async def get_waka_time_stats() -> str:
 
     data = await DM.get_remote_json("waka_latest")
     if EM.SHOW_COMMIT:
-        stats += f"{await generate_commit_list(data['data']['timezone'])}\n\n"
+        stats += f"{await make_commit_day_time_list(data['data']['timezone'])}\n\n"
 
     if EM.SHOW_TIMEZONE or EM.SHOW_LANGUAGE or EM.SHOW_EDITORS or EM.SHOW_PROJECTS or EM.SHOW_OS:
         no_activity = LM.t("No Activity Tracked This Week")
@@ -50,11 +50,6 @@ async def get_waka_time_stats() -> str:
         stats += '```\n\n'
 
     return stats
-
-
-async def get_yearly_data(repository_list) -> Tuple[LinesOfCode, Dict]:  # TODO: refactor!
-    loc = LinesOfCode(GHM.USER, EM.GH_TOKEN, repository_list, EM.IGNORED_REPOS)
-    return loc, await loc.calculateLoc()
 
 
 async def get_short_github_info():
@@ -101,9 +96,9 @@ async def get_stats() -> str:
     repositories = await DM.get_remote_graphql("user_repository_list", username=GHM.USER.login, id=GHM.USER.node_id)
 
     if EM.SHOW_LINES_OF_CODE or EM.SHOW_LOC_CHART:
-        loc, yearly_data = await get_yearly_data(repositories)
+        yearly_data = await calculate_yearly_commit_data(repositories)
     else:
-        loc, yearly_data = (None, dict())
+        yearly_data = (None, dict())
 
     if EM.SHOW_TOTAL_CODE_TIME:
         data = await DM.get_remote_json("waka_all")
@@ -127,8 +122,9 @@ async def get_stats() -> str:
         stats += f"{make_language_per_repo_list(repositories)}\n\n"
 
     if EM.SHOW_LOC_CHART:
-        await loc.plotLoc(yearly_data)
-        chart_path = f"{GHM.USER.login}/{GHM.USER.login}/{GHM.branch()}/{LinesOfCode.GRAPH_PATH}"
+        await create_loc_graph(yearly_data, GRAPH_PATH)
+        GHM.update_chart(GRAPH_PATH)
+        chart_path = f"{GHM.USER.login}/{GHM.USER.login}/{GHM.branch()}/{GRAPH_PATH}"
         stats += '**' + LM.t('Timeline') + '**\n\n'
         stats += f"![Lines of Code chart](https://raw.githubusercontent.com/{chart_path})\n\n"
 
@@ -156,5 +152,4 @@ if __name__ == '__main__':
 # TODO: check function and variable naming
 # TODO: check type hints
 # TODO: sorted to max / min
-# TODO: add 1 to repo count
 # TODO: drop not awaited coroutines

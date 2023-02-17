@@ -1,7 +1,7 @@
 from base64 import b64decode
 from re import sub
 
-from github import Github, AuthenticatedUser, Repository, ContentFile, InputGitAuthor
+from github import Github, AuthenticatedUser, Repository, ContentFile, InputGitAuthor, UnknownObjectException
 
 from manager_environment import EnvironmentManager as EM
 
@@ -75,3 +75,13 @@ class GitHubManager:
             return True
         else:
             return False
+
+    @staticmethod
+    def update_chart(chart_path: str):
+        with open(chart_path, "rb") as input_file:
+            data = input_file.read()
+        try:
+            contents = GitHubManager.REPO.get_contents(chart_path)
+            GitHubManager.REPO.update_file(contents.path, "Charts Updated", data, contents.sha, committer=GitHubManager._get_author())
+        except UnknownObjectException:
+            GitHubManager.REPO.create_file(chart_path, "Charts Added", data, committer=GitHubManager._get_author())
