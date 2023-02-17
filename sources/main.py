@@ -7,7 +7,7 @@ from urllib.parse import quote
 
 from humanize import intword, naturalsize, intcomma, precisedelta
 
-from manager_download import init_download_manager, DownloadManager as DM, close_download_manager
+from manager_download import init_download_manager, DownloadManager as DM
 from manager_environment import EnvironmentManager as EM
 from manager_github import init_github_manager, GitHubManager as GHM
 from manager_localization import init_localization_manager, LocalizationManager as LM
@@ -17,6 +17,12 @@ from graphics_list_formatter import make_list, make_commit_day_time_list, make_l
 
 
 async def get_waka_time_stats() -> str:
+    """
+    Collects user info from wakatime.
+    Info includes most common commit time, timezone, language, editors, projects and OSs.
+
+    :returns: String representation of the info.
+    """
     stats = str()
 
     data = await DM.get_remote_json("waka_latest")
@@ -52,7 +58,13 @@ async def get_waka_time_stats() -> str:
     return stats
 
 
-async def get_short_github_info():
+async def get_short_github_info() -> str:
+    """
+    Collects user info from GitHub public profile.
+    The stats include: disk usage, contributions number, whether the user has opted to hire, public and private repositories number.
+
+    :returns: String representation of the info.
+    """
     stats = f"**🐱 {LM.t('My GitHub Data')}** \n\n"
 
     if GHM.USER.disk_usage is None:
@@ -64,7 +76,7 @@ async def get_short_github_info():
 
     data = await DM.get_remote_json("github_stats")
     if len(data["years"]) > 0:
-        contributions = LM.t('Contributions in the year') % (intcomma(data["years"][0]['total']), data["years"][0]['year'])
+        contributions = LM.t("Contributions in the year") % (intcomma(data["years"][0]["total"]), data["years"][0]["year"])
         stats += f"> 🏆 {contributions}\n > \n"
 
     opted_to_hire = GHM.USER.hireable
@@ -90,7 +102,10 @@ async def get_short_github_info():
 
 async def get_stats() -> str:
     """
-    Gets API data and returns markdown progress
+    Creates new README.md content from all the acquired statistics from all places.
+    The readme includes data from wakatime, contributed lines of code number, GitHub profile info and last updated date.
+
+    :returns: String representation of README.md contents.
     """
     stats = str()
     repositories = await DM.get_remote_graphql("user_repository_list", username=GHM.USER.login, id=GHM.USER.node_id)
@@ -125,8 +140,7 @@ async def get_stats() -> str:
         await create_loc_graph(yearly_data, GRAPH_PATH)
         GHM.update_chart(GRAPH_PATH)
         chart_path = f"{GHM.USER.login}/{GHM.USER.login}/{GHM.branch()}/{GRAPH_PATH}"
-        stats += '**' + LM.t('Timeline') + '**\n\n'
-        stats += f"![Lines of Code chart](https://raw.githubusercontent.com/{chart_path})\n\n"
+        stats += f"**{LM.t('Timeline')}**\n\n![Lines of Code chart](https://raw.githubusercontent.com/{chart_path})\n\n"
 
     if EM.SHOW_UPDATED_DATE:
         stats += f"\n Last Updated on {datetime.now().strftime(EM.UPDATED_DATE_FORMAT)} UTC"
@@ -135,16 +149,20 @@ async def get_stats() -> str:
 
 
 async def main():
+    """
+    Application main function.
+    Initializes all managers, collects user info and updates README.md if necessary.
+    """
     init_github_manager()
     await init_download_manager()
     init_localization_manager()
 
     if GHM.update_readme(await get_stats()):
         print("Readme updated!")
-    await close_download_manager()
+    await DM.close_remote_resources()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     start_time = datetime.now()
     run(main())
     run_delta = datetime.now() - start_time

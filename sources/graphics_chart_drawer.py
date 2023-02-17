@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 from manager_download import DownloadManager as DM
 
 
-MAX_LANGUAGES = 5
-GRAPH_PATH = "assets/bar_graph.png"
+MAX_LANGUAGES = 5  # Number of top languages to add to chart, for each year quarter
+GRAPH_PATH = "assets/bar_graph.png"  # Chart saving path.
 
 
 async def create_loc_graph(yearly_data: Dict, save_path: str):
@@ -27,7 +27,7 @@ async def create_loc_graph(yearly_data: Dict, save_path: str):
     languages_all_loc = dict()
     for i, y in enumerate(sorted(yearly_data.keys())):
         for q in yearly_data[y].keys():
-            langs = sorted(yearly_data[y][q].keys(), key=lambda l: yearly_data[y][q][l], reverse=True)[0:MAX_LANGUAGES]
+            langs = sorted(yearly_data[y][q].keys(), key=lambda n: yearly_data[y][q][n], reverse=True)[0:MAX_LANGUAGES]
 
             for lang in langs:
                 if lang not in languages_all_loc:

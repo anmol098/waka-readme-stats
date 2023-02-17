@@ -6,7 +6,7 @@ on:
 jobs:
   lint:
     name: Run codestyle check
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
       - name: Checkout 🛎️
@@ -21,4 +21,4 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run Codestyle ✔️
-        run: flake8 --max-line-length=160 --exclude venv,assets .
+        run: flake8 --max-line-length=160 --exclude venv,assets . && black --line-length=160 --check --exclude='/venv/|/assets/' .

@@ -8,6 +8,13 @@ from manager_github import GitHubManager as GHM
 
 
 async def calculate_yearly_commit_data(repositories: Dict) -> Dict:
+    """
+    Calculate commit data by years.
+    Commit data includes difference between contribution additions and deletions in each quarter of each recorded year.
+
+    :param repositories: user repositories info dictionary.
+    :returns: Commit quarter yearly data dictionary.
+    """
     yearly_data = dict()
     total = len(repositories["data"]["user"]["repositories"]["edges"])
     for ind, repo in enumerate(repositories["data"]["user"]["repositories"]["edges"]):
@@ -17,7 +24,14 @@ async def calculate_yearly_commit_data(repositories: Dict) -> Dict:
     return yearly_data
 
 
-async def update_yearly_data_with_commit_stats(repo_details: Dict, yearly_data: Dict) -> Dict:
+async def update_yearly_data_with_commit_stats(repo_details: Dict, yearly_data: Dict):
+    """
+    Updates yearly commit data with commits from given repository.
+    Skips update if the commit isn't related to any repository.
+
+    :param repo_details: Dictionary with information about the given repository.
+    :param yearly_data: Yearly data dictionary to update.
+    """
     commit_data = await DM.get_remote_graphql("repo_commit_list", owner=repo_details["owner"]["login"], name=repo_details["name"], id=GHM.USER.node_id)
 
     if commit_data["data"]["repository"] is None:
@@ -36,4 +50,4 @@ async def update_yearly_data_with_commit_stats(repo_details: Dict, yearly_data: 
                 yearly_data[curr_year][quarter] = dict()
             if repo_details["primaryLanguage"]["name"] not in yearly_data[curr_year][quarter]:
                 yearly_data[curr_year][quarter][repo_details["primaryLanguage"]["name"]] = 0
-            yearly_data[curr_year][quarter][repo_details["primaryLanguage"]["name"]] += (commit["additions"] - commit["deletions"])
+            yearly_data[curr_year][quarter][repo_details["primaryLanguage"]["name"]] += commit["additions"] - commit["deletions"]

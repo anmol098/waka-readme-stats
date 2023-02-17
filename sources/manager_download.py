@@ -1,3 +1,4 @@
+from asyncio import Task
 from hashlib import md5
 from json import dumps
 from string import Template
@@ -11,6 +12,7 @@ from manager_github import GitHubManager as GHM
 
 
 GITHUB_API_QUERIES = {
+    # Query to collect info about all user repositories, including: is it a fork, name and owner login.
     "repos_contributed_to": """
 {
     user(login: "$username") {
@@ -25,6 +27,7 @@ GITHUB_API_QUERIES = {
         }
     }
 }""",
+    # Query to collect info about all commits in user repositories, including: commit date.
     "repo_committed_dates": """
 {
     repository(owner: "$owner", name: "$name") {
@@ -43,6 +46,7 @@ GITHUB_API_QUERIES = {
         }
     }
 }""",
+    # Query to collect info about all repositories user created or collaborated on, including: name, primary language and owner login.
     "user_repository_list": """
 {
     user(login: "$username") {
@@ -62,6 +66,7 @@ GITHUB_API_QUERIES = {
     }
 }
 """,
+    # Query to collect info about user commits to given repository, including: commit date, additions and deletions numbers.
     "repo_commit_list": """
 {
     repository(owner: "$owner", name: "$name") {
@@ -90,7 +95,7 @@ GITHUB_API_QUERIES = {
         }
     }
 }
-"""
+""",
 }
 
 
@@ -100,23 +105,15 @@ async def init_download_manager():
     - Setup headers for GitHub GraphQL requests.
     - Launch static queries in background.
     """
-    await DownloadManager.load_remote_resources({
-        "linguist": "https://cdn.jsdelivr.net/gh/github/linguist@master/lib/linguist/languages.yml",
-        "waka_latest": f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={EM.WAKATIME_API_KEY}",
-        "waka_all": f"https://wakatime.com/api/v1/users/current/all_time_since_today?api_key={EM.WAKATIME_API_KEY}",
-        "github_stats": f"https://github-contributions.vercel.app/api/v1/{GHM.USER.login}"
-    }, {
-        "Authorization": f"Bearer {EM.GH_TOKEN}"
-    })
-
-
-async def close_download_manager():
-    """
-    Initialize download manager:
-    - Setup headers for GitHub GraphQL requests.
-    - Launch static queries in background.
-    """
-    await DownloadManager.close_remote_resources("linguist", "waka_latest", "waka_all", "github_stats")
+    await DownloadManager.load_remote_resources(
+        {
+            "linguist": "https://cdn.jsdelivr.net/gh/github/linguist@master/lib/linguist/languages.yml",
+            "waka_latest": f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={EM.WAKATIME_API_KEY}",
+            "waka_all": f"https://wakatime.com/api/v1/users/current/all_time_since_today?api_key={EM.WAKATIME_API_KEY}",
+            "github_stats": f"https://github-contributions.vercel.app/api/v1/{GHM.USER.login}",
+        },
+        {"Authorization": f"Bearer {EM.GH_TOKEN}"},
+    )
 
 
 class DownloadManager:
@@ -130,6 +127,7 @@ class DownloadManager:
     DownloadManager launches all static queries asynchronously upon initialization and caches their results.
     It also executes dynamic queries upon request and caches result.
     """
+
     _client = AsyncClient(timeout=60.0)
     _REMOTE_RESOURCES_CACHE = dict()
 
@@ -145,14 +143,16 @@ class DownloadManager:
         DownloadManager._client.headers = github_headers
 
     @staticmethod
-    async def close_remote_resources(*resource: str):
+    async def close_remote_resources():
         """
-        Prepare DownloadManager to launch GitHub API queries and launch all static queries.
-        :param resources: Dictionary of static queries, "IDENTIFIER": "URL".
-        :param github_headers: Dictionary of headers for GitHub API queries.
+        Close DownloadManager and cancel all un-awaited static web queries.
+        Await all queries that could not be cancelled.
         """
-        for resource in [DownloadManager._REMOTE_RESOURCES_CACHE[r] for r in resource if isinstance(DownloadManager._REMOTE_RESOURCES_CACHE[r], Awaitable)]:
-            resource.cancel()
+        for resource in DownloadManager._REMOTE_RESOURCES_CACHE.values():
+            if isinstance(resource, Task):
+                resource.cancel()
+            elif isinstance(resource, Awaitable):
+                await resource
 
     @staticmethod
     async def _get_remote_resource(resource: str, convertor: Optional[Callable[[bytes], Dict]]) -> Dict:
@@ -208,9 +208,7 @@ class DownloadManager:
         """
         key = f"{query}_{md5(dumps(kwargs, sort_keys=True).encode('utf-8')).digest()}"
         if key not in DownloadManager._REMOTE_RESOURCES_CACHE:
-            res = await DownloadManager._client.post("https://api.github.com/graphql", json={
-                "query": Template(GITHUB_API_QUERIES[query]).substitute(kwargs)
-            })
+            res = await DownloadManager._client.post("https://api.github.com/graphql", json={"query": Template(GITHUB_API_QUERIES[query]).substitute(kwargs)})
             DownloadManager._REMOTE_RESOURCES_CACHE[key] = res
         else:
             res = DownloadManager._REMOTE_RESOURCES_CACHE[key]
