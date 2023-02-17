@@ -36,8 +36,8 @@ class GitHubManager:
         """
         github = Github(EM.GH_TOKEN)
         GitHubManager.USER = github.get_user()
-        GitHubManager._REPO = github.get_repo(f"{GitHubManager.USER.login}/{GitHubManager.USER.login}")
-        GitHubManager._README = GitHubManager._REPO.get_readme()
+        GitHubManager.REPO = github.get_repo(f"{GitHubManager.USER.login}/{GitHubManager.USER.login}")
+        GitHubManager._README = GitHubManager.REPO.get_readme()
         GitHubManager._README_CONTENTS = str(b64decode(GitHubManager._README.content), "utf-8")
 
     @staticmethod
