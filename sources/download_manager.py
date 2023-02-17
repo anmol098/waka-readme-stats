@@ -63,7 +63,7 @@ GITHUB_API_QUERIES = {
     "repository_commit_list": """
 {
     repository(owner: "$owner", name: "$name") {
-        refs(refPrefix: "refs/heads/", orderBy: {direction: DESC, field: TAG_COMMIT_DATE}, first: 100) {
+        refs(refPrefix: "refs/heads/", orderBy: {direction: DESC, field: TAG_COMMIT_DATE}, first: 10) {  # TODO: increase branch number with pagination
             edges {
                 node {
                     ... on Ref {
