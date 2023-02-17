@@ -12,3 +12,6 @@ numpy~=1.24
 # Request making and response parsing modules:
 httpx~=0.23
 PyYAML~=6.0
+
+# Codestyle checking module:
+flake8~=6.0
