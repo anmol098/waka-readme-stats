@@ -110,6 +110,15 @@ async def init_download_manager():
     })
 
 
+async def close_download_manager():
+    """
+    Initialize download manager:
+    - Setup headers for GitHub GraphQL requests.
+    - Launch static queries in background.
+    """
+    await DownloadManager.close_remote_resources("linguist", "waka_latest", "waka_all", "github_stats")
+
+
 class DownloadManager:
     """
     Class for handling and caching all kinds of requests.
@@ -134,6 +143,16 @@ class DownloadManager:
         for resource, url in resources.items():
             DownloadManager._REMOTE_RESOURCES_CACHE[resource] = DownloadManager._client.get(url)
         DownloadManager._client.headers = github_headers
+
+    @staticmethod
+    async def close_remote_resources(*resource: str):
+        """
+        Prepare DownloadManager to launch GitHub API queries and launch all static queries.
+        :param resources: Dictionary of static queries, "IDENTIFIER": "URL".
+        :param github_headers: Dictionary of headers for GitHub API queries.
+        """
+        for resource in [DownloadManager._REMOTE_RESOURCES_CACHE[r] for r in resource if isinstance(DownloadManager._REMOTE_RESOURCES_CACHE[r], Awaitable)]:
+            resource.cancel()
 
     @staticmethod
     async def _get_remote_resource(resource: str, convertor: Optional[Callable[[bytes], Dict]]) -> Dict:

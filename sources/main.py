@@ -7,12 +7,12 @@ from urllib.parse import quote
 
 from humanize import intword, naturalsize, intcomma, precisedelta
 
-from manager_download import init_download_manager, DownloadManager as DM
+from manager_download import init_download_manager, DownloadManager as DM, close_download_manager
 from manager_environment import EnvironmentManager as EM
 from manager_github import init_github_manager, GitHubManager as GHM
 from manager_localization import init_localization_manager, LocalizationManager as LM
-from graphics_chart_drawer import create_loc_graph
-from yearly_commit_calculator import GRAPH_PATH, calculate_yearly_commit_data
+from graphics_chart_drawer import create_loc_graph, GRAPH_PATH
+from yearly_commit_calculator import calculate_yearly_commit_data
 from graphics_list_formatter import make_list, make_commit_day_time_list, make_language_per_repo_list
 
 
@@ -47,7 +47,7 @@ async def get_waka_time_stats() -> str:
             os_list = no_activity if len(data["data"]["operating_systems"]) == 0 else make_list(data["data"]["operating_systems"])
             stats += f"💻 {LM.t('operating system')}: \n{os_list}\n\n"
 
-        stats += '```\n\n'
+        stats = f"{stats[:-1]}```\n\n"
 
     return stats
 
@@ -141,6 +141,7 @@ async def main():
 
     if GHM.update_readme(await get_stats()):
         print("Readme updated!")
+    await close_download_manager()
 
 
 if __name__ == '__main__':
@@ -148,8 +149,3 @@ if __name__ == '__main__':
     run(main())
     run_delta = datetime.now() - start_time
     print(f"Program processed in {precisedelta(run_delta, minimum_unit='microseconds')}.")
-
-# TODO: check function and variable naming
-# TODO: check type hints
-# TODO: sorted to max / min
-# TODO: drop not awaited coroutines

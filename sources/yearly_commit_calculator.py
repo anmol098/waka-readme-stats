@@ -7,13 +7,10 @@ from manager_environment import EnvironmentManager as EM
 from manager_github import GitHubManager as GHM
 
 
-GRAPH_PATH = "assets/bar_graph.png"
-
-
-async def calculate_yearly_commit_data(repository_data: Dict) -> Dict:
+async def calculate_yearly_commit_data(repositories: Dict) -> Dict:
     yearly_data = dict()
-    total = len(repository_data["data"]["user"]["repositories"]["edges"])
-    for ind, repo in enumerate(repository_data["data"]["user"]["repositories"]["edges"]):
+    total = len(repositories["data"]["user"]["repositories"]["edges"])
+    for ind, repo in enumerate(repositories["data"]["user"]["repositories"]["edges"]):
         if repo["node"]["name"] not in EM.IGNORED_REPOS:
             print(f"{ind + 1}/{total}", "Retrieving repo:", repo["node"]["owner"]["login"], repo["node"]["name"])
             await update_yearly_data_with_commit_stats(repo["node"], yearly_data)

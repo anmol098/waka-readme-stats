@@ -8,6 +8,7 @@ from manager_download import DownloadManager as DM
 
 
 MAX_LANGUAGES = 5
+GRAPH_PATH = "assets/bar_graph.png"
 
 
 async def create_loc_graph(yearly_data: Dict, save_path: str):
