@@ -39,7 +39,7 @@ run-container:
 
 
 lint: venv
-	@ # Run flake8 linter
+	@ # Run flake8 and black linters
 	flake8 --max-line-length=160 --exclude venv,assets .
 	black --line-length=160 --check --exclude='/venv/|/assets/' .
 .PHONY: lint
