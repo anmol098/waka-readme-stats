@@ -94,8 +94,10 @@ async def make_commit_day_time_list(time_zone: str) -> str:
 
     for repository in repos:
         result = await DM.get_remote_graphql("repo_committed_dates", owner=repository["owner"]["login"], name=repository["name"], id=GHM.USER.node_id)
-        committed_dates = result["data"]["repository"]["defaultBranchRef"]["target"]["history"]["edges"]
+        if result["data"]["repository"] is None or result["data"]["repository"]["defaultBranchRef"] is None:
+            continue
 
+        committed_dates = result["data"]["repository"]["defaultBranchRef"]["target"]["history"]["edges"]
         for committed_date in committed_dates:
             local_date = datetime.strptime(committed_date["node"]["committedDate"], "%Y-%m-%dT%H:%M:%SZ")
             date = local_date.replace(tzinfo=utc).astimezone(timezone(time_zone))

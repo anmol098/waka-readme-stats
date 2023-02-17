@@ -67,10 +67,11 @@ GITHUB_API_QUERIES = {
 }
 """,
     # Query to collect info about user commits to given repository, including: commit date, additions and deletions numbers.
+    # TODO: increase branch number with pagination
     "repo_commit_list": """
 {
     repository(owner: "$owner", name: "$name") {
-        refs(refPrefix: "refs/heads/", orderBy: {direction: DESC, field: TAG_COMMIT_DATE}, first: 100) {
+        refs(refPrefix: "refs/heads/", orderBy: {direction: DESC, field: TAG_COMMIT_DATE}, first: 10) {
             edges {
                 node {
                     ... on Ref {
