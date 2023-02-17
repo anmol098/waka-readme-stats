@@ -1,6 +1,8 @@
 .ONESHELL:
 .DEFAULT_GOAL = help
-SHELL = /bin/bash
+.EXPORT_ALL_VARIABLES:
+
+PATH := venv/bin:$(PATH)
 
 ENV = .env.example
 include $(ENV)
@@ -25,6 +27,7 @@ venv:
 
 run-locally: venv
 	@ # Run action locally
+	mkdir ./assets/ 2>/dev/null || true
 	python3 ./sources/main.py
 .PHONY: run-locally
 

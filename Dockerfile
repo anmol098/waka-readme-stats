@@ -9,4 +9,4 @@ ADD requirements.txt /waka-readme-stats/requirements.txt
 RUN apk add --no-cache g++ jpeg-dev zlib-dev libjpeg make && pip3 install -r /waka-readme-stats/requirements.txt
 
 ADD sources/* /waka-readme-stats/
-ENTRYPOINT python3 /waka-readme-stats/main.py
+ENTRYPOINT cd /waka-readme-stats/ && python3 main.py

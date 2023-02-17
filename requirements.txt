@@ -1,8 +1,14 @@
-PyGithub==1.54.1
-matplotlib==3.6.3
-numpy==1.24.2
-python-dotenv==0.17.0
-pytz==2021.1
-humanize==3.3.0
-httpx==0.23.3
-PyYAML==6.0
+# GitHub integration modules:
+PyGithub~=1.57
+
+# Markdown visualization modules:
+pytz~=2022.7
+humanize~=4.6
+
+# Graphs drawing modules:
+matplotlib~=3.7
+numpy~=1.24
+
+# Request making and response parsing modules:
+httpx~=0.23
+PyYAML~=6.0

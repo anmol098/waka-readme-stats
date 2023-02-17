@@ -4,8 +4,8 @@ from asyncio import sleep
 from github import Github, InputGitAuthor, AuthenticatedUser
 import datetime
 
-from download_manager import DownloadManager
-from graph_drawer import create_loc_graph
+from manager_download import DownloadManager as DM
+from graphics_chart_drawer import create_loc_graph
 
 
 class LinesOfCode:
@@ -44,7 +44,7 @@ class LinesOfCode:
             return 4
 
     async def getCommitStat(self, repoDetails, yearly_data):
-        commit_data = await DownloadManager.get_remote_graphql("repository_commit_list", owner=repoDetails["owner"]["login"], name=repoDetails['name'], id=self.user.node_id)
+        commit_data = await DM.get_remote_graphql("repo_commit_list", owner=repoDetails["owner"]["login"], name=repoDetails['name'], id=self.user.node_id)
 
         if commit_data["data"]["repository"] is None:
             print("\tSkipping:", repoDetails['name'])

@@ -5,11 +5,13 @@ from typing import Awaitable, Dict, Callable, Optional
 
 from httpx import AsyncClient
 from yaml import safe_load
-from github import AuthenticatedUser
+
+from manager_environment import EnvironmentManager as EM
+from manager_github import GitHubManager as GHM
 
 
 GITHUB_API_QUERIES = {
-    "repositories_contributed_to": """
+    "repos_contributed_to": """
 {
     user(login: "$username") {
         repositoriesContributedTo(last: 100, includeUserRepositories: true) {
@@ -23,7 +25,7 @@ GITHUB_API_QUERIES = {
         }
     }
 }""",
-    "repository_committed_dates": """
+    "repo_committed_dates": """
 {
     repository(owner: "$owner", name: "$name") {
         defaultBranchRef {
@@ -60,7 +62,7 @@ GITHUB_API_QUERIES = {
     }
 }
 """,
-    "repository_commit_list": """
+    "repo_commit_list": """
 {
     repository(owner: "$owner", name: "$name") {
         refs(refPrefix: "refs/heads/", orderBy: {direction: DESC, field: TAG_COMMIT_DATE}, first: 100) {
@@ -92,22 +94,19 @@ GITHUB_API_QUERIES = {
 }
 
 
-async def init_download_manager(waka_key: str, github_key: str, user: AuthenticatedUser):
+async def init_download_manager():
     """
     Initialize download manager:
     - Setup headers for GitHub GraphQL requests.
     - Launch static queries in background.
-    :param waka_key: WakaTime API token.
-    :param github_key: GitHub API token.
-    :param user: GitHub current user info.
     """
     await DownloadManager.load_remote_resources({
         "linguist": "https://cdn.jsdelivr.net/gh/github/linguist@master/lib/linguist/languages.yml",
-        "waka_latest": f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={waka_key}",
-        "waka_all": f"https://wakatime.com/api/v1/users/current/all_time_since_today?api_key={waka_key}",
-        "github_stats": f"https://github-contributions.vercel.app/api/v1/{user.login}"
+        "waka_latest": f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={EM.WAKATIME_API_KEY}",
+        "waka_all": f"https://wakatime.com/api/v1/users/current/all_time_since_today?api_key={EM.WAKATIME_API_KEY}",
+        "github_stats": f"https://github-contributions.vercel.app/api/v1/{GHM.USER.login}"
     }, {
-        "Authorization": f"Bearer {github_key}"
+        "Authorization": f"Bearer {EM.GH_TOKEN}"
     })
 
 
