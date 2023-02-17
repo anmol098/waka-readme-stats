@@ -38,6 +38,11 @@ run-container:
 .PHONY: run-container
 
 
+lint:
+	@ # Run flake8 linter
+	flake8 --max-line-length=160 --exclude venv,assets .
+.PHONY: lint
+
 clean:
 	@ # Clean all build files, including: libraries, package manager configs, docker images and containers
 	rm -rf venv
