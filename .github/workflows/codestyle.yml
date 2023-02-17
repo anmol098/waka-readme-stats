@@ -6,16 +6,16 @@ on:
 jobs:
   lint:
     name: Run codestyle check
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
 
-      - name: Setup Python 3.6 🐍
+      - name: Setup Python 3.8 🐍
         uses: actions/setup-python@v3
         with:
-          python-version: 3.6.7
+          python-version: 3.8
 
       - name: Install Dependencies 📥
         run: pip install -r requirements.txt
