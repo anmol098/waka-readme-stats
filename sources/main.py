@@ -35,7 +35,7 @@ async def get_waka_time_stats() -> str:
 
         if EM.SHOW_TIMEZONE:
             time_zone = data["data"]["timezone"]
-            stats += f"⌚︎ {LM.t('Timezone')}: {time_zone}\n\n"
+            stats += f"🕑︎ {LM.t('Timezone')}: {time_zone}\n\n"
 
         if EM.SHOW_LANGUAGE:
             lang_list = no_activity if len(data["data"]["languages"]) == 0 else make_list(data["data"]["languages"])
