@@ -13,6 +13,7 @@ from manager_github import GitHubManager as GHM
 
 GITHUB_API_QUERIES = {
     # Query to collect info about all user repositories, including: is it a fork, name and owner login.
+    # NB! Query includes information about recent repositories only (apparently, contributed within a year).
     "repos_contributed_to": """
 {
     user(login: "$username") {
@@ -28,6 +29,7 @@ GITHUB_API_QUERIES = {
     }
 }""",
     # Query to collect info about all commits in user repositories, including: commit date.
+    # NB! Query includes information about repositories owned by user only.
     "repo_committed_dates": """
 {
     repository(owner: "$owner", name: "$name") {
@@ -47,6 +49,7 @@ GITHUB_API_QUERIES = {
     }
 }""",
     # Query to collect info about all repositories user created or collaborated on, including: name, primary language and owner login.
+    # NB! Query doesn't include information about repositories user contributed to via pull requests.
     "user_repository_list": """
 {
     user(login: "$username") {
