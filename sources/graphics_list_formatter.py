@@ -97,9 +97,9 @@ async def make_commit_day_time_list(time_zone: str) -> str:
         if result["data"]["repository"] is None or result["data"]["repository"]["defaultBranchRef"] is None:
             continue
 
-        committed_dates = result["data"]["repository"]["defaultBranchRef"]["target"]["history"]["edges"]
+        committed_dates = result["data"]["repository"]["defaultBranchRef"]["target"]["history"]["nodes"]
         for committed_date in committed_dates:
-            local_date = datetime.strptime(committed_date["node"]["committedDate"], "%Y-%m-%dT%H:%M:%SZ")
+            local_date = datetime.strptime(committed_date["committedDate"], "%Y-%m-%dT%H:%M:%SZ")
             date = local_date.replace(tzinfo=utc).astimezone(timezone(time_zone))
 
             day_times[date.hour // 6] += 1
@@ -133,9 +133,9 @@ def make_language_per_repo_list(repositories: Dict) -> str:
     :returns: string representation of statistics.
     """
     language_count = dict()
-    repos_with_language = [repo for repo in repositories["data"]["user"]["repositories"]["edges"] if repo["node"]["primaryLanguage"] is not None]
+    repos_with_language = [repo for repo in repositories["data"]["user"]["repositories"]["nodes"] if repo["primaryLanguage"] is not None]
     for repo in repos_with_language:
-        language = repo["node"]["primaryLanguage"]["name"]
+        language = repo["primaryLanguage"]["name"]
         language_count[language] = language_count.get(language, {"count": 0})
         language_count[language]["count"] += 1
 

@@ -16,11 +16,11 @@ async def calculate_yearly_commit_data(repositories: Dict) -> Dict:
     :returns: Commit quarter yearly data dictionary.
     """
     yearly_data = dict()
-    total = len(repositories["data"]["user"]["repositories"]["edges"])
-    for ind, repo in enumerate(repositories["data"]["user"]["repositories"]["edges"]):
-        if repo["node"]["name"] not in EM.IGNORED_REPOS:
-            print(f"{ind + 1}/{total}", "Retrieving repo:", repo["node"]["owner"]["login"], repo["node"]["name"])
-            await update_yearly_data_with_commit_stats(repo["node"], yearly_data)
+    total = len(repositories['data']['user']['repositories']['nodes'])
+    for ind, repo in enumerate(repositories['data']['user']['repositories']['nodes']):
+        if repo['name'] not in EM.IGNORED_REPOS:
+            print(f"{ind + 1}/{total}", "Retrieving repo:", repo["owner"]["login"], repo['name'])
+            await update_yearly_data_with_commit_stats(repo, yearly_data)
     return yearly_data
 
 
@@ -32,22 +32,24 @@ async def update_yearly_data_with_commit_stats(repo_details: Dict, yearly_data: 
     :param repo_details: Dictionary with information about the given repository.
     :param yearly_data: Yearly data dictionary to update.
     """
-    commit_data = await DM.get_remote_graphql("repo_commit_list", owner=repo_details["owner"]["login"], name=repo_details["name"], id=GHM.USER.node_id)
-
-    if commit_data["data"]["repository"] is None:
+    owner = repo_details["owner"]["login"]
+    branch_data = await DM.get_remote_graphql("repo_branch_list", owner=owner, name=repo_details['name'])
+    if branch_data["data"]["repository"] is None:
         print(f"\tSkipping repo: {repo_details['name']}")
         return dict()
 
-    for commit in [commit["node"] for branch in commit_data["data"]["repository"]["refs"]["edges"] for commit in branch["node"]["target"]["history"]["edges"]]:
-        date = search(r"\d+-\d+-\d+", commit["committedDate"]).group()
-        curr_year = datetime.fromisoformat(date).year
-        quarter = (datetime.fromisoformat(date).month - 1) // 3 + 1
+    for branch in branch_data["data"]["repository"]["refs"]["nodes"]:
+        commit_data = await DM.get_remote_graphql("repo_commit_list", owner=owner, name=repo_details['name'], branch=branch["name"], id=GHM.USER.node_id)
+        for commit in commit_data["data"]["repository"]["ref"]["target"]["history"]["nodes"]:
+            date = search(r"\d+-\d+-\d+", commit["committedDate"]).group()
+            curr_year = datetime.fromisoformat(date).year
+            quarter = (datetime.fromisoformat(date).month - 1) // 3 + 1
 
-        if repo_details["primaryLanguage"] is not None:
-            if curr_year not in yearly_data:
-                yearly_data[curr_year] = dict()
-            if quarter not in yearly_data[curr_year]:
-                yearly_data[curr_year][quarter] = dict()
-            if repo_details["primaryLanguage"]["name"] not in yearly_data[curr_year][quarter]:
-                yearly_data[curr_year][quarter][repo_details["primaryLanguage"]["name"]] = 0
-            yearly_data[curr_year][quarter][repo_details["primaryLanguage"]["name"]] += commit["additions"] - commit["deletions"]
+            if repo_details["primaryLanguage"] is not None:
+                if curr_year not in yearly_data:
+                    yearly_data[curr_year] = dict()
+                if quarter not in yearly_data[curr_year]:
+                    yearly_data[curr_year][quarter] = dict()
+                if repo_details["primaryLanguage"]["name"] not in yearly_data[curr_year][quarter]:
+                    yearly_data[curr_year][quarter][repo_details["primaryLanguage"]["name"]] = 0
+                yearly_data[curr_year][quarter][repo_details["primaryLanguage"]["name"]] += commit["additions"] - commit["deletions"]
