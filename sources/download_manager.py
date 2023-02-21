@@ -1,7 +1,7 @@
 from hashlib import md5
 from json import dumps
 from string import Template
-from typing import Awaitable, Dict, Callable, Optional
+from typing import Awaitable, Dict, Callable, Optional, List, Tuple
 
 from httpx import AsyncClient
 from yaml import safe_load
@@ -12,13 +12,17 @@ GITHUB_API_QUERIES = {
     "repositories_contributed_to": """
 {
     user(login: "$username") {
-        repositoriesContributedTo(last: 100, includeUserRepositories: true) {
+        repositoriesContributedTo(orderBy: {field: CREATED_AT, direction: DESC}, $pagination, includeUserRepositories: true) {
             nodes {
                 isFork
                 name
                 owner {
                     login
                 }
+            }
+            pageInfo {
+                endCursor
+                hasNextPage
             }
         }
     }
@@ -29,11 +33,13 @@ GITHUB_API_QUERIES = {
         defaultBranchRef {
             target {
                 ... on Commit {
-                    history(first: 100, author: { id: "$id" }) {
-                        edges {
-                            node {
-                                committedDate
-                            }
+                    history($pagination, author: { id: "$id" }) {
+                        nodes {
+                            committedDate
+                        }
+                        pageInfo {
+                            endCursor
+                            hasNextPage
                         }
                     }
                 }
@@ -44,43 +50,56 @@ GITHUB_API_QUERIES = {
     "user_repository_list": """
 {
     user(login: "$username") {
-        repositories(orderBy: {field: CREATED_AT, direction: ASC}, last: 100, affiliations: [OWNER, COLLABORATOR], isFork: false) {
-            edges {
-                node {
-                    primaryLanguage {
-                        name
-                    }
+        repositories(orderBy: {field: CREATED_AT, direction: DESC}, $pagination, affiliations: [OWNER, COLLABORATOR], isFork: false) {
+            nodes {
+                primaryLanguage {
                     name
-                    owner {
-                        login
-                    }
                 }
+                name
+                owner {
+                    login
+                }
+            }
+            pageInfo {
+                endCursor
+                hasNextPage
             }
         }
     }
 }
 """,
-    "repository_commit_list": """
+    "repository_branches_list": """
 {
     repository(owner: "$owner", name: "$name") {
-        refs(refPrefix: "refs/heads/", orderBy: {direction: DESC, field: TAG_COMMIT_DATE}, first: 10) {
-            edges {
-                node {
-                    ... on Ref {
-                        target {
+        refs(refPrefix: "refs/heads/", orderBy: {direction: DESC, field: TAG_COMMIT_DATE}, $pagination) {
+            nodes {
+                name
+            }
+            pageInfo {
+                endCursor
+                hasNextPage
+            }
+        }
+    }
+}
+""",
+    "repository_branch_commit_list": """
+{
+    repository(owner: "$owner", name: "$name") {
+        ref(qualifiedName: "refs/heads/$branch") {
+            target {
+                ... on Commit {
+                    history(author: { id: "$id" }, $pagination) {
+                        nodes {
                             ... on Commit {
-                                history(first: 100, author: { id: "$id" }) {
-                                    edges {
-                                        node {
-                                            ... on Commit {
-                                                additions
-                                                deletions
-                                                committedDate
-                                            }
-                                        }
-                                    }
-                                }
+                                additions
+                                deletions
+                                committedDate
                             }
+                        }
+                        pageInfo {
+                            endCursor
+                            hasNextPage
                         }
                     }
                 }
@@ -177,12 +196,71 @@ class DownloadManager:
         return await DownloadManager._get_remote_resource(resource, safe_load)
 
     @staticmethod
+    async def _fetch_graphql_query(query: str, **kwargs) -> Dict:
+        """
+        Execute GitHub GraphQL API simple query.
+        :param query: Dynamic query identifier.
+        :param kwargs: Parameters for substitution of variables in dynamic query.
+        :return: Response JSON dictionary.
+        """
+        res = await DownloadManager._client.post("https://api.github.com/graphql", json={
+            "query": Template(GITHUB_API_QUERIES[query]).substitute(kwargs)
+        })
+        if res.status_code == 200:
+            return res.json()
+        else:
+            raise Exception(f"Query '{query}' failed to run by returning code of {res.status_code}: {res.json()}")
+
+    @staticmethod
+    def _find_pagination_and_data_list(response: Dict) -> Tuple[List, Dict]:
+        """
+        Parses response as a paginated response.
+        NB! All paginated responses are expected to have the following structure:
+        {
+            ...: {
+                "nodes": [],
+                "pageInfo" : {}
+            }
+        }
+        Where `...` states for any number of dictionaries containing _one single key_ only.
+        If the structure of the response isn't met, an exception is thrown!
+        :param response: Response JSON dictionary.
+        :returns: Tuple of the acquired pagination data list ("nodes" key) and pagination info dict ("pageInfo" key).
+        """
+        if "nodes" in response.keys() and "pageInfo" in response.keys():
+            return response["nodes"], response["pageInfo"]
+        elif len(response) == 1:
+            return DownloadManager._find_pagination_and_data_list(response[list(response.keys())[0]])
+        else:
+            raise RuntimeError(f"Received structure '{response}' isn't a paginated response!")
+
+    @staticmethod
+    async def _fetch_graphql_paginated(query: str, **kwargs) -> Dict:
+        """
+        Execute GitHub GraphQL API paginated query.
+        Queries 100 new results each time until no more results are left.
+        Merges result list into single query, clears pagination-related info.
+        :param query: Dynamic query identifier.
+        :param kwargs: Parameters for substitution of variables in dynamic query.
+        :return: Response JSON dictionary.
+        """
+        initial_query_response = await DownloadManager._fetch_graphql_query(query, **kwargs, pagination=f"first: 100")
+        page_list, page_info = DownloadManager._find_pagination_and_data_list(initial_query_response)
+        while page_info["hasNextPage"]:
+            query_response = await DownloadManager._fetch_graphql_query(query, **kwargs, pagination=f'first: 100, after: "{page_info["endCursor"]}"')
+            new_page_list, page_info = DownloadManager._find_pagination_and_data_list(query_response)
+            page_list += new_page_list
+        _, page_info = DownloadManager._find_pagination_and_data_list(initial_query_response)
+        page_info.clear()
+        return initial_query_response
+
+    @staticmethod
     async def get_remote_graphql(query: str, **kwargs) -> Dict:
         """
         Execute GitHub GraphQL API query.
         The queries are defined in `GITHUB_API_QUERIES`, all parameters should be passed as kwargs.
         If the query wasn't cached previously, cache it. Cache query by its identifier + parameters hash.
-        NB! Caching is done before response parsing - to throw exception on accessing cached erroneous response.
+        Merges paginated sub-queries if pagination is required for the query.
         Parse and return response as JSON.
         :param query: Dynamic query identifier.
         :param kwargs: Parameters for substitution of variables in dynamic query.
@@ -190,13 +268,11 @@ class DownloadManager:
         """
         key = f"{query}_{md5(dumps(kwargs, sort_keys=True).encode('utf-8')).digest()}"
         if key not in DownloadManager._REMOTE_RESOURCES_CACHE:
-            res = await DownloadManager._client.post("https://api.github.com/graphql", json={
-                "query": Template(GITHUB_API_QUERIES[query]).substitute(kwargs)
-            })
+            if "$pagination" in GITHUB_API_QUERIES[query]:
+                res = await DownloadManager._fetch_graphql_paginated(query, **kwargs)
+            else:
+                res = await DownloadManager._fetch_graphql_query(query, **kwargs)
             DownloadManager._REMOTE_RESOURCES_CACHE[key] = res
         else:
             res = DownloadManager._REMOTE_RESOURCES_CACHE[key]
-        if res.status_code == 200:
-            return res.json()
-        else:
-            raise Exception(f"Query '{query}' failed to run by returning code of {res.status_code}: {res.json()}")
+        return res

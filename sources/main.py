@@ -139,9 +139,9 @@ async def generate_commit_list(tz):
         if result["data"]["repository"] is None or result["data"]["repository"]["defaultBranchRef"] is None:
             continue
 
-        committed_dates = result["data"]["repository"]["defaultBranchRef"]["target"]["history"]["edges"]
+        committed_dates = result["data"]["repository"]["defaultBranchRef"]["target"]["history"]["nodes"]
         for committedDate in committed_dates:
-            date = datetime.datetime.strptime(committedDate["node"]["committedDate"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=pytz.utc).astimezone(timezone(tz))
+            date = datetime.datetime.strptime(committedDate["committedDate"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=pytz.utc).astimezone(timezone(tz))
             hour = date.hour
             weekday = date.strftime('%A')
             if 6 <= hour < 12:
@@ -266,10 +266,10 @@ async def get_waka_time_stats():
 def generate_language_per_repo(result):
     language_count = {}
     total = 0
-    for repo in result['data']['user']['repositories']['edges']:
-        if repo['node']['primaryLanguage'] is None:
+    for repo in result['data']['user']['repositories']['nodes']:
+        if repo['primaryLanguage'] is None:
             continue
-        language = repo['node']['primaryLanguage']['name']
+        language = repo['primaryLanguage']['name']
         total += 1
         if language not in language_count.keys():
             language_count[language] = {}

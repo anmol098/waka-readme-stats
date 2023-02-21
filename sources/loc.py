@@ -19,11 +19,11 @@ class LinesOfCode:
     async def calculateLoc(self):
         result = self.repositoryData
         yearly_data = {}
-        total = len(result['data']['user']['repositories']['edges'])
-        for ind, repo in enumerate(result['data']['user']['repositories']['edges']):
-            if repo['node']['name'] not in self.ignored_repos:
-                print(f"{ind}/{total}", "Retrieving repo:", repo['node']["owner"]["login"], repo['node']['name'])
-                await self.getCommitStat(repo['node'], yearly_data)
+        total = len(result['data']['user']['repositories']['nodes'])
+        for ind, repo in enumerate(result['data']['user']['repositories']['nodes']):
+            if repo['name'] not in self.ignored_repos:
+                print(f"{ind}/{total}", "Retrieving repo:", repo["owner"]["login"], repo['name'])
+                await self.getCommitStat(repo, yearly_data)
                 await sleep(0.7)
         return yearly_data
 
@@ -43,26 +43,27 @@ class LinesOfCode:
             return 4
 
     async def getCommitStat(self, repoDetails, yearly_data):
-        commit_data = await DownloadManager.get_remote_graphql("repository_commit_list", owner=repoDetails["owner"]["login"], name=repoDetails['name'], id=self.user.node_id)
-
-        if commit_data["data"]["repository"] is None:
+        branch_data = await DownloadManager.get_remote_graphql("repository_branches_list", owner=repoDetails["owner"]["login"], name=repoDetails['name'])
+        if branch_data["data"]["repository"] is None:
             print("\tSkipping:", repoDetails['name'])
             return
 
-        for commit in [commit["node"] for branch in commit_data["data"]["repository"]["refs"]["edges"] for commit in branch["node"]["target"]["history"]["edges"]]:
-            date = re.search(r'\d+-\d+-\d+', commit["committedDate"]).group(0)
-            curr_year = datetime.datetime.fromisoformat(date).year
-            quarter = self.getQuarter(date)
+        for branch in branch_data["data"]["repository"]["refs"]["nodes"]:
+            commit_data = await DownloadManager.get_remote_graphql("repository_branch_commit_list", owner=repoDetails["owner"]["login"], name=repoDetails['name'], branch=branch["name"], id=self.user.node_id)
 
-            if repoDetails['primaryLanguage'] is not None:
-                if curr_year not in yearly_data:
-                    yearly_data[curr_year] = {}
-                if quarter not in yearly_data[curr_year]:
-                    yearly_data[curr_year][quarter] = {}
-                if repoDetails['primaryLanguage']['name'] not in yearly_data[curr_year][quarter]:
-                    yearly_data[curr_year][quarter][repoDetails['primaryLanguage']['name']] = 0
-                yearly_data[curr_year][quarter][repoDetails['primaryLanguage']['name']] += (commit["additions"] - commit["deletions"])
+            for commit in commit_data["data"]["repository"]["ref"]["target"]["history"]["nodes"]:
+                date = re.search(r'\d+-\d+-\d+', commit["committedDate"]).group(0)
+                curr_year = datetime.datetime.fromisoformat(date).year
+                quarter = self.getQuarter(date)
 
+                if repoDetails['primaryLanguage'] is not None:
+                    if curr_year not in yearly_data:
+                        yearly_data[curr_year] = {}
+                    if quarter not in yearly_data[curr_year]:
+                        yearly_data[curr_year][quarter] = {}
+                    if repoDetails['primaryLanguage']['name'] not in yearly_data[curr_year][quarter]:
+                        yearly_data[curr_year][quarter][repoDetails['primaryLanguage']['name']] = 0
+                    yearly_data[curr_year][quarter][repoDetails['primaryLanguage']['name']] += (commit["additions"] - commit["deletions"])
 
     def pushChart(self):
         repo = self.g.get_repo(f"{self.user.login}/{self.user.login}")
