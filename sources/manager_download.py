@@ -225,9 +225,7 @@ class DownloadManager:
         :param kwargs: Parameters for substitution of variables in dynamic query.
         :return: Response JSON dictionary.
         """
-        res = await DownloadManager._client.post("https://api.github.com/graphql", json={
-            "query": Template(GITHUB_API_QUERIES[query]).substitute(kwargs)
-        })
+        res = await DownloadManager._client.post("https://api.github.com/graphql", json={"query": Template(GITHUB_API_QUERIES[query]).substitute(kwargs)})
         if res.status_code == 200:
             return res.json()
         else:
@@ -266,7 +264,7 @@ class DownloadManager:
         :param kwargs: Parameters for substitution of variables in dynamic query.
         :return: Response JSON dictionary.
         """
-        initial_query_response = await DownloadManager._fetch_graphql_query(query, **kwargs, pagination=f"first: 100")
+        initial_query_response = await DownloadManager._fetch_graphql_query(query, **kwargs, pagination="first: 100")
         page_list, page_info = DownloadManager._find_pagination_and_data_list(initial_query_response)
         while page_info["hasNextPage"]:
             query_response = await DownloadManager._fetch_graphql_query(query, **kwargs, pagination=f'first: 100, after: "{page_info["endCursor"]}"')

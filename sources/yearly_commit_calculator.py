@@ -16,10 +16,10 @@ async def calculate_yearly_commit_data(repositories: Dict) -> Dict:
     :returns: Commit quarter yearly data dictionary.
     """
     yearly_data = dict()
-    total = len(repositories['data']['user']['repositories']['nodes'])
-    for ind, repo in enumerate(repositories['data']['user']['repositories']['nodes']):
-        if repo['name'] not in EM.IGNORED_REPOS:
-            print(f"{ind + 1}/{total}", "Retrieving repo:", repo["owner"]["login"], repo['name'])
+    total = len(repositories["data"]["user"]["repositories"]["nodes"])
+    for ind, repo in enumerate(repositories["data"]["user"]["repositories"]["nodes"]):
+        if repo["name"] not in EM.IGNORED_REPOS:
+            print(f"{ind + 1}/{total}", "Retrieving repo:", repo["owner"]["login"], repo["name"])
             await update_yearly_data_with_commit_stats(repo, yearly_data)
     return yearly_data
 
@@ -33,13 +33,13 @@ async def update_yearly_data_with_commit_stats(repo_details: Dict, yearly_data: 
     :param yearly_data: Yearly data dictionary to update.
     """
     owner = repo_details["owner"]["login"]
-    branch_data = await DM.get_remote_graphql("repo_branch_list", owner=owner, name=repo_details['name'])
+    branch_data = await DM.get_remote_graphql("repo_branch_list", owner=owner, name=repo_details["name"])
     if branch_data["data"]["repository"] is None:
         print(f"\tSkipping repo: {repo_details['name']}")
         return dict()
 
     for branch in branch_data["data"]["repository"]["refs"]["nodes"]:
-        commit_data = await DM.get_remote_graphql("repo_commit_list", owner=owner, name=repo_details['name'], branch=branch["name"], id=GHM.USER.node_id)
+        commit_data = await DM.get_remote_graphql("repo_commit_list", owner=owner, name=repo_details["name"], branch=branch["name"], id=GHM.USER.node_id)
         for commit in commit_data["data"]["repository"]["ref"]["target"]["history"]["nodes"]:
             date = search(r"\d+-\d+-\d+", commit["committedDate"]).group()
             curr_year = datetime.fromisoformat(date).year
