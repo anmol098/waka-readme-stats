@@ -4,6 +4,7 @@ from re import sub
 from github import Github, AuthenticatedUser, Repository, ContentFile, InputGitAuthor, UnknownObjectException
 
 from manager_environment import EnvironmentManager as EM
+from manager_debug import DebugManager as DBM
 
 
 def init_github_manager():
@@ -12,7 +13,7 @@ def init_github_manager():
     Current user, user readme repo and readme file are downloaded.
     """
     GitHubManager.prepare_github_env()
-    print(f"Current user: {GitHubManager.USER.login}")
+    DBM.i(f"Current user: {GitHubManager.USER.login}")
 
 
 class GitHubManager:
@@ -82,6 +83,7 @@ class GitHubManager:
 
         :returns: whether the README.md file was updated or not.
         """
+        DBM.i("Updating README...")
         new_readme = GitHubManager._generate_new_readme(stats)
         if new_readme != GitHubManager._README_CONTENTS:
             GitHubManager.REPO.update_file(
@@ -92,8 +94,10 @@ class GitHubManager:
                 branch=GitHubManager.branch(),
                 committer=GitHubManager._get_author(),
             )
+            DBM.g("README updated!")
             return True
         else:
+            DBM.w("README update not needed!")
             return False
 
     @staticmethod
@@ -104,10 +108,13 @@ class GitHubManager:
 
         :param chart_path: path to saved lines of code chart.
         """
+        DBM.i("Updating lines of code chart...")
         with open(chart_path, "rb") as input_file:
             data = input_file.read()
         try:
             contents = GitHubManager.REPO.get_contents(chart_path)
             GitHubManager.REPO.update_file(contents.path, "Charts Updated", data, contents.sha, committer=GitHubManager._get_author())
+            DBM.g("Lines of code chart updated!")
         except UnknownObjectException:
             GitHubManager.REPO.create_file(chart_path, "Charts Added", data, committer=GitHubManager._get_author())
+            DBM.g("Lines of code chart created!")

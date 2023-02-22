@@ -9,6 +9,7 @@ from yaml import safe_load
 
 from manager_environment import EnvironmentManager as EM
 from manager_github import GitHubManager as GHM
+from manager_debug import DebugManager as DBM
 
 
 GITHUB_API_QUERIES = {
@@ -188,16 +189,21 @@ class DownloadManager:
             By default `response.json()` is used.
         :return: Response dictionary.
         """
+        DBM.i(f"\tMaking a remote API query named '{resource}'...")
         if isinstance(DownloadManager._REMOTE_RESOURCES_CACHE[resource], Awaitable):
             res = await DownloadManager._REMOTE_RESOURCES_CACHE[resource]
             DownloadManager._REMOTE_RESOURCES_CACHE[resource] = res
-            if res.status_code == 200:
-                if convertor is None:
-                    return res.json()
-                else:
-                    return convertor(res.content)
+            DBM.g(f"\tQuery '{resource}' finished, result saved!")
+        else:
+            res = DownloadManager._REMOTE_RESOURCES_CACHE[resource]
+            DBM.g(f"\tQuery '{resource}' loaded from cache!")
+        if res.status_code == 200:
+            if convertor is None:
+                return res.json()
             else:
-                raise Exception(f"Query '{res.url}' failed to run by returning code of {res.status_code}: {res.json()}")
+                return convertor(res.content)
+        else:
+            raise Exception(f"Query '{res.url}' failed to run by returning code of {res.status_code}: {res.json()}")
 
     @staticmethod
     async def get_remote_json(resource: str) -> Dict:
