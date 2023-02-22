@@ -223,16 +223,16 @@ class DownloadManager:
             }
         }
         Where `...` states for any number of dictionaries containing _one single key_ only.
-        If the structure of the response isn't met, an exception is thrown!
+        If the structure of the response isn't met, a tuple of empty list and dist with only `hasNextPage=False` is returned!
         :param response: Response JSON dictionary.
         :returns: Tuple of the acquired pagination data list ("nodes" key) and pagination info dict ("pageInfo" key).
         """
         if "nodes" in response.keys() and "pageInfo" in response.keys():
             return response["nodes"], response["pageInfo"]
-        elif len(response) == 1:
+        elif len(response) == 1 and isinstance(response[list(response.keys())[0]], Dict):
             return DownloadManager._find_pagination_and_data_list(response[list(response.keys())[0]])
         else:
-            raise RuntimeError(f"Received structure '{response}' isn't a paginated response!")
+            return list(), dict(hasNextPage=False)
 
     @staticmethod
     async def _fetch_graphql_paginated(query: str, **kwargs) -> Dict:
