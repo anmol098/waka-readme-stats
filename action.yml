@@ -82,20 +82,20 @@ inputs:
     description: "Shows the short facts"
     default: "True"
 
-  LOCALE:
+  SHOW_UPDATED_DATE:
     required: false
-    description: "Show stats in your own language"
-    default: "en"
+    description: "Show updated date"
+    default: "True"
+
+  SHOW_TOTAL_CODE_TIME:
+    required: false
+    description: "Show Total Time you have coded"
+    default: "True"
 
   COMMIT_BY_ME:
     required: false
     description: "Git commit with your own name and email"
     default: "False"
-
-  IGNORED_REPOS:
-    required: false
-    description: "Repos you don't want to be counted"
-    default: ""
   
   COMMIT_MESSAGE:
     required: false
@@ -112,20 +112,20 @@ inputs:
     description: "Git commit custom email"
     default: ""
 
-  SHOW_UPDATED_DATE:
+  LOCALE:
     required: false
-    description: "Show updated date"
-    default: "True"
+    description: "Show stats in your own language"
+    default: "en"
 
   UPDATED_DATE_FORMAT:
     required: false
     description: "Updated date format"
     default: "%d/%m/%Y %H:%M:%S"
 
-  SHOW_TOTAL_CODE_TIME:
+  IGNORED_REPOS:
     required: false
-    description: "Show Total Time you have coded"
-    default: "True"
+    description: "Repos you don't want to be counted"
+    default: ""
 
   SYMBOL_VERSION:
     required: false

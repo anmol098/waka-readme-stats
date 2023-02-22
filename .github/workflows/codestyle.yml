@@ -1,0 +1,24 @@
+name: CODESTYLE
+
+on:
+  push:
+
+jobs:
+  lint:
+    name: Run codestyle check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: Setup Python 3.8 🐍
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+
+      - name: Install Dependencies 📥
+        run: pip install -r requirements.txt
+
+      - name: Run Codestyle ✔️
+        run: flake8 --max-line-length=160 --exclude venv,assets . && black --line-length=160 --check --exclude='/venv/|/assets/' .

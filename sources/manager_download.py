@@ -1,3 +1,4 @@
+from asyncio import Task
 from hashlib import md5
 from json import dumps
 from string import Template
@@ -5,11 +6,15 @@ from typing import Awaitable, Dict, Callable, Optional, List, Tuple
 
 from httpx import AsyncClient
 from yaml import safe_load
-from github import AuthenticatedUser
+
+from manager_environment import EnvironmentManager as EM
+from manager_github import GitHubManager as GHM
 
 
 GITHUB_API_QUERIES = {
-    "repositories_contributed_to": """
+    # Query to collect info about all user repositories, including: is it a fork, name and owner login.
+    # NB! Query includes information about recent repositories only (apparently, contributed within a year).
+    "repos_contributed_to": """
 {
     user(login: "$username") {
         repositoriesContributedTo(orderBy: {field: CREATED_AT, direction: DESC}, $pagination, includeUserRepositories: true) {
@@ -27,7 +32,9 @@ GITHUB_API_QUERIES = {
         }
     }
 }""",
-    "repository_committed_dates": """
+    # Query to collect info about all commits in user repositories, including: commit date.
+    # NB! Query includes information about repositories owned by user only.
+    "repo_committed_dates": """
 {
     repository(owner: "$owner", name: "$name") {
         defaultBranchRef {
@@ -47,6 +54,8 @@ GITHUB_API_QUERIES = {
         }
     }
 }""",
+    # Query to collect info about all repositories user created or collaborated on, including: name, primary language and owner login.
+    # NB! Query doesn't include information about repositories user contributed to via pull requests.
     "user_repository_list": """
 {
     user(login: "$username") {
@@ -68,7 +77,8 @@ GITHUB_API_QUERIES = {
     }
 }
 """,
-    "repository_branches_list": """
+    # Query to collect info about branches in the given repository, including: names.
+    "repo_branch_list": """
 {
     repository(owner: "$owner", name: "$name") {
         refs(refPrefix: "refs/heads/", orderBy: {direction: DESC, field: TAG_COMMIT_DATE}, $pagination) {
@@ -83,7 +93,8 @@ GITHUB_API_QUERIES = {
     }
 }
 """,
-    "repository_branch_commit_list": """
+    # Query to collect info about user commits to given repository, including: commit date, additions and deletions numbers.
+    "repo_commit_list": """
 {
     repository(owner: "$owner", name: "$name") {
         ref(qualifiedName: "refs/heads/$branch") {
@@ -107,27 +118,25 @@ GITHUB_API_QUERIES = {
         }
     }
 }
-"""
+""",
 }
 
 
-async def init_download_manager(waka_key: str, github_key: str, user: AuthenticatedUser):
+async def init_download_manager():
     """
     Initialize download manager:
     - Setup headers for GitHub GraphQL requests.
     - Launch static queries in background.
-    :param waka_key: WakaTime API token.
-    :param github_key: GitHub API token.
-    :param user: GitHub current user info.
     """
-    await DownloadManager.load_remote_resources({
-        "linguist": "https://cdn.jsdelivr.net/gh/github/linguist@master/lib/linguist/languages.yml",
-        "waka_latest": f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={waka_key}",
-        "waka_all": f"https://wakatime.com/api/v1/users/current/all_time_since_today?api_key={waka_key}",
-        "github_stats": f"https://github-contributions.vercel.app/api/v1/{user.login}"
-    }, {
-        "Authorization": f"Bearer {github_key}"
-    })
+    await DownloadManager.load_remote_resources(
+        {
+            "linguist": "https://cdn.jsdelivr.net/gh/github/linguist@master/lib/linguist/languages.yml",
+            "waka_latest": f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={EM.WAKATIME_API_KEY}",
+            "waka_all": f"https://wakatime.com/api/v1/users/current/all_time_since_today?api_key={EM.WAKATIME_API_KEY}",
+            "github_stats": f"https://github-contributions.vercel.app/api/v1/{GHM.USER.login}",
+        },
+        {"Authorization": f"Bearer {EM.GH_TOKEN}"},
+    )
 
 
 class DownloadManager:
@@ -141,6 +150,7 @@ class DownloadManager:
     DownloadManager launches all static queries asynchronously upon initialization and caches their results.
     It also executes dynamic queries upon request and caches result.
     """
+
     _client = AsyncClient(timeout=60.0)
     _REMOTE_RESOURCES_CACHE = dict()
 
@@ -154,6 +164,18 @@ class DownloadManager:
         for resource, url in resources.items():
             DownloadManager._REMOTE_RESOURCES_CACHE[resource] = DownloadManager._client.get(url)
         DownloadManager._client.headers = github_headers
+
+    @staticmethod
+    async def close_remote_resources():
+        """
+        Close DownloadManager and cancel all un-awaited static web queries.
+        Await all queries that could not be cancelled.
+        """
+        for resource in DownloadManager._REMOTE_RESOURCES_CACHE.values():
+            if isinstance(resource, Task):
+                resource.cancel()
+            elif isinstance(resource, Awaitable):
+                await resource
 
     @staticmethod
     async def _get_remote_resource(resource: str, convertor: Optional[Callable[[bytes], Dict]]) -> Dict:
@@ -203,9 +225,7 @@ class DownloadManager:
         :param kwargs: Parameters for substitution of variables in dynamic query.
         :return: Response JSON dictionary.
         """
-        res = await DownloadManager._client.post("https://api.github.com/graphql", json={
-            "query": Template(GITHUB_API_QUERIES[query]).substitute(kwargs)
-        })
+        res = await DownloadManager._client.post("https://api.github.com/graphql", json={"query": Template(GITHUB_API_QUERIES[query]).substitute(kwargs)})
         if res.status_code == 200:
             return res.json()
         else:
@@ -244,7 +264,7 @@ class DownloadManager:
         :param kwargs: Parameters for substitution of variables in dynamic query.
         :return: Response JSON dictionary.
         """
-        initial_query_response = await DownloadManager._fetch_graphql_query(query, **kwargs, pagination=f"first: 100")
+        initial_query_response = await DownloadManager._fetch_graphql_query(query, **kwargs, pagination="first: 100")
         page_list, page_info = DownloadManager._find_pagination_and_data_list(initial_query_response)
         while page_info["hasNextPage"]:
             query_response = await DownloadManager._fetch_graphql_query(query, **kwargs, pagination=f'first: 100, after: "{page_info["endCursor"]}"')

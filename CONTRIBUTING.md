@@ -21,7 +21,7 @@ Once you've worked on your feature/bugfix etc, you can open a pull request using
 
 ### Setting up development environment
 
-This project is written in Python, requires **Python 3.6 or higher**, and uses `pip` .
+This project is written in Python, requires **Python 3.8 or higher**, and uses `pip` .
 
 To set it up, just fork + clone it, install all the dependencies:
 
