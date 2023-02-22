@@ -80,7 +80,7 @@ async def get_short_github_info() -> str:
     DBM.i("Adding user disk usage info...")
     if GHM.USER.disk_usage is None:
         disk_usage = LM.t("Used in GitHub's Storage") % "?"
-        DBM.w("Please add new github personal access token with user permission!")
+        DBM.p("Please add new github personal access token with user permission!")
     else:
         disk_usage = LM.t("Used in GitHub's Storage") % naturalsize(GHM.USER.disk_usage)
     stats += f"> 📦 {disk_usage} \n > \n"
@@ -91,7 +91,7 @@ async def get_short_github_info() -> str:
         contributions = LM.t("Contributions in the year") % (intcomma(data["years"][0]["total"]), data["years"][0]["year"])
         stats += f"> 🏆 {contributions}\n > \n"
     else:
-        DBM.w("GitHub contributions data unavailable!")
+        DBM.p("GitHub contributions data unavailable!")
 
     DBM.i("Adding opted for hire info...")
     opted_to_hire = GHM.USER.hireable
@@ -197,4 +197,4 @@ if __name__ == "__main__":
     run(main())
     end_time = datetime.now()
     DBM.g("Program execution finished at $date.", date=end_time)
-    DBM.p("Program processed in $time.", time=end_time - start_time)
+    DBM.p("Program finished in $time.", time=end_time - start_time)
