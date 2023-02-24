@@ -185,8 +185,12 @@ async def main():
     init_localization_manager()
     DBM.i("Managers initialized.")
 
-    if GHM.update_readme(await get_stats()):
-        DBM.g("Readme updated!")
+    stats = await get_stats()
+    if not EM.DEBUG_RUN:
+        if GHM.update_readme(stats):
+            DBM.g("Readme updated!")
+    else:
+        DBM.g("Debug run, readme not updated. check the latest comment for the generated stats.")
     await DM.close_remote_resources()
 
 
