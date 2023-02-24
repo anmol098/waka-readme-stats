@@ -1,0 +1,54 @@
+name: REVIEW_PULL_REQUEST
+
+on:
+  pull_request:
+    types: [ opened, edited, reopened, synchronize ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/dev' }}
+
+jobs:
+  publish-server-image:
+    name: Run Test and Review PR
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: Setup Python 3.8 🐍
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+
+      - name: Install Dependencies 📥
+        run: pip install -r requirements.txt
+
+      - name: Run Current Tests 🧪
+        env:
+          INPUT_GH_TOKEN: ${{ secrets.INPUT_GITHUB_TOKEN }}
+          INPUT_WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+          PR_NUMBER: ${{ github.event.number }}
+          INPUT_SHOW_TIMEZONE: true
+          INPUT_SHOW_PROJECTS: True
+          INPUT_SHOW_EDITORS: True
+          INPUT_SHOW_OS: True
+          INPUT_SHOW_LANGUAGE: True
+          INPUT_SYMBOL_VERSION: 1
+          INPUT_SHOW_LINES_OF_CODE: True
+          INPUT_SHOW_LOC_CHART: True
+          INPUT_SHOW_PROFILE_VIEWS: True
+          INPUT_SHOW_TOTAL_CODE_TIME: True
+          INPUT_SHOW_SHORT_INFO: True
+          INPUT_SHOW_COMMIT: True
+          INPUT_SHOW_DAYS_OF_WEEK: True
+          INPUT_SHOW_LANGUAGE_PER_REPO: True
+          INPUT_SHOW_UPDATED_DATE: True
+          INPUT_COMMIT_BY_ME: True
+          INPUT_DEBUG_LOGGING: True
+          DEBUG_RUN: True
+        run: python3 sources/main.py
+
+
+

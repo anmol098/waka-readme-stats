@@ -185,8 +185,17 @@ async def main():
     init_localization_manager()
     DBM.i("Managers initialized.")
 
-    if GHM.update_readme(await get_stats()):
-        DBM.g("Readme updated!")
+    stats = await get_stats()
+    if not EM.DEBUG_RUN:
+        if GHM.update_readme(stats):
+            DBM.g("Readme updated!")
+    else:
+        DBM.i("Commenting PR...")
+        pr_data = await DM.get_remote_graphql("get_pr_id", pr_number=EM.PR_NUMBER)
+        pr_id = pr_data["data"]["repository"]["pullRequest"]["id"]
+        await DM.get_remote_graphql("add_pr_comment", pr_id=pr_id, comment=stats)
+        DBM.g("PR commented!")
+        DBM.g("Debug run, readme not updated. check the latest comment for the generated stats.")
     await DM.close_remote_resources()
 
 

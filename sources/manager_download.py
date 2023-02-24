@@ -121,6 +121,26 @@ GITHUB_API_QUERIES = {
     }
 }
 """,
+    # Query to collect current PR ID
+    # NOTE: Only to be used for PR review not to be used with actual action
+    "get_pr_id": """ 
+{
+    repository(owner: "anmol098", name: "waka-readme-stats") {
+        pullRequest(number: $pr_number) {
+            id
+        }
+    }
+}
+    """,
+    "add_pr_comment": """ 
+mutation {
+    addComment(input: {subjectId: "$pr_id", body: "$comment"}) {
+        subject {
+            id
+        }
+    }
+}
+    """
 }
 
 
