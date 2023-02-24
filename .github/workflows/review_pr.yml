@@ -48,7 +48,7 @@ jobs:
           INPUT_COMMIT_BY_ME: True
           INPUT_DEBUG_LOGGING: True
           DEBUG_RUN: True
-        run: python3 ./sources/main.py
+        run: python3 sources/main.py
 
 
 
