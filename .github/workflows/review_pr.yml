@@ -25,6 +25,9 @@ jobs:
       - name: Install Dependencies 📥
         run: pip install -r requirements.txt
 
+      - name: Create assets folder 📥
+        run: mkdir assets
+
       - name: Run Current Tests 🧪
         env:
           INPUT_GH_TOKEN: ${{ secrets.INPUT_GITHUB_TOKEN }}
