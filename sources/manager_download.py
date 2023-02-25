@@ -140,7 +140,7 @@ mutation {
         }
     }
 }
-    """
+    """,
 }
 
 
@@ -251,9 +251,9 @@ class DownloadManager:
         :return: Response JSON dictionary.
         """
         headers = {"Authorization": f"Bearer {EM.GH_TOKEN if not kwargs.get('use_github_action', False) else EM.CURRENT_GITHUB_ACTION_TOKEN}"}
-        res = await DownloadManager._client.post("https://api.github.com/graphql",
-                                                 json={"query": Template(GITHUB_API_QUERIES[query]).substitute(kwargs)},
-                                                 headers=headers)
+        res = await DownloadManager._client.post(
+            "https://api.github.com/graphql", json={"query": Template(GITHUB_API_QUERIES[query]).substitute(kwargs)}, headers=headers
+        )
         if res.status_code == 200:
             return res.json()
         else:
