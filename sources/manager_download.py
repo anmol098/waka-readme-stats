@@ -69,6 +69,7 @@ GITHUB_API_QUERIES = {
                 owner {
                     login
                 }
+                isPrivate
             }
             pageInfo {
                 endCursor
