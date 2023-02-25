@@ -3,6 +3,10 @@ name: REVIEW_PULL_REQUEST
 on:
   pull_request:
     types: [ opened, edited, reopened, synchronize ]
+    paths:
+      - 'sources/**'
+      - 'requirements.txt'
+      - '.github/workflows/review_pr.yml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -28,12 +32,12 @@ jobs:
       - name: Create assets folder 📥
         run: mkdir assets
 
-      - name: Run Current Tests 🧪
+      - name: Run Action Preview on Current Code 🧪
         env:
           INPUT_GH_TOKEN: ${{ secrets.INPUT_GITHUB_TOKEN }}
           INPUT_WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
-          CURRENT_GITHUB_ACTION_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ github.event.number }}
+          CURRENT_GITHUB_ACTION_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This is for testing purpose only not for production
+          PR_NUMBER: ${{ github.event.number }} # This is for testing purpose only not for production
           INPUT_SHOW_TIMEZONE: true
           INPUT_SHOW_PROJECTS: True
           INPUT_SHOW_EDITORS: True
@@ -50,8 +54,8 @@ jobs:
           INPUT_SHOW_LANGUAGE_PER_REPO: True
           INPUT_SHOW_UPDATED_DATE: True
           INPUT_COMMIT_BY_ME: True
-          INPUT_DEBUG_LOGGING: True
-          DEBUG_RUN: True
+          INPUT_DEBUG_LOGGING: True # This is for testing purpose only not for production
+          DEBUG_RUN: True # This is for testing purpose only not for production
         run: python3 sources/main.py
 
 
