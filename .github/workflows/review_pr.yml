@@ -32,6 +32,7 @@ jobs:
         env:
           INPUT_GH_TOKEN: ${{ secrets.INPUT_GITHUB_TOKEN }}
           INPUT_WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+          CURRENT_GITHUB_ACTION_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.number }}
           INPUT_SHOW_TIMEZONE: true
           INPUT_SHOW_PROJECTS: True
