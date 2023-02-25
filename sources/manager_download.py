@@ -123,7 +123,7 @@ GITHUB_API_QUERIES = {
 """,
     # Query to collect current PR ID
     # NOTE: Only to be used for PR review not to be used with actual action
-    "get_pr_id": """ 
+    "get_pr_id": """
 {
     repository(owner: "anmol098", name: "waka-readme-stats") {
         pullRequest(number: $pr_number) {
@@ -132,7 +132,7 @@ GITHUB_API_QUERIES = {
     }
 }
     """,
-    "add_pr_comment": """ 
+    "add_pr_comment": """
 mutation {
     addComment(input: {subjectId: "$pr_id", body: "$comment"}) {
         subject {
@@ -251,7 +251,9 @@ class DownloadManager:
         :return: Response JSON dictionary.
         """
         headers = {"Authorization": f"Bearer {EM.GH_TOKEN if not kwargs.get('use_github_action', False) else EM.CURRENT_GITHUB_ACTION_TOKEN}"}
-        res = await DownloadManager._client.post("https://api.github.com/graphql", json={"query": Template(GITHUB_API_QUERIES[query]).substitute(kwargs)}, headers=headers)
+        res = await DownloadManager._client.post("https://api.github.com/graphql",
+                                                 json={"query": Template(GITHUB_API_QUERIES[query]).substitute(kwargs)},
+                                                 headers=headers)
         if res.status_code == 200:
             return res.json()
         else:
