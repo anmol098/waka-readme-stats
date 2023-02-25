@@ -21,7 +21,7 @@ async def calculate_yearly_commit_data(repositories: Dict) -> Dict:
     total = len(repositories["data"]["user"]["repositories"]["nodes"])
     for ind, repo in enumerate(repositories["data"]["user"]["repositories"]["nodes"]):
         if repo["name"] not in EM.IGNORED_REPOS:
-            repo_name = "private" if repo["isPrivate"] else repo['owner']['login'] + "/" + repo['name']
+            repo_name = "private" if repo["isPrivate"] else f"{repo['owner']['login']}/{repo['name']}"
             DBM.i(f"\t{ind + 1}/{total} Retrieving repo: {repo_name}")
             await update_yearly_data_with_commit_stats(repo, yearly_data)
     DBM.g("Yearly commit data calculated!")
