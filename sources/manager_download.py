@@ -156,8 +156,7 @@ async def init_download_manager():
             "waka_latest": f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={EM.WAKATIME_API_KEY}",
             "waka_all": f"https://wakatime.com/api/v1/users/current/all_time_since_today?api_key={EM.WAKATIME_API_KEY}",
             "github_stats": f"https://github-contributions.vercel.app/api/v1/{GHM.USER.login}",
-        },
-        {"Authorization": f"Bearer {EM.GH_TOKEN}"},
+        }
     )
 
 
@@ -177,7 +176,7 @@ class DownloadManager:
     _REMOTE_RESOURCES_CACHE = dict()
 
     @staticmethod
-    async def load_remote_resources(resources: Dict[str, str], github_headers: Dict[str, str]):
+    async def load_remote_resources(resources: Dict[str, str]):
         """
         Prepare DownloadManager to launch GitHub API queries and launch all static queries.
         :param resources: Dictionary of static queries, "IDENTIFIER": "URL".
@@ -185,7 +184,6 @@ class DownloadManager:
         """
         for resource, url in resources.items():
             DownloadManager._REMOTE_RESOURCES_CACHE[resource] = DownloadManager._client.get(url)
-        DownloadManager._client.headers = github_headers
 
     @staticmethod
     async def close_remote_resources():
@@ -252,7 +250,8 @@ class DownloadManager:
         :param kwargs: Parameters for substitution of variables in dynamic query.
         :return: Response JSON dictionary.
         """
-        res = await DownloadManager._client.post("https://api.github.com/graphql", json={"query": Template(GITHUB_API_QUERIES[query]).substitute(kwargs)})
+        headers = {"Authorization": f"Bearer {EM.GH_TOKEN}"}
+        res = await DownloadManager._client.post("https://api.github.com/graphql", json={"query": Template(GITHUB_API_QUERIES[query]).substitute(kwargs)}, headers=headers)
         if res.status_code == 200:
             return res.json()
         else:
