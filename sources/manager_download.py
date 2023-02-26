@@ -11,7 +11,6 @@ from manager_environment import EnvironmentManager as EM
 from manager_github import GitHubManager as GHM
 from manager_debug import DebugManager as DBM
 
-
 GITHUB_API_QUERIES = {
     # Query to collect info about all user repositories, including: is it a fork, name and owner login.
     # NB! Query includes information about recent repositories only (apparently, contributed within a year).
@@ -121,26 +120,6 @@ GITHUB_API_QUERIES = {
     }
 }
 """,
-    # Query to collect current PR ID
-    # NOTE: Only to be used for PR review not to be used with actual action
-    "get_pr_id": """
-{
-    repository(owner: "anmol098", name: "waka-readme-stats") {
-        pullRequest(number: $pr_number) {
-            id
-        }
-    }
-}
-    """,
-    "add_pr_comment": """
-mutation {
-    addComment(input: {subjectId: "$pr_id", body: "$comment"}) {
-        subject {
-            id
-        }
-    }
-}
-    """,
 }
 
 
@@ -151,12 +130,10 @@ async def init_download_manager():
     - Launch static queries in background.
     """
     await DownloadManager.load_remote_resources(
-        {
-            "linguist": "https://cdn.jsdelivr.net/gh/github/linguist@master/lib/linguist/languages.yml",
-            "waka_latest": f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={EM.WAKATIME_API_KEY}",
-            "waka_all": f"https://wakatime.com/api/v1/users/current/all_time_since_today?api_key={EM.WAKATIME_API_KEY}",
-            "github_stats": f"https://github-contributions.vercel.app/api/v1/{GHM.USER.login}",
-        }
+        linguist="https://cdn.jsdelivr.net/gh/github/linguist@master/lib/linguist/languages.yml",
+        waka_latest=f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={EM.WAKATIME_API_KEY}",
+        waka_all=f"https://wakatime.com/api/v1/users/current/all_time_since_today?api_key={EM.WAKATIME_API_KEY}",
+        github_stats=f"https://github-contributions.vercel.app/api/v1/{GHM.USER.login}",
     )
 
 
@@ -176,11 +153,10 @@ class DownloadManager:
     _REMOTE_RESOURCES_CACHE = dict()
 
     @staticmethod
-    async def load_remote_resources(resources: Dict[str, str]):
+    async def load_remote_resources(**resources: str):
         """
         Prepare DownloadManager to launch GitHub API queries and launch all static queries.
-        :param resources: Dictionary of static queries, "IDENTIFIER": "URL".
-        :param github_headers: Dictionary of headers for GitHub API queries.
+        :param resources: Static queries, formatted like "IDENTIFIER"="URL".
         """
         for resource, url in resources.items():
             DownloadManager._REMOTE_RESOURCES_CACHE[resource] = DownloadManager._client.get(url)
@@ -243,14 +219,15 @@ class DownloadManager:
         return await DownloadManager._get_remote_resource(resource, safe_load)
 
     @staticmethod
-    async def _fetch_graphql_query(query: str, **kwargs) -> Dict:
+    async def _fetch_graphql_query(query: str, use_github_action: bool = False, **kwargs) -> Dict:
         """
         Execute GitHub GraphQL API simple query.
         :param query: Dynamic query identifier.
+        :param use_github_action: Whether to perform query using CURRENT_GITHUB_ACTION_TOKEN.
         :param kwargs: Parameters for substitution of variables in dynamic query.
         :return: Response JSON dictionary.
         """
-        headers = {"Authorization": f"Bearer {EM.GH_TOKEN if not kwargs.get('use_github_action', False) else EM.CURRENT_GITHUB_ACTION_TOKEN}"}
+        headers = {"Authorization": f"Bearer {EM.GH_TOKEN if not use_github_action else EM.CURRENT_GITHUB_ACTION_TOKEN}"}
         res = await DownloadManager._client.post(
             "https://api.github.com/graphql", json={"query": Template(GITHUB_API_QUERIES[query]).substitute(kwargs)}, headers=headers
         )

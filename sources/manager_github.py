@@ -17,6 +17,7 @@ def init_github_manager():
 
 
 class GitHubManager:
+    _GITHUB: Github
     USER: AuthenticatedUser
     REPO: Repository
     _README: ContentFile
@@ -35,9 +36,9 @@ class GitHubManager:
         - README.md file of this repo.
         - Parsed contents of the file.
         """
-        github = Github(EM.GH_TOKEN)
-        GitHubManager.USER = github.get_user()
-        GitHubManager.REPO = github.get_repo(f"{GitHubManager.USER.login}/{GitHubManager.USER.login}")
+        GitHubManager._GITHUB = Github(EM.GH_TOKEN)
+        GitHubManager.USER = GitHubManager._GITHUB.get_user()
+        GitHubManager.REPO = GitHubManager._GITHUB.get_repo(f"{GitHubManager.USER.login}/{GitHubManager.USER.login}")
         GitHubManager._README = GitHubManager.REPO.get_readme()
         GitHubManager._README_CONTENTS = str(b64decode(GitHubManager._README.content), "utf-8")
 
@@ -81,6 +82,7 @@ class GitHubManager:
         Updates readme with given data if necessary.
         Uses commit author, commit message and branch name specified by environmental variables.
 
+        :param stats: Readme stats to be pushed.
         :returns: whether the README.md file was updated or not.
         """
         DBM.i("Updating README...")
@@ -99,6 +101,18 @@ class GitHubManager:
         else:
             DBM.w("README update not needed!")
             return False
+
+    @staticmethod
+    def push_to_pr(stats: str):
+        """
+        Pushes readme data to current PR body instead of committing it.
+
+        :param stats: Readme stats to be pushed.
+        """
+        DBM.i("Commenting PR...")
+        pull_request = GitHubManager._GITHUB.get_repo("anmol098/waka-readme-stats").get_pull(EM.PR_NUMBER)
+        pull_request.create_issue_comment(stats)
+        DBM.g("PR commented!")
 
     @staticmethod
     def update_chart(chart_path: str):
