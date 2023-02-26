@@ -2,7 +2,7 @@ name: REVIEW_PULL_REQUEST
 
 on:
   pull_request:
-    types: [ review_requested ]
+    types: [ opened, edited, reopened, synchronize ]
     paths:
       - 'sources/**'
       - 'requirements.txt'
@@ -15,7 +15,6 @@ concurrency:
 jobs:
   publish-server-image:
     name: Run Test and Review PR
-    if: ${{ github.event.requested_reviewer.login == 'anmol098'}}
     runs-on: ubuntu-latest
 
     steps:
