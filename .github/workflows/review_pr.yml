@@ -66,6 +66,6 @@ jobs:
         uses: jungwinter/comment@v1
         with:
           type: create
-          body: ${{ steps.run_tests.outputs.README_CONTENT }}
+          body: ${{ steps.make-stats.outputs.README_CONTENT }}
           issue_number: ${{ github.event.number }}
           token: ${{ secrets.GITHUB_TOKEN }}
