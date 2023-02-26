@@ -1,9 +1,8 @@
 name: Dependency review
 on:
   push:
-    branches: [ "master" ]
+    branches: master
   pull_request:
-    branches: [ "**" ]
   workflow_dispatch:
   schedule:
     - cron: 45 15 * * 5
