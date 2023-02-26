@@ -227,15 +227,14 @@ class DownloadManager:
         return await DownloadManager._get_remote_resource(resource, safe_load)
 
     @staticmethod
-    async def _fetch_graphql_query(query: str, use_github_action: bool = False, **kwargs) -> Dict:
+    async def _fetch_graphql_query(query: str, **kwargs) -> Dict:
         """
         Execute GitHub GraphQL API simple query.
         :param query: Dynamic query identifier.
-        :param use_github_action: Whether to perform query using CURRENT_GITHUB_ACTION_TOKEN.
         :param kwargs: Parameters for substitution of variables in dynamic query.
         :return: Response JSON dictionary.
         """
-        headers = {"Authorization": f"Bearer {EM.GH_TOKEN if not use_github_action else EM.CURRENT_GITHUB_ACTION_TOKEN}"}
+        headers = {"Authorization": f"Bearer {EM.GH_TOKEN}"}
         res = await DownloadManager._client.post(
             "https://api.github.com/graphql", json={"query": Template(GITHUB_API_QUERIES[query]).substitute(kwargs)}, headers=headers
         )
