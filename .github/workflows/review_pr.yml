@@ -55,4 +55,5 @@ jobs:
           INPUT_DEBUG_LOGGING: True # This is for testing purpose only not for production
           DEBUG_RUN: True # This is for testing purpose only not for production
           PR_NUMBER: ${{ github.event.number }} # This is for testing purpose only not for production
+          CURRENT_GITHUB_ACTION_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This is for testing purpose only not for production
         run: python3 sources/main.py

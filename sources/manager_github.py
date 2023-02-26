@@ -18,7 +18,6 @@ def init_github_manager():
 
 
 class GitHubManager:
-    _GITHUB: Github
     USER: AuthenticatedUser
     REPO: Repository
     _README: ContentFile
@@ -37,9 +36,9 @@ class GitHubManager:
         - README.md file of this repo.
         - Parsed contents of the file.
         """
-        GitHubManager._GITHUB = Github(EM.GH_TOKEN)
-        GitHubManager.USER = GitHubManager._GITHUB.get_user()
-        GitHubManager.REPO = GitHubManager._GITHUB.get_repo(f"{GitHubManager.USER.login}/{GitHubManager.USER.login}")
+        github = Github(EM.GH_TOKEN)
+        GitHubManager.USER = github.get_user()
+        GitHubManager.REPO = github.get_repo(f"{GitHubManager.USER.login}/{GitHubManager.USER.login}")
         GitHubManager._README = GitHubManager.REPO.get_readme()
         GitHubManager._README_CONTENTS = str(b64decode(GitHubManager._README.content), "utf-8")
 
@@ -113,9 +112,10 @@ class GitHubManager:
         prefix = "README stats current output:"
         DBM.i("Commenting PR...")
 
-        pull_request = GitHubManager._GITHUB.get_repo("anmol098/waka-readme-stats").get_pull(EM.PR_NUMBER)
+        github = Github(EM.CURRENT_GITHUB_ACTION_TOKEN)
+        pull_request = github.get_repo("anmol098/waka-readme-stats").get_pull(EM.PR_NUMBER)
         for comment in [ic for ic in pull_request.get_issue_comments() if ic.body.startswith(prefix)]:
-            await DM.get_remote_graphql("hide_outdated_comment", id=comment.id)
+            await DM.get_remote_graphql("hide_outdated_comment", use_github_action=True, id=comment.id)
 
         pull_request.create_issue_comment(f"{prefix}\n\n{stats}")
         DBM.g("PR commented!")
