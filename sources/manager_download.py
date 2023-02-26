@@ -120,6 +120,13 @@ GITHUB_API_QUERIES = {
     }
 }
 """,
+    "hide_outdated_comment": """
+mutation { 
+    minimizeComment(input: {classifier:OUTDATED, subjectId: "$id"}) {
+        clientMutationId
+    }
+}
+""",
 }
 
 
