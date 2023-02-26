@@ -104,7 +104,7 @@ class GitHubManager:
             return False
 
     @staticmethod
-    def push_to_pr(stats: str):
+    async def push_to_pr(stats: str):
         """
         Pushes readme data to current PR body instead of committing it.
 
@@ -115,7 +115,7 @@ class GitHubManager:
 
         pull_request = GitHubManager._GITHUB.get_repo("anmol098/waka-readme-stats").get_pull(EM.PR_NUMBER)
         for comment in [ic for ic in pull_request.get_issue_comments() if ic.body.startswith(prefix)]:
-            DM.get_remote_graphql("hide_outdated_comment", id=comment.id)
+            await DM.get_remote_graphql("hide_outdated_comment", id=comment.id)
 
         pull_request.create_issue_comment(f"{prefix}\n\n{stats}")
         DBM.g("PR commented!")
