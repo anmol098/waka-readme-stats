@@ -1,5 +1,5 @@
 from json import load
-from os.path import join, dirname
+from os.path import join
 from typing import Dict
 
 from manager_environment import EnvironmentManager as EM

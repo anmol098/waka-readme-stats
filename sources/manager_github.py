@@ -1,4 +1,4 @@
-from base64 import b64decode
+from base64 import b64decode, b64encode
 from os import environ
 from random import choice
 from re import sub
@@ -123,20 +123,33 @@ class GitHubManager:
         DBM.g("Action output set!")
 
     @staticmethod
-    def update_chart(chart_path: str):
+    def update_chart(chart_path: str) -> str:
         """
         Updates lines of code chart.
+        Inlines data into readme if in debug mode, commits otherwise.
         Uses commit author, commit message and branch name specified by environmental variables.
 
         :param chart_path: path to saved lines of code chart.
+        :returns: string to add to README file.
         """
         DBM.i("Updating lines of code chart...")
         with open(chart_path, "rb") as input_file:
             data = input_file.read()
-        try:
-            contents = GitHubManager.REPO.get_contents(chart_path)
-            GitHubManager.REPO.update_file(contents.path, "Charts Updated", data, contents.sha, committer=GitHubManager._get_author())
-            DBM.g("Lines of code chart updated!")
-        except UnknownObjectException:
-            GitHubManager.REPO.create_file(chart_path, "Charts Added", data, committer=GitHubManager._get_author())
-            DBM.g("Lines of code chart created!")
+
+        if not EM.DEBUG_RUN:
+            DBM.i("Pushing chart to repo...")
+            chart_path = f"https://raw.githubusercontent.com/{GitHubManager.USER.login}/{GitHubManager.USER.login}/{GitHubManager.branch()}/{chart_path}"
+
+            try:
+                contents = GitHubManager.REPO.get_contents(chart_path)
+                GitHubManager.REPO.update_file(contents.path, "Charts Updated", data, contents.sha, committer=GitHubManager._get_author())
+                DBM.g("Lines of code chart updated!")
+            except UnknownObjectException:
+                GitHubManager.REPO.create_file(chart_path, "Charts Added", data, committer=GitHubManager._get_author())
+                DBM.g("Lines of code chart created!")
+
+        else:
+            DBM.i("Inlining chart...")
+            chart_path = f"data:image/png;base64,{b64encode(data)}"
+
+        return f"**{FM.t('Timeline')}**\n\n![Lines of Code chart]({chart_path})\n\n"
