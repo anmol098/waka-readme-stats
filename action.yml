@@ -20,7 +20,7 @@ inputs:
   PUSH_BRANCH_NAME:
     required: false
     description: "The branch to update the readme in"
-    default: "master"
+    default: ""
 
   SHOW_OS:
     required: false
