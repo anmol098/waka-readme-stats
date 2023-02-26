@@ -227,7 +227,7 @@ class DownloadManager:
         return await DownloadManager._get_remote_resource(resource, safe_load)
 
     @staticmethod
-    async def _fetch_graphql_query(query: str, use_github_action: bool = False, **kwargs) -> Dict:
+    async def _fetch_graphql_query(query: str, **kwargs) -> Dict:
         """
         Execute GitHub GraphQL API simple query.
         :param query: Dynamic query identifier.
@@ -235,7 +235,7 @@ class DownloadManager:
         :param kwargs: Parameters for substitution of variables in dynamic query.
         :return: Response JSON dictionary.
         """
-        headers = {"Authorization": f"Bearer {EM.GH_TOKEN if not use_github_action else EM.CURRENT_GITHUB_ACTION_TOKEN}"}
+        headers = {"Authorization": f"Bearer {EM.GH_TOKEN}"}
         res = await DownloadManager._client.post(
             "https://api.github.com/graphql", json={"query": Template(GITHUB_API_QUERIES[query]).substitute(kwargs)}, headers=headers
         )
@@ -268,7 +268,7 @@ class DownloadManager:
             return list(), dict(hasNextPage=False)
 
     @staticmethod
-    async def _fetch_graphql_paginated(query: str, use_github_action: bool = False, **kwargs) -> Dict:
+    async def _fetch_graphql_paginated(query: str, **kwargs) -> Dict:
         """
         Execute GitHub GraphQL API paginated query.
         Queries 100 new results each time until no more results are left.
@@ -278,11 +278,11 @@ class DownloadManager:
         :param kwargs: Parameters for substitution of variables in dynamic query.
         :return: Response JSON dictionary.
         """
-        initial_query_response = await DownloadManager._fetch_graphql_query(query, use_github_action, **kwargs, pagination="first: 100")
+        initial_query_response = await DownloadManager._fetch_graphql_query(query, **kwargs, pagination="first: 100")
         page_list, page_info = DownloadManager._find_pagination_and_data_list(initial_query_response)
         while page_info["hasNextPage"]:
             pagination = f'first: 100, after: "{page_info["endCursor"]}"'
-            query_response = await DownloadManager._fetch_graphql_query(query, use_github_action, **kwargs, pagination=pagination)
+            query_response = await DownloadManager._fetch_graphql_query(query, **kwargs, pagination=pagination)
             new_page_list, page_info = DownloadManager._find_pagination_and_data_list(query_response)
             page_list += new_page_list
         _, page_info = DownloadManager._find_pagination_and_data_list(initial_query_response)
@@ -290,7 +290,7 @@ class DownloadManager:
         return initial_query_response
 
     @staticmethod
-    async def get_remote_graphql(query: str, use_github_action: bool = False, **kwargs) -> Dict:
+    async def get_remote_graphql(query: str, **kwargs) -> Dict:
         """
         Execute GitHub GraphQL API query.
         The queries are defined in `GITHUB_API_QUERIES`, all parameters should be passed as kwargs.
@@ -298,16 +298,15 @@ class DownloadManager:
         Merges paginated sub-queries if pagination is required for the query.
         Parse and return response as JSON.
         :param query: Dynamic query identifier.
-        :param use_github_action: Use GitHub actions bot auth token instead of current user.
         :param kwargs: Parameters for substitution of variables in dynamic query.
         :return: Response JSON dictionary.
         """
         key = f"{query}_{md5(dumps(kwargs, sort_keys=True).encode('utf-8')).digest()}"
         if key not in DownloadManager._REMOTE_RESOURCES_CACHE:
             if "$pagination" in GITHUB_API_QUERIES[query]:
-                res = await DownloadManager._fetch_graphql_paginated(query, use_github_action, **kwargs)
+                res = await DownloadManager._fetch_graphql_paginated(query, **kwargs)
             else:
-                res = await DownloadManager._fetch_graphql_query(query, use_github_action, **kwargs)
+                res = await DownloadManager._fetch_graphql_query(query, **kwargs)
             DownloadManager._REMOTE_RESOURCES_CACHE[key] = res
         else:
             res = DownloadManager._REMOTE_RESOURCES_CACHE[key]

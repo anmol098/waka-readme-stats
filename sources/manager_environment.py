@@ -47,5 +47,6 @@ class EnvironmentManager:
     DEBUG_LOGGING = getenv("INPUT_DEBUG_LOGGING", "0").lower() in _TRUTHY
     DEBUG_RUN = getenv("DEBUG_RUN", "False").lower() in _TRUTHY
 
-    PR_NUMBER = int(getenv("PR_NUMBER", "0"))
-    CURRENT_GITHUB_ACTION_TOKEN = getenv("CURRENT_GITHUB_ACTION_TOKEN", "")
+    @staticmethod
+    def set_variable(name: str, content: str):
+        environ[name] = content

@@ -4,7 +4,6 @@ from re import sub
 from github import Github, AuthenticatedUser, Repository, ContentFile, InputGitAuthor, UnknownObjectException
 
 from manager_environment import EnvironmentManager as EM
-from manager_download import DownloadManager as DM
 from manager_debug import DebugManager as DBM
 
 
@@ -111,13 +110,7 @@ class GitHubManager:
         """
         prefix = "README stats current output:"
         DBM.i("Commenting PR...")
-
-        github = Github(EM.CURRENT_GITHUB_ACTION_TOKEN)
-        pull_request = github.get_repo("anmol098/waka-readme-stats").get_pull(EM.PR_NUMBER)
-        for comment in [ic for ic in pull_request.get_issue_comments() if ic.body.startswith(prefix)]:
-            await DM.get_remote_graphql("hide_outdated_comment", use_github_action=True, id=comment.id)
-
-        pull_request.create_issue_comment(f"{prefix}\n\n{stats}")
+        EM.set_variable("GITHUB_OUTPUT", f"README_CONTENT={prefix}\n\n{stats}")
         DBM.g("PR commented!")
 
     @staticmethod

@@ -29,10 +29,16 @@ jobs:
       - name: Install Dependencies 📥
         run: pip install -r requirements.txt
 
-      - name: Create assets folder 📥
+      - name: Create Assets Folder 📥
         run: mkdir assets
 
+      - name: Create Previous Comments 🫣
+        uses: int128/hide-comment-action@v1
+        with:
+          starts-with: "README stats current output:"
+
       - name: Run Action Preview on Current Code 🧪
+        id: make-stats
         env:
           INPUT_GH_TOKEN: ${{ secrets.INPUT_GITHUB_TOKEN }}
           INPUT_WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
@@ -54,6 +60,12 @@ jobs:
           INPUT_COMMIT_BY_ME: True
           INPUT_DEBUG_LOGGING: True # This is for testing purpose only not for production
           DEBUG_RUN: True # This is for testing purpose only not for production
-          PR_NUMBER: ${{ github.event.number }} # This is for testing purpose only not for production
-          CURRENT_GITHUB_ACTION_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This is for testing purpose only not for production
         run: python3 sources/main.py
+
+      - name: Create Comment
+        uses: jungwinter/comment@v1
+        with:
+          type: create
+          body: ${{ steps.run_tests.outputs.README_CONTENT }}
+          issue_number: ${{ github.event.number }}
+          token: ${{ secrets.GITHUB_TOKEN }}
