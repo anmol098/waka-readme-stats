@@ -181,7 +181,7 @@ async def main():
     Initializes all managers, collects user info and updates README.md if necessary.
     """
     init_github_manager()
-    await init_download_manager()
+    await init_download_manager(GHM.USER.login)
     init_localization_manager()
     DBM.i("Managers initialized.")
 

@@ -8,7 +8,6 @@ from httpx import AsyncClient
 from yaml import safe_load
 
 from manager_environment import EnvironmentManager as EM
-from manager_github import GitHubManager as GHM
 from manager_debug import DebugManager as DBM
 
 GITHUB_API_QUERIES = {
@@ -121,7 +120,7 @@ GITHUB_API_QUERIES = {
 }
 """,
     "hide_outdated_comment": """
-mutation { 
+mutation {
     minimizeComment(input: {classifier:OUTDATED, subjectId: "$id"}) {
         clientMutationId
     }
@@ -130,17 +129,19 @@ mutation {
 }
 
 
-async def init_download_manager():
+async def init_download_manager(user_login: str):
     """
     Initialize download manager:
     - Setup headers for GitHub GraphQL requests.
     - Launch static queries in background.
+
+    :param user_login: GitHub user login.
     """
     await DownloadManager.load_remote_resources(
         linguist="https://cdn.jsdelivr.net/gh/github/linguist@master/lib/linguist/languages.yml",
         waka_latest=f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={EM.WAKATIME_API_KEY}",
         waka_all=f"https://wakatime.com/api/v1/users/current/all_time_since_today?api_key={EM.WAKATIME_API_KEY}",
-        github_stats=f"https://github-contributions.vercel.app/api/v1/{GHM.USER.login}",
+        github_stats=f"https://github-contributions.vercel.app/api/v1/{user_login}",
     )
 
 
