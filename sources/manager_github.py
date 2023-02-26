@@ -110,7 +110,7 @@ class GitHubManager:
         """
         prefix = "README stats current output:"
         DBM.i("Commenting PR...")
-        EM.set_variable("GITHUB_OUTPUT", f"README_CONTENT={prefix}\n\n{stats}")
+        EM.set_github_output("README_CONTENT", f"{prefix}\n\n{stats}")
         DBM.g("PR commented!")
 
     @staticmethod

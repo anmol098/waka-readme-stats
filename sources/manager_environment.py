@@ -48,5 +48,8 @@ class EnvironmentManager:
     DEBUG_RUN = getenv("DEBUG_RUN", "False").lower() in _TRUTHY
 
     @staticmethod
-    def set_variable(name: str, content: str):
-        environ[name] = content
+    def set_github_output(name: str, content: str):
+        if "GITHUB_OUTPUT" not in environ.keys():
+            raise Exception("Not in GitHub environment ('GITHUB_OUTPUT' not defined)!")
+        with open(environ["GITHUB_OUTPUT"], "a") as fh:
+            fh.write(f"{name}={content}")
