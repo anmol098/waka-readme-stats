@@ -51,5 +51,6 @@ class EnvironmentManager:
     def set_github_output(name: str, content: str):
         if "GITHUB_OUTPUT" not in environ.keys():
             raise Exception("Not in GitHub environment ('GITHUB_OUTPUT' not defined)!")
+        escaped = content.replace("%", "%25").replace("\n", "%0A").replace("\r", "%0D")
         with open(environ["GITHUB_OUTPUT"], "a") as fh:
-            fh.write(f"{name}={content}")
+            fh.write(f"{name}={escaped}")
