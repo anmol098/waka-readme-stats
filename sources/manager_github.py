@@ -7,6 +7,7 @@ from string import ascii_letters
 from github import Github, AuthenticatedUser, Repository, ContentFile, InputGitAuthor, UnknownObjectException
 
 from manager_environment import EnvironmentManager as EM
+from manager_file import FileManager as FM
 from manager_debug import DebugManager as DBM
 
 
@@ -117,10 +118,7 @@ class GitHubManager:
 
         prefix = "README stats current output:"
         eol = "".join(choice(ascii_letters) for _ in range(10))
-        with open(environ["GITHUB_OUTPUT"], "a") as fh:
-            fh.write(f"README_CONTENT<<{eol}\n")
-            fh.write(f"{prefix}\n\n{stats}\n")
-            fh.write(f"{eol}\n")
+        FM.write_file(environ["GITHUB_OUTPUT"], f"README_CONTENT<<{eol}\n{prefix}\n\n{stats}\n{eol}\n", append=True)
 
         DBM.g("Action output set!")
 

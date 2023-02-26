@@ -62,6 +62,22 @@ jobs:
           DEBUG_RUN: True # This is for testing purpose only not for production
         run: python3 sources/main.py
 
+      - name: Save Branch Name Without Slashes 📛
+        if: ${{ github.ref != 'refs/heads/master' }}
+        env:
+          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+        run: |
+          BRANCH_NAME=${{ env.BRANCH_NAME }}
+          BRANCH_NAME=${BRANCH_NAME////_}
+          echo BRANCH_NAME=${BRANCH_NAME} >> $GITHUB_ENV
+
+      - name: Upload Artifact 📦
+        uses: actions/upload-artifact@v3
+        if: ${{ github.ref != 'refs/heads/master' }}
+        with:
+          name: ${{ format('github-pages-for-branch-{0}', env.BRANCH_NAME) }}
+          path: assets
+
       - name: Create Comment 💬
         uses: jungwinter/comment@v1
         with:
