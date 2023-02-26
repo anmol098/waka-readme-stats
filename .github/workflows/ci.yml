@@ -1,19 +1,15 @@
-name: REVIEW_PULL_REQUEST
+name: CI
 
 on:
   pull_request:
-    types: [ opened, edited, reopened, synchronize ]
-    paths:
-      - 'sources/**'
-      - 'requirements.txt'
-      - '.github/workflows/review_pr.yml'
+  workflow_dispatch:
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: ${{ github.ref != 'refs/heads/dev' }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
 
 jobs:
-  publish-server-image:
+  ci:
     name: Run Test and Review PR
     runs-on: ubuntu-latest
 
