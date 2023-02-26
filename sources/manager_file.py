@@ -52,6 +52,6 @@ class FileManager:
         :param append: True for appending to file, false for rewriting.
         :param assets: True for saving to 'assets' directory, false otherwise.
         """
-        name = join(name, "assets") if assets else name
+        name = join("assets", name) if assets else name
         with open(name, "a" if append else "w", encoding="utf-8") as file:
             file.write(content)
