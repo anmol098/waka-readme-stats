@@ -118,12 +118,11 @@ class GitHubManager:
         prefix = "README stats current output:"
         eol = "".join(choice(ascii_letters) for _ in range(10))
         with open(environ["GITHUB_OUTPUT"], "a") as fh:
-            fh.write(f"README_CONTENT<<{eol}")
-            fh.write(f"{prefix}\n\n{stats}")
-            fh.write(eol)
+            fh.write(f"README_CONTENT<<{eol}\n")
+            fh.write(f"{prefix}\n\n{stats}\n")
+            fh.write(f"{eol}\n")
 
         DBM.g("Action output set!")
-
 
     @staticmethod
     def update_chart(chart_path: str):

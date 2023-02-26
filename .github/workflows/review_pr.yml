@@ -62,7 +62,7 @@ jobs:
           DEBUG_RUN: True # This is for testing purpose only not for production
         run: python3 sources/main.py
 
-      - name: Create Comment
+      - name: Create Comment 💬
         uses: jungwinter/comment@v1
         with:
           type: create
