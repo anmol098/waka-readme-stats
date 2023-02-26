@@ -1,6 +1,4 @@
 from os import getenv, environ
-from random import choice
-from string import ascii_letters
 
 
 class EnvironmentManager:
@@ -48,14 +46,3 @@ class EnvironmentManager:
 
     DEBUG_LOGGING = getenv("INPUT_DEBUG_LOGGING", "0").lower() in _TRUTHY
     DEBUG_RUN = getenv("DEBUG_RUN", "False").lower() in _TRUTHY
-
-    @staticmethod
-    def set_github_output(name: str, content: str):
-        if "GITHUB_OUTPUT" not in environ.keys():
-            raise Exception("Not in GitHub environment ('GITHUB_OUTPUT' not defined)!")
-        eol = "".join(choice(ascii_letters) for _ in range(10))
-        escaped = content.replace("%", "%25").replace("\n", "%0A").replace("\r", "%0D")
-        with open(environ["GITHUB_OUTPUT"], "a") as fh:
-            fh.write(f"{name}<<{eol}")
-            fh.write(escaped)
-            fh.write(eol)

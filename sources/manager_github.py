@@ -1,5 +1,8 @@
 from base64 import b64decode
+from os import environ
+from random import choice
 from re import sub
+from string import ascii_letters
 
 from github import Github, AuthenticatedUser, Repository, ContentFile, InputGitAuthor, UnknownObjectException
 
@@ -102,16 +105,25 @@ class GitHubManager:
             return False
 
     @staticmethod
-    async def push_to_pr(stats: str):
+    def set_github_output(stats: str):
         """
-        Pushes readme data to current PR body instead of committing it.
+        Outputs readme data as current action output instead of committing it.
 
-        :param stats: Readme stats to be pushed.
+        param stats: Readme stats to be outputted.
         """
+        DBM.i("Setting README contents as action output...")
+        if "GITHUB_OUTPUT" not in environ.keys():
+            raise Exception("Not in GitHub environment ('GITHUB_OUTPUT' not defined)!")
+
         prefix = "README stats current output:"
-        DBM.i("Commenting PR...")
-        EM.set_github_output("README_CONTENT", f"{prefix}\n\n{stats}")
-        DBM.g("PR commented!")
+        eol = "".join(choice(ascii_letters) for _ in range(10))
+        with open(environ["GITHUB_OUTPUT"], "a") as fh:
+            fh.write(f"README_CONTENT<<{eol}")
+            fh.write(f"{prefix}\n\n{stats}")
+            fh.write(eol)
+
+        DBM.g("Action output set!")
+
 
     @staticmethod
     def update_chart(chart_path: str):
