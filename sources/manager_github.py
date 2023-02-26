@@ -147,9 +147,10 @@ class GitHubManager:
             except UnknownObjectException:
                 GitHubManager.REPO.create_file(chart_path, "Charts Added", data, committer=GitHubManager._get_author())
                 DBM.g("Lines of code chart created!")
+            return f"**{FM.t('Timeline')}**\n\n![Lines of Code chart]({chart_path})\n\n"
 
         else:
             DBM.i("Inlining chart...")
-            chart_path = f"data:image/png;base64,{b64encode(data).decode('utf-8')}"
-
-        return f"**{FM.t('Timeline')}**\n\n![Lines of Code chart]({chart_path})\n\n"
+            hint = f"You can use [this website](https://codebeautify.org/base64-to-image-converter) to view the generated image."
+            encoded_image = f"data:image/png;base64,{b64encode(data).decode('utf-8')}"
+            return f"<details>\n\t<summary>Base64 encoded image</summary>\n\t```\t\n{encoded_image}\t\n```</details>\n\n{hint}"
