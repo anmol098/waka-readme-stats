@@ -152,4 +152,4 @@ class GitHubManager:
         else:
             DBM.i("Inlining chart...")
             hint = "You can use [this website](https://codebeautify.org/base64-to-image-converter) to view the generated base64 image."
-            return f"{hint}\n```\n\tdata:image/png;base64,{b64encode(data).decode('utf-8')}\n```\n\n"
+            return f"{hint}\n```\ndata:image/png;base64,{b64encode(data).decode('utf-8')}\n```\n\n"
