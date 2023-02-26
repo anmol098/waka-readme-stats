@@ -150,6 +150,6 @@ class GitHubManager:
 
         else:
             DBM.i("Inlining chart...")
-            chart_path = f"data:image/png;base64,{b64encode(data)}"
+            chart_path = f"data:image/png;base64,{b64encode(data).decode('utf-8')}"
 
         return f"**{FM.t('Timeline')}**\n\n![Lines of Code chart]({chart_path})\n\n"
