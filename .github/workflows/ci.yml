@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    name: Run Test and Review PR
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: Setup Python 3.8 🐍
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+
+      - name: Install Dependencies 📥
+        run: pip install -r requirements.txt
+
+      - name: Create Assets Folder 📥
+        run: mkdir assets
+
+      - name: Create Previous Comments 🫣
+        uses: int128/hide-comment-action@v1
+        with:
+          starts-with: "README stats current output:"
+
+      - name: Run Action Preview on Current Code 🧪
+        id: make-stats
+        env:
+          INPUT_GH_TOKEN: ${{ secrets.INPUT_GITHUB_TOKEN }}
+          INPUT_WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+          INPUT_SHOW_TIMEZONE: True
+          INPUT_SHOW_PROJECTS: True
+          INPUT_SHOW_EDITORS: True
+          INPUT_SHOW_OS: True
+          INPUT_SHOW_LANGUAGE: True
+          INPUT_SYMBOL_VERSION: 1
+          INPUT_SHOW_LINES_OF_CODE: True
+          INPUT_SHOW_LOC_CHART: True
+          INPUT_SHOW_PROFILE_VIEWS: True
+          INPUT_SHOW_TOTAL_CODE_TIME: True
+          INPUT_SHOW_SHORT_INFO: True
+          INPUT_SHOW_COMMIT: True
+          INPUT_SHOW_DAYS_OF_WEEK: True
+          INPUT_SHOW_LANGUAGE_PER_REPO: True
+          INPUT_SHOW_UPDATED_DATE: True
+          INPUT_COMMIT_BY_ME: True
+          INPUT_DEBUG_LOGGING: True # Not for prod
+          DEBUG_RUN: True # Not for prod
+        run: python3 sources/main.py
+
+      - name: Save Branch Name Without Slashes 📛
+        if: ${{ github.ref != 'refs/heads/master' }}
+        env:
+          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+        run: |
+          BRANCH_NAME=${{ env.BRANCH_NAME }}
+          BRANCH_NAME=${BRANCH_NAME////_}
+          echo BRANCH_NAME=${BRANCH_NAME} >> $GITHUB_ENV
+
+      - name: Upload Artifact 📦
+        uses: actions/upload-artifact@v3
+        if: ${{ github.ref != 'refs/heads/master' }}
+        with:
+          name: ${{ format('github-pages-for-branch-{0}', env.BRANCH_NAME) }}
+          path: assets
+
+      - name: Create Comment 💬
+        uses: jungwinter/comment@v1
+        with:
+          type: create
+          body: ${{ steps.make-stats.outputs.README_CONTENT }}
+          issue_number: ${{ github.event.number }}
+          token: ${{ secrets.GITHUB_TOKEN }}
