@@ -1,6 +1,7 @@
 from base64 import b64decode
 from re import sub
 
+from git import Repo
 from github import Github, AuthenticatedUser, Repository, ContentFile, InputGitAuthor, UnknownObjectException
 
 from manager_environment import EnvironmentManager as EM
@@ -18,10 +19,12 @@ def init_github_manager():
 
 class GitHubManager:
     USER: AuthenticatedUser
-    REPO: Repository
+    REPO: Repo
+    REMOTE: Repository
     _README: ContentFile
     _README_CONTENTS: str
 
+    _REPO_PATH = "repo"
     _START_COMMENT = f"<!--START_SECTION:{EM.SECTION_NAME}-->"
     _END_COMMENT = f"<!--END_SECTION:{EM.SECTION_NAME}-->"
     _README_REGEX = f"{_START_COMMENT}[\\s\\S]+{_END_COMMENT}"
@@ -37,8 +40,9 @@ class GitHubManager:
         """
         github = Github(EM.GH_TOKEN)
         GitHubManager.USER = github.get_user()
-        GitHubManager.REPO = github.get_repo(f"{GitHubManager.USER.login}/{GitHubManager.USER.login}")
-        GitHubManager._README = GitHubManager.REPO.get_readme()
+        GitHubManager.REMOTE = github.get_repo(f"{GitHubManager.USER.login}/{GitHubManager.USER.login}")
+        GitHubManager.REPO = Repo.clone_from(GitHubManager.REMOTE.clone_url, to_path=GitHubManager._REPO_PATH)
+        GitHubManager._README = GitHubManager.REMOTE.get_readme()
         GitHubManager._README_CONTENTS = str(b64decode(GitHubManager._README.content), "utf-8")
 
     @staticmethod
@@ -73,7 +77,7 @@ class GitHubManager:
 
         :returns: Commit author.
         """
-        return GitHubManager.REPO.default_branch if EM.BRANCH_NAME == "" else EM.BRANCH_NAME
+        return GitHubManager.REMOTE.default_branch if EM.BRANCH_NAME == "" else EM.BRANCH_NAME
 
     @staticmethod
     def update_readme(stats: str) -> bool:
@@ -86,7 +90,7 @@ class GitHubManager:
         DBM.i("Updating README...")
         new_readme = GitHubManager._generate_new_readme(stats)
         if new_readme != GitHubManager._README_CONTENTS:
-            GitHubManager.REPO.update_file(
+            GitHubManager.REMOTE.update_file(
                 path=GitHubManager._README.path,
                 message=EM.COMMIT_MESSAGE,
                 content=new_readme,
@@ -112,9 +116,13 @@ class GitHubManager:
         with open(chart_path, "rb") as input_file:
             data = input_file.read()
         try:
-            contents = GitHubManager.REPO.get_contents(chart_path)
-            GitHubManager.REPO.update_file(contents.path, "Charts Updated", data, contents.sha, committer=GitHubManager._get_author())
+            contents = GitHubManager.REMOTE.get_contents(chart_path)
+            GitHubManager.REMOTE.update_file(contents.path, "Charts Updated", data, contents.sha, committer=GitHubManager._get_author())
             DBM.g("Lines of code chart updated!")
         except UnknownObjectException:
-            GitHubManager.REPO.create_file(chart_path, "Charts Added", data, committer=GitHubManager._get_author())
+            GitHubManager.REMOTE.create_file(chart_path, "Charts Added", data, committer=GitHubManager._get_author())
             DBM.g("Lines of code chart created!")
+
+    @staticmethod
+    def commit_repo():
+        pass

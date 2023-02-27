@@ -143,7 +143,7 @@ async def get_stats() -> str:
 
     if EM.SHOW_PROFILE_VIEWS:
         DBM.i("Adding profile views info...")
-        data = GHM.REPO.get_views_traffic(per="week")
+        data = GHM.REMOTE.get_views_traffic(per="week")
         stats += f"![Profile Views](http://img.shields.io/badge/{quote(LM.t('Profile Views'))}-{data['count']}-blue)\n\n"
 
     if EM.SHOW_LINES_OF_CODE:
