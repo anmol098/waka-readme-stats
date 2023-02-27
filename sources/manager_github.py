@@ -1,10 +1,14 @@
-from base64 import b64decode
+from base64 import b64decode, b64encode
+from os import environ
+from random import choice
 from re import sub
+from string import ascii_letters
 
 from git import Repo
 from github import Github, AuthenticatedUser, Repository, ContentFile, InputGitAuthor, UnknownObjectException
 
 from manager_environment import EnvironmentManager as EM
+from manager_file import FileManager as FM
 from manager_debug import DebugManager as DBM
 
 
@@ -105,23 +109,53 @@ class GitHubManager:
             return False
 
     @staticmethod
-    def update_chart(chart_path: str):
+    def set_github_output(stats: str):
+        """
+        Outputs readme data as current action output instead of committing it.
+
+        param stats: Readme stats to be outputted.
+        """
+        DBM.i("Setting README contents as action output...")
+        if "GITHUB_OUTPUT" not in environ.keys():
+            raise Exception("Not in GitHub environment ('GITHUB_OUTPUT' not defined)!")
+
+        prefix = "README stats current output:"
+        eol = "".join(choice(ascii_letters) for _ in range(10))
+        FM.write_file(environ["GITHUB_OUTPUT"], f"README_CONTENT<<{eol}\n{prefix}\n\n{stats}\n{eol}\n", append=True)
+
+        DBM.g("Action output set!")
+
+    @staticmethod
+    def update_chart(chart_path: str) -> str:
         """
         Updates lines of code chart.
+        Inlines data into readme if in debug mode, commits otherwise.
         Uses commit author, commit message and branch name specified by environmental variables.
 
         :param chart_path: path to saved lines of code chart.
+        :returns: string to add to README file.
         """
         DBM.i("Updating lines of code chart...")
         with open(chart_path, "rb") as input_file:
             data = input_file.read()
-        try:
-            contents = GitHubManager.REMOTE.get_contents(chart_path)
-            GitHubManager.REMOTE.update_file(contents.path, "Charts Updated", data, contents.sha, committer=GitHubManager._get_author())
-            DBM.g("Lines of code chart updated!")
-        except UnknownObjectException:
-            GitHubManager.REMOTE.create_file(chart_path, "Charts Added", data, committer=GitHubManager._get_author())
-            DBM.g("Lines of code chart created!")
+
+        if not EM.DEBUG_RUN:
+            DBM.i("Pushing chart to repo...")
+            chart_path = f"https://raw.githubusercontent.com/{GitHubManager.USER.login}/{GitHubManager.USER.login}/{GitHubManager.branch()}/{chart_path}"
+
+            try:
+                contents = GitHubManager.REMOTE.get_contents(chart_path)
+                GitHubManager.REMOTE.update_file(contents.path, "Charts Updated", data, contents.sha, committer=GitHubManager._get_author())
+                DBM.g("Lines of code chart updated!")
+            except UnknownObjectException:
+                GitHubManager.REMOTE.create_file(chart_path, "Charts Added", data, committer=GitHubManager._get_author())
+                DBM.g("Lines of code chart created!")
+            return f"**{FM.t('Timeline')}**\n\n![Lines of Code chart]({chart_path})\n\n"
+
+        else:
+            DBM.i("Inlining chart...")
+            hint = "You can use [this website](https://codebeautify.org/base64-to-image-converter) to view the generated base64 image."
+            return f"{hint}\n```\ndata:image/png;base64,{b64encode(data).decode('utf-8')}\n```\n\n"
 
     @staticmethod
     def commit_repo():
