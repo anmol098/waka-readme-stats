@@ -188,8 +188,8 @@ async def main():
         if GHM.update_readme(stats):
             DBM.g("Readme updated!")
     else:
-        GHM.set_github_output(stats)
-        DBM.g("Debug run, readme not updated. Check the latest comment for the generated stats.")
+        if GHM.set_github_output(stats):
+            DBM.g("Debug run, readme not updated. Check the latest comment for the generated stats.")
     await DM.close_remote_resources()
 
 

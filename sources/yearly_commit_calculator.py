@@ -19,9 +19,16 @@ async def calculate_yearly_commit_data(repositories: Dict) -> Dict:
     :returns: Commit quarter yearly data dictionary.
     """
     DBM.i("Calculating yearly commit data...")
+    if EM.DEBUG_RUN:
+        content = FM.cache_binary("yearly_data.pick", assets=True)
+        if content is not None:
+            DBM.g("Yearly data restored from cache!")
+            return content
+        else:
+            DBM.w("No cached yearly data found, recalculating...")
+
     yearly_data = dict()
     total = len(repositories["data"]["user"]["repositories"]["nodes"])
-
     for ind, repo in enumerate(repositories["data"]["user"]["repositories"]["nodes"]):
         if repo["name"] not in EM.IGNORED_REPOS:
             repo_name = "[private]" if repo["isPrivate"] else f"{repo['owner']['login']}/{repo['name']}"
@@ -30,7 +37,9 @@ async def calculate_yearly_commit_data(repositories: Dict) -> Dict:
     DBM.g("Yearly commit data calculated!")
 
     if EM.DEBUG_RUN:
+        FM.cache_binary("yearly_data.pick", yearly_data, assets=True)
         FM.write_file("yearly_data.json", dumps(yearly_data), assets=True)
+        DBM.g("Yearly data saved to cache!")
     return yearly_data
 
 

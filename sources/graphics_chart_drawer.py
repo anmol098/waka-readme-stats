@@ -64,6 +64,8 @@ async def create_loc_graph(yearly_data: Dict, save_path: str):
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
 
-    plt.ylim(top=1.1 * amax(cumulative[:, 0]), bottom=-1.5 * amax(cumulative[:, 1]))
+    joined = cumulative.reshape(-1, cumulative.shape[-1])
+    plt.ylim(top=1.05 * amax(joined[:, 0]), bottom=-1.05 * amax(joined[:, 1]))
+
     plt.savefig(save_path, bbox_inches="tight")
     plt.close(fig)
