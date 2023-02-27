@@ -1,3 +1,4 @@
+from json import dumps
 from re import search
 from datetime import datetime
 from typing import Dict
@@ -5,6 +6,7 @@ from typing import Dict
 from manager_download import DownloadManager as DM
 from manager_environment import EnvironmentManager as EM
 from manager_github import GitHubManager as GHM
+from manager_file import FileManager as FM
 from manager_debug import DebugManager as DBM
 
 
@@ -19,12 +21,16 @@ async def calculate_yearly_commit_data(repositories: Dict) -> Dict:
     DBM.i("Calculating yearly commit data...")
     yearly_data = dict()
     total = len(repositories["data"]["user"]["repositories"]["nodes"])
+
     for ind, repo in enumerate(repositories["data"]["user"]["repositories"]["nodes"]):
         if repo["name"] not in EM.IGNORED_REPOS:
             repo_name = "[private]" if repo["isPrivate"] else f"{repo['owner']['login']}/{repo['name']}"
             DBM.i(f"\t{ind + 1}/{total} Retrieving repo: {repo_name}")
             await update_yearly_data_with_commit_stats(repo, yearly_data)
     DBM.g("Yearly commit data calculated!")
+
+    if EM.DEBUG_RUN:
+        FM.write_file("yearly_data.json", dumps(yearly_data), assets=True)
     return yearly_data
 
 
