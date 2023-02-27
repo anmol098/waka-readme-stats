@@ -14,10 +14,12 @@ permissions:
 jobs:
   dependency-review:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
+      - name: Checkout repository 🛎️
         uses: actions/checkout@v3
-      - name: Dependency review
+
+      - name: Dependency review 👀
         uses: actions/dependency-review-action@v3
         with:
           comment-summary-in-pr: true
