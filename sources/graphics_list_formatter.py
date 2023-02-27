@@ -7,7 +7,7 @@ from pytz import timezone, utc
 from manager_download import DownloadManager as DM
 from manager_environment import EnvironmentManager as EM
 from manager_github import GitHubManager as GHM
-from manager_localization import LocalizationManager as LM
+from manager_file import FileManager as FM
 
 
 DAY_TIME_EMOJI = ["🌞", "🌆", "🌃", "🌙"]  # Emojis, representing different times of day.
@@ -109,17 +109,17 @@ async def make_commit_day_time_list(time_zone: str) -> str:
     sum_week = sum(week_days)
     day_times = day_times[1:] + day_times[:1]
 
-    dt_names = [f"{DAY_TIME_EMOJI[i]} {LM.t(DAY_TIME_NAMES[i])}" for i in range(len(day_times))]
+    dt_names = [f"{DAY_TIME_EMOJI[i]} {FM.t(DAY_TIME_NAMES[i])}" for i in range(len(day_times))]
     dt_texts = [f"{day_time} commits" for day_time in day_times]
     dt_percents = [round((day_time / sum_day) * 100, 2) for day_time in day_times]
-    title = LM.t("I am an Early") if sum(day_times[0:2]) >= sum(day_times[2:4]) else LM.t("I am a Night")
+    title = FM.t("I am an Early") if sum(day_times[0:2]) >= sum(day_times[2:4]) else FM.t("I am a Night")
     stats += f"**{title}** \n\n```text\n{make_list(names=dt_names, texts=dt_texts, percents=dt_percents, top_num=7, sort=False)}\n```\n"
 
     if EM.SHOW_DAYS_OF_WEEK:
-        wd_names = [LM.t(week_day) for week_day in WEEK_DAY_NAMES]
+        wd_names = [FM.t(week_day) for week_day in WEEK_DAY_NAMES]
         wd_texts = [f"{week_day} commits" for week_day in week_days]
         wd_percents = [round((week_day / sum_week) * 100, 2) for week_day in week_days]
-        title = LM.t("I am Most Productive on") % wd_names[wd_percents.index(max(wd_percents))]
+        title = FM.t("I am Most Productive on") % wd_names[wd_percents.index(max(wd_percents))]
         stats += f"📅 **{title}** \n\n```text\n{make_list(names=wd_names, texts=wd_texts, percents=wd_percents, top_num=7, sort=False)}\n```\n"
 
     return stats
@@ -144,5 +144,5 @@ def make_language_per_repo_list(repositories: Dict) -> str:
     percents = [round(language_count[lang]["count"] / len(repos_with_language) * 100, 2) for lang in names]
 
     top_language = max(list(language_count.keys()), key=lambda x: language_count[x]["count"])
-    title = f"**{LM.t('I Mostly Code in') % top_language}** \n\n" if len(repos_with_language) > 0 else ""
+    title = f"**{FM.t('I Mostly Code in') % top_language}** \n\n" if len(repos_with_language) > 0 else ""
     return f"{title}```text\n{make_list(names=names, texts=texts, percents=percents)}\n```\n\n"
