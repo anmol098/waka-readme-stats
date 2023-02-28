@@ -28,7 +28,8 @@ class FileManager:
 
         :param file: Localization file path, related to current file (in sources root).
         """
-        with open(join("sources", file), encoding="utf-8") as config_file:
+        translation_path = join("sources", file) if EM.DEBUG_RUN else file
+        with open(translation_path, encoding="utf-8") as config_file:
             data = load(config_file)
         FileManager._LOCALIZATION = data[EM.LOCALE]
 
