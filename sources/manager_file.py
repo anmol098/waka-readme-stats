@@ -1,5 +1,5 @@
 from json import load
-from os.path import join
+from os.path import join, dirname
 from typing import Dict
 
 from manager_environment import EnvironmentManager as EM
@@ -28,8 +28,7 @@ class FileManager:
 
         :param file: Localization file path, related to current file (in sources root).
         """
-        translation_path = join("sources", file) if EM.DEBUG_RUN else file
-        with open(translation_path, encoding="utf-8") as config_file:
+        with open(join(dirname(__file__), file), encoding="utf-8") as config_file:
             data = load(config_file)
         FileManager._LOCALIZATION = data[EM.LOCALE]
 
