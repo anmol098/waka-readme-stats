@@ -1,4 +1,4 @@
-from os.path import join, isfile
+from os.path import join, isfile, dirname
 from pickle import load as load_pickle, dump as dump_pickle
 from json import load as load_json
 from typing import Dict, Optional
@@ -29,8 +29,8 @@ class FileManager:
 
         :param file: Localization file path, related to current file (in sources root).
         """
-        with open(join("sources", file), encoding="utf-8") as config_file:
-            data = load_json(config_file)
+        with open(join(dirname(__file__), file), encoding="utf-8") as config_file:
+            data = load(config_file)
         FileManager._LOCALIZATION = data[EM.LOCALE]
 
     @staticmethod
