@@ -140,7 +140,6 @@ class GitHubManager:
 
         if not EM.DEBUG_RUN:
             DBM.i("Pushing chart to repo...")
-            chart_path = f"https://raw.githubusercontent.com/{GitHubManager.USER.login}/{GitHubManager.USER.login}/{GitHubManager.branch()}/{chart_path}"
 
             try:
                 contents = GitHubManager.REPO.get_contents(chart_path)
@@ -149,6 +148,8 @@ class GitHubManager:
             except UnknownObjectException:
                 GitHubManager.REPO.create_file(chart_path, "Charts Added", data, committer=GitHubManager._get_author())
                 DBM.g("Lines of code chart created!")
+
+            chart_path = f"https://raw.githubusercontent.com/{GitHubManager.USER.login}/{GitHubManager.USER.login}/{GitHubManager.branch()}/{chart_path}"
             return f"**{FM.t('Timeline')}**\n\n![Lines of Code chart]({chart_path})\n\n"
 
         else:
