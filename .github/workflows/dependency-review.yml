@@ -1,11 +1,5 @@
 name: Dependency review
-on:
-  push:
-    branches: master
-  pull_request:
-  workflow_dispatch:
-  schedule:
-    - cron: 45 15 * * 5
+on: pull_request
 
 permissions:
   contents: read
