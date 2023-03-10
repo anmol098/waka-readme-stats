@@ -121,7 +121,7 @@ GITHUB_API_QUERIES = {
 """,
     "hide_outdated_comment": """
 mutation {
-    minimizeComment(input: {classifier:OUTDATED, subjectId: "$id"}) {
+    minimizeComment(input: {classifier: OUTDATED, subjectId: "$id"}) {
         clientMutationId
     }
 }
@@ -227,7 +227,7 @@ class DownloadManager:
         return await DownloadManager._get_remote_resource(resource, safe_load)
 
     @staticmethod
-    async def _fetch_graphql_query(query: str, **kwargs) -> Dict:
+    async def _fetch_graphql_query(query: str, retries_count: int = 10, **kwargs) -> Dict:
         """
         Execute GitHub GraphQL API simple query.
         :param query: Dynamic query identifier.
@@ -241,6 +241,8 @@ class DownloadManager:
         )
         if res.status_code == 200:
             return res.json()
+        elif res.status_code == 502 and retries_count > 0:
+            return await DownloadManager._fetch_graphql_query(query, retries_count - 1, **kwargs)
         else:
             raise Exception(f"Query '{query}' failed to run by returning code of {res.status_code}: {res.json()}")
 
