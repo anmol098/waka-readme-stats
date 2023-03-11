@@ -18,37 +18,19 @@ GITHUB_API_QUERIES = {
     user(login: "$username") {
         repositoriesContributedTo(orderBy: {field: CREATED_AT, direction: DESC}, $pagination, includeUserRepositories: true) {
             nodes {
-                isFork
+                primaryLanguage {
+                    name
+                }
                 name
                 owner {
                     login
                 }
+                isPrivate
+                isFork
             }
             pageInfo {
                 endCursor
                 hasNextPage
-            }
-        }
-    }
-}""",
-    # Query to collect info about all commits in user repositories, including: commit date.
-    # NB! Query includes information about repositories owned by user only.
-    "repo_committed_dates": """
-{
-    repository(owner: "$owner", name: "$name") {
-        defaultBranchRef {
-            target {
-                ... on Commit {
-                    history($pagination, author: { id: "$id" }) {
-                        nodes {
-                            committedDate
-                        }
-                        pageInfo {
-                            endCursor
-                            hasNextPage
-                        }
-                    }
-                }
             }
         }
     }
@@ -106,6 +88,7 @@ GITHUB_API_QUERIES = {
                                 additions
                                 deletions
                                 committedDate
+                                oid
                             }
                         }
                         pageInfo {
@@ -119,6 +102,7 @@ GITHUB_API_QUERIES = {
     }
 }
 """,
+    # Query to hide outdated PR comment.
     "hide_outdated_comment": """
 mutation {
     minimizeComment(input: {classifier: OUTDATED, subjectId: "$id"}) {
