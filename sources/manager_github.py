@@ -109,7 +109,7 @@ class GitHubManager:
             return False
 
     @staticmethod
-    def set_github_output(stats: str):
+    def set_github_output(stats: str) -> bool:
         """
         Outputs readme data as current action output instead of committing it.
 
@@ -117,13 +117,15 @@ class GitHubManager:
         """
         DBM.i("Setting README contents as action output...")
         if "GITHUB_OUTPUT" not in environ.keys():
-            raise Exception("Not in GitHub environment ('GITHUB_OUTPUT' not defined)!")
+            DBM.p("Not in GitHub environment, not setting action output!")
+            return False
 
         prefix = "README stats current output:"
         eol = "".join(choice(ascii_letters) for _ in range(10))
         FM.write_file(environ["GITHUB_OUTPUT"], f"README_CONTENT<<{eol}\n{prefix}\n\n{stats}\n{eol}\n", append=True)
 
         DBM.g("Action output set!")
+        return True
 
     @staticmethod
     def update_chart(chart_path: str) -> str:
@@ -141,7 +143,6 @@ class GitHubManager:
 
         if not EM.DEBUG_RUN:
             DBM.i("Pushing chart to repo...")
-            chart_path = f"https://raw.githubusercontent.com/{GitHubManager.USER.login}/{GitHubManager.USER.login}/{GitHubManager.branch()}/{chart_path}"
 
             try:
                 contents = GitHubManager.REMOTE.get_contents(chart_path)
@@ -150,6 +151,8 @@ class GitHubManager:
             except UnknownObjectException:
                 GitHubManager.REMOTE.create_file(chart_path, "Charts Added", data, committer=GitHubManager._get_author())
                 DBM.g("Lines of code chart created!")
+
+            chart_path = f"https://raw.githubusercontent.com/{GitHubManager.USER.login}/{GitHubManager.USER.login}/{GitHubManager.branch()}/{chart_path}"
             return f"**{FM.t('Timeline')}**\n\n![Lines of Code chart]({chart_path})\n\n"
 
         else:

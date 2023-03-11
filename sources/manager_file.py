@@ -1,6 +1,7 @@
-from json import load
-from os.path import join, dirname
-from typing import Dict
+from os.path import join, isfile, dirname
+from pickle import load as load_pickle, dump as dump_pickle
+from json import load as load_json
+from typing import Dict, Optional
 
 from manager_environment import EnvironmentManager as EM
 
@@ -29,7 +30,7 @@ class FileManager:
         :param file: Localization file path, related to current file (in sources root).
         """
         with open(join(dirname(__file__), file), encoding="utf-8") as config_file:
-            data = load(config_file)
+            data = load_json(config_file)
         FileManager._LOCALIZATION = data[EM.LOCALE]
 
     @staticmethod
@@ -55,3 +56,27 @@ class FileManager:
         name = join("assets", name) if assets else name
         with open(name, "a" if append else "w", encoding="utf-8") as file:
             file.write(content)
+
+    @staticmethod
+    def cache_binary(name: str, content: Optional[Dict] = None, assets: bool = False) -> Optional[Dict]:
+        """
+        Save binary output file if provided or read if content is None.
+
+        :param name: File name.
+        :param content: File content (utf-8 string) or None.
+        :param assets: True for saving to 'assets' directory, false otherwise.
+        :returns: File cache contents if content is None, None otherwise.
+        """
+        name = join("assets", name) if assets else name
+        if content is None and not isfile(name):
+            return None
+
+        with open(name, "rb" if content is None else "wb") as file:
+            if content is None:
+                try:
+                    return load_pickle(file)
+                except Exception:
+                    return None
+            else:
+                dump_pickle(content, file)
+                return None

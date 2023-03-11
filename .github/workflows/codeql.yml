@@ -1,0 +1,43 @@
+name: CodeQL
+
+on:
+  push:
+    branches: master
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 13 * * 6'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'python' ]
+
+    steps:
+    - name: Checkout 🛎️
+      uses: actions/checkout@v3
+
+    - name: Initialize CodeQL 🧑‍💻
+      uses: github/codeql-action/init@v2
+      with:
+        languages: ${{ matrix.language }}
+        queries: security-and-quality
+
+    - name: Perform CodeQL Analysis 📈
+      uses: github/codeql-action/analyze@v2
+      with:
+        category: "/language:${{matrix.language}}"
