@@ -112,6 +112,11 @@ inputs:
     description: "Git commit custom email"
     default: ""
 
+  COMMIT_SINGLE:
+    required: false
+    description: "Erase commit history on each commit"
+    default: "False"
+
   LOCALE:
     required: false
     description: "Show stats in your own language"

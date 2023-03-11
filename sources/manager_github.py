@@ -30,6 +30,7 @@ class GitHubManager:
 
     _REMOTE_NAME: str
     _REMOTE_PATH: str
+    _SINGLE_COMMIT_BRANCH = "latest_branch"
 
     _START_COMMENT = f"<!--START_SECTION:{EM.SECTION_NAME}-->"
     _END_COMMENT = f"<!--END_SECTION:{EM.SECTION_NAME}-->"
@@ -55,7 +56,8 @@ class GitHubManager:
         GitHubManager.REPO = Repo.clone_from(GitHubManager._REPO_PATH, to_path=clone_path)
 
         GitHubManager.REPO.git.checkout(GitHubManager.branch())
-        # TODO: delete and recreate branch if single commit
+        if EM.COMMIT_SINGLE:
+            GitHubManager.REPO.git.checkout("--orphan", GitHubManager._SINGLE_COMMIT_BRANCH)
 
     @staticmethod
     def _get_author() -> Actor:
@@ -147,8 +149,15 @@ class GitHubManager:
         actor = GitHubManager._get_author()
         DBM.i("Committing files to repo...")
         GitHubManager.REPO.index.commit(EM.COMMIT_MESSAGE, author=actor, committer=actor)
-        DBM.i("Pushing files to repo...")
-        headers = GitHubManager.REPO.remote(name="origin").push()
+
+        if EM.COMMIT_SINGLE:
+            DBM.i("Pushing files to repo as a single commit...")
+            refspec = f"{GitHubManager._SINGLE_COMMIT_BRANCH}:{GitHubManager.branch()}"
+            headers = GitHubManager.REPO.remotes.origin.push(force=True, refspec=refspec)
+        else:
+            DBM.i("Pushing files to repo...")
+            headers = GitHubManager.REPO.remotes.origin.push()
+
         if len(headers) == 0:
             DBM.i(f"Repository push error: {headers}!")
         else:
