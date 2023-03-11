@@ -55,9 +55,11 @@ class GitHubManager:
         GitHubManager.REMOTE = github.get_repo(GitHubManager._REMOTE_NAME)
         GitHubManager.REPO = Repo.clone_from(GitHubManager._REPO_PATH, to_path=clone_path)
 
-        GitHubManager.REPO.git.checkout(GitHubManager.branch())
         if EM.COMMIT_SINGLE:
+            GitHubManager.REPO.git.checkout(GitHubManager.branch(EM.PULL_BRANCH_NAME))
             GitHubManager.REPO.git.checkout("--orphan", GitHubManager._SINGLE_COMMIT_BRANCH)
+        else:
+            GitHubManager.REPO.git.checkout(GitHubManager.branch(EM.PUSH_BRANCH_NAME))
 
     @staticmethod
     def _get_author() -> Actor:
@@ -73,14 +75,14 @@ class GitHubManager:
             return Actor(EM.COMMIT_USERNAME or "readme-bot", EM.COMMIT_EMAIL or "41898282+github-actions[bot]@users.noreply.github.com")
 
     @staticmethod
-    def branch() -> str:
+    def branch(requested_branch: str) -> str:
         """
         Gets name of branch to commit to specified by environmental variables.
         It is the default branch (regularly, 'main' or 'master') or a branch specified by user.
 
         :returns: Commit author.
         """
-        return GitHubManager.REMOTE.default_branch if EM.BRANCH_NAME == "" else EM.BRANCH_NAME
+        return GitHubManager.REMOTE.default_branch if requested_branch == "" else requested_branch
 
     @staticmethod
     def _copy_file_and_add_to_repo(src_path: str):
@@ -131,7 +133,7 @@ class GitHubManager:
         if not EM.DEBUG_RUN:
             DBM.i("\tAdding chart to repo...")
             GitHubManager._copy_file_and_add_to_repo(path)
-            chart_path = f"https://raw.githubusercontent.com/{GitHubManager._REMOTE_NAME}/{GitHubManager.branch()}/{path}"
+            chart_path = f"https://raw.githubusercontent.com/{GitHubManager._REMOTE_NAME}/{GitHubManager.branch(EM.PUSH_BRANCH_NAME)}/{path}"
             output += f"![{name} chart]({chart_path})\n\n"
 
         else:
@@ -152,7 +154,7 @@ class GitHubManager:
 
         if EM.COMMIT_SINGLE:
             DBM.i("Pushing files to repo as a single commit...")
-            refspec = f"{GitHubManager._SINGLE_COMMIT_BRANCH}:{GitHubManager.branch()}"
+            refspec = f"{GitHubManager._SINGLE_COMMIT_BRANCH}:{GitHubManager.branch(EM.PUSH_BRANCH_NAME)}"
             headers = GitHubManager.REPO.remotes.origin.push(force=True, refspec=refspec)
         else:
             DBM.i("Pushing files to repo...")

@@ -17,6 +17,11 @@ inputs:
     required: false
     default: "waka"
 
+  PULL_BRANCH_NAME:
+    required: false
+    description: "The branch to get the readme from"
+    default: ""
+
   PUSH_BRANCH_NAME:
     required: false
     description: "The branch to update the readme in"
