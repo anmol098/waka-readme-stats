@@ -77,9 +77,10 @@ class GitHubManager:
     @staticmethod
     def branch(requested_branch: str) -> str:
         """
-        Gets name of branch to commit to specified by environmental variables.
-        It is the default branch (regularly, 'main' or 'master') or a branch specified by user.
+        Gets requested branch name or the default branch name if requested branch wasn't found.
+        The default branch name is regularly, 'main' or 'master'.
 
+        :param requested_branch: Requested branch name.
         :returns: Commit author.
         """
         return GitHubManager.REMOTE.default_branch if requested_branch == "" else requested_branch
