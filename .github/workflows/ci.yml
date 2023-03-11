@@ -21,6 +21,7 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: 3.8
+          cache: 'pip'
 
       - name: Install Dependencies 📥
         run: pip install -r requirements.txt
