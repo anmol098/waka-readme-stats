@@ -57,7 +57,7 @@ async def update_data_with_commit_stats(repo_details: Dict, yearly_data: Dict, d
     branch_data = await DM.get_remote_graphql("repo_branch_list", owner=owner, name=repo_details["name"])
     if branch_data["data"]["repository"] is None:
         DBM.w(f"\t\tSkipping repo: {repo_details['name']}")
-        return dict()
+        return
 
     for branch in branch_data["data"]["repository"]["refs"]["nodes"]:
         commit_data = await DM.get_remote_graphql("repo_commit_list", owner=owner, name=repo_details["name"], branch=branch["name"], id=GHM.USER.node_id)
