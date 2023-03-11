@@ -148,7 +148,7 @@ async def get_stats() -> str:
 
     if EM.SHOW_LINES_OF_CODE:
         DBM.i("Adding lines of code info...")
-        total_loc = sum([yearly_data[y][q][d] for y in yearly_data.keys() for q in yearly_data[y].keys() for d in yearly_data[y][q].keys()])
+        total_loc = sum([yearly_data[y][q][d]["add"] for y in yearly_data.keys() for q in yearly_data[y].keys() for d in yearly_data[y][q].keys()])
         data = f"{intword(total_loc)} {FM.t('Lines of code')}"
         stats += f"![Lines of code](https://img.shields.io/badge/{quote(FM.t('From Hello World I have written'))}-{quote(data)}-blue)\n\n"
 
@@ -188,8 +188,8 @@ async def main():
         if GHM.update_readme(stats):
             DBM.g("Readme updated!")
     else:
-        GHM.set_github_output(stats)
-        DBM.g("Debug run, readme not updated. Check the latest comment for the generated stats.")
+        if GHM.set_github_output(stats):
+            DBM.g("Debug run, readme not updated. Check the latest comment for the generated stats.")
     await DM.close_remote_resources()
 
 
