@@ -20,6 +20,7 @@ class FileManager:
     Stores localization in dictionary.
     """
 
+    ASSETS_DIR = "assets"
     _LOCALIZATION: Dict[str, str] = dict()
 
     @staticmethod
@@ -53,7 +54,7 @@ class FileManager:
         :param append: True for appending to file, false for rewriting.
         :param assets: True for saving to 'assets' directory, false otherwise.
         """
-        name = join("assets", name) if assets else name
+        name = join(FileManager.ASSETS_DIR, name) if assets else name
         with open(name, "a" if append else "w", encoding="utf-8") as file:
             file.write(content)
 
@@ -67,7 +68,7 @@ class FileManager:
         :param assets: True for saving to 'assets' directory, false otherwise.
         :returns: File cache contents if content is None, None otherwise.
         """
-        name = join("assets", name) if assets else name
+        name = join(FileManager.ASSETS_DIR, name) if assets else name
         if content is None and not isfile(name):
             return None
 
