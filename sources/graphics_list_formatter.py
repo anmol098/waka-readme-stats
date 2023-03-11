@@ -4,9 +4,7 @@ from datetime import datetime
 
 from pytz import timezone, utc
 
-from manager_download import DownloadManager as DM
 from manager_environment import EnvironmentManager as EM
-from manager_github import GitHubManager as GHM
 from manager_file import FileManager as FM
 
 
@@ -77,29 +75,25 @@ def make_list(data: List = None, names: List[str] = None, texts: List[str] = Non
     return "\n".join(data_list)
 
 
-async def make_commit_day_time_list(time_zone: str) -> str:
+async def make_commit_day_time_list(time_zone: str, repositories: Dict, commit_dates: Dict) -> str:
     """
     Calculate commit-related info, how many commits were made, and at what time of day and day of week.
 
     :param time_zone: User time zone.
+    :param repositories: User repositories list.
+    :param commit_dates: User commit data list.
     :returns: string representation of statistics.
     """
     stats = str()
-
-    result = await DM.get_remote_graphql("repos_contributed_to", username=GHM.USER.login)
-    repos = [d for d in result["data"]["user"]["repositoriesContributedTo"]["nodes"] if d["isFork"] is False]
-
     day_times = [0] * 4  # 0 - 6, 6 - 12, 12 - 18, 18 - 24
     week_days = [0] * 7  # Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday
 
-    for repository in repos:
-        result = await DM.get_remote_graphql("repo_committed_dates", owner=repository["owner"]["login"], name=repository["name"], id=GHM.USER.node_id)
-        if result["data"]["repository"] is None or result["data"]["repository"]["defaultBranchRef"] is None:
+    for repository in [d for d in repositories["data"]["user"]["repositories"]["nodes"]]:
+        if repository["name"] not in commit_dates.keys():
             continue
 
-        committed_dates = result["data"]["repository"]["defaultBranchRef"]["target"]["history"]["nodes"]
-        for committed_date in committed_dates:
-            local_date = datetime.strptime(committed_date["committedDate"], "%Y-%m-%dT%H:%M:%SZ")
+        for committed_date in [commit_date for branch in commit_dates[repository["name"]].values() for commit_date in branch.values()]:
+            local_date = datetime.strptime(committed_date, "%Y-%m-%dT%H:%M:%SZ")
             date = local_date.replace(tzinfo=utc).astimezone(timezone(time_zone))
 
             day_times[date.hour // 6] += 1

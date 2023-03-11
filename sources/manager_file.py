@@ -1,7 +1,7 @@
 from os.path import join, isfile, dirname
 from pickle import load as load_pickle, dump as dump_pickle
 from json import load as load_json
-from typing import Dict, Optional
+from typing import Dict, Optional, Any
 
 from manager_environment import EnvironmentManager as EM
 
@@ -59,7 +59,7 @@ class FileManager:
             file.write(content)
 
     @staticmethod
-    def cache_binary(name: str, content: Optional[Dict] = None, assets: bool = False) -> Optional[Dict]:
+    def cache_binary(name: str, content: Optional[Any] = None, assets: bool = False) -> Optional[Any]:
         """
         Save binary output file if provided or read if content is None.
 
