@@ -1,0 +1,56 @@
+name: CodeQL
+
+on:
+  push:
+    branches: master
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 13 * * 6'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'python' ]
+
+    steps:
+    - name: Checkout 🛎️
+      uses: actions/checkout@v3
+    
+    - name: Setup Python 3.8 🐍
+      uses: actions/setup-python@v4
+      with:
+          python-version: 3.8
+          cache: 'pip'
+          
+    - name: Install dependencies 📥
+      run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          echo "CODEQL_PYTHON=$(which python)" >> $GITHUB_ENV
+          
+    - name: Initialize CodeQL 🧑‍💻
+      uses: github/codeql-action/init@v2
+      with:
+        languages: ${{ matrix.language }}
+        queries: security-and-quality
+        setup-python-dependencies: false
+
+    - name: Perform CodeQL Analysis 📈
+      uses: github/codeql-action/analyze@v2
+      with:
+        category: "/language:${{matrix.language}}"

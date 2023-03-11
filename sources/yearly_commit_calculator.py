@@ -13,24 +13,33 @@ from manager_debug import DebugManager as DBM
 async def calculate_yearly_commit_data(repositories: Dict) -> Dict:
     """
     Calculate commit data by years.
-    Commit data includes difference between contribution additions and deletions in each quarter of each recorded year.
+    Commit data includes contribution additions and deletions in each quarter of each recorded year.
 
     :param repositories: user repositories info dictionary.
     :returns: Commit quarter yearly data dictionary.
     """
     DBM.i("Calculating yearly commit data...")
+    if EM.DEBUG_RUN:
+        content = FM.cache_binary("yearly_data.pick", assets=True)
+        if content is not None:
+            DBM.g("Yearly data restored from cache!")
+            return content
+        else:
+            DBM.w("No cached yearly data found, recalculating...")
+
     yearly_data = dict()
     total = len(repositories["data"]["user"]["repositories"]["nodes"])
-
     for ind, repo in enumerate(repositories["data"]["user"]["repositories"]["nodes"]):
         if repo["name"] not in EM.IGNORED_REPOS:
-            repo_name = "private" if repo["isPrivate"] else f"{repo['owner']['login']}/{repo['name']}"
+            repo_name = "[private]" if repo["isPrivate"] else f"{repo['owner']['login']}/{repo['name']}"
             DBM.i(f"\t{ind + 1}/{total} Retrieving repo: {repo_name}")
             await update_yearly_data_with_commit_stats(repo, yearly_data)
     DBM.g("Yearly commit data calculated!")
 
     if EM.DEBUG_RUN:
+        FM.cache_binary("yearly_data.pick", yearly_data, assets=True)
         FM.write_file("yearly_data.json", dumps(yearly_data), assets=True)
+        DBM.g("Yearly data saved to cache!")
     return yearly_data
 
 
@@ -61,5 +70,6 @@ async def update_yearly_data_with_commit_stats(repo_details: Dict, yearly_data: 
                 if quarter not in yearly_data[curr_year]:
                     yearly_data[curr_year][quarter] = dict()
                 if repo_details["primaryLanguage"]["name"] not in yearly_data[curr_year][quarter]:
-                    yearly_data[curr_year][quarter][repo_details["primaryLanguage"]["name"]] = 0
-                yearly_data[curr_year][quarter][repo_details["primaryLanguage"]["name"]] += commit["additions"] - commit["deletions"]
+                    yearly_data[curr_year][quarter][repo_details["primaryLanguage"]["name"]] = {"add": 0, "del": 0}
+                yearly_data[curr_year][quarter][repo_details["primaryLanguage"]["name"]]["add"] += commit["additions"]
+                yearly_data[curr_year][quarter][repo_details["primaryLanguage"]["name"]]["del"] += commit["deletions"]
