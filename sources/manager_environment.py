@@ -17,7 +17,8 @@ class EnvironmentManager:
     WAKATIME_API_KEY = environ["INPUT_WAKATIME_API_KEY"]
 
     SECTION_NAME = getenv("INPUT_SECTION_NAME", "waka")
-    BRANCH_NAME = getenv("INPUT_PUSH_BRANCH_NAME", "")
+    PULL_BRANCH_NAME = getenv("INPUT_PULL_BRANCH_NAME", "")
+    PUSH_BRANCH_NAME = getenv("INPUT_PUSH_BRANCH_NAME", "")
 
     SHOW_OS = getenv("INPUT_SHOW_OS", "False").lower() in _TRUTHY
     SHOW_PROJECTS = getenv("INPUT_SHOW_PROJECTS", "True").lower() in _TRUTHY
@@ -38,6 +39,7 @@ class EnvironmentManager:
     COMMIT_MESSAGE = getenv("INPUT_COMMIT_MESSAGE", "Updated with Dev Metrics")
     COMMIT_USERNAME = getenv("INPUT_COMMIT_USERNAME", "")
     COMMIT_EMAIL = getenv("INPUT_COMMIT_EMAIL", "")
+    COMMIT_SINGLE = getenv("INPUT_COMMIT_SINGLE", "").lower() in _TRUTHY
 
     LOCALE = getenv("INPUT_LOCALE", "en")
     UPDATED_DATE_FORMAT = getenv("INPUT_UPDATED_DATE_FORMAT", "%d/%m/%Y %H:%M:%S")

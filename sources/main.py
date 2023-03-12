@@ -165,7 +165,7 @@ async def get_stats() -> str:
 
     if EM.SHOW_PROFILE_VIEWS:
         DBM.i("Adding profile views info...")
-        data = GHM.REPO.get_views_traffic(per="week")
+        data = GHM.REMOTE.get_views_traffic(per="week")
         stats += f"![Profile Views](http://img.shields.io/badge/{quote(FM.t('Profile Views'))}-{data['count']}-blue)\n\n"
 
     if EM.SHOW_LINES_OF_CODE:
@@ -185,7 +185,7 @@ async def get_stats() -> str:
 
     if EM.SHOW_LOC_CHART:
         await create_loc_graph(yearly_data, GRAPH_PATH)
-        stats += GHM.update_chart(GRAPH_PATH)
+        stats += f"**{FM.t('Timeline')}**\n\n{GHM.update_chart('Lines of Code', GRAPH_PATH)}"
 
     if EM.SHOW_UPDATED_DATE:
         DBM.i("Adding last updated time...")
@@ -207,11 +207,10 @@ async def main():
 
     stats = await get_stats()
     if not EM.DEBUG_RUN:
-        if GHM.update_readme(stats):
-            DBM.g("Readme updated!")
+        GHM.update_readme(stats)
+        GHM.commit_update()
     else:
-        if GHM.set_github_output(stats):
-            DBM.g("Debug run, readme not updated. Check the latest comment for the generated stats.")
+        GHM.set_github_output(stats)
     await DM.close_remote_resources()
 
 

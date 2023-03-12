@@ -47,6 +47,7 @@ lint: venv
 clean:
 	@ # Clean all build files, including: libraries, package manager configs, docker images and containers
 	rm -rf venv
+	rm -rf repo
 	rm -rf assets
 	rm -f package*.json
 	docker rm -f waka-readme-stats 2>/dev/null || true

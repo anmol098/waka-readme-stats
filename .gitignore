@@ -4,6 +4,9 @@
 # Generated graph images:
 assets/
 
+# Cloned repo path:
+repo/
+
 # Library roots:
 venv/
 

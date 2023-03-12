@@ -17,6 +17,11 @@ inputs:
     required: false
     default: "waka"
 
+  PULL_BRANCH_NAME:
+    required: false
+    description: "The branch to get the readme from"
+    default: ""
+
   PUSH_BRANCH_NAME:
     required: false
     description: "The branch to update the readme in"
@@ -111,6 +116,11 @@ inputs:
     required: false
     description: "Git commit custom email"
     default: ""
+
+  COMMIT_SINGLE:
+    required: false
+    description: "Erase commit history on each commit"
+    default: "False"
 
   LOCALE:
     required: false
