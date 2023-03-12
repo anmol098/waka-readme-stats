@@ -3,6 +3,7 @@ Readme Development Metrics With waka time progress
 """
 from asyncio import run
 from datetime import datetime
+from typing import Dict
 from urllib.parse import quote
 
 from humanize import intword, naturalsize, intcomma
@@ -13,15 +14,17 @@ from manager_github import init_github_manager, GitHubManager as GHM
 from manager_file import init_localization_manager, FileManager as FM
 from manager_debug import init_debug_manager, DebugManager as DBM
 from graphics_chart_drawer import create_loc_graph, GRAPH_PATH
-from yearly_commit_calculator import calculate_yearly_commit_data
+from yearly_commit_calculator import calculate_commit_data
 from graphics_list_formatter import make_list, make_commit_day_time_list, make_language_per_repo_list
 
 
-async def get_waka_time_stats() -> str:
+async def get_waka_time_stats(repositories: Dict, commit_dates: Dict) -> str:
     """
     Collects user info from wakatime.
     Info includes most common commit time, timezone, language, editors, projects and OSs.
 
+    :param repositories: User repositories list.
+    :param commit_dates: User commit data list.
     :returns: String representation of the info.
     """
     DBM.i("Adding short WakaTime stats...")
@@ -30,7 +33,7 @@ async def get_waka_time_stats() -> str:
     data = await DM.get_remote_json("waka_latest")
     if EM.SHOW_COMMIT:
         DBM.i("Adding user commit day time info...")
-        stats += f"{await make_commit_day_time_list(data['data']['timezone'])}\n\n"
+        stats += f"{await make_commit_day_time_list(data['data']['timezone'], repositories, commit_dates)}\n\n"
 
     if EM.SHOW_TIMEZONE or EM.SHOW_LANGUAGE or EM.SHOW_EDITORS or EM.SHOW_PROJECTS or EM.SHOW_OS:
         no_activity = FM.t("No Activity Tracked This Week")
@@ -118,6 +121,25 @@ async def get_short_github_info() -> str:
     return stats
 
 
+async def collect_user_repositories() -> Dict:
+    """
+    Collects information about all the user repositories available.
+
+    :returns: Complete list of user repositories.
+    """
+    DBM.i("Getting user repositories list...")
+    repositories = await DM.get_remote_graphql("user_repository_list", username=GHM.USER.login, id=GHM.USER.node_id)
+    repo_names = [repo["name"] for repo in repositories["data"]["user"]["repositories"]["nodes"]]
+    DBM.g("\tUser repository list collected!")
+
+    contributed = await DM.get_remote_graphql("repos_contributed_to", username=GHM.USER.login)
+    contributed_nodes = [r for r in contributed["data"]["user"]["repositoriesContributedTo"]["nodes"] if r["name"] not in repo_names and not r["isFork"]]
+    DBM.g("\tUser contributed to repository list collected!")
+
+    repositories["data"]["user"]["repositories"]["nodes"] += contributed_nodes
+    return repositories
+
+
 async def get_stats() -> str:
     """
     Creates new README.md content from all the acquired statistics from all places.
@@ -128,12 +150,12 @@ async def get_stats() -> str:
     DBM.i("Collecting stats for README...")
 
     stats = str()
-    repositories = await DM.get_remote_graphql("user_repository_list", username=GHM.USER.login, id=GHM.USER.node_id)
+    repositories = await collect_user_repositories()
 
     if EM.SHOW_LINES_OF_CODE or EM.SHOW_LOC_CHART:
-        yearly_data = await calculate_yearly_commit_data(repositories)
+        yearly_data, commit_data = await calculate_commit_data(repositories)
     else:
-        yearly_data = (None, dict())
+        yearly_data, commit_data = dict(), dict()
         DBM.w("User yearly data not needed, skipped.")
 
     if EM.SHOW_TOTAL_CODE_TIME:
@@ -155,7 +177,7 @@ async def get_stats() -> str:
     if EM.SHOW_SHORT_INFO:
         stats += await get_short_github_info()
 
-    stats += await get_waka_time_stats()
+    stats += await get_waka_time_stats(repositories, commit_data)
 
     if EM.SHOW_LANGUAGE_PER_REPO:
         DBM.i("Adding language per repository info...")
