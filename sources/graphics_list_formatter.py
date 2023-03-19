@@ -103,11 +103,12 @@ async def make_commit_day_time_list(time_zone: str, repositories: Dict, commit_d
     sum_week = sum(week_days)
     day_times = day_times[1:] + day_times[:1]
 
-    dt_names = [f"{DAY_TIME_EMOJI[i]} {FM.t(DAY_TIME_NAMES[i])}" for i in range(len(day_times))]
-    dt_texts = [f"{day_time} commits" for day_time in day_times]
-    dt_percents = [0 if sum_day == 0 else round((day_time / sum_day) * 100, 2) for day_time in day_times]
-    title = FM.t("I am an Early") if sum(day_times[0:2]) >= sum(day_times[2:4]) else FM.t("I am a Night")
-    stats += f"**{title}** \n\n```text\n{make_list(names=dt_names, texts=dt_texts, percents=dt_percents, top_num=7, sort=False)}\n```\n"
+    if EM.SHOW_COMMIT:
+        dt_names = [f"{DAY_TIME_EMOJI[i]} {FM.t(DAY_TIME_NAMES[i])}" for i in range(len(day_times))]
+        dt_texts = [f"{day_time} commits" for day_time in day_times]
+        dt_percents = [0 if sum_day == 0 else round((day_time / sum_day) * 100, 2) for day_time in day_times]
+        title = FM.t("I am an Early") if sum(day_times[0:2]) >= sum(day_times[2:4]) else FM.t("I am a Night")
+        stats += f"**{title}** \n\n```text\n{make_list(names=dt_names, texts=dt_texts, percents=dt_percents, top_num=7, sort=False)}\n```\n"
 
     if EM.SHOW_DAYS_OF_WEEK:
         wd_names = [FM.t(week_day) for week_day in WEEK_DAY_NAMES]
