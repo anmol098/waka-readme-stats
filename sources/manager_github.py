@@ -94,8 +94,8 @@ class GitHubManager:
         :param src_path: Source file path.
         """
         dst_path = join(GitHubManager.REPO.working_tree_dir, src_path)
-        makedirs(dirname(src_path), exist_ok=True)
-        copy(dst_path, src_path)
+        makedirs(dirname(dst_path), exist_ok=True)
+        copy(src_path, dst_path)
         GitHubManager.REPO.git.add(dst_path)
 
     @staticmethod
