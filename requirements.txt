@@ -3,7 +3,7 @@ PyGithub~=1.58
 GitPython~=3.1
 
 # Markdown visualization modules:
-pytz~=2022.7
+pytz~=2023.3
 humanize~=4.6
 
 # Graphs drawing modules:
