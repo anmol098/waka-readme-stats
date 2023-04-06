@@ -41,7 +41,7 @@
 1. You need to update the markdown file(.md) with 2 comments. You can refer [here](#update-your-readme) for updating it.
 2. You'll need a WakaTime API Key. You can get that from your WakaTime Account Settings
     - You can refer [here](#new-to-wakatime), if you're new to WakaTime
-3. You'll need a GitHub API Token with `repo` and `user` scope from [here](https://github.com/settings/tokens) if you're running the action to get commit metrics
+3. You'll need a GitHub API Token with `repo` and `user` scope created with option `Generate new token (classic) For general use` from [here](https://github.com/settings/tokens) if you're running the action to get commit metrics
    > enabling the `repo` scope seems **DANGEROUS**<br/>
    > but this GitHub Action only accesses your commit timestamp and lines of code added or deleted in repository you contributed.
    - You can use [this](#profile-repository) example to work it out
