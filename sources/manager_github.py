@@ -107,12 +107,12 @@ class GitHubManager:
         DBM.i("Updating README...")
         readme_path = join(GitHubManager.REPO.working_tree_dir, GitHubManager.REMOTE.get_readme().path)
 
-        with open(readme_path, "r") as readme_file:
+        with open(readme_path, "r", encoding="utf-8") as readme_file:
             readme_contents = readme_file.read()
         readme_stats = f"{GitHubManager._START_COMMENT}\n{stats}\n{GitHubManager._END_COMMENT}"
         new_readme = sub(GitHubManager._README_REGEX, readme_stats, readme_contents)
 
-        with open(readme_path, "w") as readme_file:
+        with open(readme_path, "w", encoding="utf-8") as readme_file:
             readme_file.write(new_readme)
 
         GitHubManager.REPO.git.add(readme_path)

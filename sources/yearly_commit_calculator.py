@@ -28,10 +28,11 @@ async def calculate_commit_data(repositories: Dict) -> Tuple[Dict, Dict]:
         else:
             DBM.w("No cached commit data found, recalculating...")
 
+    repo_nodes = [x for x in repositories["data"]["user"]["repositories"]["nodes"] if x]
     yearly_data = dict()
     date_data = dict()
-    total = len(repositories["data"]["user"]["repositories"]["nodes"])
-    for ind, repo in enumerate(repositories["data"]["user"]["repositories"]["nodes"]):
+    total = len(repo_nodes)
+    for ind, repo in enumerate(repo_nodes):
         if repo["name"] not in EM.IGNORED_REPOS:
             repo_name = "[private]" if repo["isPrivate"] else f"{repo['owner']['login']}/{repo['name']}"
             DBM.i(f"\t{ind + 1}/{total} Retrieving repo: {repo_name}")
