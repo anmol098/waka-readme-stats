@@ -31,7 +31,7 @@ async def get_waka_time_stats(repositories: Dict, commit_dates: Dict) -> str:
     stats = str()
 
     data = await DM.get_remote_json("waka_latest")
-    if EM.SHOW_COMMIT:
+    if EM.SHOW_COMMIT or EM.SHOW_DAYS_OF_WEEK:  # if any on flag is turned on then we need to calculate the data and print accordingly
         DBM.i("Adding user commit day time info...")
         stats += f"{await make_commit_day_time_list(data['data']['timezone'], repositories, commit_dates)}\n\n"
 
@@ -153,7 +153,7 @@ async def get_stats() -> str:
     stats = str()
     repositories = await collect_user_repositories()
 
-    if EM.SHOW_LINES_OF_CODE or EM.SHOW_LOC_CHART:
+    if EM.SHOW_LINES_OF_CODE or EM.SHOW_LOC_CHART or EM.SHOW_COMMIT or EM.SHOW_DAYS_OF_WEEK:  # calculate commit data if any one of these is enabled
         yearly_data, commit_data = await calculate_commit_data(repositories)
     else:
         yearly_data, commit_data = dict(), dict()
