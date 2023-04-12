@@ -224,6 +224,10 @@ class DownloadManager:
             "https://api.github.com/graphql", json={"query": Template(GITHUB_API_QUERIES[query]).substitute(kwargs)}, headers=headers
         )
         if res.status_code == 200:
+            response_data = res.json()
+            if "errors" in response_data:
+                for error in response_data["errors"]:
+                    DBM.w(f"GraphQL request returned an error: {error['message']}!")
             return res.json()
         elif res.status_code == 502 and retries_count > 0:
             return await DownloadManager._fetch_graphql_query(query, retries_count - 1, **kwargs)

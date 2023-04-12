@@ -129,14 +129,17 @@ async def collect_user_repositories() -> Dict:
     """
     DBM.i("Getting user repositories list...")
     repositories = await DM.get_remote_graphql("user_repository_list", username=GHM.USER.login, id=GHM.USER.node_id)
+    repositories = {key: value for key, value in repositories["data"]["user"]["repositories"]["nodes"] if value is not None}
     repo_names = [repo["name"] for repo in repositories["data"]["user"]["repositories"]["nodes"]]
     DBM.g("\tUser repository list collected!")
 
     contributed = await DM.get_remote_graphql("repos_contributed_to", username=GHM.USER.login)
+    contributed = {key: value for key, value in contributed["data"]["user"]["repositoriesContributedTo"]["nodes"] if value is not None}
     contributed_nodes = [r for r in contributed["data"]["user"]["repositoriesContributedTo"]["nodes"] if r["name"] not in repo_names and not r["isFork"]]
     DBM.g("\tUser contributed to repository list collected!")
 
     repositories["data"]["user"]["repositories"]["nodes"] += contributed_nodes
+
     return repositories
 
 
