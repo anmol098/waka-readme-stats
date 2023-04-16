@@ -97,6 +97,11 @@ inputs:
     description: "Show Total Time you have coded"
     default: "True"
 
+  SHOW_LAST_7_DAY_CODE_TIME:
+    required: false
+    description: "Show Code time during last 7 days"
+    default: "False"
+
   COMMIT_BY_ME:
     required: false
     description: "Git commit with your own name and email"

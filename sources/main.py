@@ -15,7 +15,7 @@ from manager_file import init_localization_manager, FileManager as FM
 from manager_debug import init_debug_manager, DebugManager as DBM
 from graphics_chart_drawer import create_loc_graph, GRAPH_PATH
 from yearly_commit_calculator import calculate_commit_data
-from graphics_list_formatter import make_list, make_commit_day_time_list, make_language_per_repo_list
+from graphics_list_formatter import make_list, make_commit_day_time_list, make_language_per_repo_list, make_last_7_day_time_list
 
 
 async def get_waka_time_stats(repositories: Dict, commit_dates: Dict) -> str:
@@ -31,11 +31,12 @@ async def get_waka_time_stats(repositories: Dict, commit_dates: Dict) -> str:
     stats = str()
 
     data = await DM.get_remote_json("waka_latest")
+    summary_data = await DM.get_remote_json("waka_summary")
     if EM.SHOW_COMMIT or EM.SHOW_DAYS_OF_WEEK:  # if any on flag is turned on then we need to calculate the data and print accordingly
         DBM.i("Adding user commit day time info...")
         stats += f"{await make_commit_day_time_list(data['data']['timezone'], repositories, commit_dates)}\n\n"
 
-    if EM.SHOW_TIMEZONE or EM.SHOW_LANGUAGE or EM.SHOW_EDITORS or EM.SHOW_PROJECTS or EM.SHOW_OS:
+    if EM.SHOW_TIMEZONE or EM.SHOW_LANGUAGE or EM.SHOW_EDITORS or EM.SHOW_PROJECTS or EM.SHOW_OS or EM.SHOW_LAST_7_DAY_CODE_TIME:
         no_activity = FM.t("No Activity Tracked This Week")
         stats += f"📊 **{FM.t('This Week I Spend My Time On')}** \n\n```text\n"
 
@@ -63,6 +64,11 @@ async def get_waka_time_stats(repositories: Dict, commit_dates: Dict) -> str:
             DBM.i("Adding user operating systems info...")
             os_list = no_activity if len(data["data"]["operating_systems"]) == 0 else make_list(data["data"]["operating_systems"])
             stats += f"💻 {FM.t('operating system')}: \n{os_list}\n\n"
+
+        if EM.SHOW_LAST_7_DAY_CODE_TIME:
+            DBM.i("Adding user last 7 day coding time info...")
+            week_list = no_activity if len(summary_data["data"]) == 0 else make_last_7_day_time_list(summary_data["data"])
+            stats += f"⏳ {'WeekDays'}: \n{week_list}\n\n"
 
         stats = f"{stats[:-1]}```\n\n"
 

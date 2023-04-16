@@ -141,3 +141,32 @@ def make_language_per_repo_list(repositories: Dict) -> str:
     top_language = max(list(language_count.keys()), key=lambda x: language_count[x]["count"])
     title = f"**{FM.t('I Mostly Code in') % top_language}** \n\n" if len(repos_with_language) > 0 else ""
     return f"{title}```text\n{make_list(names=names, texts=texts, percents=percents)}\n```\n\n"
+
+
+def make_last_7_day_time_list(data: List) -> str:
+    """
+    Calculate Time-related info, how much time in each of the last seven days user spent.
+
+    :param data: User summaries over last 7 days.
+    :returns: string representation of statistics.
+    """
+    full_name = {
+        "Mon": "Monday",
+        "Tue": "Tuesday",
+        "Wed": "Wednesday",
+        "Thu": "Thursday",
+        "Fri": "Friday",
+        "Sat": "Saturday",
+        "Sun": "Sunday"
+    }
+    names = []
+    texts = []
+    percents = []
+    total_seconds = 0
+    for day in data:
+        names.append(FM.t(full_name[day["range"]["text"][:3]]))
+        texts.append(day["grand_total"]["text"])
+        percents.append(day["grand_total"]["total_seconds"])
+        total_seconds += day["grand_total"]["total_seconds"]
+    percents = [percent * 100. / total_seconds for percent in percents]
+    return make_list(names=names, texts=texts, percents=percents, top_num=7, sort=False)
