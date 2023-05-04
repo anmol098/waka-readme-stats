@@ -68,7 +68,7 @@ async def get_waka_time_stats(repositories: Dict, commit_dates: Dict) -> str:
         if EM.SHOW_LAST_7_DAY_CODE_TIME:
             DBM.i("Adding user last 7 day coding time info...")
             week_list = no_activity if len(summary_data["data"]) == 0 else make_last_7_day_time_list(summary_data["data"])
-            stats += f"⏳ {'WeekDays'}: \n{week_list}\n\n"
+            stats += f"⏳ {FM.t('Each Day')}: \n{week_list}\n\n"
 
         stats = f"{stats[:-1]}```\n\n"
 
