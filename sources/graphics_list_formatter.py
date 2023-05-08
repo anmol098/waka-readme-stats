@@ -151,13 +151,13 @@ def make_last_7_day_time_list(data: List) -> str:
     :returns: string representation of statistics.
     """
     full_name = {
-        "Mon": "Monday",
-        "Tue": "Tuesday",
-        "Wed": "Wednesday",
-        "Thu": "Thursday",
-        "Fri": "Friday",
-        "Sat": "Saturday",
-        "Sun": "Sunday"
+        "Mon": WEEK_DAY_NAMES[0],
+        "Tue": WEEK_DAY_NAMES[1],
+        "Wed": WEEK_DAY_NAMES[2],
+        "Thu": WEEK_DAY_NAMES[3],
+        "Fri": WEEK_DAY_NAMES[4],
+        "Sat": WEEK_DAY_NAMES[5],
+        "Sun": WEEK_DAY_NAMES[6]
     }
     names = []
     texts = []
