@@ -150,15 +150,7 @@ def make_last_7_day_time_list(data: List) -> str:
     :param data: User summaries over last 7 days.
     :returns: string representation of statistics.
     """
-    full_name = {
-        "Mon": WEEK_DAY_NAMES[0],
-        "Tue": WEEK_DAY_NAMES[1],
-        "Wed": WEEK_DAY_NAMES[2],
-        "Thu": WEEK_DAY_NAMES[3],
-        "Fri": WEEK_DAY_NAMES[4],
-        "Sat": WEEK_DAY_NAMES[5],
-        "Sun": WEEK_DAY_NAMES[6]
-    }
+    full_name = {day[:3]: day for day in WEEK_DAY_NAMES}
     names = []
     texts = []
     percents = []
