@@ -124,6 +124,8 @@ async def get_short_github_info() -> str:
 async def collect_user_repositories() -> Dict:
     """
     Collects information about all the user repositories available.
+    
+    Side note: "cn" stands for contributed nodes but is shortened to conform to the code style
 
     :returns: Complete list of user repositories.
     """
@@ -134,10 +136,10 @@ async def collect_user_repositories() -> Dict:
     DBM.g("\tUser repository list collected!")
 
     contributed = await DM.get_remote_graphql("repos_contributed_to", username=GHM.USER.login)
-    contributed_nodes = [r for r in contributed["data"]["user"]["repositoriesContributedTo"]["nodes"] if r is not None and r["name"] not in repo_names and not r["isFork"]]
+    cn = [r for r in contributed["data"]["user"]["repositoriesContributedTo"]["nodes"] if r is not None and r["name"] not in repo_names and not r["isFork"]]
     DBM.g("\tUser contributed to repository list collected!")
 
-    repositories["data"]["user"]["repositories"]["nodes"] += contributed_nodes
+    repositories["data"]["user"]["repositories"]["nodes"] += cn
     return repositories
 
 
