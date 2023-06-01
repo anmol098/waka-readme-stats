@@ -124,7 +124,7 @@ async def get_short_github_info() -> str:
 async def collect_user_repositories() -> Dict:
     """
     Collects information about all the user repositories available.
-    
+
     Side note: "cn" stands for contributed nodes but is shortened to conform to the code style
 
     :returns: Complete list of user repositories.
