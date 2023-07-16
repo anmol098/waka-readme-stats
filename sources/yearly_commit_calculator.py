@@ -63,25 +63,26 @@ async def update_data_with_commit_stats(repo_details: Dict, yearly_data: Dict, d
     for branch in branch_data["data"]["repository"]["refs"]["nodes"]:
         commit_data = await DM.get_remote_graphql("repo_commit_list", owner=owner, name=repo_details["name"], branch=branch["name"], id=GHM.USER.node_id)
         for commit in commit_data["data"]["repository"]["ref"]["target"]["history"]["nodes"]:
-            date = search(r"\d+-\d+-\d+", commit["committedDate"]).group()
-            curr_year = datetime.fromisoformat(date).year
-            quarter = (datetime.fromisoformat(date).month - 1) // 3 + 1
+            if commit:
+                date = search(r"\d+-\d+-\d+", commit["committedDate"]).group()
+                curr_year = datetime.fromisoformat(date).year
+                quarter = (datetime.fromisoformat(date).month - 1) // 3 + 1
 
-            if repo_details["name"] not in date_data:
-                date_data[repo_details["name"]] = dict()
-            if branch["name"] not in date_data[repo_details["name"]]:
-                date_data[repo_details["name"]][branch["name"]] = dict()
-            date_data[repo_details["name"]][branch["name"]][commit["oid"]] = commit["committedDate"]
+                if repo_details["name"] not in date_data:
+                    date_data[repo_details["name"]] = dict()
+                if branch["name"] not in date_data[repo_details["name"]]:
+                    date_data[repo_details["name"]][branch["name"]] = dict()
+                date_data[repo_details["name"]][branch["name"]][commit["oid"]] = commit["committedDate"]
 
-            if repo_details["primaryLanguage"] is not None:
-                if curr_year not in yearly_data:
-                    yearly_data[curr_year] = dict()
-                if quarter not in yearly_data[curr_year]:
-                    yearly_data[curr_year][quarter] = dict()
-                if repo_details["primaryLanguage"]["name"] not in yearly_data[curr_year][quarter]:
-                    yearly_data[curr_year][quarter][repo_details["primaryLanguage"]["name"]] = {"add": 0, "del": 0}
-                yearly_data[curr_year][quarter][repo_details["primaryLanguage"]["name"]]["add"] += commit["additions"]
-                yearly_data[curr_year][quarter][repo_details["primaryLanguage"]["name"]]["del"] += commit["deletions"]
+                if repo_details["primaryLanguage"] is not None:
+                    if curr_year not in yearly_data:
+                        yearly_data[curr_year] = dict()
+                    if quarter not in yearly_data[curr_year]:
+                        yearly_data[curr_year][quarter] = dict()
+                    if repo_details["primaryLanguage"]["name"] not in yearly_data[curr_year][quarter]:
+                        yearly_data[curr_year][quarter][repo_details["primaryLanguage"]["name"]] = {"add": 0, "del": 0}
+                    yearly_data[curr_year][quarter][repo_details["primaryLanguage"]["name"]]["add"] += commit["additions"]
+                    yearly_data[curr_year][quarter][repo_details["primaryLanguage"]["name"]]["del"] += commit["deletions"]
 
         if not EM.DEBUG_RUN:
             await sleep(0.4)
