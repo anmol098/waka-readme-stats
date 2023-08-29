@@ -22,6 +22,7 @@ class Symbol(Enum):
     VERSION_1 = "█", "░"
     VERSION_2 = "⣿", "⣀"
     VERSION_3 = "⬛", "⬜"
+    VERSION_4 = "🟩", "⬜"
 
     @staticmethod
     def get_symbols(version: int) -> Tuple[str, str]:
