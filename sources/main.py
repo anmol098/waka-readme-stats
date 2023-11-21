@@ -129,15 +129,15 @@ async def collect_user_repositories() -> Dict:
     """
     DBM.i("Getting user repositories list...")
     repositories = await DM.get_remote_graphql("user_repository_list", username=GHM.USER.login, id=GHM.USER.node_id)
-    repo_names = [repo["name"] for repo in repositories["data"]["user"]["repositories"]["nodes"]]
+    repo_names = [repo["name"] for repo in repositories]
     DBM.g("\tUser repository list collected!")
 
     contributed = await DM.get_remote_graphql("repos_contributed_to", username=GHM.USER.login)
-    contributed_nodes = [r for r in contributed["data"]["user"]["repositoriesContributedTo"]["nodes"] if r["name"] not in repo_names and not r["isFork"]]
+
+    contributed_nodes = [repo for repo in contributed if repo != None and repo["name"] not in repo_names and not repo["isFork"]]
     DBM.g("\tUser contributed to repository list collected!")
 
-    repositories["data"]["user"]["repositories"]["nodes"] += contributed_nodes
-    return repositories
+    return repositories + contributed_nodes
 
 
 async def get_stats() -> str:
