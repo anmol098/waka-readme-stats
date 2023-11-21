@@ -184,7 +184,7 @@ class DownloadManager:
         else:
             res = DownloadManager._REMOTE_RESOURCES_CACHE[resource]
             DBM.g(f"\tQuery '{resource}' loaded from cache!")
-        if res.status_code == 200:
+        if res.status_code in [200, 202]:
             if convertor is None:
                 return res.json()
             else:
