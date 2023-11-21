@@ -161,7 +161,8 @@ async def get_stats() -> str:
     if EM.SHOW_TOTAL_CODE_TIME:
         DBM.i("Adding total code time info...")
         data = await DM.get_remote_json("waka_all")
-        stats += f"![Code Time](http://img.shields.io/badge/{quote('Code Time')}-{quote(str(data['data']['text']))}-blue)\n\n"
+        code_time = data["data"]["text"] if hasattr(data["data"], "text") else data["message"]
+        stats += f"![Code Time](http://img.shields.io/badge/{quote('Code Time')}-{quote(str(code_time))}-blue)\n\n"
 
     if EM.SHOW_PROFILE_VIEWS:
         DBM.i("Adding profile views info...")
