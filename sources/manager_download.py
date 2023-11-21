@@ -184,7 +184,7 @@ class DownloadManager:
         else:
             res = DownloadManager._REMOTE_RESOURCES_CACHE[resource]
             DBM.g(f"\tQuery '{resource}' loaded from cache!")
-        if res.status_code == 200:
+        if res.status_code == 200 or res.status_code == 202:
             if convertor is None:
                 return res.json()
             else:
@@ -271,9 +271,7 @@ class DownloadManager:
             query_response = await DownloadManager._fetch_graphql_query(query, **kwargs, pagination=pagination)
             new_page_list, page_info = DownloadManager._find_pagination_and_data_list(query_response)
             page_list += new_page_list
-        _, page_info = DownloadManager._find_pagination_and_data_list(initial_query_response)
-        page_info.clear()
-        return initial_query_response
+        return page_list
 
     @staticmethod
     async def get_remote_graphql(query: str, **kwargs) -> Dict:
