@@ -260,6 +260,8 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 |    2    |      ⣿     |       ⣀     |
 |    3    |      ⬛    |       ⬜    |
 
+`BADGE_STYLE` flag can be set to flat, flat-square, plastic, for-the-badge, social
+
 `DEBUG_LOGGING` flag can be set to increase action output verbosity, by default equals internal runner debug property
 
 **Timeline**
