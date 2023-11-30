@@ -113,7 +113,7 @@
   "it": {
     "Monday": "Lunedì",
     "Tuesday": "Martedì",
-    "Wednesday": "Mecoledì",
+    "Wednesday": "Mercoledì",
     "Thursday": "Giovedì",
     "Friday": "Venerdì",
     "Saturday": "Sabato",
@@ -129,11 +129,11 @@
     "Timezone": "Fuso orario",
     "Contributions in the year": "%s Contributi nell'ultimo anno %s",
     "Used in GitHub's Storage": "%s Spazio di archiviazione di GitHub utilizzato",
-    "Opted to Hire": "Pronto per essere assunto",
+    "Opted to Hire": "Disponibile per assunzioni/colloqui",
     "Not Opted to Hire": "Non disponibile per assunzioni/colloqui",
     "Profile Views": "Visite al profilo",
     "From Hello World I have written": "Dal mio primo Hello World ho scritto ",
-    "I am Most Productive on": "Sono piu' produttivo di %s",
+    "I am Most Productive on": "Sono più produttivo di %s",
     "This Week I Spend My Time On": "Questa settimana ho speso il mio tempo su",
     "I Mostly Code in": "Solitamente programmo in %s",
     "Timeline": "Linea temporale",
@@ -144,8 +144,8 @@
     "public repositories": "%d Repositories pubbliche",
     "private repository": "%d Repository privata",
     "private repositories": "%d Repositories private",
-    "I am an Early": "Sono un mattiniero 🐤",
-    "I am a Night": "Sono un notturno 🦉"
+    "I am an Early": "Sono mattiniero/a 🐤",
+    "I am a Night": "Sono notturno/a 🦉"
   },
   "zh": {
     "Monday": "星期一",
