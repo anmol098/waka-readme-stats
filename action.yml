@@ -142,6 +142,11 @@ inputs:
     description: "Version of the symbol block and empty of the progress bar"
     default: "1"
 
+  SYMBOL_STYLE:
+    required: false
+    description: "Style of the symbol block and empty of the progress bar"
+    default: "█░"
+
   DEBUG_LOGGING:
     required: false
     description: "Whether to enable action debug logging"
