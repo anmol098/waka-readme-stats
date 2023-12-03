@@ -22,7 +22,6 @@ class Symbol(Enum):
     VERSION_1 = "█", "░"
     VERSION_2 = "⣿", "⣀"
     VERSION_3 = "⬛", "⬜"
-    VERSION_4 = "▰", "▱"
 
     @staticmethod
     def get_symbols(version: int) -> Tuple[str, str]:
@@ -43,7 +42,10 @@ def make_graph(percent: float):
     :param percent: Completion percent of the progress bar.
     :return: The string progress bar representation.
     """
-    done_block, empty_block = Symbol.get_symbols(EM.SYMBOL_VERSION)
+    if len(EM.SYMBOL_STYLE) != 2:
+        done_block, empty_block = Symbol.get_symbols(EM.SYMBOL_VERSION)
+    else:
+        done_block, empty_block = EM.SYMBOL_STYLE.split()
     percent_quart = round(percent / 4)
     return f"{done_block * percent_quart}{empty_block * (25 - percent_quart)}"
 
