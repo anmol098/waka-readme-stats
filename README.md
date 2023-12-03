@@ -259,6 +259,7 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 |    1    |      █     |       ░     |
 |    2    |      ⣿     |       ⣀     |
 |    3    |      ⬛    |       ⬜    |
+|    4    |      ▰    |       ▱    |
 
 `DEBUG_LOGGING` flag can be set to increase action output verbosity, by default equals internal runner debug property
 
@@ -424,6 +425,8 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
   - [Wyatt Walsh](https://www.github.com/wyattowalsh)
 
   - [Nithin Balaji](https://github.com/thenithinbalaji)
+  
+  - [Caupolicán Ré](https://github.com/caupolicanre)
 
   
 
