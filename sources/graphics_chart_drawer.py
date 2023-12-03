@@ -21,7 +21,8 @@ async def create_loc_graph(yearly_data: Dict, save_path: str):
     :param save_path: Path to save the graph file.
     """
     colors = await DM.get_remote_yaml("linguist")
-
+    if colors is None:
+        colors = dict()
     years = len(yearly_data.keys())
     year_indexes = arange(years)
 
