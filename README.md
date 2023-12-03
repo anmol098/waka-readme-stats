@@ -260,6 +260,8 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 |    2    |      ⣿     |       ⣀     |
 |    3    |      ⬛    |       ⬜    |
 
+`SYMBOL_STYLE` flag can be set to `"▰▱"` (just an example) to change the style of progress bar (default: `█░`). If the length of the string is not 2, the default style will be used.
+
 `DEBUG_LOGGING` flag can be set to increase action output verbosity, by default equals internal runner debug property
 
 **Timeline**
