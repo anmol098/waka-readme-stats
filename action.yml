@@ -145,7 +145,7 @@ inputs:
   SYMBOL_STYLE:
     required: false
     description: "Style of the symbol block and empty of the progress bar"
-    default: "█░"
+    default: ""
 
   DEBUG_LOGGING:
     required: false
