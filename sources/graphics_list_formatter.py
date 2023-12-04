@@ -45,7 +45,7 @@ def make_graph(percent: float):
     if len(EM.SYMBOL_STYLE) == "":
         done_block, empty_block = Symbol.get_symbols(EM.SYMBOL_VERSION)
     elif len(EM.SYMBOL_STYLE) == 2:
-        done_block, empty_block = EM.SYMBOL_STYLE.split()
+        done_block, empty_block = EM.SYMBOL_STYLE[0], EM.SYMBOL_STYLE[1]
     percent_quart = round(percent / 4)
     return f"{done_block * percent_quart}{empty_block * (25 - percent_quart)}"
 
