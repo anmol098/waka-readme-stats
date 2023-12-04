@@ -166,7 +166,9 @@ runs:
         python-version: '3.11'  
 
     - name: Install Dependencies
-      run: pip install -r requirements.txt
+      run: |
+              python -m pip install --upgrade pip
+              if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       shell: bash
 
     - name: Pass Inputs to Shell
