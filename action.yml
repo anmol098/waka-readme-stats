@@ -158,12 +158,8 @@ inputs:
     default: ${{ runner.debug }}
 
 runs:
-  using: "docker"
-  image: "Dockerfile"
-
-# runs:
-#   using: 'docker'
-#   image: 'docker://wakareadmestats/waka-readme-stats:master'
+  using: 'docker'
+  image: 'docker://wakareadmestats/waka-readme-stats:master'
 
 branding:
   icon: 'activity'
