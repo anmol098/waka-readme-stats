@@ -178,7 +178,8 @@ runs:
 
     - name: Run main script
       id: main-script
-      run: python sources/main.py
+      run: |
+              python ${{ github.workspace }}/sources/main.py
       shell: bash
 
 # runs:
