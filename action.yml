@@ -184,7 +184,7 @@ inputs:
 
 runs:
   using: "docker"
-  image: "dockerfile"
+  image: "Dockerfile"
 
 # runs:
 #   using: 'docker'
