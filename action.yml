@@ -147,14 +147,23 @@ inputs:
     description: "Style of the symbol block and empty of the progress bar"
     default: ""
 
+  CODE_BLOCK_LANGUAGE:
+    required: false
+    description: "Language of the code block"
+    default: "text"
+
   DEBUG_LOGGING:
     required: false
     description: "Whether to enable action debug logging"
     default: ${{ runner.debug }}
 
 runs:
-  using: 'docker'
-  image: 'docker://wakareadmestats/waka-readme-stats:master'
+  using: "docker"
+  image: "Dockerfile"
+
+# runs:
+#   using: 'docker'
+#   image: 'docker://wakareadmestats/waka-readme-stats:master'
 
 branding:
   icon: 'activity'

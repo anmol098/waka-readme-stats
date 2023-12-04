@@ -46,6 +46,7 @@ class EnvironmentManager:
     IGNORED_REPOS = getenv("INPUT_IGNORED_REPOS", "").replace(" ", "").split(",")
     SYMBOL_VERSION = int(getenv("INPUT_SYMBOL_VERSION"))
     SYMBOL_STYLE: str = getenv("INPUT_SYMBOL_STYLE", "")
+    CODE_BLOCK_LANGUAGE: str = getenv("INPUT_CODE_BLOCK_LANGUAGE", "text")
 
     DEBUG_LOGGING = getenv("INPUT_DEBUG_LOGGING", "0").lower() in _TRUTHY
     DEBUG_RUN = getenv("DEBUG_RUN", "False").lower() in _TRUTHY

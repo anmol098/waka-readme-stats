@@ -40,7 +40,7 @@ async def get_waka_time_stats(repositories: Dict, commit_dates: Dict) -> str:
 
     if EM.SHOW_TIMEZONE or EM.SHOW_LANGUAGE or EM.SHOW_EDITORS or EM.SHOW_PROJECTS or EM.SHOW_OS:
         no_activity = FM.t("No Activity Tracked This Week")
-        stats += f"📊 **{FM.t('This Week I Spend My Time On')}** \n\n```text\n"
+        stats += f"📊 **{FM.t('This Week I Spend My Time On')}** \n\n```{EM.CODE_BLOCK_LANGUAGE}\n"
 
         if EM.SHOW_TIMEZONE:
             DBM.i("Adding user timezone info...")
