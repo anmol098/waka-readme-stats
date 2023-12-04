@@ -159,41 +159,6 @@ inputs:
 
 runs:
   using: 'ubuntu-latest'
-  steps:
-    - uses: actions/checkout@v2
-    - uses: anmol098/waka-readme-stats@master
-      with:
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
-        SECTION_NAME: ${{ inputs.SECTION_NAME }}
-        PULL_BRANCH_NAME: ${{ inputs.PULL_BRANCH_NAME }}
-        PUSH_BRANCH_NAME: ${{ inputs.PUSH_BRANCH_NAME }}
-        SHOW_OS: ${{ inputs.SHOW_OS }}
-        SHOW_PROJECTS: ${{ inputs.SHOW_PROJECTS }}
-        SHOW_EDITORS: ${{ inputs.SHOW_EDITORS }}
-        SHOW_TIMEZONE: ${{ inputs.SHOW_TIMEZONE }}
-        SHOW_COMMIT: ${{ inputs.SHOW_COMMIT }}
-        SHOW_LANGUAGE: ${{ inputs.SHOW_LANGUAGE }}
-        SHOW_LINES_OF_CODE: ${{ inputs.SHOW_LINES_OF_CODE }}
-        SHOW_LANGUAGE_PER_REPO: ${{ inputs.SHOW_LANGUAGE_PER_REPO }}
-        SHOW_LOC_CHART: ${{ inputs.SHOW_LOC_CHART }}
-        SHOW_DAYS_OF_WEEK: ${{ inputs.SHOW_DAYS_OF_WEEK }}
-        SHOW_PROFILE_VIEWS: ${{ inputs.SHOW_PROFILE_VIEWS }}
-        SHOW_SHORT_INFO: ${{ inputs.SHOW_SHORT_INFO }}
-        SHOW_UPDATED_DATE: ${{ inputs.SHOW_UPDATED_DATE }}
-        SHOW_TOTAL_CODE_TIME: ${{ inputs.SHOW_TOTAL_CODE_TIME }}
-        COMMIT_BY_ME: ${{ inputs.COMMIT_BY_ME }}
-        COMMIT_MESSAGE: ${{ inputs.COMMIT_MESSAGE }}
-        COMMIT_USERNAME: ${{ inputs.COMMIT_USERNAME }}
-        COMMIT_EMAIL: ${{ inputs.COMMIT_EMAIL }}
-        COMMIT_SINGLE: ${{ inputs.COMMIT_SINGLE }}
-        LOCALE: ${{ inputs.LOCALE }}
-        UPDATED_DATE_FORMAT: ${{ inputs.UPDATED_DATE_FORMAT }}
-        IGNORED_REPOS: ${{ inputs.IGNORED_REPOS }}
-        SYMBOL_VERSION: ${{ inputs.SYMBOL_VERSION }}
-        SYMBOL_STYLE: ${{ inputs.SYMBOL_STYLE }}
-        CODE_BLOCK_LANGUAGE: ${{ inputs.CODE_BLOCK_LANGUAGE }}
-        DEBUG_LOGGING: ${{ inputs.DEBUG_LOGGING }}
 
 # runs:
 #   using: 'docker'
