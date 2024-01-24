@@ -60,6 +60,8 @@ async def get_waka_time_stats(repositories: Dict, commit_dates: Dict) -> str:
         if EM.SHOW_PROJECTS:
             DBM.i("Adding user projects info...")
             project_list = no_activity if len(data["data"]["projects"]) == 0 else make_list(data["data"]["projects"], is_show_projects=True)
+            if project_list == "":  # Trigger if all projects were filtered by threshold
+                project_list = no_activity
             stats += f"🐱‍💻 {FM.t('Projects')}: \n{project_list}\n\n"
 
         if EM.SHOW_OS:
