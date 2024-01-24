@@ -4,6 +4,7 @@ from datetime import datetime
 
 from pytz import timezone, utc
 
+from manager_debug import DebugManager as DBM
 from manager_environment import EnvironmentManager as EM
 from manager_file import FileManager as FM
 
@@ -73,10 +74,11 @@ def make_list(data: List = None, names: List[str] = None, texts: List[str] = Non
             total_seconds = [value for item in data for key, value in item.items() if key == "total_seconds"]
             exclude_project_index = [idx for idx, value in enumerate(total_seconds) if value < float(EM.PROJECT_THRESHOLD_SEC)]
             for index in exclude_project_index:  # TODO: Wait for refactoring
+                DBM.g(f'Project \"{names[index]}\" would be ignored because its duration ({total_seconds[index]}s) is lower than threshold ({EM.PROJECT_THRESHOLD_SEC}s)')
                 del names[index]
                 del texts[index]
                 del percents[index]
-            
+
     data = list(zip(names, texts, percents))
     top_data = sorted(data[:top_num], key=lambda record: record[2], reverse=True) if sort else data[:top_num]
     data_list = [f"{n[:25]}{' ' * (25 - len(n))}{t}{' ' * (20 - len(t))}{make_graph(p)}   {p:05.2f} % " for n, t, p in top_data]
