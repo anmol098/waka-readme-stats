@@ -66,6 +66,8 @@ def make_list(data: List = None, names: List[str] = None, texts: List[str] = Non
     :param is_show_projects: if analyze duration with total_seconds, default: False
     :returns: The string representation of the list.
     """
+    hint = "\n"
+    
     if data is not None:
         names = [value for item in data for key, value in item.items() if key == "name"] if names is None else names
         texts = [value for item in data for key, value in item.items() if key == "text"] if texts is None else texts
@@ -79,10 +81,12 @@ def make_list(data: List = None, names: List[str] = None, texts: List[str] = Non
                 del texts[index]
                 del percents[index]
 
+    hint += f"_{len(exclude_project_index)} project(s) has been hidden due to threshold setting_"
+
     data = list(zip(names, texts, percents))
     top_data = sorted(data[:top_num], key=lambda record: record[2], reverse=True) if sort else data[:top_num]
     data_list = [f"{n[:25]}{' ' * (25 - len(n))}{t}{' ' * (20 - len(t))}{make_graph(p)}   {p:05.2f} % " for n, t, p in top_data]
-    return "\n".join(data_list)
+    return "\n".join(data_list) + hint
 
 
 async def make_commit_day_time_list(time_zone: str, repositories: Dict, commit_dates: Dict) -> str:
