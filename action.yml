@@ -137,6 +137,11 @@ inputs:
     description: "Repos you don't want to be counted"
     default: ""
 
+  PROJECT_THRESHOLD_SEC:
+    requires: False
+    description: "Display projects whose duration only greater than the threshold (unit: sec))"
+    default: "0"
+
   SYMBOL_VERSION:
     required: false
     description: "Version of the symbol block and empty of the progress bar"
