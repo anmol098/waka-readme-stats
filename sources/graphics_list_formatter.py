@@ -80,13 +80,13 @@ def make_list(data: List = None, names: List[str] = None, texts: List[str] = Non
                 del names[index]
                 del texts[index]
                 del percents[index]
-            if exclude_project_index != 0:
+            if len(exclude_project_index) != 0:
                 hidden_project_hint += f"{len(exclude_project_index)} project(s) has been hidden due to threshold setting"
 
     data = list(zip(names, texts, percents))
     top_data = sorted(data[:top_num], key=lambda record: record[2], reverse=True) if sort else data[:top_num]
     data_list = [f"{n[:25]}{' ' * (25 - len(n))}{t}{' ' * (20 - len(t))}{make_graph(p)}   {p:05.2f} % " for n, t, p in top_data]
-    return hidden_project_hint + "\n".join(data_list) + ("\n" if len(names) != 0 else "")
+    return hidden_project_hint + ("\n" if len(names) != 0 else "") + "\n".join(data_list)
 
 
 async def make_commit_day_time_list(time_zone: str, repositories: Dict, commit_dates: Dict) -> str:
