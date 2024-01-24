@@ -42,7 +42,7 @@ class EnvironmentManager:
     COMMIT_SINGLE = getenv("INPUT_COMMIT_SINGLE", "").lower() in _TRUTHY
 
     PROJECT_THRESHOLD_SEC = getenv("INPUT_PROJECT_THRESHOLD_SEC", "0")
-    
+
     LOCALE = getenv("INPUT_LOCALE", "en")
     UPDATED_DATE_FORMAT = getenv("INPUT_UPDATED_DATE_FORMAT", "%d/%m/%Y %H:%M:%S")
     IGNORED_REPOS = getenv("INPUT_IGNORED_REPOS", "").replace(" ", "").split(",")
