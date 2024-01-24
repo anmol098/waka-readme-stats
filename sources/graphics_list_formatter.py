@@ -71,7 +71,7 @@ def make_list(data: List = None, names: List[str] = None, texts: List[str] = Non
         percents = [value for item in data for key, value in item.items() if key == "percent"] if percents is None else percents
         if is_show_projects:  # TODO: should it be a param?
             total_seconds = [value for item in data for key, value in item.items() if key == "total_seconds"]
-            exclude_project_index = [idx for idx, value in enumerate(total_seconds) if value < float(EM.PROJECT_THRESHOLD)]
+            exclude_project_index = [idx for idx, value in enumerate(total_seconds) if value < float(EM.PROJECT_THRESHOLD_SEC)]
             for index in exclude_project_index:  # TODO: Wait for refactoring
                 del names[index]
                 del texts[index]
