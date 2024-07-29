@@ -107,6 +107,7 @@ class GitHubManager:
         DBM.i("Updating README...")
         readme_path = join(GitHubManager.REPO.working_tree_dir, EM.TARGET_PATH) #OLD: GitHubManager.REMOTE.get_readme().path
         print(readme_path)
+        DBM.g(readme_path)
 
         with open(readme_path, "r") as readme_file:
             readme_contents = readme_file.read()
