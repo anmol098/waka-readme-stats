@@ -1,4 +1,5 @@
-from os.path import join, isfile, dirname
+from os.path import join, isfile, isdir, dirname
+#from os import makedirs
 from pickle import load as load_pickle, dump as dump_pickle
 from json import load as load_json
 from typing import Dict, Optional, Any
@@ -22,6 +23,12 @@ class FileManager:
 
     ASSETS_DIR = "assets"
     _LOCALIZATION: Dict[str, str] = dict()
+
+   # @staticmethod
+   # def ensure_assets_dir():
+   #     """Ensure that the assets directory exists."""
+   #     if not isdir(FileManager.ASSETS_DIR):
+   #         makedirs(FileManager.ASSETS_DIR)
 
     @staticmethod
     def load_localization(file: str):
@@ -68,6 +75,8 @@ class FileManager:
         :param assets: True for saving to 'assets' directory, false otherwise.
         :returns: File cache contents if content is None, None otherwise.
         """
+        #if assets:
+        #    FileManager.ensure_assets_dir()
         name = join(FileManager.ASSETS_DIR, name) if assets else name
         if content is None and not isfile(name):
             return None

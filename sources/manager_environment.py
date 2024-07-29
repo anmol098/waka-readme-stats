@@ -13,8 +13,6 @@ class EnvironmentManager:
 
     _TRUTHY = ["true", "1", "t", "y", "yes"]
 
-    #GH_TOKEN = getenv("INPUT_GH_TOKEN")
-    #WAKATIME_API_KEY = getenv("INPUT_WAKATIME_API_KEY")
     GH_TOKEN = environ["INPUT_GH_TOKEN"]
     WAKATIME_API_KEY = environ["INPUT_WAKATIME_API_KEY"]
 
@@ -47,7 +45,7 @@ class EnvironmentManager:
     TARGET_PATH = getenv("INPUT_TARGET_PATH", "README.md")
     UPDATED_DATE_FORMAT = getenv("INPUT_UPDATED_DATE_FORMAT", "%d/%m/%Y %H:%M:%S")
     IGNORED_REPOS = getenv("INPUT_IGNORED_REPOS", "").replace(" ", "").split(",")
-    #SYMBOL_VERSION = int(getenv("INPUT_SYMBOL_VERSION"))
+    SYMBOL_VERSION = int(getenv("INPUT_SYMBOL_VERSION"))
 
     DEBUG_LOGGING = getenv("INPUT_DEBUG_LOGGING", "0").lower() in _TRUTHY
     DEBUG_RUN = getenv("DEBUG_RUN", "False").lower() in _TRUTHY
