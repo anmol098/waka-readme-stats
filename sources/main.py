@@ -155,6 +155,10 @@ async def get_stats() -> str:
     """
     DBM.i("Collecting stats for README...")
 
+    DBM.w("----------------------------------------------------------------------------------------------------------------")
+    DBM.g('\t\t\t\t\tReadme PATH: ' + EM.TARGET_PATH)
+    DBM.w("----------------------------------------------------------------------------------------------------------------")
+
     stats = str()
     repositories = await collect_user_repositories()
 

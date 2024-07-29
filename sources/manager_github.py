@@ -108,7 +108,7 @@ class GitHubManager:
         readme_path = join(GitHubManager.REPO.working_tree_dir, EM.TARGET_PATH) #OLD: GitHubManager.REMOTE.get_readme().path
 
         DBM.w("----------------------------------------------------------------------------------------------------------------")
-        DBM.g('\t\t\t\t\tReadme PATH: ' + EM.TARGET_PATH)
+        DBM.g('\t\t\t\t\tReadme PATH: ' + readme_path)
         DBM.w("----------------------------------------------------------------------------------------------------------------")
 
         with open(readme_path, "r") as readme_file:
