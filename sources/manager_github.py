@@ -107,6 +107,10 @@ class GitHubManager:
         DBM.i("Updating README...")
         readme_path = join(GitHubManager.REPO.working_tree_dir, EM.TARGET_PATH) #OLD: GitHubManager.REMOTE.get_readme().path
 
+        DBM.w("----------------------------------------------------------------------------------------------------------------")
+        DBM.g('\t\t\t\t\tReadme PATH: ' + EM.TARGET_PATH)
+        DBM.w("----------------------------------------------------------------------------------------------------------------")
+
         with open(readme_path, "r") as readme_file:
             readme_contents = readme_file.read()
         readme_stats = f"{GitHubManager._START_COMMENT}\n{stats}\n{GitHubManager._END_COMMENT}"
