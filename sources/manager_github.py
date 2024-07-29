@@ -105,7 +105,7 @@ class GitHubManager:
         Uses commit author, commit message and branch name specified by environmental variables.
         """
         DBM.i("Updating README...")
-        readme_path = join(GitHubManager.REPO.working_tree_dir, GitHubManager.REMOTE.get_readme().path)
+        readme_path = join(GitHubManager.REPO.working_tree_dir, EM.TARGET_PATH) #OLD: GitHubManager.REMOTE.get_readme().path
 
         with open(readme_path, "r") as readme_file:
             readme_contents = readme_file.read()
