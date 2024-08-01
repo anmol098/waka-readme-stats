@@ -127,6 +127,11 @@ inputs:
     description: "Show stats in your own language"
     default: "en"
 
+  TARGET_PATH:
+    required: false
+    description: "The path to the readme file"
+    default: "README.md"
+
   UPDATED_DATE_FORMAT:
     required: false
     description: "Updated date format"

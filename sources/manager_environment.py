@@ -42,6 +42,7 @@ class EnvironmentManager:
     COMMIT_SINGLE = getenv("INPUT_COMMIT_SINGLE", "").lower() in _TRUTHY
 
     LOCALE = getenv("INPUT_LOCALE", "en")
+    TARGET_PATH = getenv("INPUT_TARGET_PATH", "README.md")
     UPDATED_DATE_FORMAT = getenv("INPUT_UPDATED_DATE_FORMAT", "%d/%m/%Y %H:%M:%S")
     IGNORED_REPOS = getenv("INPUT_IGNORED_REPOS", "").replace(" ", "").split(",")
     SYMBOL_VERSION = int(getenv("INPUT_SYMBOL_VERSION"))
