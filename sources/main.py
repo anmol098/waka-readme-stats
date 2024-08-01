@@ -154,7 +154,7 @@ async def get_stats() -> str:
     :returns: String representation of README.md contents.
     """
     DBM.i("Collecting stats for README...")
-    
+
     stats = str()
     repositories = await collect_user_repositories()
 
