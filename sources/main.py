@@ -27,7 +27,8 @@ async def get_waka_time_stats(repositories: Dict, commit_dates: Dict) -> str:
     :param commit_dates: User commit data list.
     :returns: String representation of the info.
     """
-    DBM.i("Adding short WakaTime stats...")
+    DBM.i("Adding short WakaTime stats...")#
+    DBM.i("TEST")
     stats = str()
 
     data = await DM.get_remote_json("waka_latest")
