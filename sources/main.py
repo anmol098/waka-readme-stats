@@ -28,7 +28,6 @@ async def get_waka_time_stats(repositories: Dict, commit_dates: Dict) -> str:
     :returns: String representation of the info.
     """
     DBM.i("Adding short WakaTime stats...")#
-    DBM.i("TEST")
     stats = str()
 
     data = await DM.get_remote_json("waka_latest")
@@ -155,11 +154,6 @@ async def get_stats() -> str:
     :returns: String representation of README.md contents.
     """
     DBM.i("Collecting stats for README...")
-
-    DBM.w("----------------------------------------------------------------------------------------------------------------")
-    DBM.g('\t\t\t\t\tReadme PATH: ' + EM.TARGET_PATH)
-    DBM.w("----------------------------------------------------------------------------------------------------------------")
-
     stats = str()
     repositories = await collect_user_repositories()
 
