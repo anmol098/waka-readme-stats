@@ -11,6 +11,11 @@ inputs:
   WAKATIME_API_KEY:
     description: 'Your Wakatime API Key'
     required: true
+  
+  WAKATIME_API_URL:
+    description: 'Wakatime API URL'
+    required: false
+    default: "https://wakatime.com/api/"
 
   SECTION_NAME:
     description: 'Name used in readme to scope the updated section'

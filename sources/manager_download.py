@@ -123,8 +123,8 @@ async def init_download_manager(user_login: str):
     """
     await DownloadManager.load_remote_resources(
         linguist="https://cdn.jsdelivr.net/gh/github/linguist@master/lib/linguist/languages.yml",
-        waka_latest=f"https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key={EM.WAKATIME_API_KEY}",
-        waka_all=f"https://wakatime.com/api/v1/users/current/all_time_since_today?api_key={EM.WAKATIME_API_KEY}",
+        waka_latest=f"{EM.WAKATIME_API_URL}/v1/users/current/stats/last_7_days?api_key={EM.WAKATIME_API_KEY}",
+        waka_all=f"{EM.WAKATIME_API_URL}/v1/users/current/all_time_since_today?api_key={EM.WAKATIME_API_KEY}",
         github_stats=f"https://github-contributions.vercel.app/api/v1/{user_login}",
     )
 
