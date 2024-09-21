@@ -151,7 +151,7 @@ class DownloadManager:
         :param resources: Static queries, formatted like "IDENTIFIER"="URL".
         """
         for resource, url in resources.items():
-            DownloadManager._REMOTE_RESOURCES_CACHE[resource] = DownloadManager._client.get(url)
+            DownloadManager._REMOTE_RESOURCES_CACHE[resource] = await DownloadManager._client.get(url)
 
     @staticmethod
     async def close_remote_resources():
