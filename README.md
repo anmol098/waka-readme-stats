@@ -51,7 +51,7 @@
 5. You can enable and disable feature flags based on requirements.
 
 
-This Action will run everyday at 00.00 IST
+This Action will run every day at 00.00 IST
 
 ## Update your Readme
 
