@@ -72,7 +72,7 @@ WakaTime gives you an idea of the time you really spent on coding. This helps yo
 
 - Head over to <https://wakatime.com> and create an account.
 - Get your WakaTime API Key from your [Account Settings in WakaTime](https://wakatime.com/settings/account).
-- Install the [WakaTime plugin](https://wakatime.com/plugins) in your favourite editor / IDE.
+- Install the [WakaTime plugin](https://wakatime.com/plugins) in your favorite editor / IDE.
 - Paste in your API key to start the analysis.
 
 ### Profile Repository
@@ -135,7 +135,7 @@ jobs:
 
 `UPDATED_DATE_FORMAT`        flag can be set to put updated date into a format, default is `"%d/%m/%Y %H:%M:%S"`
 
-`SHOW_LINES_OF_CODE`       flag can be set to `True` to show the Lines of code writen till date
+`SHOW_LINES_OF_CODE`       flag can be set to `True` to show the Lines of code written till date
 
 ![Lines of code](https://img.shields.io/badge/From%20Hello%20World%20I've%20written-1.3%20million%20Lines%20of%20code-blue)
 
