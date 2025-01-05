@@ -1,6 +1,7 @@
 """
 Readme Development Metrics With waka time progress
 """
+import pytz
 from asyncio import run
 from datetime import datetime
 from typing import Dict
@@ -146,6 +147,22 @@ async def collect_user_repositories() -> Dict:
     return repositories + contributed_nodes
 
 
+async def get_time_with_utc_offset(region: str) -> str:
+    """
+    Returns the current time in the given region with the UTC offset.
+    
+    :param region: Region to get the time for.
+    :returns: String representation of the time.
+    """
+    try:
+        timezone = pytz.timezone(region)
+        local_time = datetime.now(timezone)
+        utc_offset = local_time.utcoffset().total_seconds() / 3600
+        offset_str = f"UTC{utc_offset:+.0f}"
+        return local_time.strftime(EM.UPDATED_DATE_FORMAT) + f" {offset_str}"
+    except pytz.UnknownTimeZoneError:
+        return "Unknown Timezone"
+
 async def get_stats() -> str:
     """
     Creates new README.md content from all the acquired statistics from all places.
@@ -198,8 +215,10 @@ async def get_stats() -> str:
 
     if EM.SHOW_UPDATED_DATE:
         DBM.i("Adding last updated time...")
-        stats += f"\n Last Updated on {datetime.now().strftime(EM.UPDATED_DATE_FORMAT)} UTC"
-
+        try:
+            stats += f"\n Last Updated on {await get_time_with_utc_offset(data["data"]["timezone"])}"
+        except:
+            stats += f"\n Last Updated on {await get_time_with_utc_offset('UTC')}"
     DBM.g("Stats for README collected!")
     return stats
 
