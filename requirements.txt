@@ -1,5 +1,5 @@
 # GitHub integration modules:
-PyGithub~=1.58
+PyGithub~=2.6.1
 GitPython~=3.1.44
 
 # Markdown visualization modules:
