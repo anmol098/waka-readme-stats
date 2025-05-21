@@ -42,7 +42,7 @@ class DebugManager:
         if DebugManager._TIME_TEMPLATE in kwargs:
             kwargs[DebugManager._TIME_TEMPLATE] = precisedelta(kwargs[DebugManager._TIME_TEMPLATE], minimum_unit="microseconds")
 
-        return Template(message).substitute(kwargs)
+    return Template(message).substitute(kwargs)
 
     @staticmethod
     def g(message: str, **kwargs):
