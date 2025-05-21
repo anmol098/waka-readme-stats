@@ -69,7 +69,7 @@ jobs:
           echo BRANCH_NAME=${BRANCH_NAME} >> $GITHUB_ENV
 
       - name: Upload Artifact 📦
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ github.ref != 'refs/heads/master' }}
         with:
           name: ${{ format('github-pages-for-branch-{0}', env.BRANCH_NAME) }}
