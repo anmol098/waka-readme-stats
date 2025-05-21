@@ -15,5 +15,5 @@ httpx~=0.23
 PyYAML~=6.0
 
 # Codestyle checking modules:
-flake8~=6.0
+flake8~=7.2
 black~=23.1
