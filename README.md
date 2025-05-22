@@ -28,9 +28,9 @@
    <br/>
    When are you most productive during the day?
    <br/>
-   What are languages you code in?
+   What are the languages that you code in?
    <br/>
-   Let's check out in your profile readme!
+   Let's check it out in your profile's README!
 </p>
 
 <p align="center">
