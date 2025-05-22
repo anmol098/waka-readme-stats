@@ -65,7 +65,7 @@ Add a comment to your `README.md` like this:
 <!--END_SECTION:waka-->
 ```
 
-`waka` can be replaced by any string specified in the `SECTION_NAME` flag as per (the available flags section)[#flags-available]
+`waka` can be replaced by any string specified in the `SECTION_NAME` flag as per [the available flags section](#flags-available).
 
 These lines will be our entry-points for the dev metrics.
 
