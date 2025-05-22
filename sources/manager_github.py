@@ -44,7 +44,7 @@ class GitHubManager:
         - Named repo of the user [username]/[username].
         - Clone of the named repo.
         """
-        github = Github(EM.GH_TOKEN)
+        github = Github(auth=EM.GH_TOKEN)
         clone_path = "repo"
         GitHubManager.USER = github.get_user()
         rmtree(clone_path, ignore_errors=True)
