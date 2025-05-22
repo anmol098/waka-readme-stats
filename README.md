@@ -11,7 +11,7 @@
 
   ![Project Preview](https://user-images.githubusercontent.com/15426564/88030180-8e1c4780-cb58-11ea-8a8b-b3576dd73652.png)
 
-  <h3 align="center">📌✨Awesome Readme Stats</h3>
+  <h3 align="center">📌✨Awesome README Stats</h3>
 </p>
 
 ----
@@ -41,7 +41,7 @@
 
 ## Prep Work
 
-1. You need to update the markdown file(.md) with 2 comments. You can refer [here](#update-your-readme) for updating it.
+1. You need to update the markdown file(`.md`) with 2 comments. You can refer [here](#update-your-readme) for updating it.
 2. You'll need a WakaTime API Key. You can get that from your WakaTime Account Settings
     - You can refer [here](#new-to-wakatime), if you're new to WakaTime.
 3. You'll need a GitHub API Token with `repo` and `user` scope from [here](https://github.com/settings/tokens) if you're running the action to get commit metrics.
@@ -102,12 +102,11 @@ jobs:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 ```
-- Now you can commit and wait for run automatically, but you can also trigger to run it to see the result now. Just go to the `Actions` in your repo and select your `Waka Readme` workflow and click in `Run workflow`. Now wait for a minute or two and you will see your changes.
+- Now you can commit and wait for it to run automatically, or you can also trigger to run it to see the result now. Just go to the `Actions` in your repo, select your `Waka Readme` workflow and click `Run workflow`. Now wait for a minute or two and you will see your changes.
 
 ## Extras
 
-1. If you want to add the other info to your stats, you can add multiple `FLAGS` in your workflow file by default all flags are enabled 
->except the lines of code flag due to heavy operation performed
+If you want to add the other info to your stats, you can add multiple `FLAGS` in your workflow file. By default all flags are enabled (except the lines of code flag due to the heavy operation performed)
 
 ```yml
 - uses: anmol098/waka-readme-stats@master
@@ -122,36 +121,35 @@ jobs:
 
 ---
 
-`LOCALE`  This Flag can be used to show stats in your language default is english uses Locale [Short Hand](https://saimana.com/list-of-country-locale-code/) to be passed in the flag variable example of the final result can be found [here](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)
+`LOCALE`  This flag can be used to show stats in your language. Default is English. Locale [Short Hand](https://saimana.com/list-of-country-locale-code/) to be passed in the flag variable. Example of the final result can be found [here](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)
 
-`SECTION_NAME`        flag can be set to any string, and will be the name of the section to replace in the readme
+The `SECTION_NAME` flag can be set to any string, and will be the name of the section to replace in the README.
 
-`COMMIT_BY_ME`        flag can be set to `True` to commit the code using your name and email
+The `COMMIT_BY_ME` flag can be set to `True` to commit the code using your name and email.
 
-`COMMIT_MESSAGE`        flag can be set to message commit, default is "Updated with Dev Metrics"
+The `COMMIT_MESSAGE` flag can be set for the commit message. The default is "Updated with Dev Metrics"
 
-`COMMIT_USERNAME`        flag can be set to username to commit the code, default is "readme-bot"
+The `COMMIT_USERNAME` flag can be set as a username to commit the code. The default is "readme-bot".
 
-`COMMIT_EMAIL`        flag can be set to email to commit the code, default is "41898282+github-actions[bot]@users.noreply.github.com"
+The `COMMIT_EMAIL` flag can be set to an email to commit the code. The default is "41898282+github-actions[bot]@users.noreply.github.com".
 
-`SHOW_UPDATED_DATE`        flag can be set to `True` to show updated date in end of paragraph
+The `SHOW_UPDATED_DATE` flag can be set to `True` to show the updated date in end of paragraph.
 
-`UPDATED_DATE_FORMAT`        flag can be set to put updated date into a format, default is `"%d/%m/%Y %H:%M:%S"`
+The `UPDATED_DATE_FORMAT` flag can be set to put the updated date into a format. The default is `"%d/%m/%Y %H:%M:%S"`.
 
-`SHOW_LINES_OF_CODE`       flag can be set to `True` to show the Lines of code writen till date
+The `SHOW_LINES_OF_CODE` flag can be set to `True` to show the number of lines of code writen till date.
 
-![Lines of code](https://img.shields.io/badge/From%20Hello%20World%20I've%20written-1.3%20million%20Lines%20of%20code-blue)
+![Lines of Code](https://img.shields.io/badge/From%20Hello%20World%20I've%20written-1.3%20million%20Lines%20of%20code-blue)
 
-`SHOW_TOTAL_CODE_TIME`       flag can be set to `False` to hide *Code Time*
+The `SHOW_TOTAL_CODE_TIME` flag can be set to `False` to hide *Code Time*.
 
 ![Code Time](http://img.shields.io/badge/Code%20Time-1%2C438%20hrs%2054%20mins-blue)
 
-`SHOW_PROFILE_VIEWS`       flag can be set to `False` to hide the Profile views
+The `SHOW_PROFILE_VIEWS` flag can be set to `False` to hide **Profile Views**
 
 ![Profile Views](http://img.shields.io/badge/Profile%20Views-2189-blue)
 
-
-`SHOW_COMMIT`       flag can be set to `False` to hide the commit stats
+The `SHOW_COMMIT` flag can be set to `False` to hide the commit stats.
 
 **I'm an early 🐤** 
 ```text
@@ -162,7 +160,7 @@ jobs:
 
 ```
 
-`SHOW_DAYS_OF_WEEK`       flag can be set to `False` to hide the commits made on different days of week
+The `SHOW_DAYS_OF_WEEK` flag can be set to `False` to hide the commits made on the different days of the week.
 
 📅 **I'm Most Productive on Sundays** 
 
@@ -177,7 +175,7 @@ Sunday       86 commits     █████░░░░░░░░░░░░�
 
 ```
 
-`SHOW_LANGUAGE`       flag can be set to `False` to hide the Coding Language You use
+The `SHOW_LANGUAGE` flag can be set to `False` to hide the programming languages you use.
 
 ```text
 💬 Languages:
@@ -189,14 +187,14 @@ XML                      8 mins              ░░░░░░░░░░░�
 ```
 
 
-`SHOW_OS`       flag can be set to `False` to hide the OS details
+The `SHOW_OS` flag can be set to `False` to hide your OS details.
 
 ```text
 💻 Operating Systems:
 Windows                  8 hrs 46 mins       █████████████████████████   100.0%
 ```
 
-`SHOW_PROJECTS` flag can be set to `False` to hide the Projects worked on
+The `SHOW_PROJECTS` flag can be set to `False` to hide the projects worked on.
 
 ```text
 🐱‍💻 Projects:
@@ -207,13 +205,13 @@ cable                    54 mins             ██░░░░░░░░░�
 denAPI                   40 mins             ██░░░░░░░░░░░░░░░░░░░░░░░   7.66%
 ```
 
-`SHOW_TIMEZONE` flag can be set to `False` to hide the time zone you are in
+The `SHOW_TIMEZONE` flag can be set to `False` to hide the time zone you are in.
 
 ```text
 ⌚︎ Timezone: Asia/Calcutta
 ```
 
-`SHOW_EDITORS`  flag can be set to `False` to hide the list of code-editors used
+The `SHOW_EDITORS` flag can be set to `False` to hide the list of code editors/IDEs used.
 
 ```text
 🔥 Editors:
@@ -222,7 +220,7 @@ PhpStorm                 1 hr 35 mins        ████░░░░░░░�
 PyCharm                  23 mins             █░░░░░░░░░░░░░░░░░░░░░░░░   4.49%
 ```
 
-`SHOW_LANGUAGE_PER_REPO`  flag can be set to `False` to hide the Number of repository in different language and frameworks
+The `SHOW_LANGUAGE_PER_REPO` flag can be set to `False` to hide the number of repositories in different programming languages and frameworks.
 
 **I mostly code in Vue** 
 
@@ -237,8 +235,9 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 
 ```
 
-`SHOW_SHORT_INFO`  flag can be set to `False` to hide the short fun fact info of user
->This section requires personal access token with user permission otherwise data shown will be incorrect here
+The `SHOW_SHORT_INFO` flag can be set to `False` to hide the short fun fact info of a user.
+> [!NOTE]
+> This section requires a Personal Access Token (PAT) with the `user` scope, otherwise the data shown here will be incorrect.
 
 **🐱 My GitHub Data** 
 
@@ -252,18 +251,18 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
  > 
 > 🔑 15 Owned Private Repository 
 
-`SHOW_LOC_CHART`  flag can be set to `False` to hide the Lines of code written in different quarters of different year
+The `SHOW_LOC_CHART` flag can be set to `False` to hide the lines of code written in different quarters of different years.
 
-`IGNORED_REPOS`  flag can be set to `"waka-readme-stats, my-first-repo"` (just an example) to ignore some repos you don’t want to be counted
+The `IGNORED_REPOS` flag can be set to `"waka-readme-stats, my-first-repo"` (just an example) to ignore some repos you don’t want to be counted.
 
-`SYMBOL_VERSION` flag can be set symbol for progress bar (default: `1`)
+The `SYMBOL_VERSION` flag can be set for the symbol for the progress bar (default: `1`).
 | Version | Done block | Empty block |
 |-------- | ---------- | ----------- |
 |    1    |      █     |       ░     |
 |    2    |      ⣿     |       ⣀     |
 |    3    |      ⬛    |       ⬜    |
 
-`DEBUG_LOGGING` flag can be set to increase action output verbosity, by default equals internal runner debug property
+The `DEBUG_LOGGING` flag can be set to increase the GitHub Action's output verbosity, by default equals internal runner debug property
 
 **Timeline**
 
@@ -278,7 +277,7 @@ However, if you are using this project and happy with it or just want to encoura
 
 - Giving proper credit when you use this action on your readme, linking back to it :D
 - Starring and sharing the project :rocket:
-- [![paypal.me/aapreneur](https://ionicabizau.github.io/badges/paypal.svg)](https://www.paypal.me/aapreneur) - You can make one-time donations via PayPal. I'll probably buy a ~~beer~~ wine 🍷
+- [![paypal.me/aapreneur](https://ionicabizau.github.io/badges/paypal.svg)](https://www.paypal.me/aapreneur) - You can make one-time donations via PayPal. I'll probably buy some ~~beer~~ wine 🍷.
 
 Thanks! :heart:
 
@@ -286,7 +285,7 @@ Thanks! :heart:
 
 # Contributing
 
-Contributions are welcome! ♥! Please share any features, and add unit tests! Use the pull request and issue systems to contribute.
+Contributions are welcome ♥! Please share any features, and add unit tests! Use the pull request and issue systems to contribute.
 
 # Selected Contributors
 
@@ -446,7 +445,8 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
 
 </details>
 
-- And you! If ever you are using it right now and you are not on the list please tell us by sending a [Special Mention](https://github.com/anmol098/waka-readme-stats/issues/new/choose) issue :blush: we are glad to add you in the list.
+- And you! If ever you are using it right now and you are not on the list please tell us by sending a [Special Mention](https://github.com/anmol098/waka-readme-stats/issues/new/choose) issue! :blush: \
+  We will be glad to add you in the list.
 
 
 Made with :heart: and Python 🐍.
@@ -456,7 +456,7 @@ Made with :heart: and Python 🐍.
 > [Awesome Pinned Gists](https://github.com/matchai/awesome-pinned-gists) <br/>
 > [athul/waka-readme](https://github.com/athul/waka-readme)
 
-### This project need a **star** ⭐ from you ♥.
+### This project needs a **star** ⭐ from you ♥.
 
 
 ## Stargazers over time
