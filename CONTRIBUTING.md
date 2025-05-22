@@ -33,7 +33,7 @@ The command will install all the requirements needed to run the project.
 
 Create a `.env` file in the project directory. For information you can refer to the `.env.example` file for all the environment variables.
 
-If you want to contribute to the chart module, then you have enable that flag in `.env` file and install Node.js and NPM for charting library to work:
+If you want to contribute to the chart module, then you have enable that flag in `.env` file and install Node.js and NPM the for charting library to work:
 ```bash
 npm install -g vega-lite vega-cli canvas
 ```
