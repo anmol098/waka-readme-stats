@@ -428,6 +428,20 @@ Contributions are welcome! ♥! Please share any features, and add unit tests! U
 
   - [Nithin Balaji](https://github.com/thenithinbalaji)
 
+  - [John Cortés](https://github.com/johncortes117)
+
+  - [Taha Parker](https://github.com/tahayparker/)
+
+  - [Yang An Yi](https://github.com/yanganyi)
+
+  - [Mamdud Hasan](https://github.com/n8fury)
+
+  - [Satyam Vyas](https://github.com/SatyamVyas04)
+
+  - [Yash Naravade](https://github.com/yashnaravade)
+
+  - [Luicen Loua](https://github.com/lucien-loua)
+
   
 
 </details>
