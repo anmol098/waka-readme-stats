@@ -23,13 +23,12 @@ Once you've worked on your feature/bugfix, you can open a pull request using the
 This project is written in Python. \
 It requires **Python 3.8 or higher**, and uses `pip`.
 
-To set it up, just fork it, clone the fork and install all the dependencies:
-
+To set it up, just fork this repository and clone the newly opened fork. \
+Then install all the dependencies using:
 ```bash
 $ pip install -r requirements.txt
 ```
-
-The command will install all the requirements needed to run the project.
+This command will install all the requirements needed to run the project.
 
 Create a `.env` file in the project directory. For information you can refer to the `.env.example` file for all the environment variables.
 
