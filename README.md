@@ -1,7 +1,7 @@
 > [!IMPORTANT]
 > We are looking for translators for this project. \
-> Help would be greatly appreciated. \
-> Please see issue https://github.com/anmol098/waka-readme-stats/issues/23 if you want to help!
+> Any kind of help would be greatly appreciated. \
+> Please see issue https://github.com/anmol098/waka-readme-stats/issues/23 if you would like to help!
 
 # Dev Metrics in README with added feature flags 🎌
 
@@ -43,18 +43,18 @@
 
 1. You need to update the markdown file(.md) with 2 comments. You can refer [here](#update-your-readme) for updating it.
 2. You'll need a WakaTime API Key. You can get that from your WakaTime Account Settings
-    - You can refer [here](#new-to-wakatime), if you're new to WakaTime
-3. You'll need a GitHub API Token with `repo` and `user` scope from [here](https://github.com/settings/tokens) if you're running the action to get commit metrics
-   > enabling the `repo` scope seems **DANGEROUS**<br/>
-   > but this GitHub Action only accesses your commit timestamp and lines of code added or deleted in repository you contributed.
-   - You can use [this](#profile-repository) example to work it out
-4. You need to save the WakaTime API Key and the GitHub API Token in the repository secrets. You can find that in the Settings of your repository. Be sure to save those as the following.
+    - You can refer [here](#new-to-wakatime), if you're new to WakaTime.
+3. You'll need a GitHub API Token with `repo` and `user` scope from [here](https://github.com/settings/tokens) if you're running the action to get commit metrics.
+   - You can use [this](#profile-repository) example to work it out.
+> [!NOTE]
+> Enabling the `repo` scope seems **DANGEROUS**, \
+> but this GitHub Action only accesses your commit timestamps and the number of lines of code added or deleted in repositories that you contributed to.
+4. You need to save the WakaTime API Key and the GitHub API Token in the repository secrets. You can find that in the Settings of your repository. Be sure to save those as the following:
     - WakaTime API Key as `WAKATIME_API_KEY=<your wakatime API Key>`
-    - GitHub Personal Access Token as `GH_TOKEN=<your github access token>`
-5. You can enable and disable feature flags based on requirements.
+    - GitHub Personal Access Token (PAT) as `GH_TOKEN=<your github access token>`
+5. You can enable and disable feature flags based on your requirements.
 
-
-This Action will run everyday at 00.00 IST
+This GitHub Action can be set to run at any time you want using `cron`. See [Crontab.guru](https://crontab.guru/) and [this](https://crontab.cronhub.io/) website to generate `cron` expressions.
 
 ## Update your Readme
 
@@ -82,7 +82,7 @@ WakaTime gives you an idea of the time you really spent on coding. This helps yo
 
 You'll need to get a [GitHub Access Token](https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token) with a `repo` and `user` scope and save it in the Repo Secrets `GH_TOKEN = <Your GitHub Access Token>`
 
-Here is Sample Workflow File for running it:
+Here is a sample workflow File for running it:
 
 ```yml
 name: Waka Readme
@@ -102,7 +102,7 @@ jobs:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 ```
-- Now you can commit and wait for run automatically, but you can also trigger to run it to see the result now. Just go to the `Actions` in your repo and select your `Profile Readme Development Stats` workflow and click in `Run workflow`. Now wait for a minute or two and you will see your changes.
+- Now you can commit and wait for run automatically, but you can also trigger to run it to see the result now. Just go to the `Actions` in your repo and select your `Waka Readme` workflow and click in `Run workflow`. Now wait for a minute or two and you will see your changes.
 
 ## Extras
 
