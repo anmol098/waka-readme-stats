@@ -15,8 +15,8 @@ If you found any issues or bugs, be sure to open up an issue so I can check it o
 
 ### Opening a pull request
 
-Once you've worked on your feature/bugfix, you can open a pull request using the `master` branch as the base branch. Write a clear and concise PR title, and a detailed description of why you made the change, whether it is related to any issues etc. and we will review it as soon as I can.
-**If the code is not linted properly or not reformatted the PR _will be rejected_.**
+Once you've worked on your feature/bugfix, you can open a pull request using the `master` branch as the base branch. Write a clear and concise PR title, and a detailed description of why you made the change, whether it is related to any issues etc. and we will review it as soon as I can. \
+**If the code is not linted properly or not reformatted the PR _can_ and _will_ be rejected.**
 
 ### Setting up a development environment
 
