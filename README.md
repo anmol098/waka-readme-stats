@@ -102,7 +102,7 @@ jobs:
           WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 ```
-- Now you can commit and wait for it to run automatically, or you can also trigger to run it to see the result now. Just go to the `Actions` in your repo, select your `Waka Readme` workflow and click `Run workflow`. Now wait for a minute or two and you will see your changes.
+- Now you can commit and wait for it to run automatically, or you can also trigger to run it to see the result now. Just go to the `Actions` in your repo, select your `Profile Readme Development Stats` workflow and click `Run workflow`. Now wait for a minute or two and you will see your changes.
 
 ## Extras
 
