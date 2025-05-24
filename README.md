@@ -62,7 +62,7 @@ Add a comment to your `README.md` like this:
 <!--END_SECTION:waka-->
 ```
 
-`waka` can be replaced by any string specified in the `SECTION_NAME` flag as per (the available flags section)[#flags-available]
+`waka` can be replaced by any string specified in the `SECTION_NAME` flag as per [the available flags section](#flags-available)
 
 These lines will be our entry-points for the dev metrics.
 
@@ -127,7 +127,7 @@ jobs:
 
 `COMMIT_MESSAGE`        flag can be set to message commit, default is "Updated with Dev Metrics"
 
-`COMMIT_USERNAME`        flag can be set to username to commit the code, default is "readme-bot"
+`COMMIT_USERNAME`        flag can be set to username to commit the code, default is "github-actions[bot]"
 
 `COMMIT_EMAIL`        flag can be set to email to commit the code, default is "41898282+github-actions[bot]@users.noreply.github.com"
 
