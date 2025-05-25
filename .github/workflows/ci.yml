@@ -1,8 +1,7 @@
 name: CI
 
 on: 
-  pull_request_target:
-    types: [assigned, opened, synchronize, reopened]
+  pull_request:
   workflow_dispatch:
 
 concurrency:
