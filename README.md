@@ -49,7 +49,8 @@
 > [!NOTE]
 > Enabling the `repo` scope seems **DANGEROUS**, \
 > but this GitHub Action only accesses your commit timestamps and the number of lines of code added or deleted in repositories that you contributed to.
-4. You need to save the WakaTime API Key and the GitHub API Token in the repository secrets. You can find that in the Settings of your repository. Be sure to save those as the following:
+4. You need to save the WakaTime API Key and the GitHub API Token in the repository secrets. You can find that in the Settings of your repository. \
+  Be sure to save those as the following:
     - WakaTime API Key as `WAKATIME_API_KEY=<your wakatime API Key>`
     - GitHub Personal Access Token (PAT) as `GH_TOKEN=<your github access token>`
 5. You can enable and disable feature flags based on your requirements.
