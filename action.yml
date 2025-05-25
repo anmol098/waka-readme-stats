@@ -15,7 +15,7 @@ inputs:
   WAKATIME_API_URL:
     description: 'Wakatime API URL'
     required: false
-    default: "https://wakatime.com/api/"
+    default: "https://wakatime.com/api/v1/"
 
   SECTION_NAME:
     description: 'Name used in readme to scope the updated section'
