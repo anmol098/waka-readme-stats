@@ -1,7 +1,7 @@
 dependencies:
- - head-branch: ["^dep", "deps"]
- - changed-files:
-   - any-glob-to-any-file: "requirements.txt"
+  - head-branch: ["^dep", "deps"]
+  - changed-files:
+    - any-glob-to-any-file: "requirements.txt"
 
 docker:
   - changed-files:
