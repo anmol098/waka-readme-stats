@@ -1,0 +1,24 @@
+dependencies:
+  - head-branch: ["^dep", "deps"]
+  - changed-files:
+    - any-glob-to-any-file: "requirements.txt"
+
+docker:
+  - changed-files:
+    - any-glob-to-any-file: "Dockerfile"
+
+documentation:
+  - changed-files:
+    - any-glob-to-any-file: "**/**.md"
+
+github_actions:
+  - changed-files:
+    - any-glob-to-any-file: ".github/workflows/**"
+
+python:
+  - changed-files:
+    - any-glob-to-any-file: ["sources/**", "!sources/translation.json"]
+
+translation:
+  - changed-files:
+    - any-glob-to-any-file: "sources/translation.json"

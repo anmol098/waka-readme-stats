@@ -1,8 +1,8 @@
 name: CI
 
 on:
-  pull_request:
-  workflow_dispatch:
+  - pull_request_target
+  - workflow_dispatch
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
@@ -15,12 +15,12 @@ jobs:
 
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Setup Python 3.11 🐍
-        uses: actions/setup-python@v4
+      - name: Setup Python 3.13 🐍
+        uses: actions/setup-python@v5
         with:
-          python-version: 3.11
+          python-version: 3.13
           cache: 'pip'
 
       - name: Install Dependencies 📥
@@ -69,7 +69,7 @@ jobs:
           echo BRANCH_NAME=${BRANCH_NAME} >> $GITHUB_ENV
 
       - name: Upload Artifact 📦
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: ${{ github.ref != 'refs/heads/master' }}
         with:
           name: ${{ format('github-pages-for-branch-{0}', env.BRANCH_NAME) }}
