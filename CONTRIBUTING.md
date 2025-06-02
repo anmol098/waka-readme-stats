@@ -43,10 +43,6 @@ Use
 ```bash
 python main.py
 ``` 
-or if it doesn't work
-```bash
-python3 main.py
-```
 to run the program.
 
 **Linting checks**
