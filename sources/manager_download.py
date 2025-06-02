@@ -166,7 +166,7 @@ class DownloadManager:
                 await resource
 
     @staticmethod
-    async def _get_remote_resource(resource: str, convertor: Optional[Callable[[bytes], Dict]]) -> Dict:
+    async def _get_remote_resource(resource: str, convertor: Optional[Callable[[bytes], Dict]]) -> Dict or None:
         """
         Receive execution result of static query, wait for it if necessary.
         If the query wasn't cached previously, cache it.
@@ -174,7 +174,7 @@ class DownloadManager:
         :param resource: Static query identifier.
         :param convertor: Optional function to convert `response.contents` to dict.
             By default `response.json()` is used.
-        :return: Response dictionary.
+        :return: Response dictionary or None.
         """
         DBM.i(f"\tMaking a remote API query named '{resource}'...")
         if isinstance(DownloadManager._REMOTE_RESOURCES_CACHE[resource], Awaitable):
@@ -189,11 +189,17 @@ class DownloadManager:
                 return res.json()
             else:
                 return convertor(res.content)
+        elif res.status_code == 201:
+            DBM.w(f"\tQuery '{resource}' returned 201 status code")
+            return None
+        elif res.status_code == 202:
+            DBM.w(f"\tQuery '{resource}' returned 202 status code")
+            return None
         else:
             raise Exception(f"Query '{res.url}' failed to run by returning code of {res.status_code}: {res.json()}")
 
     @staticmethod
-    async def get_remote_json(resource: str) -> Dict:
+    async def get_remote_json(resource: str) -> Dict or None:
         """
         Shortcut for `_get_remote_resource` to return JSON response data.
         :param resource: Static query identifier.
@@ -202,7 +208,7 @@ class DownloadManager:
         return await DownloadManager._get_remote_resource(resource, None)
 
     @staticmethod
-    async def get_remote_yaml(resource: str) -> Dict:
+    async def get_remote_yaml(resource: str) -> Dict or None:
         """
         Shortcut for `_get_remote_resource` to return YAML response data.
         :param resource: Static query identifier.
@@ -271,9 +277,7 @@ class DownloadManager:
             query_response = await DownloadManager._fetch_graphql_query(query, **kwargs, pagination=pagination)
             new_page_list, page_info = DownloadManager._find_pagination_and_data_list(query_response)
             page_list += new_page_list
-        _, page_info = DownloadManager._find_pagination_and_data_list(initial_query_response)
-        page_info.clear()
-        return initial_query_response
+        return page_list
 
     @staticmethod
     async def get_remote_graphql(query: str, **kwargs) -> Dict:

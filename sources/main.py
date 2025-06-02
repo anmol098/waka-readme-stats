@@ -31,6 +31,9 @@ async def get_waka_time_stats(repositories: Dict, commit_dates: Dict) -> str:
     stats = str()
 
     data = await DM.get_remote_json("waka_latest")
+    if data is None:
+        DBM.p("WakaTime data unavailable!")
+        return stats
     if EM.SHOW_COMMIT or EM.SHOW_DAYS_OF_WEEK:  # if any on flag is turned on then we need to calculate the data and print accordingly
         DBM.i("Adding user commit day time info...")
         stats += f"{await make_commit_day_time_list(data['data']['timezone'], repositories, commit_dates)}\n\n"
@@ -89,6 +92,9 @@ async def get_short_github_info() -> str:
     stats += f"> 📦 {disk_usage} \n > \n"
 
     data = await DM.get_remote_json("github_stats")
+    if data is None:
+        DBM.p("GitHub contributions data unavailable!")
+        return stats
     DBM.i("Adding contributions info...")
     if len(data["years"]) > 0:
         contributions = FM.t("Contributions in the year") % (intcomma(data["years"][0]["total"]), data["years"][0]["year"])
@@ -129,15 +135,15 @@ async def collect_user_repositories() -> Dict:
     """
     DBM.i("Getting user repositories list...")
     repositories = await DM.get_remote_graphql("user_repository_list", username=GHM.USER.login, id=GHM.USER.node_id)
-    repo_names = [repo["name"] for repo in repositories["data"]["user"]["repositories"]["nodes"]]
+    repo_names = [repo["name"] for repo in repositories]
     DBM.g("\tUser repository list collected!")
 
     contributed = await DM.get_remote_graphql("repos_contributed_to", username=GHM.USER.login)
-    contributed_nodes = [r for r in contributed["data"]["user"]["repositoriesContributedTo"]["nodes"] if r["name"] not in repo_names and not r["isFork"]]
+
+    contributed_nodes = [repo for repo in contributed if repo is not None and repo["name"] not in repo_names and not repo["isFork"]]
     DBM.g("\tUser contributed to repository list collected!")
 
-    repositories["data"]["user"]["repositories"]["nodes"] += contributed_nodes
-    return repositories
+    return repositories + contributed_nodes
 
 
 async def get_stats() -> str:
@@ -161,7 +167,10 @@ async def get_stats() -> str:
     if EM.SHOW_TOTAL_CODE_TIME:
         DBM.i("Adding total code time info...")
         data = await DM.get_remote_json("waka_all")
-        stats += f"![Code Time](http://img.shields.io/badge/{quote('Code Time')}-{quote(str(data['data']['text']))}-blue)\n\n"
+        if data is None:
+            DBM.p("WakaTime data unavailable!")
+        else:
+            stats += f"![Code Time](http://img.shields.io/badge/{quote('Code Time')}-{quote(str(data['data']['text']))}-blue)\n\n"
 
     if EM.SHOW_PROFILE_VIEWS:
         DBM.i("Adding profile views info...")
