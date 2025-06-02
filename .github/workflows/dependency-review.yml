@@ -11,9 +11,9 @@ jobs:
 
     steps:
       - name: Checkout repository 🛎️
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Dependency review 👀
-        uses: actions/dependency-review-action@v3
+        uses: actions/dependency-review-action@v4
         with:
           comment-summary-in-pr: true
