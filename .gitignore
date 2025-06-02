@@ -16,3 +16,7 @@ __pycache__/
 # IDE configuration files:
 .vscode
 .idea
+
+# macOS generated files
+.DS_Store
+*.DS_Store
