@@ -8,7 +8,7 @@ humanize~=4.12.3
 
 # Graphs drawing modules:
 matplotlib~=3.10.3
-numpy~=2.2.6
+numpy~=1.26.4
 
 # Request making and response parsing modules:
 httpx~=0.28.1
