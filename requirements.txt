@@ -7,7 +7,7 @@ pytz~=2022.7
 humanize~=4.6
 
 # Graphs drawing modules:
-matplotlib~=3.7
+matplotlib~=3.8
 numpy~=1.24
 
 # Request making and response parsing modules:
