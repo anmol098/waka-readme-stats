@@ -302,7 +302,7 @@ Contributions are welcome ♥! Please share any features, and add unit tests! Us
 10. [Ss5h](https://github.com/tlatkdgus1): For adding support for natural sentence writing for translation [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
 
 <details>
-<summary>Special mention for those who are currently making their profile readme more awesome :smile: :tada:</summary>
+<summary>Special mention for those who are currently making their profile readme more awesome 😄🎉</summary>
 
   - [Stanislas](https://github.com/angristan)
   
