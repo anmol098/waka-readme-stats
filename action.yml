@@ -142,6 +142,11 @@ inputs:
     description: "Version of the symbol block and empty of the progress bar"
     default: "1"
 
+  BADGE_STYLE:
+    required: false
+    description: "Style for the badge maker (flat, flat-square, plastic, for-the-badge, social)"
+    default: "flat"
+
   DEBUG_LOGGING:
     required: false
     description: "Whether to enable action debug logging"
