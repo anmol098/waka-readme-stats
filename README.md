@@ -265,13 +265,13 @@ The `SYMBOL_VERSION` flag can be set for the symbol for the progress bar (defaul
 
 The `DEBUG_LOGGING` flag can be set to increase the GitHub Action's output verbosity, The default is the internal runner's debug property.
 The `BADGE_STYLE` flag defines the style for the generated badges and can be set to `flat`, `flat-square`, `plastic`, `for-the-badge`, or `social`.
-| Badge Style Name |                                              Preview                                              |
-| ---------------- | ------------------------------------------------------------------------------------------------- |
-|       `flat`     | ![Badge Style `flat`](https://img.shields.io/badge/Badge-Style-blue?style=flat)                   |
-|   `flat-square`  | ![Badge Style `flat-square`](https://img.shields.io/badge/Badge-Style-blue?style=flat-square)     |
-|     `plastic`    | ![Badge Style `plastic`](https://img.shields.io/badge/Badge-Style-blue?style=plastic)             |
-|  `for-the-badge` | ![Badge Style `for-the-badge`](https://img.shields.io/badge/Badge-Style-blue?style=for-the-badge) |
-|      `social`    | ![Badge Style `social`](https://img.shields.io/badge/Badge-Style-blue?style=social)               |
+|    Badge Style    |                                             Preview                                               |
+| ----------------- | ------------------------------------------------------------------------------------------------- |
+|       `flat`      | ![Badge Style `flat`](https://img.shields.io/badge/Badge-Style-blue?style=flat)                   |
+|   `flat-square`   | ![Badge Style `flat-square`](https://img.shields.io/badge/Badge-Style-blue?style=flat-square)     |
+|     `plastic`     | ![Badge Style `plastic`](https://img.shields.io/badge/Badge-Style-blue?style=plastic)             |
+|  `for-the-badge`  | ![Badge Style `for-the-badge`](https://img.shields.io/badge/Badge-Style-blue?style=for-the-badge) |
+|      `social`     | ![Badge Style `social`](https://img.shields.io/badge/Badge-Style-blue?style=social)               |
 
 **Timeline**
 
