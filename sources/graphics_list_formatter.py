@@ -3,6 +3,7 @@ from typing import Dict, Tuple, List
 from datetime import datetime
 
 from pytz import timezone, utc
+from wcwidth import wcswidth, wcwidth
 
 from manager_environment import EnvironmentManager as EM
 from manager_file import FileManager as FM
@@ -71,7 +72,7 @@ def make_list(data: List = None, names: List[str] = None, texts: List[str] = Non
 
     data = list(zip(names, texts, percents))
     top_data = sorted(data[:top_num], key=lambda record: record[2], reverse=True) if sort else data[:top_num]
-    data_list = [f"{n[:25]}{' ' * (25 - len(n))}{t}{' ' * (20 - len(t))}{make_graph(p)}   {p:05.2f} % " for n, t, p in top_data]
+    data_list = [f"{pad_string(n, 25)}{pad_string(t, 20)}{make_graph(p)}   {p:05.2f} % " for n, t, p in top_data]
     return "\n".join(data_list)
 
 
@@ -141,3 +142,17 @@ def make_language_per_repo_list(repositories: Dict) -> str:
     top_language = max(list(language_count.keys()), key=lambda x: language_count[x]["count"])
     title = f"**{FM.t('I Mostly Code in') % top_language}** \n\n" if len(repos_with_language) > 0 else ""
     return f"{title}```text\n{make_list(names=names, texts=texts, percents=percents)}\n```\n\n"
+
+def pad_string(string: str, length: int) -> str:
+    """
+    Pad string with spaces to the specified length, or truncate it if it's too long.
+
+    :param string: The string to pad.
+    :param length: The length to pad the string to.
+    :returns: The padded or truncated string.
+    """
+    width = wcswidth(string)
+    while width > length:
+        width -= wcwidth(string[-1])
+        string = string[:-1]
+    return string + " " * (length - width)
