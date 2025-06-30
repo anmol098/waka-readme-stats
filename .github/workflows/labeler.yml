@@ -1,9 +1,10 @@
-name: "Pull Request Labeler"
+name: Pull Request Labeler
 on:
-- pull_request_target
+  pull_request_target:
 
 jobs:
   labeler:
+    name: Label PRs
     permissions:
       contents: read
       pull-requests: write
