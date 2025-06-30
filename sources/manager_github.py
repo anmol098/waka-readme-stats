@@ -6,12 +6,11 @@ from re import sub
 from shutil import copy, rmtree
 from string import ascii_letters
 
-from git import Repo, Actor
-from github import Github, AuthenticatedUser, Repository
-
+from git import Actor, Repo
+from github import AuthenticatedUser, Github, Repository
+from manager_debug import DebugManager as DBM
 from manager_environment import EnvironmentManager as EM
 from manager_file import FileManager as FM
-from manager_debug import DebugManager as DBM
 
 
 def init_github_manager():
@@ -109,7 +108,7 @@ class GitHubManager:
 
         with open(readme_path, "r") as readme_file:
             readme_contents = readme_file.read()
-        readme_stats = f"{GitHubManager._START_COMMENT}\n{stats}\n{GitHubManager._END_COMMENT}"
+        readme_stats = f"{GitHubManager._START_COMMENT}\n\n{stats}\n{GitHubManager._END_COMMENT}"
         new_readme = sub(GitHubManager._README_REGEX, readme_stats, readme_contents)
 
         with open(readme_path, "w") as readme_file:
