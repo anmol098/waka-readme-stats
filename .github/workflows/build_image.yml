@@ -39,7 +39,8 @@ jobs:
       - name: Build and push Docker image 🏗️
         uses: docker/build-push-action@v6
         with:
-          push: ${{ github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/releases') }}
+          # push: ${{ github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/releases') }}
+          push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
