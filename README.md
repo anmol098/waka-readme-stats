@@ -1,7 +1,7 @@
 > [!IMPORTANT]
-> We are looking for translators for this project. \
-> Any kind of help would be greatly appreciated. \
-> Please see issue https://github.com/anmol098/waka-readme-stats/issues/23 if you would like to help!
+> ### We are looking for translators for this project.
+> Any kind of help would be _greatly_ appreciated. \
+> Please see **issue https://github.com/anmol098/waka-readme-stats/issues/23** if you would like to help!
 
 # Dev Metrics in README with added feature flags 🎌
 
@@ -122,7 +122,7 @@ If you want to add the other info to your stats, you can add multiple `FLAGS` in
 
 ---
 
-`LOCALE`  This flag can be used to show stats in your language. Default is English. Locale [Short Hand](https://saimana.com/list-of-country-locale-code/) to be passed in the flag variable. Example of the final result can be found [here](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)
+The `LOCALE` flag can be used to show stats in your language. The default is English. Locale [Short Hand](https://saimana.com/list-of-country-locale-code/) shoud=ld be passed in the flag variable. Example of the final result can be found [here](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)
 
 The `SECTION_NAME` flag can be set to any string, and will be the name of the section to replace in the README.
 
@@ -276,7 +276,7 @@ this takes time. You can use this service for free.
 
 However, if you are using this project and happy with it or just want to encourage me to continue creating stuff, there are few ways you can do it :-
 
-- Giving proper credit when you use this action on your readme, linking back to it :D
+- Giving proper credit when you use this action on your README, and linking back to it :D
 - Starring and sharing the project :rocket:
 - [![paypal.me/aapreneur](https://ionicabizau.github.io/badges/paypal.svg)](https://www.paypal.me/aapreneur) - You can make one-time donations via PayPal. I'll probably buy some ~~beer~~ wine 🍷.
 
@@ -302,7 +302,7 @@ Contributions are welcome ♥! Please share any features, and add unit tests! Us
 10. [Ss5h](https://github.com/tlatkdgus1): For adding support for natural sentence writing for translation [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
 
 <details>
-<summary>Special mention for those who are currently making their profile readme more awesome :smile: :tada:</summary>
+<summary>Special mention for those who are currently making their profile README more awesome :smile: :tada:!</summary>
 
   - [Stanislas](https://github.com/angristan)
   
@@ -442,7 +442,7 @@ Contributions are welcome ♥! Please share any features, and add unit tests! Us
 
   - [Luicen Loua](https://github.com/lucien-loua)
 
-  
+  - [Souleymane Sy](https://github.com/souleymanesy7)
 
 </details>
 
@@ -454,7 +454,8 @@ Made with :heart: and Python 🐍.
 
 # Inspired From
 
-> [Awesome Pinned Gists](https://github.com/matchai/awesome-pinned-gists) <br/>
+> [Awesome Pinned Gists](https://github.com/matchai/awesome-pinned-gists)
+> <br>
 > [athul/waka-readme](https://github.com/athul/waka-readme)
 
 ### This project needs a **star** ⭐ from you ♥.
