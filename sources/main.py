@@ -95,6 +95,7 @@ async def get_short_github_info() -> str:
     if data is None:
         DBM.p("GitHub contributions data unavailable!")
         return stats
+
     DBM.i("Adding contributions info...")
     if len(data["years"]) > 0:
         contributions = FM.t("Contributions in the year") % (intcomma(data["years"][0]["total"]), data["years"][0]["year"])
