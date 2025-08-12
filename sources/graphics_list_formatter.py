@@ -42,7 +42,10 @@ def make_graph(percent: float):
     :param percent: Completion percent of the progress bar.
     :return: The string progress bar representation.
     """
-    done_block, empty_block = Symbol.get_symbols(EM.SYMBOL_VERSION)
+    if len(EM.SYMBOL_STYLE) == 2:
+        done_block, empty_block = EM.SYMBOL_STYLE[0], EM.SYMBOL_STYLE[1]   
+    else:
+        done_block, empty_block = Symbol.get_symbols(EM.SYMBOL_VERSION)
     percent_quart = round(percent / 4)
     return f"{done_block * percent_quart}{empty_block * (25 - percent_quart)}"
 
@@ -108,14 +111,14 @@ async def make_commit_day_time_list(time_zone: str, repositories: Dict, commit_d
         dt_texts = [f"{day_time} commits" for day_time in day_times]
         dt_percents = [0 if sum_day == 0 else round((day_time / sum_day) * 100, 2) for day_time in day_times]
         title = FM.t("I am an Early") if sum(day_times[0:2]) >= sum(day_times[2:4]) else FM.t("I am a Night")
-        stats += f"**{title}** \n\n```text\n{make_list(names=dt_names, texts=dt_texts, percents=dt_percents, top_num=7, sort=False)}\n```\n"
+        stats += f"**{title}** \n\n```{EM.CODE_BLOCK_LANGUAGE}\n{make_list(names=dt_names, texts=dt_texts, percents=dt_percents, top_num=7, sort=False)}\n```\n"
 
     if EM.SHOW_DAYS_OF_WEEK:
         wd_names = [FM.t(week_day) for week_day in WEEK_DAY_NAMES]
         wd_texts = [f"{week_day} commits" for week_day in week_days]
         wd_percents = [0 if sum_week == 0 else round((week_day / sum_week) * 100, 2) for week_day in week_days]
         title = FM.t("I am Most Productive on") % wd_names[wd_percents.index(max(wd_percents))]
-        stats += f"📅 **{title}** \n\n```text\n{make_list(names=wd_names, texts=wd_texts, percents=wd_percents, top_num=7, sort=False)}\n```\n"
+        stats += f"📅 **{title}** \n\n```{EM.CODE_BLOCK_LANGUAGE}\n{make_list(names=wd_names, texts=wd_texts, percents=wd_percents, top_num=7, sort=False)}\n```\n"
 
     return stats
 
@@ -140,4 +143,4 @@ def make_language_per_repo_list(repositories: Dict) -> str:
 
     top_language = max(list(language_count.keys()), key=lambda x: language_count[x]["count"])
     title = f"**{FM.t('I Mostly Code in') % top_language}** \n\n" if len(repos_with_language) > 0 else ""
-    return f"{title}```text\n{make_list(names=names, texts=texts, percents=percents)}\n```\n\n"
+    return f"{title}```{EM.CODE_BLOCK_LANGUAGE}\n{make_list(names=names, texts=texts, percents=percents)}\n```\n\n"

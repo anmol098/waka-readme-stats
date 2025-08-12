@@ -263,7 +263,11 @@ The `SYMBOL_VERSION` flag can be set for the symbol for the progress bar (defaul
 |    2    |      ⣿     |       ⣀     |
 |    3    |      ⬛    |       ⬜    |
 
-The `DEBUG_LOGGING` flag can be set to increase the GitHub Action's output verbosity, by default equals internal runner debug property
+The `SYMBOL_STYLE` flag can be set to `"▰▱"` (just an example) to change the style of progress bar (by default is empty). If the length of the string is not 2, the default symbol version will be used.
+
+The `CODE_BLOCK_LANGUAGE` flag can be set to `"python"` (just an example) to change the language of code blocks (by default is `"text"`). Here is a [list](https://github.com/jincheng9/markdown_supported_languages) of the language code blocks supported by github.
+
+The `DEBUG_LOGGING` flag can be set to increase the GitHub Action's output verbosity, by default equals internal runner debug property.
 
 **Timeline**
 
@@ -427,6 +431,8 @@ Contributions are welcome ♥! Please share any features, and add unit tests! Us
   - [Wyatt Walsh](https://www.github.com/wyattowalsh)
 
   - [Nithin Balaji](https://github.com/thenithinbalaji)
+  
+  - [Caupolicán Ré](https://github.com/caupolicanre)
 
   - [John Cortés](https://github.com/johncortes117)
 
