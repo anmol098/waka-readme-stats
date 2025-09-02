@@ -218,8 +218,8 @@
     "public repositories": "%d 公共倉庫",
     "private repository": "%d 私人倉庫",
     "private repositories": "%d 私人倉庫",
-    "I am an Early": "我是早起的",
-    "I am a Night": "我是夜貓子"
+    "I am an Early": "我是早起的 🐤",
+    "I am a Night": "我是夜貓子 🦉"
   },
   "ar": {
     "Monday": "الأثنين",
@@ -773,7 +773,7 @@
     "public repositories": "%d Ripozitori za umma",
     "private repository": "%d Ripozitori ya kibinafsi",
     "private repositories": "%d Ripozitori za kibinafsi",
-    "I am an Early" : "Mimi ni mapema",
-    "I am a Night" : "Mimi ni usiku"
+    "I am an Early" : "Mimi ni mapema 🐤",
+    "I am a Night" : "Mimi ni usiku 🦉"
   }
 }
