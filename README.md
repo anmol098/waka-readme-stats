@@ -1,7 +1,6 @@
-> [!IMPORTANT]
-> We are looking for translators for this project. \
-> Any kind of help would be greatly appreciated. \
-> Please see issue https://github.com/anmol098/waka-readme-stats/issues/23 if you would like to help!
+> [!NOTE]
+> 🌍 **Translations Available:** This project now supports **34 languages**! \
+> Additional translations are welcome. See [supported languages](#flags-available) or contribute via issue [#23](https://github.com/anmol098/waka-readme-stats/issues/23).
 
 # Dev Metrics in README with added feature flags 🎌
 
@@ -123,6 +122,33 @@ If you want to add the other info to your stats, you can add multiple `FLAGS` in
 ---
 
 `LOCALE`  This flag can be used to show stats in your language. Default is English. Locale [Short Hand](https://saimana.com/list-of-country-locale-code/) to be passed in the flag variable. Example of the final result can be found [here](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)
+
+**Supported Languages (34):**
+
+| Code | Language | Code | Language | Code | Language |
+|------|----------|------|----------|------|----------|
+| `en` | English (Default) | `fr` | Français (French) | `es` | Español (Spanish) |
+| `de` | Deutsch (German) | `it` | Italiano (Italian) | `pt` | Português (Portuguese) |
+| `pt-BR` | Português Brasileiro | `ru` | Русский (Russian) | `zh` | 简体中文 (Simplified Chinese) |
+| `zh_TW` | 繁體中文 (Traditional Chinese) | `ja` | 日本語 (Japanese) | `ko` | 한국어 (Korean) |
+| `hi` | हिन्दी (Hindi) | `bn` | বাংলা (Bengali) | `ar` | العربية (Arabic) |
+| `fa` | فارسی (Persian) | `he` | עברית (Hebrew) | `tr` | Türkçe (Turkish) |
+| `pl` | Polski (Polish) | `uk` | Українська (Ukrainian) | `cs` | Čeština (Czech) |
+| `nl` | Nederlands (Dutch) | `sv` | Svenska (Swedish) | `no` | Norsk (Norwegian) |
+| `da` | Dansk (Danish) | `fi` | Suomi (Finnish) | `el` | Ελληνικά (Greek) |
+| `hu` | Magyar (Hungarian) | `ro` | Română (Romanian) | `th` | ไทย (Thai) |
+| `id` | Bahasa Indonesia | `vn` | Tiếng Việt (Vietnamese) | `ca` | Català (Catalan) |
+| `gl` | Galego (Galician) | | | | |
+
+**Example Usage:**
+
+```yml
+- uses: anmol098/waka-readme-stats@master
+  with:
+      WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      LOCALE: "ja"  # Display stats in Japanese
+```
 
 The `SECTION_NAME` flag can be set to any string, and will be the name of the section to replace in the README.
 
