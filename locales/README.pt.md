@@ -1,98 +1,95 @@
 <!--START_SECTION:navbar-->
 <div align="center">
-  <a href="README.md">🇺🇸 English</a> | <a href="locales/README.de.md">🇩🇪 Deutsch</a> | <a href="locales/README.es.md">🇪🇸 Español</a> | <a href="locales/README.fr.md">🇫🇷 Français</a> | <a href="locales/README.hi.md">🇮🇳 हिंदी</a> | <a href="locales/README.ja.md">🇯🇵 日本語</a> | <a href="locales/README.ko.md">🇰🇷 한국어</a> | <a href="locales/README.pt.md">🇵🇹 Português</a> | <a href="locales/README.ru.md">🇷🇺 Русский</a> | <a href="locales/README.zh.md">🇨🇳 中文</a>
+  <a href="../README.md">🇺🇸 English</a> | <a href="README.de.md">🇩🇪 Deutsch</a> | <a href="README.es.md">🇪🇸 Español</a> | <a href="README.fr.md">🇫🇷 Français</a> | <a href="README.hi.md">🇮🇳 हिंदी</a> | <a href="README.ja.md">🇯🇵 日本語</a> | <a href="README.ko.md">🇰🇷 한국어</a> | <a href="README.pt.md">🇵🇹 Português</a> | <a href="README.ru.md">🇷🇺 Русский</a> | <a href="README.zh.md">🇨🇳 中文</a>
 </div>
 <!--END_SECTION:navbar-->
 
-> [!IMPORTANT]
-> We are looking for translators for this project. \
-> Any kind of help would be greatly appreciated. \
-> Please see issue <https://github.com/anmol098/waka-readme-stats/issues/23> if you would like to help!
+> [!IMPORTANTE]
+> Estamos em busca de tradutores para este projeto.
+> Qualquer tipo de ajuda será muito apreciada.
+> Por favor, consulte o issue [aqui](https://github.com/anmol098/waka-readme-stats/issues/23) se desejar contribuir!
 
-# Dev Metrics in README with added feature flags 🎌
+# Métricas de Desenvolvimento no README com recursos adicionais habilitados 🎌
 
-![Project Preview](https://user-images.githubusercontent.com/25841814/79395484-5081ae80-7fac-11ea-9e27-ac91472e31dd.png)
+![Pré-visualização do Projeto](https://user-images.githubusercontent.com/25841814/79395484-5081ae80-7fac-11ea-9e27-ac91472e31dd.png)
 
-<p align="center">
+![Project Preview](https://user-images.githubusercontent.com/15426564/88030180-8e1c4780-cb58-11ea-8a8b-b3576dd73652.png)
 
-  ![Project Preview](https://user-images.githubusercontent.com/15426564/88030180-8e1c4780-cb58-11ea-8a8b-b3576dd73652.png)
-
-  <h3 align="center">📌✨Awesome README Stats</h3>
-</p>
+# 📌✨ Estatísticas Incríveis do README
 
 ----
 
 <p align="center">
-   <img src="https://img.shields.io/badge/language-python-blue?style"/>
+   <img src="https://img.shields.io/badge/linguagem-Python-blue?style"/>
    <img src="https://img.shields.io/github/license/anmol098/waka-readme-stats"/>
    <img src="https://img.shields.io/github/stars/anmol098/waka-readme-stats"/>
    <img src="https://img.shields.io/github/forks/anmol098/waka-readme-stats"/>
-   <img src="https://img.shields.io/static/v1?label=%F0%9F%8C%9F&message=If%20Useful&style=style=flat&color=BC4E99" alt="Star Badge"/>
+   <img src="https://img.shields.io/static/v1?label=%F0%9F%8C%9F&message=Se+útil&style=flat&color=BC4E99" alt="Badge de Estrelas"/>
 </p>
 
 <p align="center">
-   Are you an early 🐤 or a night 🦉?
+   Você é uma gaivota matinal 🐤 ou uma coruja noturna 🦉?
    <br/>
-   When are you most productive during the day?
+   Em que horário do dia você é mais produtivo?
    <br/>
-   What are the languages that you code in?
+   Quais são as linguagens de programação que você usa?
    <br/>
-   Let's check it out in your profile's README!
+   Vamos descobrir no seu README de perfil!
 </p>
 
 <p align="center">
-    <a href="https://github.com/anmol098/waka-readme-stats/issues">Report Bug</a>
+    <a href="https://github.com/anmol098/waka-readme-stats/issues">Relatar Erro</a>
     ·
-    <a href="https://github.com/anmol098/waka-readme-stats/issues">Request Feature</a>
-  </p>
+    <a href="https://github.com/anmol098/waka-readme-stats/issues">Solicitar Funcionalidade</a>
+</p>
 
-## Prep Work
+## Trabalho Prévio
 
-1. You need to update the markdown file(`.md`) with 2 comments. You can refer [here](#update-your-readme) for updating it.
-2. You'll need a WakaTime API Key. You can get that from your WakaTime Account Settings
-    - You can refer [here](#new-to-wakatime), if you're new to WakaTime.
-3. You'll need a GitHub API Token with `repo` and `user` scope from [here](https://github.com/settings/tokens) if you're running the action to get commit metrics.
-   - You can use [this](#profile-repository) example to work it out.
+1. Você precisa atualizar o arquivo Markdown (`.md`) com 2 comentários. Consulte [aqui](#update-your-readme) para instruções de atualização.
+2. Você exigirá uma Chave de API do WakaTime. Você pode obter essa chave em suas Configurações da Conta do WakaTime.
+   - Consulte [aqui](#new-to-wakatime) se você for novo no WakaTime.
+3. Você precisará de um Token de API do GitHub com escopo `repo` e `user` a partir de [aqui](https://github.com/settings/tokens) se você estiver executando a ação para obter métricas de commit.
+   - Utilize [este exemplo](#profile-repository) para configurá-lo.
 
-> [!NOTE]
-> Enabling the `repo` scope seems **DANGEROUS**, \
-> but this GitHub Action only accesses your commit timestamps and the number of lines of code added or deleted in repositories that you contributed to.
+> [!NOTA]
+> Habilitar o escopo `repo` pode ser **PERIGOSO**,
+> pois esta ação do GitHub apenas acessa os carimbos de data e hora dos commits e o número de linhas de código adicionadas ou excluídas nos repositórios aos quais você contribuiu.
 
-1. You need to save the WakaTime API Key and the GitHub API Token in the repository secrets. You can find that in the Settings of your repository. \
-  Be sure to save those as the following:
-    - WakaTime API Key as `WAKATIME_API_KEY=<your wakatime API Key>`
-    - GitHub Personal Access Token (PAT) as `GH_TOKEN=<your github access token>`
-2. You can enable and disable feature flags based on your requirements.
+1. Salve a Chave de API do WakaTime e o Token de Acesso Pessoal do GitHub (PAT) como segredos do repositório. Você pode encontrá-los nas Configurações do seu repositório.
+   - Certifique-se de salvá-los da seguinte forma:
+     - Chave de API do WakaTime como `WAKATIME_API_KEY=<sua chave de API do WakaTime>`
+     - Token de Acesso Pessoal do GitHub (PAT) como `GH_TOKEN=<seu token de acesso do GitHub>`
+2. Você pode ativar e desativar bandeiras de recurso com base em suas necessidades.
 
-This GitHub Action can be set to run at any time you want using `cron`. See [Crontab.guru](https://crontab.guru/) and [this](https://crontab.cronhub.io/) website to generate `cron` expressions.
+Esta ação do GitHub pode ser agendada para ser executada a qualquer momento desejado utilizando `cron`. Consulte [Crontab.guru](https://crontab.guru/) e [este](https://crontab.cronhub.io/) site para gerar expressões `cron`.
 
-## Update your Readme
+## Atualize o seu Readme
 
-Add a comment to your `README.md` like this:
+Adicione um comentário ao seu `README.md` da seguinte forma:
 
 ```md
 <!--START_SECTION:waka-->
 <!--END_SECTION:waka-->
 ```
 
-`waka` can be replaced by any string specified in the `SECTION_NAME` flag as per [the available flags section](#flags-available).
+O `waka` pode ser substituído por qualquer string especificada na bandeira `SECTION_NAME`, conforme descrito na seção [bandeiras disponíveis](#flags-disponíveis).
 
-These lines will be our entry-points for the dev metrics.
+Estas linhas serão nossos pontos de entrada para as métricas de desenvolvimento.
 
-## New to WakaTime
+## Novos no WakaTime
 
-WakaTime gives you an idea of the time you really spent on coding. This helps you boost your productivity and competitive edge.
+O WakaTime oferece uma visão clara do tempo realmente gasto na codificação, auxiliando no aumento da produtividade e na vantagem competitiva.
 
-- Head over to <https://wakatime.com> and create an account.
-- Get your WakaTime API Key from your [Account Settings in WakaTime](https://wakatime.com/settings/account).
-- Install the [WakaTime plugin](https://wakatime.com/plugins) in your favourite editor / IDE.
-- Paste in your API key to start the analysis.
+- Acesse **<https://wakatime.com>** e crie uma conta.
+- Obtenha sua Chave de API do WakaTime em suas **[Configurações da Conta no WakaTime](https://wakatime.com/settings/account)**.
+- Instale o **[Plugin WakaTime](https://wakatime.com/plugins)** em seu editor ou IDE preferido.
+- Cole sua Chave de API para iniciar a análise.
 
-### Profile Repository
+### Repositório de Perfil
 
-You'll need to get a [GitHub Access Token](https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token) with a `repo` and `user` scope and save it in the Repo Secrets `GH_TOKEN = <Your GitHub Access Token>`
+Você precisará obter um [Token de Acesso do GitHub](https://docs.github.com/en/actions/configurando-e-gerenciando-fluxos-de-trabalho/autenticando-com-o-token-do-github) com escopo `repo` e `user` e salvá-lo nos Segredos do Repositório `GH_TOKEN = <Seu Token de Acesso do GitHub>`
 
-Here is a sample workflow File for running it:
+Aqui está um arquivo de fluxo de trabalho de exemplo para executá-lo:
 
 ```yml
 name: Waka Readme
@@ -113,11 +110,11 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 ```
 
-- Now you can commit and wait for it to run automatically, or you can also trigger to run it to see the result now. Just go to the `Actions` in your repo, select your `Profile Readme Development Stats` workflow and click `Run workflow`. Now wait for a minute or two and you will see your changes.
+- Agora você pode fazer o commit e aguardar a execução automática, ou também pode acionar manualmente para ver o resultado imediatamente. Basta ir para a seção `Ações` no seu repositório, selecionar o fluxo de trabalho `Perfil Readme Development Stats` e clicar em `Executar fluxo de trabalho`. Aguarde por um minuto ou dois e você verá as mudanças aplicadas.
 
 ## Extras
 
-If you want to add the other info to your stats, you can add multiple `FLAGS` in your workflow file. By default all flags are enabled (except the lines of code flag due to the heavy operation performed)
+Se você deseja adicionar outras informações às suas estatísticas, pode incluir múltiplos `FLAGS` no arquivo de workflow. Por padrão, todas as bandeiras são ativadas (exceto a bandeira de linhas de código devido à operação pesada realizada).
 
 ```yml
 - uses: anmol098/waka-readme-stats@master
@@ -128,41 +125,41 @@ If you want to add the other info to your stats, you can add multiple `FLAGS` in
       SHOW_PROJECTS: "False"
 ```
 
-### Flags Available
+### Flags Disponíveis
 
 ---
 
-`LOCALE`  This flag can be used to show stats in your language. Default is English. Locale [Short Hand](https://saimana.com/list-of-country-locale-code/) to be passed in the flag variable. Example of the final result can be found [here](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)
+`LOCALE` Esta bandeira pode ser utilizada para exibir as estatísticas no seu idioma. O padrão é o inglês. Códigos de localização abreviados [disponíveis aqui](https://saimana.com/list-of-country-locale-code/) para serem passados na variável da bandeira. Exemplo do resultado final pode ser encontrado [aqui](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md).
 
-The `SECTION_NAME` flag can be set to any string, and will be the name of the section to replace in the README.
+A bandeira `SECTION_NAME` pode ser definida como qualquer string, e será o nome da seção a ser substituída no README.
 
-The `COMMIT_BY_ME` flag can be set to `True` to commit the code using your name and email.
+A bandeira `COMMIT_BY_ME` pode ser definida como `True` para realizar o commit do código com o seu nome e e-mail.
 
-The `COMMIT_MESSAGE` flag can be set for the commit message. The default is "Updated with Dev Metrics"
+A bandeira `COMMIT_MESSAGE` pode ser definida para a mensagem do commit. O padrão é "Atualizado com Métricas de Desenvolvimento".
 
-The `COMMIT_USERNAME` flag can be set as a username to commit the code. The default is "readme-bot".
+A bandeira `COMMIT_USERNAME` pode ser definida como um nome de usuário para realizar o commit do código. O padrão é "readme-bot".
 
-The `COMMIT_EMAIL` flag can be set to an email to commit the code. The default is "41898282+github-actions[bot]@users.noreply.github.com".
+A bandeira `COMMIT_EMAIL` pode ser definida para um e-mail para realizar o commit do código. O padrão é "41898282+github-actions[bot]@users.noreply.github.com".
 
-The `SHOW_UPDATED_DATE` flag can be set to `True` to show the updated date in end of paragraph.
+A bandeira `SHOW_UPDATED_DATE` pode ser definida como `True` para exibir a data de atualização no final do parágrafo.
 
-The `UPDATED_DATE_FORMAT` flag can be set to put the updated date into a format. The default is `"%d/%m/%Y %H:%M:%S"`.
+A bandeira `UPDATED_DATE_FORMAT` pode ser definida para formatar a data de atualização. O padrão é `"%d/%m/%Y %H:%M:%S"`.
 
-The `SHOW_LINES_OF_CODE` flag can be set to `True` to show the number of lines of code writen till date.
+A bandeira `SHOW_LINES_OF_CODE` pode ser definida como `True` para exibir o número de linhas de código escritas até a data.
 
 ![Lines of Code](https://img.shields.io/badge/From%20Hello%20World%20I've%20written-1.3%20million%20Lines%20of%20code-blue)
 
-The `SHOW_TOTAL_CODE_TIME` flag can be set to `False` to hide *Code Time*.
+A flag `SHOW_TOTAL_CODE_TIME` pode ser definida como `False` para ocultar o *Tempo de Código*.
 
 ![Code Time](http://img.shields.io/badge/Code%20Time-1%2C438%20hrs%2054%20mins-blue)
 
-The `SHOW_PROFILE_VIEWS` flag can be set to `False` to hide **Profile Views**
+A flag `SHOW_PROFILE_VIEWS` pode ser definida como `False` para ocultar **Visualizações de Perfil**.
 
 ![Profile Views](http://img.shields.io/badge/Profile%20Views-2189-blue)
 
-The `SHOW_COMMIT` flag can be set to `False` to hide the commit stats.
+A flag `SHOW_COMMIT` pode ser definida como `False` para ocultar as estatísticas de commit.
 
-**I'm an early 🐤**
+**Sou um pássaro precoce 🐤**
 
 ```text
 🌞 Morning    95 commits     ███████░░░░░░░░░░░░░░░░░░   30.55% 
@@ -172,9 +169,9 @@ The `SHOW_COMMIT` flag can be set to `False` to hide the commit stats.
 
 ```
 
-The `SHOW_DAYS_OF_WEEK` flag can be set to `False` to hide the commits made on the different days of the week.
+A flag `SHOW_DAYS_OF_WEEK` pode ser definida como `False` para ocultar os commits feitos nos diferentes dias da semana.
 
-📅 **I'm Most Productive on Sundays**
+📅 **Eu sou mais produtivo(a) aos domingos**
 
 ```text
 Monday       50 commits     ███░░░░░░░░░░░░░░░░░░░░░░   13.19% 
@@ -187,7 +184,7 @@ Sunday       86 commits     █████░░░░░░░░░░░░�
 
 ```
 
-The `SHOW_LANGUAGE` flag can be set to `False` to hide the programming languages you use.
+A bandeira `SHOW_LANGUAGE` pode ser definida como `False` para ocultar as linguagens de programação que você utiliza.
 
 ```text
 💬 Languages:
@@ -198,14 +195,14 @@ Python                   22 mins             █░░░░░░░░░░�
 XML                      8 mins              ░░░░░░░░░░░░░░░░░░░░░░░░░   1.62%
 ```
 
-The `SHOW_OS` flag can be set to `False` to hide your OS details.
+A bandeira `SHOW_OS` pode ser definida como `False` para ocultar os detalhes do seu sistema operacional.
 
 ```text
 💻 Operating Systems:
 Windows                  8 hrs 46 mins       █████████████████████████   100.0%
 ```
 
-The `SHOW_PROJECTS` flag can be set to `False` to hide the projects worked on.
+A bandeira `SHOW_PROJECTS` pode ser definida como `False` para ocultar os projetos nos quais foi trabalhado.
 
 ```text
 🐱‍💻 Projects:
@@ -216,13 +213,13 @@ cable                    54 mins             ██░░░░░░░░░�
 denAPI                   40 mins             ██░░░░░░░░░░░░░░░░░░░░░░░   7.66%
 ```
 
-The `SHOW_TIMEZONE` flag can be set to `False` to hide the time zone you are in.
+A bandeira `SHOW_TIMEZONE` pode ser definida como `False` para ocultar a zona horária em que você está.
 
 ```text
 ⌚︎ Timezone: Asia/Calcutta
 ```
 
-The `SHOW_EDITORS` flag can be set to `False` to hide the list of code editors/IDEs used.
+A bandeira `SHOW_EDITORS` pode ser definida como `False` para ocultar a lista de editores de código/IDEs utilizados.
 
 ```text
 🔥 Editors:
@@ -231,9 +228,9 @@ PhpStorm                 1 hr 35 mins        ████░░░░░░░�
 PyCharm                  23 mins             █░░░░░░░░░░░░░░░░░░░░░░░░   4.49%
 ```
 
-The `SHOW_LANGUAGE_PER_REPO` flag can be set to `False` to hide the number of repositories in different programming languages and frameworks.
+A flag `SHOW_LANGUAGE_PER_REPO` pode ser definida como `False` para ocultar o número de repositórios em diferentes linguagens de programação e frameworks.
 
-**I mostly code in Vue**
+**Eu programo principalmente em Vue**
 
 ```text
 Vue          8 repos        ██████░░░░░░░░░░░░░░░░░░░   25.0% 
@@ -281,37 +278,34 @@ The `DEBUG_LOGGING` flag can be set to increase the GitHub Action's output verbo
 
 ![Chart not found](https://raw.githubusercontent.com/anmol098/anmol098/master/charts/bar_graph.png)
 
-## :sparkling_heart: Support the project
+## :coração_explodindo: Apoie o projeto
 
-I open-source almost everything I can, and I try to reply to everyone needing help using these projects. Obviously,
-this takes time. You can use this service for free.
+Eu disponibilizo quase tudo o que posso em código aberto e me esforço para responder a todas as pessoas que precisam de ajuda usando esses projetos. Obviamente, isso leva tempo. Você pode usar este serviço gratuitamente.
 
-However, if you are using this project and happy with it or just want to encourage me to continue creating stuff, there are few ways you can do it :-
+No entanto, se você estiver utilizando este projeto e estiver satisfeito com ele ou simplesmente quiser me incentivar a continuar criando coisas, existem algumas maneiras de fazer isso:
 
-- Giving proper credit when you use this action on your readme, linking back to it :D
-- Starring and sharing the project :rocket:
-- [![paypal.me/aapreneur](https://ionicabizau.github.io/badges/paypal.svg)](https://www.paypal.me/aapreneur) - You can make one-time donations via PayPal. I'll probably buy some ~~beer~~ wine 🍷.
+- Dando o devido crédito quando usar esta ação no seu README, linkando de volta a ela :D
+- Estrelando e compartilhando o projeto :foguete:
+- **[Doar via PayPal](https://www.paypal.me/aapreneur)** - Você pode fazer doações únicas via PayPal. Provavelmente comprarei algumas ~~cervejas~~ vinhos 🍷.
 
-Thanks! :heart:
+Obrigado! :coração:
 
----
+# Contribuição
 
-# Contributing
+Contribuições são bem-vindas ♥! Por favor, compartilhe quaisquer recursos e adicione testes unitários! Utilize os sistemas de solicitação de puxar (pull request) e de problemas (issue) para contribuir.
 
-Contributions are welcome ♥! Please share any features, and add unit tests! Use the pull request and issue systems to contribute.
+# Contribuidores Selecionados
 
-# Selected Contributors
-
-1. [Anmol Pratap Singh](https://github.com/anmol098): Maintainer
-2. [Alexander Sergeev](https://github.com/pseusys): Maintainer
-3. [Aravind V. Nair](https://github.com/aravindvnair99): Maintainer
-4. [Prabhat Singh](https://github.com/prabhatdev): For code timeline graph [#18](https://github.com/anmol098/waka-readme-stats/pull/18)
-5. [Hedy Li](https://github.com/hedythedev): For Pull Request [#34](https://github.com/anmol098/waka-readme-stats/pull/34) and [#23](https://github.com/anmol098/waka-readme-stats/pull/23)
-6. [Pedro Torres](https://github.com/Corfucinas): For Pull Request [#29](https://github.com/anmol098/waka-readme-stats/pull/29)
-7. [Aaron Meese](https://github.com/ajmeese7): For Pull Request [#45](https://github.com/anmol098/waka-readme-stats/pull/45)
-8. [Arnav Jindal](https://github.com/Daggy1234): For Pull Request [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
-9. [Daniel Rowe](https://github.com/DanRowe): For Pull Request [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
-10. [Ss5h](https://github.com/tlatkdgus1): For adding support for natural sentence writing for translation [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
+1. [Anmol Pratap Singh](https://github.com/anmol098): Mantenedor
+2. [Alexander Sergeev](https://github.com/pseusys): Mantenedor
+3. [Aravind V. Nair](https://github.com/aravindvnair99): Mantenedor
+4. [Prabhat Singh](https://github.com/prabhatdev): Para o gráfico de linha de código [#18](https://github.com/anmol098/waka-readme-stats/pull/18)
+5. [Hedy Li](https://github.com/hedythedev): Para as Pull Requests [#34](https://github.com/anmol098/waka-readme-stats/pull/34) e [#23](https://github.com/anmol098/waka-readme-stats/pull/23)
+6. [Pedro Torres](https://github.com/Corfucinas): Para a Pull Request [#29](https://github.com/anmol098/waka-readme-stats/pull/29)
+7. [Aaron Meese](https://github.com/ajmeese7): Para a Pull Request [#45](https://github.com/anmol098/waka-readme-stats/pull/45)
+8. [Arnav Jindal](https://github.com/Daggy1234): Para a Pull Request [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
+9. [Daniel Rowe](https://github.com/DanRowe): Para a Pull Request [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
+10. [Ss5h](https://github.com/tlatkdgus1): Por adicionar suporte para escrita de frases naturais para tradução [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
 
 <details>
 
@@ -457,18 +451,20 @@ Contributions are welcome ♥! Please share any features, and add unit tests! Us
 
 </details>
 
-- And you! If ever you are using it right now and you are not on the list please tell us by sending a [Special Mention](https://github.com/anmol098/waka-readme-stats/issues/new/choose) issue! :blush: \
-  We will be glad to add you in the list.
+- E você! Se estiver usando-o neste exato momento e não estiver na lista, por favor, nos informe enviando um [Mencão Especial](https://github.com/anmol098/waka-readme-stats/issues/new/choose)! :blush:
+  Ficaremos felizes em adicioná-lo à lista.
 
-Made with :heart: and Python 🐍.
+Feito com :heart: e Python 🐍.
 
-# Inspired From
+# Inspirado em
 
-> [Awesome Pinned Gists](https://github.com/matchai/awesome-pinned-gists) <br/>
+> [Awesome Pinned Gists](https://github.com/matchai/awesome-pinned-gists)
+>
 > [athul/waka-readme](https://github.com/athul/waka-readme)
 
-### This project needs a **star** ⭐ from you ♥
+### Este projeto precisa de um **estrela** ⭐ de você ♥
 
-## Stargazers over time
+## Observadores ao longo do tempo
 
 [![Stargazers over time](https://starchart.cc/anmol098/waka-readme-stats.svg)](https://starchart.cc/anmol098/waka-readme-stats)
+
