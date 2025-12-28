@@ -41,7 +41,7 @@ jobs:
 
       - name: Run README Translator
       # Use @v1 for the stable version, or @main for the bleeding edge
-        uses: DataBoySu/databoysu-readme-translator@v1
+        uses: DataBoySu/databoysu-readme-translator@main
         with:
           lang: ${{ matrix.lang }}
 
@@ -70,7 +70,7 @@ jobs:
           merge-multiple: true
 
       - name: Navigation Bar
-        uses: DataBoySu/databoysu-readme-translator@v1
+        uses: DataBoySu/databoysu-readme-translator@main
         with:
           mode: navbar
 
