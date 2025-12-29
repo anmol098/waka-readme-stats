@@ -37,7 +37,7 @@ jobs:
       - name: Run Action Preview on Current Code 🧪
         id: make-stats
         env:
-          INPUT_GH_TOKEN: ${{ secrets.INPUT_GITHUB_TOKEN }}
+          INPUT_GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           INPUT_WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
           INPUT_SHOW_TIMEZONE: True
           INPUT_SHOW_PROJECTS: True
@@ -76,6 +76,7 @@ jobs:
           path: assets
 
       - name: Create Comment 💬
+        if: github.event_name == 'pull_request_target'
         uses: jungwinter/comment@v1
         with:
           type: create
