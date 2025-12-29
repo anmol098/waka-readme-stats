@@ -1,9 +1,7 @@
 <!--START_SECTION:navbar-->
-
 <div align="center">
-  <a href="../README.md">🇺🇸 English</a> | <a href="../locales/README.de.md">🇩🇪 Deutsch</a> | <a href="../locales/README.es.md">🇪🇸 Español</a> | <a href="../locales/README.fr.md">🇫🇷 Français</a> | <a href="../locales/README.hi.md">🇮🇳 हिंदी</a> | <a href="../locales/README.ja.md">🇯🇵 日本語</a> | <a href="../locales/README.ko.md">🇰🇷 한국어</a> | <a href="../locales/README.pt.md">🇵🇹 Português</a> | <a href="../locales/README.ru.md">🇷🇺 Русский</a> | <a href="../locales/README.zh.md">🇨🇳 中文</a>
+  <a href="../README.md">🇺🇸 English</a> | <a href="README.de.md">🇩🇪 Deutsch</a> | <a href="README.es.md">🇪🇸 Español</a> | <a href="README.fr.md">🇫🇷 Français</a> | <a href="README.hi.md">🇮🇳 हिंदी</a> | <a href="README.ja.md">🇯🇵 日本語</a> | <a href="README.ko.md">🇰🇷 한국어</a> | <a href="README.pt.md">🇵🇹 Português</a> | <a href="README.ru.md">🇷🇺 Русский</a> | <a href="README.zh.md">🇨🇳 中文</a>
 </div>
-
 <!--END_SECTION:navbar-->
 
 > [!IMPORTANT]
@@ -11,87 +9,50 @@
 > Any kind of help would be greatly appreciated. \
 > Please see issue <https://github.com/anmol098/waka-readme-stats/issues/23> if you would like to help!
 
-<<<<<<< HEAD
-# 開発メトリクス - README
+# 開発者向けメトリクス（READMEに追加機能フラグ付き）
 
-🎌 新機能フラグを追加
+![Project Preview](https://user-images.githubusercontent.com/25841814/79395484-5081ae80-7fac-11ea-9e27-ac91472e31dd.png)
 
-![プロジェクトのプレビュー](https://user-images.githubusercontent.com/25841814/79395484-5081ae80-7fac-11ea-9e27-ac91472e31dd.png)
+<div align="center">
 
-<p align="center">
+  <img src="https://user-images.githubusercontent.com/15426564/88030180-8e1c4780-cb58-11ea-8a8b-b3576dd73652.png" alt="Project Preview">
 
-  ![プロジェクトのプレビュー](https://user-images.githubusercontent.com/15426564/88030180-8e1c4780-cb58-11ea-8a8b-b3576dd73652.png)
-
-  <h3 align="center">📌✨素晴らしいREADME統計</h3>
-=======
-# 開発メトリクス
-
-![プロジェクトのプレビュー](https://user-images.githubusercontent.com/25841814/79395484-5081ae80-7fac-11ea-9e27-ac91472e31dd.png)
-
-<p align="center">
-
-  ![プロジェクトのプレビュー](https://user-images.githubusercontent.com/15426564/88030180-8e1c4780-cb58-11ea-8a8b-b3576dd73652.png)
-
-  <h3 align="center">📌✨素晴らしい README 統計</h3>
->>>>>>> fc2331f85922ebf3e8bc9e440142ebf9a39529e1
-</p>
+  <h3 align="center">📌✨素晴らしいリーディング統計</h3>
+</div>
 
 ----
 
 <p align="center">
-   <img src="https://img.shields.io/badge/言語-Python-blue?style"/>
+   <img src="https://img.shields.io/badge/language-python-blue?style"/>
    <img src="https://img.shields.io/github/license/anmol098/waka-readme-stats"/>
    <img src="https://img.shields.io/github/stars/anmol098/waka-readme-stats"/>
    <img src="https://img.shields.io/github/forks/anmol098/waka-readme-stats"/>
-<<<<<<< HEAD
-   <img src="https://img.shields.io/static/v1?label=%E2%98%8C&message=もし役に立つなら&style=flat&color=BC4E99" alt="スターバッジ"/>
-=======
-   <img src="https://img.shields.io/static/v1?label=%E2%80%9C%E6%B4%97%E3%81%8F%E2%80%9D&message=役に立ったら%E3%81%8D&style=flat&color=BC4E99" alt="スターのバッジ"/>
->>>>>>> fc2331f85922ebf3e8bc9e440142ebf9a39529e1
+   <img src="https://img.shields.io/static/v1?label=%F0%9F%8C%9F&message=If%20Useful&style=style=flat&color=BC4E99" alt="Star Badge"/>
 </p>
 
-<p align="center">
+<div align="center">
    早起き派？夜型派？
    <br/>
-<<<<<<< HEAD
-   一日で最も生産性が高い時間帯はいつですか？
+   一日の最も生産性が高い時間帯はいつですか？
    <br/>
-   よくコードを書く言語は何ですか？
+   コードを書く言語は何ですか？
    <br/>
-   プロフィールのREADMEで確認してみましょう！
-=======
-   一日で最も生産性が高い時間帯は？
-   <br/>
-   よくコードを書く言語は？
-   <br/>
-   プロフィールページの README で確認してみましょう！
->>>>>>> fc2331f85922ebf3e8bc9e440142ebf9a39529e1
-</p>
+   プロフィールのリポジトリのREADMEで確認しましょう！
+</div>
 
-<p align="center">
+<div align="center">
     <a href="https://github.com/anmol098/waka-readme-stats/issues">バグを報告する</a>
     ·
-<<<<<<< HEAD
-    <a href="https://github.com/anmol098/waka-readme-stats/issues">機能リクエスト</a>
-=======
-    <a href="https://github.com/anmol098/waka-readme-stats/issues">機能をリクエストする</a>
->>>>>>> fc2331f85922ebf3e8bc9e440142ebf9a39529e1
-  </p>
+    <a href="https://github.com/anmol098/waka-readme-stats/issues">機能を要望する</a>
+</div>
 
 ## 準備作業
 
-<<<<<<< HEAD
-1. マークダウンファイル（`.md`）にコメントを2つ追加する必要があります。[ここ](#update-your-readme)を参照して更新してください。
-2. WakaTime APIキーが必要です。WakaTimeアカウント設定から入手できます。
-   - 新しい方は[こちら](#new-to-wakatime)をご参照ください。
-3. コミットメトリクスを取得するためにGitHubアクションを実行する場合は、`repo`と`user`のスコープを持つGitHub APIトークンが必要です。[ここ](https://github.com/settings/tokens)から取得できます。
-=======
-1. Markdownファイル（`.md`）に2つのコメントを追加する必要があります。[ここ](#update-your-readme)を参照して更新してください。
-2. WakaTime APIキーが必要です。WakaTimeアカウント設定から入手できます。
-   - 新しい方は[ここ](#new-to-wakatime)をご参照ください。
-3. コミットメトリクスを取得するために、GitHub APIトークン（`repo`と`user`のスコープ）が必要です。[ここ](https://github.com/settings/tokens)から取得できます。
->>>>>>> fc2331f85922ebf3e8bc9e440142ebf9a39529e1
-   - [この例](#profile-repository)を参考にしてください。
+1. You need to update the markdown file(`.md`) with 2 comments. You can refer [here](#update-your-readme) for updating it.
+2. You'll need a WakaTime API Key. You can get that from your WakaTime Account Settings
+    - You can refer [here](#new-to-wakatime), if you're new to WakaTime.
+3. You'll need a GitHub API Token with `repo` and `user` scope from [here](https://github.com/settings/tokens) if you're running the action to get commit metrics.
+   - You can use [this](#profile-repository) example to work it out.
 
 > [!NOTE]
 > Enabling the `repo` scope seems **DANGEROUS**, \
@@ -114,28 +75,18 @@ Add a comment to your `README.md` like this:
 <!--END_SECTION:waka-->
 ```
 
-<<<<<<< HEAD
-`waka` は、`SECTION_NAME` フラグで指定された任意の文字列に置き換えることができます。[利用可能なフラグセクション](#flags-available)を参照してください。
-=======
 `waka` は、`SECTION_NAME` フラグで指定された任意の文字列に置き換えることができます。[利用可能なフラグのセクション](#flags-available)を参照してください。
->>>>>>> fc2331f85922ebf3e8bc9e440142ebf9a39529e1
 
 これらの行がデバッグメトリクスのエントリーポイントとなります。
 
-## WakaTimeの使い方（初心者向け）
+## 新しいユーザー向け WakaTime
 
-WakaTimeは、実際のコード作成に費やした時間を可視化し、生産性向上と競争力の強化をサポートします。
+WakaTime は、実際のコード作成時間を可視化し、生産性向上と競争力の強化をサポートします。
 
 - <https://wakatime.com> にアクセスし、アカウントを作成してください。
-<<<<<<< HEAD
-- WakaTimeの[アカウント設定](https://wakatime.com/settings/account)からWakaTime APIキーを取得します。
-- お好みのコードエディタまたはIDEに[WakaTimeプラグイン](https://wakatime.com/plugins)をインストールします。
-- APIキーを貼り付けて分析を開始します。
-=======
 - WakaTime アカウント設定ページ（[こちら](https://wakatime.com/settings/account)）から WakaTime API キーを取得してください。
 - お好みのコードエディタ/IDEに [WakaTime プラグイン](https://wakatime.com/plugins)をインストールしてください。
 - API キーを貼り付けて分析を開始します。
->>>>>>> fc2331f85922ebf3e8bc9e440142ebf9a39529e1
 
 ### Profile Repository
 
@@ -162,19 +113,11 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 ```
 
-<<<<<<< HEAD
-- これでコミットして自動的に実行を待つか、またはすぐに結果を見るためにトリガーすることもできます。リポジトリの「アクション」に移動し、「Profile Readme Development Stats」ワークフローを選択して、「ワークフローを実行」をクリックしてください。数分間待つと、変更内容が表示されます。
-=======
 - 今はコミットして自動的に実行を待つか、または結果をすぐに確認するためにトリガーして実行することもできます。リポジトリの「アクション」に移動し、「プロフィールリーダーミルストーン開発統計」ワークフローを選択し、「ワークフローを実行」をクリックしてください。数分待つと、変更が表示されます。
->>>>>>> fc2331f85922ebf3e8bc9e440142ebf9a39529e1
 
 ## エクストラ
 
-<<<<<<< HEAD
-統計に他の情報を追加したい場合は、ワークフローファイルに複数の `FLAGS` を追加できます。デフォルトではすべてのフラグが有効化されます（コード行のフラグは、実行に重い処理が必要なため無効化されています）。
-=======
 統計情報に他の情報を追加したい場合は、ワークフローファイルに複数の `FLAGS` を追加できます。デフォルトでは、すべてのフラグが有効化されます（コード行フラグは、重い処理が行われるため非有効化されています）。
->>>>>>> fc2331f85922ebf3e8bc9e440142ebf9a39529e1
 
 ```yml
 - uses: anmol098/waka-readme-stats@master
@@ -189,43 +132,12 @@ jobs:
 
 ---
 
-<<<<<<< HEAD
-`LOCALE` このフラグは、言語別に統計を表示するために使用できます。デフォルトでは英語です。国別コードのショートハンド [こちら](https://saimana.com/list-of-country-locale-code/) をフラグ変数に渡します。最終結果の例は [ここ](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md) を参照してください。
-=======
 `LOCALE` このフラグは、統計をあなたの言語で表示するために使用できます。デフォルトは英語です。国別ローカコードのショートハンドは[こちら](https://saimana.com/list-of-country-locale-code/)を参照してください。最終結果の例は[こちら](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)にあります。
->>>>>>> fc2331f85922ebf3e8bc9e440142ebf9a39529e1
 
-`SECTION_NAME` このフラグは任意の文字列に設定でき、README 内のセクション名を置き換えるものです。
+`SECTION_NAME` このフラグは任意の文字列に設定でき、README内のセクション名を置き換えることができます。
 
 `COMMIT_BY_ME` このフラグを `True` に設定すると、あなたの名前とメールアドレスでコードをコミットできます。
 
-<<<<<<< HEAD
-`COMMIT_MESSAGE` コミットメッセージを指定するためにこのフラグを使用します。デフォルトは「Dev Metrics で更新」です。
-
-`COMMIT_USERNAME` コードのコミット時に使用するユーザー名を設定します。デフォルトは「readme-bot」です。
-
-`COMMIT_EMAIL` コードのコミット時に使用するメールアドレスを設定します。デフォルトは「41898282+github-actions[bot]@users.noreply.github.com」です。
-
-`SHOW_UPDATED_DATE` このフラグを `True` に設定すると、更新日が段落の最後に表示されます。
-
-`UPDATED_DATE_FORMAT` 更新日付を指定フォーマットで表示するためにこのフラグを設定します。デフォルトは「%d/%m/%Y %H:%M:%S」です。
-
-`SHOW_LINES_OF_CODE` このフラグを `True` に設定すると、今までに書いたコード行数のカウントが表示されます。
-
-![コード行数](https://img.shields.io/badge/From%20Hello%20World%20I've%20written-1.3%20million%20Lines%20of%20code-blue)
-
-`SHOW_TOTAL_CODE_TIME` このフラグを `False` に設定すると、*コード時間* が非表示になります。
-
-![コード時間](http://img.shields.io/badge/Code%20Time-1%2C438%20hrs%2054%20mins-blue)
-
-`SHOW_PROFILE_VIEWS` このフラグを `False` に設定すると、**プロフィール閲覧数** が非表示になります。
-
-![プロフィール閲覧数](http://img.shields.io/badge/Profile%20Views-2189-blue)
-
-`SHOW_COMMIT` このフラグを `False` に設定すると、コミット統計が非表示になります。
-
-**私は初期の🐤です**
-=======
 `COMMIT_MESSAGE` コミットメッセージを設定するためのフラグです。デフォルトは "Updated with Dev Metrics" です。
 
 `COMMIT_USERNAME` コードをコミットするユーザー名を設定するためのフラグです。デフォルトは "readme-bot" です。
@@ -251,7 +163,6 @@ jobs:
 `SHOW_COMMIT` このフラグを `False` に設定すると、コミット統計が非表示になります。
 
 私は早起き派？夜型派？
->>>>>>> fc2331f85922ebf3e8bc9e440142ebf9a39529e1
 
 ```text
 🌞 Morning    95 commits     ███████░░░░░░░░░░░░░░░░░░   30.55% 
@@ -261,11 +172,7 @@ jobs:
 
 ```
 
-<<<<<<< HEAD
-『SHOW_DAYS_OF_WEEK』フラグを`False`に設定することで、週の異なる日にコミットされたものを非表示にすることができます。
-=======
 週の日付を隠すために、`SHOW_DAYS_OF_WEEK` フラグを `False` に設定できます。
->>>>>>> fc2331f85922ebf3e8bc9e440142ebf9a39529e1
 
 早起き派？夜型派？ **日曜日が最も生産性の高い日です**
 
@@ -280,7 +187,7 @@ Sunday       86 commits     █████░░░░░░░░░░░░�
 
 ```
 
-`SHOW_LANGUAGE`フラグを`False`に設定することで、使用しているプログラミング言語を非表示にすることができます。
+`SHOW_LANGUAGE` フラグを `False` に設定することで、使用しているプログラミング言語を非表示にすることができます。
 
 ```text
 💬 Languages:
@@ -298,11 +205,7 @@ XML                      8 mins              ░░░░░░░░░░░�
 Windows                  8 hrs 46 mins       █████████████████████████   100.0%
 ```
 
-<<<<<<< HEAD
-プロジェクトに取り組んだものを非表示にするには、`SHOW_PROJECTS` フラグを `False` に設定できます。
-=======
 `SHOW_PROJECTS`フラグを`False`に設定することで、取り組んだプロジェクトを非表示にすることができます。
->>>>>>> fc2331f85922ebf3e8bc9e440142ebf9a39529e1
 
 ```text
 🐱‍💻 Projects:
@@ -330,7 +233,7 @@ PyCharm                  23 mins             █░░░░░░░░░░�
 
 `SHOW_LANGUAGE_PER_REPO` フラグを `False` に設定することで、異なるプログラミング言語やフレームワークのリポジトリ数の表示を非表示にできます。
 
-私は主にVueでコードを書いています。
+**私は主に Vue でコードを書いています。**
 
 ```text
 Vue          8 repos        ██████░░░░░░░░░░░░░░░░░░░   25.0% 
@@ -348,15 +251,6 @@ The `SHOW_SHORT_INFO` flag can be set to `False` to hide the short fun fact info
 > [!NOTE]
 > This section requires a Personal Access Token (PAT) with the `user` scope, otherwise the data shown here will be incorrect.
 
-<<<<<<< HEAD
-# 🐱 私のGitHubデータ
-
-> 🏆 2020年に433回の貢献
->
-> 📦 GitHubストレージで292.3KBを使用
->
-> 💼 採用を選択
-=======
 **🐱 GitHub データ**
 
 > 🏆 2020年には433回の貢献がありました。
@@ -364,27 +258,11 @@ The `SHOW_SHORT_INFO` flag can be set to `False` to hide the short fun fact info
 > 📦 GitHub ストレージとして292.3 KBを使用しています。
 >
 > 💼 採用を選択しました。
->>>>>>> fc2331f85922ebf3e8bc9e440142ebf9a39529e1
 >
 > 📜 25の公開リポジトリ
 >
 > 🔑 15のプライベートリポジトリ（所有）
 
-<<<<<<< HEAD
-`SHOW_LOC_CHART`フラグを`False`に設定すると、異なる四半期や異なる年のコード行が非表示になります。
-
-`IGNORED_REPOS`フラグは `"waka-readme-stats, my-first-repo"`（例）のように設定して、カウントしたくないリポジトリを無視できます。
-
-`SYMBOL_VERSION`フラグは進捗バー用のシンボルを指定可能で、デフォルトは`1`です。
-
-| バージョン | 完了ブロック | 空ブロック |
-|-------- | ---------- | ----------- |
-|    1    |      █     |       ░     |
-|    2    |      ⣿     |       ⣀     |
-|    3    |      ⬛    |       ⬜    |
-
-`DEBUG_LOGGING`フラグはGitHubアクションの出力の詳細度を増加させ、デフォルトでは内部ランナーのデバッグプロパティに等しいです。
-=======
 `SHOW_LOC_CHART` フラグを `False` に設定すると、異なる四半期や異なる年の間で書かれたコードの行を非表示にできます。
 
 `IGNORED_REPOS` フラグは `"waka-readme-stats, my-first-repo"` (例)などのリポジトリを非表示にするために設定できます。
@@ -398,13 +276,12 @@ The `SHOW_SHORT_INFO` flag can be set to `False` to hide the short fun fact info
 |    3      |      ⬛    |       ⬜    |
 
 `DEBUG_LOGGING` フラグは、GitHub アクションの出力の詳細度を増加させるために設定できます。デフォルトは内部ランナーのデバッグプロパティに等しいです。
->>>>>>> fc2331f85922ebf3e8bc9e440142ebf9a39529e1
 
 **タイムライン**
 
 ![チャートが見つかりませんでした](https://raw.githubusercontent.com/anmol098/anmol098/master/charts/bar_graph.png)
 
-## :sparkling_heart: Support the project
+## :sparkling_heart: プロジェクトをサポートしてください。
 
 I open-source almost everything I can, and I try to reply to everyone needing help using these projects. Obviously,
 this takes time. You can use this service for free.
@@ -419,28 +296,15 @@ Thanks! :heart:
 
 ---
 
-## 貢献について
+# 貢献について
 
-<<<<<<< HEAD
-貢献は歓迎します♥！機能の提案や、ユニットテストの追加をお待ちしています。プルリクエストと問題報告システムを使って貢献してください。
-=======
-貢献をお待ちしています♥！機能の追加やユニットテストの作成をお願いします！プルリクエストとイシューシステムを利用して貢献してください。
->>>>>>> fc2331f85922ebf3e8bc9e440142ebf9a39529e1
+貢献をお待ちしています♥！機能の追加やユニットテストの作成をお願いします！プルリクエストと問題報告システムを利用して貢献してください。
 
 # 貢献者一覧
 
 1. [Anmol Pratap Singh](https://github.com/anmol098): メンテナ
 2. [Alexander Sergeev](https://github.com/pseusys): メンテナ
 3. [Aravind V. Nair](https://github.com/aravindvnair99): メンテナ
-<<<<<<< HEAD
-4. [Prabhat Singh](https://github.com/prabhatdev): コードタイムライングラフ [#18](https://github.com/anmol098/waka-readme-stats/pull/18) の貢献
-5. [Hedy Li](https://github.com/hedythedev): Pull Request [#34](https://github.com/anmol098/waka-readme-stats/pull/34) と [#23](https://github.com/anmol098/waka-readme-stats/pull/23) の貢献
-6. [Pedro Torres](https://github.com/Corfucinas): Pull Request [#29](https://github.com/anmol098/waka-readme-stats/pull/29) の貢献
-7. [Aaron Meese](https://github.com/ajmeese7): Pull Request [#45](https://github.com/anmol098/waka-readme-stats/pull/45) の貢献
-8. [Arnav Jindal](https://github.com/Daggy1234): Pull Request [#48](https://github.com/anmol098/waka-readme-stats/pull/48) の貢献
-9. [Daniel Rowe](https://github.com/DanRowe): Pull Request [#57](https://github.com/anmol098/waka-readme-stats/pull/57) の貢献
-10. [Ss5h](https://github.com/tlatkdgus1): 自然文書き換えのための翻訳サポートの追加 [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
-=======
 4. [Prabhat Singh](https://github.com/prabhatdev): コードタイムライングラフ [#18](https://github.com/anmol098/waka-readme-stats/pull/18) への貢献
 5. [Hedy Li](https://github.com/hedythedev): プルリクエスト [#34](https://github.com/anmol098/waka-readme-stats/pull/34) と [#23](https://github.com/anmol098/waka-readme-stats/pull/23) への貢献
 6. [Pedro Torres](https://github.com/Corfucinas): プルリクエスト [#29](https://github.com/anmol098/waka-readme-stats/pull/29) への貢献
@@ -448,7 +312,6 @@ Thanks! :heart:
 8. [Arnav Jindal](https://github.com/Daggy1234): プルリクエスト [#48](https://github.com/anmol098/waka-readme-stats/pull/48) への貢献
 9. [Daniel Rowe](https://github.com/DanRowe): プルリクエスト [#57](https://github.com/anmol098/waka-readme-stats/pull/57) への貢献
 10. [Ss5h](https://github.com/tlatkdgus1): 自然文書き換えのためのサポート追加 [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
->>>>>>> fc2331f85922ebf3e8bc9e440142ebf9a39529e1
 
 <details>
 
@@ -594,29 +457,19 @@ Thanks! :heart:
 
 </details>
 
-<<<<<<< HEAD
-- そしてあなた！今まさにこれをお使いの場合で、リストに含まれていない場合は、[特別言及](https://github.com/anmol098/waka-readme-stats/issues/new/choose)の問題を提出してください！：顔を赤らめて： 私たちは喜んであなたをリストに追加します。
-
-Python 🐍 と愛を込めて作られました。
-=======
 - And you! If ever you are using it right now and you are not on the list please tell us by sending a [Special Mention](https://github.com/anmol098/waka-readme-stats/issues/new/choose) issue! :blush: \
   We will be glad to add you in the list.
 
 Made with :heart: and Python 🐍.
->>>>>>> fc2331f85922ebf3e8bc9e440142ebf9a39529e1
 
 # インスピレーション元
 
 > [Awesome Pinned Gists](https://github.com/matchai/awesome-pinned-gists)
 > [athul/waka-readme](https://github.com/athul/waka-readme)
 
-<<<<<<< HEAD
-このプロジェクトには、あなたの**星**⭐が必要です♥
-=======
 ### このプロジェクトにはあなたの **星** ⭐ が必要です ♥
->>>>>>> fc2331f85922ebf3e8bc9e440142ebf9a39529e1
 
-## 時系列でのスター数
+## 時系列のスター
 
 [![Stargazers over time](https://starchart.cc/anmol098/waka-readme-stats.svg)](https://starchart.cc/anmol098/waka-readme-stats)
 

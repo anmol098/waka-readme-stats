@@ -1,9 +1,7 @@
 <!--START_SECTION:navbar-->
-
 <div align="center">
-  <a href="../README.md">🇺🇸 English</a> | <a href="../locales/README.de.md">🇩🇪 Deutsch</a> | <a href="../locales/README.es.md">🇪🇸 Español</a> | <a href="../locales/README.fr.md">🇫🇷 Français</a> | <a href="../locales/README.hi.md">🇮🇳 हिंदी</a> | <a href="../locales/README.ja.md">🇯🇵 日本語</a> | <a href="../locales/README.ko.md">🇰🇷 한국어</a> | <a href="../locales/README.pt.md">🇵🇹 Português</a> | <a href="../locales/README.ru.md">🇷🇺 Русский</a> | <a href="../locales/README.zh.md">🇨🇳 中文</a>
+  <a href="../README.md">🇺🇸 English</a> | <a href="README.de.md">🇩🇪 Deutsch</a> | <a href="README.es.md">🇪🇸 Español</a> | <a href="README.fr.md">🇫🇷 Français</a> | <a href="README.hi.md">🇮🇳 हिंदी</a> | <a href="README.ja.md">🇯🇵 日本語</a> | <a href="README.ko.md">🇰🇷 한국어</a> | <a href="README.pt.md">🇵🇹 Português</a> | <a href="README.ru.md">🇷🇺 Русский</a> | <a href="README.zh.md">🇨🇳 中文</a>
 </div>
-
 <!--END_SECTION:navbar-->
 
 > [!IMPORTANT]
@@ -11,48 +9,50 @@
 > Any kind of help would be greatly appreciated. \
 > Please see issue <https://github.com/anmol098/waka-readme-stats/issues/23> if you would like to help!
 
-# 开发指标：在 README 中添加功能标志 🎌
+# 开发指标在 README 中，添加了功能标志 🎌
 
-![项目预览](https://user-images.githubusercontent.com/25841814/79395484-5081ae80-7fac-11ea-9e27-ac91472e31dd.png)
+![Project Preview](https://user-images.githubusercontent.com/25841814/79395484-5081ae80-7fac-11ea-9e27-ac91472e31dd.png)
 
 <p align="center">
 
   ![项目预览](https://user-images.githubusercontent.com/15426564/88030180-8e1c4780-cb58-11ea-8a8b-b3576dd73652.png)
 
-  <h3 align="center">📌✨ 精彩的 README 统计数据</h3>
+  <h3 align="center">📌✨项目统计</h3>
 </p>
 
 ----
 
 <p align="center">
-   <img src="https://img.shields.io/badge/语言-Python-blue?style"/>
+   <img src="https://img.shields.io/badge/language-python-blue?style"/>
    <img src="https://img.shields.io/github/license/anmol098/waka-readme-stats"/>
    <img src="https://img.shields.io/github/stars/anmol098/waka-readme-stats"/>
    <img src="https://img.shields.io/github/forks/anmol098/waka-readme-stats"/>
-   <img src="https://img.shields.io/static/v1?label=%E6%89%93%E6%A5%9A&message=如果有用&style=flat&color=BC4E99" alt="星标"/>
+   <img src="https://img.shields.io/static/v1?label=%F0%9F%8C%9F&message=If%20Useful&style=style=flat&color=BC4E99" alt="Star Badge"/>
 </p>
 
 <p align="center">
-   你是早起的鸟还是夜猫子？
+   你是早鸟 🐤 还是夜猫 🦉？
    <br/>
-   你最能生产力是在白天还是黑夜？
+   你一天中最有效率的时间段是什么时候？
    <br/>
    你用过哪些编程语言？
    <br/>
-   让我们在你的个人资料的 README 中了解一下！
+   让我们在你的个人资料 README 中看看！
 </p>
 
 <p align="center">
     <a href="https://github.com/anmol098/waka-readme-stats/issues">报告错误</a>
     ·
     <a href="https://github.com/anmol098/waka-readme-stats/issues">请求功能</a>
-  </p>
+</p>
 
 ## 准备工作
 
-1. 你需要更新 markdown 文件（`.md`）并添加 2 条注释。可以参考 [更新您的 README](#update-your-readme) 进行操作。
-2. 你需要一个 WakaTime API 密钥。可以在 WakaTime 账户设置中获取，具体操作可参考 [这里](#new-to-wakatime)。
-3. 如果你需要获取提交指标，请从 [GitHub 设置](https://github.com/settings/tokens) 生成一个 GitHub API 令牌，并确保包含 `repo` 和 `user` 权限。可以使用 [此示例](#profile-repository) 进行操作。
+1. You need to update the markdown file(`.md`) with 2 comments. You can refer [here](#update-your-readme) for updating it.
+2. You'll need a WakaTime API Key. You can get that from your WakaTime Account Settings
+    - You can refer [here](#new-to-wakatime), if you're new to WakaTime.
+3. You'll need a GitHub API Token with `repo` and `user` scope from [here](https://github.com/settings/tokens) if you're running the action to get commit metrics.
+   - You can use [this](#profile-repository) example to work it out.
 
 > [!NOTE]
 > Enabling the `repo` scope seems **DANGEROUS**, \
@@ -79,7 +79,7 @@ Add a comment to your `README.md` like this:
 
 这些行将作为我们开发指标的入口点。
 
-## 新手入门 WakaTime
+## 新手使用 WakaTime
 
 WakaTime 能让你了解你实际花在编码上的时间，帮助你提高生产力和竞争力。
 
@@ -136,7 +136,7 @@ jobs:
 
 `SECTION_NAME`  可以设置为任何字符串，作为 README 中要替换的节名称。
 
-`COMMIT_BY_ME` 标志可设置为 `True`，以使用您的名字和电子邮件提交代码。
+`COMMIT_BY_ME`  可以设置为 `True`，以使用您的姓名和电子邮件提交代码。
 
 `COMMIT_MESSAGE`  用于设置提交消息。默认值为 "更新了开发指标"。
 
@@ -144,7 +144,7 @@ jobs:
 
 `COMMIT_EMAIL`  用于设置提交代码的电子邮件。默认值为 "41898282+github-actions[bot]@users.noreply.github.com"。
 
-`SHOW_UPDATED_DATE` 标志可设置为 `True`，以在段落末尾显示更新日期。
+`SHOW_UPDATED_DATE`  可以设置为 `True`，以在段落末尾显示更新日期。
 
 `UPDATED_DATE_FORMAT`  用于设置更新日期的格式。默认值为 `"%d/%m/%Y %H:%M:%S"`。
 
@@ -187,7 +187,7 @@ Sunday       86 commits     █████░░░░░░░░░░░░�
 
 ```
 
-设置 `SHOW_LANGUAGE` 标志为 `False` 可隐藏您使用的编程语言。
+设置 `SHOW_LANGUAGE` 标志为 `False` 可以隐藏您使用的编程语言。
 
 ```text
 💬 Languages:
@@ -198,7 +198,7 @@ Python                   22 mins             █░░░░░░░░░░�
 XML                      8 mins              ░░░░░░░░░░░░░░░░░░░░░░░░░   1.62%
 ```
 
-设置 `SHOW_OS` 标志为 `False` 可隐藏您的操作系统细节。
+设置 `SHOW_OS` 标志为 `False` 可以隐藏您的操作系统细节。
 
 ```text
 💻 Operating Systems:
@@ -216,13 +216,13 @@ cable                    54 mins             ██░░░░░░░░░�
 denAPI                   40 mins             ██░░░░░░░░░░░░░░░░░░░░░░░   7.66%
 ```
 
-设置 `SHOW_TIMEZONE` 标志为 `False` 可隐藏您所在的时区。
+`SHOW_TIMEZONE` 标志可以设置为 `False` 以隐藏您所在的时区。
 
 ```text
 ⌚︎ Timezone: Asia/Calcutta
 ```
 
-设置 `SHOW_EDITORS` 标志为 `False` 可隐藏所用代码编辑器/IDE 的列表。
+`SHOW_EDITORS` 标志可以设置为 `False` 以隐藏使用的代码编辑器/IDE 列表。
 
 ```text
 🔥 Editors:
@@ -233,7 +233,7 @@ PyCharm                  23 mins             █░░░░░░░░░░�
 
 `SHOW_LANGUAGE_PER_REPO` 标志可以设置为 `False` 以隐藏不同编程语言和框架的仓库数量。
 
-我主要用 Vue 编写代码。
+**我主要使用 Vue 进行编码**
 
 ```text
 Vue          8 repos        ██████░░░░░░░░░░░░░░░░░░░   25.0% 
@@ -281,17 +281,20 @@ The `SHOW_SHORT_INFO` flag can be set to `False` to hide the short fun fact info
 
 ![图表未找到](https://raw.githubusercontent.com/anmol098/anmol098/master/charts/bar_graph.png)
 
-## :sparkling_heart: Support the project
+## :心形火花: 支持项目
 
-我尽可能开源我所能开发的一切，并努力回复所有需要帮助的人，使用这些项目。显然，这需要大量时间。你可以免费使用这个服务。
+I open-source almost everything I can, and I try to reply to everyone needing help using these projects. Obviously,
+this takes time. You can use this service for free.
 
 However, if you are using this project and happy with it or just want to encourage me to continue creating stuff, there are few ways you can do it :-
 
-- 使用时在 README 中正确引用并链接到这个项目：D
-- 收藏并分享项目：火箭
--  **[PayPal](https://www.paypal.me/aapreneur) 捐款** - 一次性通过 PayPal 捐款。我可能会用它买一些 ~~啤酒~~ 葡萄酒 🍷。
+- Giving proper credit when you use this action on your readme, linking back to it :D
+- Starring and sharing the project :rocket:
+- [![paypal.me/aapreneur](https://ionicabizau.github.io/badges/paypal.svg)](https://www.paypal.me/aapreneur) - You can make one-time donations via PayPal. I'll probably buy some ~~beer~~ wine 🍷.
 
 Thanks! :heart:
+
+---
 
 # 贡献指南
 
@@ -460,7 +463,7 @@ Thanks! :heart:
 
 # 灵感来源
 
-> [GitHub 的精品固定 Gist 列表](https://github.com/matchai/awesome-pinned-gists) <br/>
+> [Awesome Pinned Gists](https://github.com/matchai/awesome-pinned-gists)
 > [athul/waka-readme](https://github.com/athul/waka-readme)
 
 ### 这个项目需要你给它一个 **星** ⭐
