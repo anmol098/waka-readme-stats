@@ -1,5 +1,4 @@
 import asyncio
-from asyncio import Task
 from hashlib import md5
 from json import dumps
 from string import Template
@@ -165,7 +164,7 @@ class DownloadManager:
         """
         for resource in DownloadManager._REMOTE_RESOURCES_CACHE.values():
             # Prefer Tasks: cancel and await them to ensure proper cleanup.
-            if isinstance(resource, Task):
+            if isinstance(resource, asyncio.Task):
                 resource.cancel()
                 try:
                     await resource
