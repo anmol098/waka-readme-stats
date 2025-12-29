@@ -152,9 +152,7 @@ class DownloadManager:
         """
         for resource, url in resources.items():
             # Schedule the coroutine as a Task so it can be cancelled/inspected later
-            DownloadManager._REMOTE_RESOURCES_CACHE[resource] = asyncio.create_task(
-                DownloadManager._client.get(url)
-            )
+            DownloadManager._REMOTE_RESOURCES_CACHE[resource] = asyncio.create_task(DownloadManager._client.get(url))
 
     @staticmethod
     async def close_remote_resources():
