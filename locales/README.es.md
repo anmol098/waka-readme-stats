@@ -1,21 +1,26 @@
 <!--START_SECTION:navbar-->
+
 <div align="center">
-  <a href="../README.md">🇺🇸 English</a> | <a href="README.de.md">🇩🇪 Deutsch</a> | <a href="README.es.md">🇪🇸 Español</a> | <a href="README.fr.md">🇫🇷 Français</a> | <a href="README.hi.md">🇮🇳 हिंदी</a> | <a href="README.ja.md">🇯🇵 日本語</a> | <a href="README.ko.md">🇰🇷 한국어</a> | <a href="README.pt.md">🇵🇹 Português</a> | <a href="README.ru.md">🇷🇺 Русский</a> | <a href="README.zh.md">🇨🇳 中文</a>
+  <a href="../README.md">🇺🇸 English</a> | <a href="../locales/README.de.md">🇩🇪 Deutsch</a> | <a href="../locales/README.es.md">🇪🇸 Español</a> | <a href="../locales/README.fr.md">🇫🇷 Français</a> | <a href="../locales/README.hi.md">🇮🇳 हिंदी</a> | <a href="../locales/README.ja.md">🇯🇵 日本語</a> | <a href="../locales/README.ko.md">🇰🇷 한국어</a> | <a href="../locales/README.pt.md">🇵🇹 Português</a> | <a href="../locales/README.ru.md">🇷🇺 Русский</a> | <a href="../locales/README.zh.md">🇨🇳 中文</a>
 </div>
+
 <!--END_SECTION:navbar-->
 
-> [!IMPORTANTE]
-> Estamos buscando traductores para este proyecto.
-> Cualquier tipo de ayuda sería muy apreciada.
-> Por favor, consulte el problema <https://github.com/anmol098/waka-readme-stats/issues/23> si desea ayudar.
+> [!IMPORTANT]
+> We are looking for translators for this project. \
+> Any kind of help would be greatly appreciated. \
+> Please see issue <https://github.com/anmol098/waka-readme-stats/issues/23> if you would like to help!
 
 # Métricas de Desarrollo en README con banderas de características agregadas 🎌
 
 ![Vista previa del proyecto](https://user-images.githubusercontent.com/25841814/79395484-5081ae80-7fac-11ea-9e27-ac91472e31dd.png)
 
-![Proyecto Previsualización](https://user-images.githubusercontent.com/15426564/88030180-8e1c4780-cb58-11ea-8a8b-b3576dd73652.png)
+<p align="center">
 
-<h3 align="center">📌✨Estadísticas de README Increíbles</h3>
+  ![Vista previa del proyecto](https://user-images.githubusercontent.com/15426564/88030180-8e1c4780-cb58-11ea-8a8b-b3576dd73652.png)
+
+  <h3 align="center">📌✨Estadísticas de README Increíbles</h3>
+</p>
 
 ----
 
@@ -24,72 +29,73 @@
    <img src="https://img.shields.io/github/license/anmol098/waka-readme-stats"/>
    <img src="https://img.shields.io/github/stars/anmol098/waka-readme-stats"/>
    <img src="https://img.shields.io/github/forks/anmol098/waka-readme-stats"/>
-   <img src="https://img.shields.io/static/v1?label=%F0%9F%8C%9F&message=Si+útil&style=flat&color=BC4E99" alt="Badge de Estrellas"/>
+   <img src="https://img.shields.io/static/v1?label=%F0%9F%8C%9F&message=Si+te+gusta&style=flat&color=BC4E99" alt="Badge de estrellas">
 </p>
 
 <p align="center">
-   ¿Eres un pájaro matutino o un búho nocturno?
+   ¿Eres un pájaro temprano 🐤 o una lechuza nocturna 🦉?
    <br/>
-   ¿En qué momento del día eres más productivo?
+   ¿Cuándo eres más productivo durante el día?
    <br/>
-   ¿Qué lenguajes de programación utilizas?
+   ¿En qué lenguajes codificas?
    <br/>
-   ¡Descúbrelo en tu archivo README!
+   ¡Descúbrelo en tu README de perfil!
 </p>
 
 <p align="center">
-    <a href="https://github.com/anmol098/waka-readme-stats/issues">Reportar Error</a>
+    <a href="https://github.com/anmol098/waka-readme-stats/issues">Reportar error</a>
     ·
-    <a href="https://github.com/anmol098/waka-readme-stats/issues">Solicitar Característica</a>
-</p>
+    <a href="https://github.com/anmol098/waka-readme-stats/issues">Solicitar característica</a>
+  </p>
 
-## Trabajo previo
+## Trabajo Preliminar
 
-1. Debe actualizar el archivo Markdown (`.md`) con 2 comentarios. Puede consultar [aquí](#actualizar-su-readme) para obtener instrucciones de actualización.
-2. Necesitará una clave de API de WakaTime. Puede obtenerla desde la configuración de su cuenta de WakaTime.
-   - Consulte [aquí](#nuevo-en-wakatime) si es nuevo en WakaTime.
-3. Necesitará un token de acceso de GitHub con alcance `repo` y `user` desde [aquí](https://github.com/settings/tokens) si está ejecutando la acción para obtener métricas de confirmaciones.
-   - Puede utilizar [este ejemplo](#perfil-de-repositorio) para configurarlo.
+1. Necesitas actualizar el archivo markdown (`.md`) con 2 comentarios. Puedes consultar [aquí](#update-your-readme) para actualizarlo.
+2. Requerirás una API Key de WakaTime. Puedes obtenerla desde la Configuración de tu Cuenta de WakaTime
+   - Puedes consultar [aquí](#new-to-wakatime), si eres nuevo en WakaTime.
+3. Necesitarás un Token de GitHub API con alcance `repo` y `user` desde [aquí](https://github.com/settings/tokens) si ejecutas la acción para obtener métricas de confirmaciones.
+   - Puedes usar [este](#profile-repository) ejemplo para configurarlo.
 
-> [!NOTA]
-> Habilitar el alcance `repo` puede ser **PELIGROSO**,
-> ya que esta acción de GitHub solo accede a los marcadores de tiempo de confirmación y al número de líneas de código agregadas o eliminadas en repositorios a los que haya contribuido.
+> [!NOTE]
+> Enabling the `repo` scope seems **DANGEROUS**, \
+> but this GitHub Action only accesses your commit timestamps and the number of lines of code added or deleted in repositories that you contributed to.
 
-1. Debe guardar la clave de API de WakaTime y el token de acceso de GitHub en los secretos del repositorio. Puede encontrar esta opción en la configuración de su repositorio.
-   - Guarde esos secretos con los siguientes formatos:
-     - Clave de API de WakaTime como `WAKATIME_API_KEY=<su clave de API de WakaTime>`
-     - Token de acceso personal de GitHub (PAT) como `GH_TOKEN=<su token de acceso de GitHub>`
-2. Puede habilitar y deshabilitar banderas de características según sus necesidades.
+1. Debes guardar la Clave de API de WakaTime y el Token de Acceso de GitHub (PAT) en los secretos del repositorio. Puedes encontrar esta opción en la configuración de tu repositorio. \
+   Asegúrate de guardarlos de la siguiente manera:
+   - La Clave de API de WakaTime como `WAKATIME_API_KEY=<tu clave de API de WakaTime>`
+   - El Token de Acceso Personal de GitHub (PAT) como `GH_TOKEN=<tu token de acceso de GitHub>`
 
-Esta acción de GitHub se puede configurar para ejecutarse en cualquier momento utilizando `cron`. Consulte [Crontab.guru](https://crontab.guru/) y [este](https://crontab.cronhub.io/) sitio web para generar expresiones `cron`.
+2. Puedes habilitar y deshabilitar banderas de características según tus necesidades.
 
-## Actualice su Readme
+Esta acción de GitHub se puede configurar para ejecutarse en cualquier momento que desees utilizando `cron`. Consulta [Crontab.guru](https://crontab.guru/) y [este](https://crontab.cronhub.io/) sitio web para generar expresiones `cron`.
 
-Agregue un comentario a su archivo `README.md` de la siguiente manera:
+## Actualiza tu Readme
+
+Añade un comentario a tu `README.md` de la siguiente manera:
 
 ```md
 <!--START_SECTION:waka-->
 <!--END_SECTION:waka-->
 ```
 
-`waka` puede ser reemplazado por cualquier cadena especificada en la bandera `SECTION_NAME` según la sección de banderas disponibles.
+`waka` se puede reemplazar por cualquier cadena especificada en la bandera `SECTION_NAME` según lo descrito en la sección de banderas disponibles.
 
 Estas líneas serán nuestros puntos de entrada para las métricas de desarrollo.
 
 ## Nuevo en WakaTime
 
-WakaTime le proporciona una idea del tiempo real que dedicó a la programación. Esto le ayuda a mejorar su productividad y su ventaja competitiva.
+WakaTime te da una idea del tiempo real que dedicaste a codificar. Esto te ayuda a impulsar tu productividad y ventaja competitiva.
 
-- Visite <https://wakatime.com> y cree una cuenta.
-- Obtenga su clave API de WakaTime desde sus [Configuraciones de Cuenta en WakaTime](https://wakatime.com/settings/account).
-- Instale el [complemento de WakaTime](https://wakatime.com/plugins) en su editor o IDE favorito.
-- Pegue su clave API para iniciar el análisis.
+- Ve a <https://wakatime.com> y crea una cuenta.
+- Obtén tu clave API de WakaTime desde tus [Configuraciones de la Cuenta en WakaTime](https://wakatime.com/settings/account).
+- Instala el [complemento de WakaTime](https://wakatime.com/plugins) en tu editor o IDE favorito.
+- Pega tu clave API para comenzar el análisis.
 
-### Repositorio de Perfil
+### Perfil de Repositorio
 
-Necesitará obtener un [Token de Acceso de GitHub](https://docs.github.com/es/acciones/configurando-y-gestionando-flujos-de-trabajo/autenticacion-con-el-token_de-github) con un alcance `repo` y `user`, y guardarlo en los Secretos del Repositorio `GH_TOKEN = <Su Token de Acceso de GitHub>`.
+Necesitarás obtener un [Token de Acceso de GitHub](https://docs.github.com/en/acciones/configurando-y-gestionando-flujos-de-trabajo/autenticacion-con-el-token_de-github) con alcance `repo` y `user` y guardarlo en los Secretos del Repositorio `GH_TOKEN = <Tu Token de Acceso de GitHub>`
 
-Aquí tiene un archivo de flujo de trabajo de ejemplo para ejecutarlo:
+Aquí tienes un archivo de flujo de trabajo de ejemplo para ejecutarlo:
 
 ```yml
 name: Waka Readme
@@ -110,11 +116,11 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 ```
 
-Ahora puede realizar un commit y esperar a que se ejecute automáticamente, o también puede desencadenar su ejecución para ver el resultado de inmediato. Simplemente vaya a la sección `Acciones` de su repositorio, seleccione el flujo de trabajo `Perfil Readme Development Stats` y haga clic en `Ejecutar flujo de trabajo`. Espere un minuto o dos y verá sus cambios.
+- Ahora puedes confirmar los cambios y esperar a que se ejecuten automáticamente, o también puedes desencadenar su ejecución para ver el resultado de inmediato. Simplemente ve a la sección `Acciones` en tu repositorio, selecciona el flujo de trabajo `Perfil Readme Development Stats` y haz clic en `Ejecutar flujo de trabajo`. Espera un minuto o dos y verás tus cambios aplicados.
 
 ## Extras
 
-Si desea agregar otra información a sus estadísticas, puede incluir múltiples `FLAGS` en su archivo de flujo de trabajo. Por defecto, todas las banderas están habilitadas (excepto la bandera de líneas de código debido a la operación intensiva que implica).
+Si deseas agregar otra información a tus estadísticas, puedes añadir múltiples `FLAGS` en tu archivo de flujo de trabajo. Por defecto, todas las banderas están habilitadas (excepto la bandera de líneas de código debido a la operación pesada que se realiza).
 
 ```yml
 - uses: anmol098/waka-readme-stats@master
@@ -129,35 +135,35 @@ Si desea agregar otra información a sus estadísticas, puede incluir múltiples
 
 ---
 
-`LOCALE` Esta bandera se puede utilizar para mostrar estadísticas en su idioma. El valor predeterminado es inglés. Código de idioma abreviado [corto](https://saimana.com/lista-de-códigos-de-idioma-país/) para pasar en la variable de bandera. Un ejemplo del resultado final se puede encontrar [aquí](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md).
+`LOCALE`: Esta bandera se puede utilizar para mostrar estadísticas en tu idioma. El valor predeterminado es inglés. Se debe pasar el código de locale [corto](https://saimana.com/list-of-country-locale-code/) en la variable de la bandera. Un ejemplo del resultado final se puede encontrar [aquí](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md).
 
-La bandera `SECCIÓN_NOMBRE` se puede establecer en cualquier cadena, y será el nombre de la sección para reemplazar en el README.
+La bandera `SECTION_NAME` se puede configurar con cualquier cadena, y será el nombre de la sección que se reemplazará en el README.
 
-La bandera `COMMIT_POR_MI` se puede establecer en `True` para comprometer el código con su nombre y correo electrónico.
+La bandera `COMMIT_BY_ME` se puede establecer en `True` para realizar un commit del código con tu nombre y correo electrónico.
 
-La bandera `COMMIT_MENSAJE` se puede configurar para el mensaje de compromiso. El valor predeterminado es "Actualizado con Métricas de Desarrollo".
+La bandera `COMMIT_MESSAGE` se puede personalizar para el mensaje del commit. El valor predeterminado es "Actualizado con Métricas de Desarrollo".
 
-La bandera `COMMIT_USUARIO` se puede establecer como un nombre de usuario para comprometer el código. El valor predeterminado es "readme-bot".
+La bandera `COMMIT_USERNAME` se puede configurar como un nombre de usuario para realizar el commit del código. El valor predeterminado es "readme-bot".
 
-La bandera `COMMIT_CORREO` se puede establecer para un correo electrónico para comprometer el código. El valor predeterminado es "41898282+github-actions[bot]@users.noreply.github.com".
+La bandera `COMMIT_EMAIL` se puede establecer para proporcionar una dirección de correo electrónico para realizar el commit. El valor predeterminado es "41898282+github-actions[bot]@users.noreply.github.com".
 
-La bandera `MOSTRAR_FECHA_ACTUALIZACIÓN` se puede establecer en `True` para mostrar la fecha de actualización al final del párrafo.
+La bandera `SHOW_UPDATED_DATE` se puede configurar en `True` para mostrar la fecha de actualización al final del párrafo.
 
-La bandera `FORMATO_FECHA_ACTUALIZACIÓN` se puede establecer para colocar la fecha de actualización en un formato. El valor predeterminado es `"%d/%m/%Y %H:%M:%S"`.
+La bandera `UPDATED_DATE_FORMAT` se puede personalizar para formatear la fecha de actualización. El valor predeterminado es `"%d/%m/%Y %H:%M:%S"`.
 
-La bandera `MOSTRAR_LINEAS_CÓDIGO` se puede establecer en `True` para mostrar el número de líneas de código escritas hasta la fecha.
+La bandera `SHOW_LINES_OF_CODE` se puede establecer en `True` para mostrar el número de líneas de código escritas hasta la fecha.
 
-![Lines of Code](https://img.shields.io/badge/From%20Hello%20World%20I've%20written-1.3%20million%20Lines%20of%20code-blue)
+![Líneas de Código](https://img.shields.io/badge/Desde%20Hola%20Mundo%20He%20escrito-1.3%20millones%20de%20líneas%20de%20código-blue)
 
-La bandera `SHOW_TOTAL_CODE_TIME` puede configurarse en `False` para ocultar *Tiempo de Código*.
+La bandera `SHOW_TOTAL_CODE_TIME` se puede configurar en `False` para ocultar *Tiempo de Código*.
 
-![Code Time](http://img.shields.io/badge/Code%20Time-1%2C438%20hrs%2054%20mins-blue)
+![Tiempo de Código](http://img.shields.io/badge/Tiempo%20de%20Código-1%2C438%20hrs%2054%20mins-blue)
 
-La bandera `SHOW_PROFILE_VIEWS` puede configurarse en `False` para ocultar **Vistas de Perfil**.
+La bandera `SHOW_PROFILE_VIEWS` se puede establecer en `False` para ocultar **Vistas del Perfil**.
 
-![Profile Views](http://img.shields.io/badge/Profile%20Views-2189-blue)
+![Vistas del Perfil](http://img.shields.io/badge/Vistas%20del%20Perfil-2189-blue)
 
-La bandera `SHOW_COMMIT` puede configurarse en `False` para ocultar las estadísticas del commit.
+La bandera `SHOW_COMMIT` se puede configurar en `False` para ocultar las estadísticas de commit.
 
 **Soy un pájaro temprano 🐤**
 
@@ -169,7 +175,7 @@ La bandera `SHOW_COMMIT` puede configurarse en `False` para ocultar las estadís
 
 ```
 
-La bandera `SHOW_DAYS_OF_WEEK` puede configurarse en `False` para ocultar los compromisos realizados en los diferentes días de la semana.
+La bandera `SHOW_DAYS_OF_WEEK` se puede configurar en `False` para ocultar los compromisos realizados en los diferentes días de la semana.
 
 📅 **Soy más productivo los domingos**
 
@@ -184,7 +190,7 @@ Sunday       86 commits     █████░░░░░░░░░░░░�
 
 ```
 
-La bandera `SHOW_LANGUAGE` puede configurarse en `False` para ocultar los lenguajes de programación que utiliza.
+La bandera `SHOW_LANGUAGE` se puede establecer en `False` para ocultar los lenguajes de programación que utilizas.
 
 ```text
 💬 Languages:
@@ -195,14 +201,14 @@ Python                   22 mins             █░░░░░░░░░░�
 XML                      8 mins              ░░░░░░░░░░░░░░░░░░░░░░░░░   1.62%
 ```
 
-La bandera `SHOW_OS` puede configurarse en `False` para ocultar los detalles de su sistema operativo.
+La bandera `SHOW_OS` puede configurarse en `False` para ocultar los detalles de tu sistema operativo.
 
 ```text
 💻 Operating Systems:
 Windows                  8 hrs 46 mins       █████████████████████████   100.0%
 ```
 
-La bandera `SHOW_PROJECTS` puede configurarse en `False` para ocultar los proyectos en los que se ha trabajado.
+La bandera `SHOW_PROJECTS` puede configurarse en `False` para ocultar los proyectos trabajados.
 
 ```text
 🐱‍💻 Projects:
@@ -213,13 +219,13 @@ cable                    54 mins             ██░░░░░░░░░�
 denAPI                   40 mins             ██░░░░░░░░░░░░░░░░░░░░░░░   7.66%
 ```
 
-La bandera `SHOW_TIMEZONE` puede configurarse en `False` para ocultar la zona horaria en la que se encuentra.
+La bandera `SHOW_TIMEZONE` puede configurarse en `False` para ocultar la zona horaria en la que te encuentras.
 
 ```text
 ⌚︎ Timezone: Asia/Calcutta
 ```
 
-La bandera `SHOW_EDITORS` puede configurarse en `False` para ocultar la lista de editores de código/IDEs utilizados.
+La bandera `SHOW_EDITORS` puede configurarse en `False` para ocultar la lista de editores de código/IDE utilizados.
 
 ```text
 🔥 Editors:
@@ -228,9 +234,9 @@ PhpStorm                 1 hr 35 mins        ████░░░░░░░�
 PyCharm                  23 mins             █░░░░░░░░░░░░░░░░░░░░░░░░   4.49%
 ```
 
-La bandera `SHOW_LANGUAGE_PER_REPO` puede configurarse en `False` para ocultar el número de repositorios en diferentes lenguajes de programación y frameworks.
+La bandera `SHOW_LANGUAGE_PER_REPO` se puede establecer en `False` para ocultar la cantidad de repositorios en diferentes lenguajes de programación y marcos.
 
-**Yo programo principalmente en Vue**
+**Yo codifico principalmente en Vue**
 
 ```text
 Vue          8 repos        ██████░░░░░░░░░░░░░░░░░░░   25.0% 
@@ -248,51 +254,51 @@ The `SHOW_SHORT_INFO` flag can be set to `False` to hide the short fun fact info
 > [!NOTE]
 > This section requires a Personal Access Token (PAT) with the `user` scope, otherwise the data shown here will be incorrect.
 
-**🐱 My GitHub Data**
+**🐱 Mis datos de GitHub**
 
-> 🏆 433 Contributions in year 2020
- >
-> 📦 Used 292.3 kB in GitHub's Storage
- >
-> 💼 Opted to Hire
- >
-> 📜 25 Public Repository
- >
-> 🔑 15 Owned Private Repository
+> 🏆 433 contribuciones en el año 2020
+>
+> 📦 Se utilizaron 292,3 kB de almacenamiento en GitHub
+>
+> 💼 Opción de contratación seleccionada
+>
+> 📜 25 repositorios públicos
+>
+> 🔑 15 repositorios privados propios
 
-The `SHOW_LOC_CHART` flag can be set to `False` to hide the lines of code written in different quarters of different years.
+La bandera `SHOW_LOC_CHART` se puede establecer en `False` para ocultar las líneas de código escritas en diferentes trimestres de diferentes años.
 
-The `IGNORED_REPOS` flag can be set to `"waka-readme-stats, my-first-repo"` (just an example) to ignore some repos you don’t want to be counted.
+La bandera `IGNORED_REPOS` se puede configurar con `"waka-readme-stats, my-first-repo"` (solo un ejemplo) para ignorar repositorios que no desees contar.
 
-The `SYMBOL_VERSION` flag can be set for the symbol for the progress bar (default: `1`).
+La bandera `SYMBOL_VERSION` se puede establecer para el símbolo del indicador de progreso (por defecto: `1`).
 
-| Version | Done block | Empty block |
-|-------- | ---------- | ----------- |
-|    1    |      █     |       ░     |
-|    2    |      ⣿     |       ⣀     |
-|    3    |      ⬛    |       ⬜    |
+| Versión | Bloque realizado | Bloque vacío |
+|-------- | ---------------- | ----------- |
+| 1       | █                | ░           |
+| 2       | ⣿               | ⣀           |
+| 3       | ⬛               | ⬜           |
 
-The `DEBUG_LOGGING` flag can be set to increase the GitHub Action's output verbosity, by default equals internal runner debug property
+La bandera `DEBUG_LOGGING` se puede configurar para aumentar la verbosidad de la salida de GitHub Actions, por defecto igual a la propiedad de depuración del ejecutor interno.
 
-**Timeline**
+**Cronograma**
 
-![Chart not found](https://raw.githubusercontent.com/anmol098/anmol098/master/charts/bar_graph.png)
+![Gráfico no encontrado](https://raw.githubusercontent.com/anmol098/anmol098/master/charts/bar_graph.png)
 
-## :corazón_destellante: Apoye el proyecto
+## :corazón_estrellado: Apoya el proyecto
 
-Abro al código fuente de casi todo lo que puedo y trato de responder a todos los que necesitan ayuda utilizando estos proyectos. Obviamente, esto toma tiempo. Puede utilizar este servicio de forma gratuita.
+Abro en código abierto casi todo lo que puedo y trato de responder a todos los que necesitan ayuda con estos proyectos. Obviamente, esto lleva tiempo. Puedes usar este servicio gratis.
 
-Sin embargo, si está utilizando este proyecto y está satisfecho con él o simplemente desea animarme a seguir creando cosas, hay algunas formas de hacerlo:
+Sin embargo, si estás utilizando este proyecto y estás contento con él o simplemente quieres animarme a seguir creando cosas, hay algunas formas en las que puedes hacerlo:
 
-- **Dando el crédito adecuado** cuando utilice esta acción en su archivo README, vinculando de vuelta a él. 😊
-- **Estreando y compartiendo el proyecto** 🚀.
-- **[!Donación PayPal](https://www.paypal.me/aapreneur)** - Puede realizar donaciones únicas a través de PayPal. Probablemente compre algo de ~~cerveza~~ vino 🍷.
+- Dando el crédito adecuado cuando uses esta acción en tu README, enlazando de vuelta :D
+- Estrellando y compartiendo el proyecto 🚀
+- [![paypal.me/aapreneur](https://ionicabizau.github.io/badges/paypal.svg)](https://www.paypal.me/aapreneur) - Puedes hacer donaciones únicas a través de PayPal. Probablemente compre algo de ~~cerveza~~ vino 🍷.
 
-¡Gracias! 💖
+¡Gracias! :corazón:
 
-# Contribuciones
+# Contribución
 
-Se aceptan contribuciones ♥ ¡Por favor, comparta cualquier característica y agregue pruebas unitarias! Utilice los sistemas de solicitudes de extracción e informes de problemas para contribuir.
+¡Las contribuciones son bienvenidas ♥! Por favor, comparte cualquier característica y añade pruebas unitarias. Utiliza los sistemas de solicitudes de extracción e informes para contribuir.
 
 # Contribuyentes Seleccionados
 
@@ -451,19 +457,19 @@ Se aceptan contribuciones ♥ ¡Por favor, comparta cualquier característica y 
 
 </details>
 
-- ¡Y usted! Si está utilizándolo en este momento y no figura en la lista, infórmenos enviando un [Mencion Especial](https://github.com/anmol098/waka-readme-stats/issues/new/choose) ¡:sonrojado:!
-  Estaremos encantados de agregarlo a la lista.
+- ¡Y tú! Si estás usándolo en este momento y no estás en la lista, por favor házmelo saber enviando un [Mencion Especial](https://github.com/anmol098/waka-readme-stats/issues/new/choose) ¡:sonrojado!
+  Estaremos encantados de agregarte a la lista.
 
 Hecho con :corazón: y Python 🐍.
 
 # Inspirado en
 
-> [Awesome Gists Pinados](https://github.com/matchai/awesome-pinned-gists) <br/>
+> [Awesome Pinned Gists](https://github.com/matchai/awesome-pinned-gists) <br/>
 > [athul/waka-readme](https://github.com/athul/waka-readme)
 
-### Este proyecto necesita **una estrella** ⭐ de su parte.
+### Este proyecto necesita un **estrella** ⭐ de tu parte 💖
 
-## Observadores a lo largo del tiempo
+## Stargazers a lo largo del tiempo
 
 [![Stargazers over time](https://starchart.cc/anmol098/waka-readme-stats.svg)](https://starchart.cc/anmol098/waka-readme-stats)
 

@@ -1,83 +1,111 @@
 <!--START_SECTION:navbar-->
+
 <div align="center">
-  <a href="../README.md">🇺🇸 English</a> | <a href="README.de.md">🇩🇪 Deutsch</a> | <a href="README.es.md">🇪🇸 Español</a> | <a href="README.fr.md">🇫🇷 Français</a> | <a href="README.hi.md">🇮🇳 हिंदी</a> | <a href="README.ja.md">🇯🇵 日本語</a> | <a href="README.ko.md">🇰🇷 한국어</a> | <a href="README.pt.md">🇵🇹 Português</a> | <a href="README.ru.md">🇷🇺 Русский</a> | <a href="README.zh.md">🇨🇳 中文</a>
+  <a href="../README.md">🇺🇸 English</a> | <a href="../locales/README.de.md">🇩🇪 Deutsch</a> | <a href="../locales/README.es.md">🇪🇸 Español</a> | <a href="../locales/README.fr.md">🇫🇷 Français</a> | <a href="../locales/README.hi.md">🇮🇳 हिंदी</a> | <a href="../locales/README.ja.md">🇯🇵 日本語</a> | <a href="../locales/README.ko.md">🇰🇷 한국어</a> | <a href="../locales/README.pt.md">🇵🇹 Português</a> | <a href="../locales/README.ru.md">🇷🇺 Русский</a> | <a href="../locales/README.zh.md">🇨🇳 中文</a>
 </div>
+
 <!--END_SECTION:navbar-->
 
-> [!WICHTIG]
-> Wir suchen Übersetzerinnen und Übersetzer für dieses Projekt.
-> Jede Unterstützung wäre sehr willkommen.
-> Bitte sehen Sie sich das Issue [hier](https://github.com/anmol098/waka-readme-stats/issues/23) an, wenn Sie helfen möchten!
+> [!IMPORTANT]
+> We are looking for translators for this project. \
+> Any kind of help would be greatly appreciated. \
+> Please see issue <https://github.com/anmol098/waka-readme-stats/issues/23> if you would like to help!
 
-# Entwicklermetriken in der README mit hinzugefügten Feature-Flags 🎌
+# Metriken für Entwickler in der README mit hinzugefügten Feature-Flags 🎌
 
 ![Projektvorschau](https://user-images.githubusercontent.com/25841814/79395484-5081ae80-7fac-11ea-9e27-ac91472e31dd.png)
 
 <p align="center">
 
-![Projektvorschau](https://user-images.githubusercontent.com/15426564/88030180-8e1c4780-cb58-11ea-8a8b-b3576dd73652.png)
+  ![Projektvorschau](https://user-images.githubusercontent.com/15426564/88030180-8e1c4780-cb58-11ea-8a8b-b3576dd73652.png)
 
-# 📌✨ Hervorragende Projektstatistiken
+  <h3 align="center">📌✨Ausgezeichnete README-Statistiken</h3>
+</p>
 
 ----
 
-# 🌐 Technologische Details
+<p align="center">
+   <img src="https://img.shields.io/badge/Programmiersprache-Python-blue?style=for-the-badges" alt="Sprache: Python"/>
+   <img src="https://img.shields.io/github/license/anmol098/waka-readme-stats"/>
+   <img src="https://img.shields.io/github/stars/anmol098/waka-readme-stats"/>
+   <img src="https://img.shields.io/github/forks/anmol098/waka-readme-stats"/>
+   <img src="https://img.shields.io/static/v1?label=%F0%9F%8C%9F&message=Wenn+nützlich&style=flat&color=BC4E99" alt="Sternen-Badge">
+</p>
 
-- **Programmiersprache:** Python
-- **Lizenz:** GitHub-Lizenz
-- **Sterne:** [Anzahl der Sterne](https://github.com/anmol098/waka-readme-stats/stargazers)
-- **Forks:** [Anzahl der Forks](https://github.com/anmol098/waka-readme-stats/forks)
+<p align="center">
+   Bist du ein früher Vogel 🐤 oder ein Nachtfalter 🦉?
+   <br/>
+   Zu welcher Tageszeit bist du am produktivsten?
+   <br/>
+   In welchen Programmiersprachen programmierst du?
+   <br/>
+   Lass uns es in deiner Profil-README herausfinden!
+</p>
 
-# 🦜 Zeitpräferenzen
+<p align="center">
+    <a href="https://github.com/anmol098/waka-readme-stats/issues">Bug melden</a>
+    ·
+    <a href="https://github.com/anmol098/waka-readme-stats/issues">Feature anfordern</a>
+  </p>
 
-Sind Sie ein **Frühaufsteher** oder ein **Nachteule**?
+## Vorbereitungsarbeit
 
-Wann sind Sie am produktivsten während des Tages?
+Hier sind die Schritte, um dieses Projekt einzurichten:
 
-# 🖥️ Programmiersprachen
+1. **Aktualisiere die Markdown-Datei (.md)**: Füge zwei Kommentare hinzu, wie in der Sektion "[Update deine README](#update-your-readme)" beschrieben.
 
-Entdecken Sie die Programmiersprachen, mit denen Sie arbeiten!
+2. **Erhalte einen WakaTime API-Schlüssel**: Melde dich bei deinem WakaTime-Konto an und gehe zu den Einstellungen, um deinen API-Schlüssel zu erhalten. Weitere Informationen findest du unter "[Neues bei WakaTime?](#new-to-wakatime)".
 
-Erkunden Sie diese Informationen in Ihrer Profil-README!
+3. **Erstelle ein GitHub API-Token**: Gehe zu [GitHub Settings > Tokens](https://github.com/settings/tokens) und erstelle ein Token mit den Berechtigungen `repo` und `user`. Du kannst das Beispiel unter "[Repository profilieren](#profile-repository)" verwenden, um die erforderlichen Berechtigungen zu verstehen.
 
-# 📢 Unterstützung
+> [!NOTE]
+> Enabling the `repo` scope seems **DANGEROUS**, \
+> but this GitHub Action only accesses your commit timestamps and the number of lines of code added or deleted in repositories that you contributed to.
 
-Falls Sie einen Fehler feststellen oder eine Funktion vorschlagen möchten, öffnen Sie bitte ein Issue:
+## Anleitung zur Konfiguration und Ausführung
 
-- [Bug melden](https://github.com/anmol098/waka-readme-stats/issues)
-- [Funktionswunsch einreichen](https://github.com/anmol098/waka-readme-stats/issues)
+**1. Speichern Sie API-Schlüssel in Repository-Geheimnissen:**
 
-## Vorbereitende Arbeiten
+ - Navigieren Sie zu den Einstellungen Ihres GitHub-Repositories.
+ - Gehen Sie zu **Secrets** und fügen Sie zwei neue Geheimnisse hinzu:
+    - `WAKATIME_API_KEY`: Fügen Sie Ihren WakaTime API-Schlüssel ein.
+    - `GH_TOKEN`: Fügen Sie Ihr GitHub Personal Access Token (PAT) ein.
 
-**1. Aktualisierung der Markdown-Datei (.md)**
+**2. Aktivieren/Deaktivieren von Feature Flags:**
 
-Fügen Sie der Markdown-Datei zwei Kommentare hinzu. Sie finden Anweisungen zur Aktualisierung der Datei [hier](#update-your-readme).
+Konfigurieren Sie die gewünschten Feature Flags je nach Bedarf.
 
-**2. WakaTime API-Schlüssel**
+**3. Einrichten der GitHub Action:**
 
-Sie benötigen einen API-Schlüssel von WakaTime. Dieser ist in Ihrem WakaTime-Konto unter den Einstellungen verfügbar. [Hier](#new-to-wakatime) finden Sie eine Anleitung für Neulinge bei WakaTime.
+- Erstellen oder bearbeiten Sie das Workflow-Datei in Ihrem Repository (z.B. `.github/workflows/main.yml`).
+- Fügen Sie einen Job hinzu, der Ihre Skripte oder Aktionen ausführt.
+- Konfigurieren Sie den Job, um die GitHub Action zu einem gewünschten Zeitpunkt auszuführen. Dies kann mit `cron`-Ausdrücken erfolgen. 
+- Besuchen Sie [Crontab.guru](https://crontab.guru/) oder [cronhub.io](https://crontab.cronhub.io/) für die Erstellung von `cron`-Ausdrücken.
 
-**3. GitHub API-Token**
+**Beispiel für einen GitHub Action Workflow (main.yml):**
 
-Für die Ausführung der Aktion zur Erfassung von Commit-Metriken benötigen Sie ein GitHub API-Token mit `repo` und `user` Berechtigungen. Erstellen Sie ein Token unter [diesen](https://github.com/settings/tokens) Link. Sie können [dieses Beispiel](#profile-repository) verwenden, um es einzurichten.
+```yaml
+name: WakaTime Integration
 
-> [!WICHTIG]
-> Die Berechtigung `repo` kann **GEFÄHRLICH** sein. Diese GitHub-Aktion greift nur auf Ihre Commit-Zeitstempel und die Anzahl der hinzugefügten oder gelöschten Codezeilen in Repositories zu, an denen Sie mitgewirkt haben, zu.
+on:
+  schedule:
+    - cron: '0 0 * * *' # Ausführung täglich um Mitternacht
 
-**4. Speichern der API-Schlüssel und des GitHub-Tokens**
+jobs:
+  wakatime:
+    runs-on: ubuntu-latest
 
-Speichern Sie den WakaTime API-Schlüssel und das GitHub-Token als Geheimnisse im Repository. Dies finden Sie in den Einstellungen Ihres Repositorys. Verwenden Sie folgende Formate:
+    steps:
+      - uses: actions/checkout@v2
 
-- WakaTime API-Schlüssel: `WAKATIME_API_KEY=<Ihr WakaTime-API-Schlüssel>`
-- GitHub-Personal-Access-Token (PAT): `GH_TOKEN=<Ihr GitHub-Zugangstoken>`
+      - name: Set up WakaTime
+        run: |
+          # Hier Ihre WakaTime-Initialisierungskomandos
 
-**5. Aktivierung und Deaktivierung von Feature-Flags**
-
-Sie können Feature-Flags je nach Bedarf aktivieren und deaktivieren.
-
-**6. Zeitgesteuerte Ausführung**
-
-Diese GitHub-Aktion kann zu jeder gewünschten Zeit mithilfe von `cron` ausgeführt werden. Besuchen Sie [Crontab.guru](https://crontab.guru/) und [diesen](https://crontab.cronhub.io/) Link, um `cron`-Ausdrücke zu generieren.
+      - name: Track Time
+        run: |
+          # Hier Ihr Code zum Aufzeichnen der Arbeitszeit mit WakaTime
+```
 
 ## Update your Readme
 
@@ -88,22 +116,22 @@ Add a comment to your `README.md` like this:
 <!--END_SECTION:waka-->
 ```
 
-`waka` kann durch jeden String ersetzt werden, der in der `SECTION_NAME`-Flagge gemäß dem Abschnitt [verfügbare Flags](#flags-verfügbar) angegeben ist.
+`waka` kann durch jeden String ersetzt werden, der im `SECTION_NAME`-Flag angegeben ist, gemäß der Sektion mit den **verfügbaren Flags**.
 
 Diese Zeilen dienen als Einstiegspunkte für die Entwicklermetriken.
 
 ## Neu bei WakaTime
 
-WakaTime gibt Ihnen einen Überblick darüber, wie viel Zeit Sie tatsächlich am Codieren verbringen. Dies hilft Ihnen, Ihre Produktivität zu steigern und Ihren Wettbewerbsvorteil zu stärken.
+WakaTime gibt dir einen Einblick in die Zeit, die du tatsächlich am Codieren verbracht hast. Dies hilft dir, deine Produktivität zu steigern und deinen Wettbewerbsvorteil zu stärken.
 
-- Besuchen Sie **<https://wakatime.com>** und erstellen Sie ein Konto.
-- Holen Sie sich Ihren WakaTime API-Schlüssel aus Ihren **[Kontoeinstellungen in WakaTime](https://wakatime.com/settings/account)**.
-- Installieren Sie das **[WakaTime-Plugin](https://wakatime.com/plugins)** in Ihrer bevorzugten Textbearbeitungs- oder IDE-Umgebung.
-- Fügen Sie Ihren API-Schlüssel ein, um die Analyse zu starten.
+- Besuche <https://wakatime.com> und erstelle ein Konto.
+- Hole dir deinen WakaTime API-Schlüssel aus den [Kontoeinstellungen in WakaTime](https://wakatime.com/settings/account).
+- Installiere das [WakaTime-Plugin](https://wakatime.com/plugins) in deiner bevorzugten Textbearbeitungs- oder IDE-Umgebung.
+- Füge deinen API-Schlüssel ein, um die Analyse zu starten.
 
 ### Profil-Repository
 
-Sie benötigen ein [GitHub Access Token](https://docs.github.com/de/actions/konfigurieren-und-verwalten-von-workflows/authentifizierung-mit-dem-github_token), das über die Berechtigungen `repo` und `user` verfügt, und speichern Sie es als Geheimnis des Repositories unter `GH_TOKEN = <Ihr GitHub Access Token>`.
+Du benötigst ein [GitHub Access Token](https://docs.github.com/de/actions/konfigurieren-und-verwalten-von-workflows/authentifizierung-mit-dem-github_token), das mit den Berechtigungen `repo` und `user` ausgestattet ist, und speichere es als Geheimnis im Repository: `GH_TOKEN = <Dein GitHub Access Token>`
 
 Hier ist ein Beispiel für eine Workflow-Datei zur Ausführung:
 
@@ -126,9 +154,9 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 ```
 
-- Sie können nun einen Commit durchführen und warten, bis er automatisch ausgeführt wird, oder Sie können ihn manuell auslösen, um das Ergebnis sofort zu sehen. Gehen Sie dazu in Ihrem Repository zu den `Aktionen`, wählen Sie den Workflow `Profile Readme Development Stats` aus und klicken Sie auf `Workflow ausführen`. Warten Sie nun etwa eine Minute oder zwei, und Sie werden Ihre Änderungen sehen.
+- Jetzt kannst du committen und warten, bis es automatisch ausgeführt wird, oder du kannst es auch manuell auslösen, um die Ergebnisse sofort zu sehen. Gehe einfach zu den `Aktionen` in deinem Repository, wähle den Workflow `Profile Readme Development Stats` aus und klicke auf `Workflow ausführen`. Warte nun ein paar Minuten und du wirst deine Änderungen sehen.
 
-Wenn Sie weitere Informationen zu Ihren Statistiken hinzufügen möchten, können Sie in Ihrer Workflow-Datei mehrere `FLAGS` hinzufügen. Standardmäßig sind alle Flags aktiviert (mit Ausnahme des Flags für die Zeilen von Code aufgrund der intensiven Operation).
+Wenn du weitere Informationen zu deinen Statistiken hinzufügen möchtest, kannst du in deiner Workflow-Datei mehrere `FLAGs` hinzufügen. Standardmäßig sind alle Flags aktiviert (außer dem Codezeilen-Flag aufgrund der intensiven Operation).
 
 ```yml
 - uses: anmol098/waka-readme-stats@master
@@ -143,37 +171,37 @@ Wenn Sie weitere Informationen zu Ihren Statistiken hinzufügen möchten, könne
 
 ---
 
-`LOCALE` Dieses Flag kann verwendet werden, um Statistiken in Ihrer Sprache anzuzeigen. Standardmäßig ist die Sprache Englisch. Lokale Abkürzungen (Short Hand) gemäß [diesem Link](https://saimana.com/list-of-country-locale-code/) sind in der Flagge zu übergeben. Ein Beispiel für das Endergebnis finden Sie [hier](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md).
+`LOCALE`: Diese Flagge kann verwendet werden, um die Statistiken in deiner Sprache anzuzeigen. Standardmäßig ist Englisch festgelegt. Lokale [Kurzkürzel](https://saimana.com/list-of-country-locale-code/) können in der Flaggenvariablen übergeben werden. Ein Beispiel für das endgültige Ergebnis kann [hier](https://github.com/anmol098/anmol098/blob/master/Readme-de.md) gefunden werden.
 
-Das `SECTION_NAME`-Flag kann auf jeden beliebigen String gesetzt werden und dient als Name der Sektion, die im README ersetzt werden soll.
+`SECTION_NAME`: Diese Flagge kann jeden Textstring sein und dient als Name der Sektion, die im README ersetzt wird.
 
-Das `COMMIT_BY_ME`-Flag kann auf `True` gesetzt werden, um den Code mit Ihrem Namen und Ihrer E-Mail zu committen.
+`COMMIT_BY_ME`: Diese Flagge kann auf `True` gesetzt werden, um den Code mit deinem Namen und deiner E-Mail zu committen.
 
-Das `COMMIT_MESSAGE`-Flag kann für die Commit-Nachricht festgelegt werden. Standardmäßig lautet diese "Aktualisiert mit Entwicklermetriken".
+`COMMIT_MESSAGE`: Die Commit-Nachricht kann über diese Flagge festgelegt werden. Der Standardwert ist "Aktualisiert mit Entwicklermetriken".
 
-Das `COMMIT_USERNAME`-Flag kann als Benutzername zum Committen des Codes gesetzt werden. Standardmäßig ist dies "readme-bot".
+`COMMIT_USERNAME`: Diese Flagge legt einen Benutzernamen für den Code-Commit fest. Der Standardwert ist "readme-bot".
 
-Das `COMMIT_EMAIL`-Flag kann eine E-Mail zum Committen des Codes festgelegt werden. Standardmäßig ist dies "41898282+github-actions[bot]@users.noreply.github.com".
+`COMMIT_EMAIL`: Die E-Mail-Adresse für den Code-Commit kann über diese Flagge festgelegt werden. Der Standardwert ist "41898282+github-actions[bot]@users.noreply.github.com".
 
-Das `SHOW_UPDATED_DATE`-Flag kann auf `True` gesetzt werden, um das Aktualisierungsdatum am Ende des Absatzes anzuzeigen.
+`SHOW_UPDATED_DATE`: Diese Flagge kann auf `True` gesetzt werden, um das Aktualisierungsdatum am Ende des Absatzes anzuzeigen.
 
-Das `UPDATED_DATE_FORMAT`-Flag kann verwendet werden, um das Aktualisierungsdatum in einem bestimmten Format anzuzeigen. Standardmäßig ist dies `"%d/%m/%Y %H:%M:%S"`.
+`UPDATED_DATE_FORMAT`: Mit dieser Flagge kann das Format für das Aktualisierungsdatum festgelegt werden. Der Standardwert ist `"%d/%m/%Y %H:%M:%S"`.
 
-Das `SHOW_LINES_OF_CODE`-Flag kann auf `True` gesetzt werden, um die Anzahl der bis heute geschriebenen Codezeilen anzuzeigen.
+`SHOW_LINES_OF_CODE`: Diese Flagge kann auf `True` gesetzt werden, um die Anzahl der bis heute geschriebenen Codezeilen anzuzeigen.
 
-![Lines of Code](https://img.shields.io/badge/From%20Hello%20World%20I've%20written-1.3%20million%20Lines%20of%20code-blue)
+![Zeilen des Codes](https://img.shields.io/badge/Von%20Hallo%20Welt%20Ich%27ve%20geschrieben-1,3%20million%20Codezeilen-blue)
 
-Die Flagge `SHOW_TOTAL_CODE_TIME` kann auf `False` gesetzt werden, um die *Codezeit* zu verbergen.
+`SHOW_TOTAL_CODE_TIME`: Diese Flagge kann auf `False` gesetzt werden, um die *Code Time* zu verbergen.
 
-![Code Time](http://img.shields.io/badge/Code%20Time-1%2C438%20hrs%2054%20mins-blue)
+![Code Time](http://img.shields.io/badge/Code%20Time-1%2C438%20Stunden%2054%20Minuten-blue)
 
-Der `SHOW_PROFILE_VIEWS`-Flag kann auf `False` gesetzt werden, um **Profilansichten** auszublenden.
+`SHOW_PROFILE_VIEWS`: Diese Flagge kann auf `False` gesetzt werden, um die **Profilaufrufe** zu verbergen.
 
-![Profile Views](http://img.shields.io/badge/Profile%20Views-2189-blue)
+![Profilaufrufe](http://img.shields.io/badge/Profilaufrufe-2189-blue)
 
-Das Flag `SHOW_COMMIT` kann auf `False` gesetzt werden, um die Commit-Statistiken auszublenden.
+`SHOW_COMMIT`: Diese Flagge kann auf `False` gesetzt werden, um die Commit-Statistiken zu verbergen.
 
-**Ich bin ein Frühaufsteher.**
+Ich bin ein früher **Vogel** 🐤.
 
 ```text
 🌞 Morning    95 commits     ███████░░░░░░░░░░░░░░░░░░   30.55% 
@@ -183,9 +211,9 @@ Das Flag `SHOW_COMMIT` kann auf `False` gesetzt werden, um die Commit-Statistike
 
 ```
 
-Die `SHOW_DAYS_OF_WEEK`-Flagge kann auf `False` gesetzt werden, um die an den verschiedenen Wochentagen vorgenommenen Commits zu verbergen.
+Die `SHOW_DAYS_OF_WEEK`-Flag kann auf `False` gesetzt werden, um die an den verschiedenen Wochentagen vorgenommenen Commits zu verbergen.
 
-📅 **Ich bin an Sonntagen am produktivsten**
+📅 **Ich bin am produktivsten sonntags**
 
 ```text
 Monday       50 commits     ███░░░░░░░░░░░░░░░░░░░░░░   13.19% 
@@ -198,7 +226,7 @@ Sunday       86 commits     █████░░░░░░░░░░░░�
 
 ```
 
-Das Flagg `SHOW_LANGUAGE` kann auf `False` gesetzt werden, um die Programmiersprachen, die Sie verwenden, zu verbergen.
+Der `SHOW_LANGUAGE`-Flag kann auf `False` gesetzt werden, um die Programmiersprachen, die du verwendest, zu verbergen.
 
 ```text
 💬 Languages:
@@ -209,14 +237,14 @@ Python                   22 mins             █░░░░░░░░░░�
 XML                      8 mins              ░░░░░░░░░░░░░░░░░░░░░░░░░   1.62%
 ```
 
-Die `SHOW_OS`-Flag kann auf `False` gesetzt werden, um die Details Ihres Betriebssystems zu verbergen.
+Das `SHOW_OS`-Flag kann auf `False` gesetzt werden, um die Details deines Betriebssystems zu verbergen.
 
 ```text
 💻 Operating Systems:
 Windows                  8 hrs 46 mins       █████████████████████████   100.0%
 ```
 
-Das Flag `SHOW_PROJECTS` kann auf `False` gesetzt werden, um die bearbeiteten Projekte zu verbergen.
+Das Flagge `SHOW_PROJECTS` kann auf `False` gesetzt werden, um die bearbeiteten Projekte zu verbergen.
 
 ```text
 🐱‍💻 Projects:
@@ -227,13 +255,13 @@ cable                    54 mins             ██░░░░░░░░░�
 denAPI                   40 mins             ██░░░░░░░░░░░░░░░░░░░░░░░   7.66%
 ```
 
-Die `SHOW_TIMEZONE`-Flagg kann auf `False` gesetzt werden, um die Zeitzone, in der Sie sich befinden, zu verbergen.
+Der `SHOW_TIMEZONE`-Flag kann auf `False` gesetzt werden, um die Zeitzone, in der du dich befindest, zu verbergen.
 
 ```text
 ⌚︎ Timezone: Asia/Calcutta
 ```
 
-Die Flagge `SHOW_EDITORS` kann auf `False` gesetzt werden, um die Liste der verwendeten Code-Editoren/IDEs zu verbergen.
+Das Flagge `SHOW_EDITORS` kann auf `False` gesetzt werden, um die Liste der verwendeten Code-Editoren/IDEs zu verbergen.
 
 ```text
 🔥 Editors:
@@ -242,9 +270,9 @@ PhpStorm                 1 hr 35 mins        ████░░░░░░░�
 PyCharm                  23 mins             █░░░░░░░░░░░░░░░░░░░░░░░░   4.49%
 ```
 
-Das Flagge `SHOW_LANGUAGE_PER_REPO` kann auf `False` gesetzt werden, um die Anzahl der Repositories in verschiedenen Programmiersprachen und Frameworks zu verbergen.
+Der Flagge `SHOW_LANGUAGE_PER_REPO` kann der Wert `False` zugewiesen werden, um die Anzahl der Repositories nach Programmiersprachen und Frameworks zu verbergen.
 
-**Ich programme hauptsächlich mit Vue.**
+**Ich programmieren hauptsächlich mit Vue.**
 
 ```text
 Vue          8 repos        ██████░░░░░░░░░░░░░░░░░░░   25.0% 
@@ -262,64 +290,64 @@ The `SHOW_SHORT_INFO` flag can be set to `False` to hide the short fun fact info
 > [!NOTE]
 > This section requires a Personal Access Token (PAT) with the `user` scope, otherwise the data shown here will be incorrect.
 
-**🐱 My GitHub Data**
+## Daten meines GitHub-Profils
 
-> 🏆 433 Contributions in year 2020
- >
-> 📦 Used 292.3 kB in GitHub's Storage
- >
-> 💼 Opted to Hire
- >
-> 📜 25 Public Repository
- >
-> 🔑 15 Owned Private Repository
+> 🏆 Im Jahr 2020 habe ich 433 Beiträge geleistet.
+>
+> 📦 Auf GitHub wurden 292,3 kB Speicherplatz genutzt.
+>
+> 💼 Ich habe mich für die Einstellung entschieden.
+>
+> 📜 Es befinden sich 25 öffentliche Repositories.
+>
+> 🔑 Außerdem besitze ich 15 private Repositories.
 
-The `SHOW_LOC_CHART` flag can be set to `False` to hide the lines of code written in different quarters of different years.
+Die `SHOW_LOC_CHART`-Flagge kann auf `False` gesetzt werden, um die Zeilencode-Aufschlüsselung nach Quartalen und Jahren zu verbergen.
 
-The `IGNORED_REPOS` flag can be set to `"waka-readme-stats, my-first-repo"` (just an example) to ignore some repos you don’t want to be counted.
+Mit der `IGNORED_REPOS`-Flagge (z.B. `"waka-readme-stats, my-first-repo"`) können Repositories ausgeschlossen werden, die nicht berücksichtigt werden sollen.
 
-The `SYMBOL_VERSION` flag can be set for the symbol for the progress bar (default: `1`).
+Die `SYMBOL_VERSION`-Flagge kann für das Fortschrittsbalkensymbol festgelegt werden (Standard: `1`).
 
-| Version | Done block | Empty block |
-|-------- | ---------- | ----------- |
-|    1    |      █     |       ░     |
-|    2    |      ⣿     |       ⣀     |
-|    3    |      ⬛    |       ⬜    |
+| Version | Abgeschlossene Blöcke | Leere Blöcke |
+|-------- | -------------------- | ------------ |
+| 1       | █                     | ░            |
+| 2       | ⣿                     | ⣀            |
+| 3       | ⬛                    | ⬜            |
 
-The `DEBUG_LOGGING` flag can be set to increase the GitHub Action's output verbosity, by default equals internal runner debug property
+Die `DEBUG_LOGGING`-Flagge kann gesetzt werden, um die Ausgabe der GitHub-Aktion zu erhöhen. Standardmäßig entspricht dies der internen Runner-Debug-Eigenschaft.
 
-**Timeline**
+## Zeitachse
 
-![Chart not found](https://raw.githubusercontent.com/anmol098/anmol098/master/charts/bar_graph.png)
+![Diagramm nicht gefunden](https://raw.githubusercontent.com/anmol098/anmol098/master/charts/bar_graph.png)
 
 ## :sparkling_heart: Projekt unterstützen
 
-Ich veröffentliche fast alles, was ich entwickle, als Open-Source-Software und bemühe mich, allen zu helfen, die diese Projekte nutzen. Natürlich kostet dies Zeit. Dieser Service ist kostenlos nutzbar.
+Ich veröffentliche fast alles, was ich schaffe, und bemühe mich, jeder Person zu helfen, die diese Projekte nutzt. Natürlich kostet dies Zeit. Du kannst diesen Service kostenlos nutzen.
 
-Wenn Sie dieses Projekt jedoch nutzen und damit zufrieden sind oder mich einfach dazu ermutigen möchten, weiterhin kreative Dinge zu entwickeln, gibt es einige Möglichkeiten, wie Sie dies tun können:
+Allerdings gibt es einige Möglichkeiten, wie du das Projekt unterstützen kannst, wenn du es nützlich findest oder einfach nur motivieren möchtest, weiter kreative Dinge zu erschaffen:
 
-- Geben Sie bei der Verwendung dieses Tools in Ihrer README-Datei die entsprechende Anerkennung, und verlinken Sie zurück :D
-- Sternen und teilen Sie das Projekt :rocket:
-- **[PayPal](https://www.paypal.me/aapreneur)** - Sie können einmalige Spenden über PayPal leisten. Ich werde wahrscheinlich ein paar ~~Bier~~ Weine kaufen 🍷.
+- Gib bei der Verwendung dieses Tools in deiner README angemessene Anerkennung und verlinke zurück :D
+- Starte das Projekt und teile es :rocket:
+- [![PayPal](https://ionicabizau.github.io/badges/paypal.svg)](https://www.paypal.me/aapreneur) - Du kannst einmalige Spenden über PayPal leisten. Ich werde wahrscheinlich etwas ~~Bier~~ Wein 🍷 kaufen.
 
 Vielen Dank! :heart:
 
 # Beiträge
 
-Beiträge sind herzlich willkommen ♥! Bitte teilen Sie alle Funktionen und fügen Sie Unit-Tests hinzu! Nutzen Sie die Pull-Request- und Issue-Systeme, um beizutragen.
+Beiträge sind herzlich willkommen ♥! Bitte teile alle neuen Funktionen und füge Unit-Tests hinzu! Nutze die Pull-Request- und Issue-Systeme, um deine Beiträge zu leisten.
 
 # Ausgewählte Mitwirkende
 
-1. [Anmol Pratap Singh](https://github.com/anmol098): Unterhalter
-2. [Alexander Sergeev](https://github.com/pseusys): Unterhalter
-3. [Aravind V. Nair](https://github.com/aravindvnair99): Unterhalter
-4. [Prabhat Singh](https://github.com/prabhatdev): Für den Code-Zeitraumgraphen [#18](https://github.com/anmol098/waka-readme-stats/pull/18)
-5. [Hedy Li](https://github.com/hedythedev): Für die Pull-Requests [#34](https://github.com/anmol098/waka-readme-stats/pull/34) und [#23](https://github.com/anmol098/waka-readme-stats/pull/23)
-6. [Pedro Torres](https://github.com/Corfucinas): Für die Pull-Request [#29](https://github.com/anmol098/waka-readme-stats/pull/29)
-7. [Aaron Meese](https://github.com/ajmeese7): Für die Pull-Request [#45](https://github.com/anmol098/waka-readme-stats/pull/45)
-8. [Arnav Jindal](https://github.com/Daggy1234): Für die Pull-Request [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
-9. [Daniel Rowe](https://github.com/DanRowe): Für die Pull-Request [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
-10. [Ss5h](https://github.com/tlatkdgus1): Für die Einführung der Unterstützung für natürliche Satzschreibung für die Übersetzung [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
+1. [Anmol Pratap Singh](https://github.com/anmol098): Hauptverantwortlicher
+2. [Alexander Sergeev](https://github.com/pseusys): Hauptverantwortlicher
+3. [Aravind V. Nair](https://github.com/aravindvnair99): Hauptverantwortlicher
+4. [Prabhat Singh](https://github.com/prabhatdev): Für den Code-Timeline-Graphen [#18](https://github.com/anmol098/waka-readme-stats/pull/18)
+5. [Hedy Li](https://github.com/hedythedev): Für die Pull Requests [#34](https://github.com/anmol098/waka-readme-stats/pull/34) und [#23](https://github.com/anmol098/waka-readme-stats/pull/23)
+6. [Pedro Torres](https://github.com/Corfucinas): Für die Pull Request [#29](https://github.com/anmol098/waka-readme-stats/pull/29)
+7. [Aaron Meese](https://github.com/ajmeese7): Für die Pull Request [#45](https://github.com/anmol098/waka-readme-stats/pull/45)
+8. [Arnav Jindal](https://github.com/Daggy1234): Für die Pull Request [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
+9. [Daniel Rowe](https://github.com/DanRowe): Für die Pull Request [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
+10. [Ss5h](https://github.com/tlatkdgus1): Für die Einführung der Unterstützung für natürliche Satzstrukturen bei der Übersetzung [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
 
 <details>
 
@@ -465,20 +493,18 @@ Beiträge sind herzlich willkommen ♥! Bitte teilen Sie alle Funktionen und fü
 
 </details>
 
-- Und Sie! Wenn Sie es gerade nutzen und nicht auf der Liste stehen, teilen Sie es uns bitte über ein [Spezial-Erwähnungs-Ticket](https://github.com/anmol098/waka-readme-stats/issues/new/choose) mit! :blush: 
-  Wir würden uns freuen, Sie auf der Liste hinzuzufügen.
+- Und du! Wenn du es gerade verwendest und nicht auf der Liste bist, teile uns dies bitte mit, indem du ein [Spezial-Erwähnungs-Ticket](https://github.com/anmol098/waka-readme-stats/issues/new/choose) eröffnest! :blush: Wir freuen uns, dich auf der Liste hinzuzufügen.
 
 Hergestellt mit :heart: und Python 🐍.
 
 # Inspiriert von
 
-> [Awesome Pinned Gists](https://github.com/matchai/awesome-pinned-gists)
->
+> [Fantastische gepinnte Gists](https://github.com/matchai/awesome-pinned-gists) <br/>
 > [athul/waka-readme](https://github.com/athul/waka-readme)
 
-### Dieses Projekt benötigt ein **Sternchen** ⭐ von Ihnen ♥
+### Dieses Projekt braucht deine **Sterne** 🌟
 
-## Sternchen-Beobachter im Zeitverlauf
+## Stargazer-Entwicklung über die Zeit
 
 [![Stargazers over time](https://starchart.cc/anmol098/waka-readme-stats.svg)](https://starchart.cc/anmol098/waka-readme-stats)
 
