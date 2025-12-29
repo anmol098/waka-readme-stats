@@ -3,7 +3,15 @@ name: CodeQL
 on:
   push:
     branches: master
+    paths-ignore:
+      - 'README.md'
+      - 'sources/translation.json'
+      - 'locales/**'
   pull_request:
+    paths-ignore:
+      - 'README.md'
+      - 'sources/translation.json'
+      - 'locales/**'
   workflow_dispatch:
   schedule:
     - cron: '30 13 * * 6'

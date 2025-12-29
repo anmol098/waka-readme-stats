@@ -1,5 +1,10 @@
 name: Dependency review
-on: pull_request
+on:
+  pull_request:
+    paths-ignore:
+      - 'README.md'
+      - 'sources/translation.json'
+      - 'locales/**'
 
 permissions:
   contents: read

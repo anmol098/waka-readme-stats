@@ -1,8 +1,12 @@
 name: CI
 
 on:
-  - pull_request_target
-  - workflow_dispatch
+  pull_request_target:
+    paths-ignore:
+      - 'README.md'
+      - 'sources/translation.json'
+      - 'locales/**'
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
@@ -37,7 +41,7 @@ jobs:
       - name: Run Action Preview on Current Code 🧪
         id: make-stats
         env:
-          INPUT_GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          INPUT_GH_TOKEN: ${{ secrets.INPUT_GITHUB_TOKEN }}
           INPUT_WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
           INPUT_SHOW_TIMEZONE: True
           INPUT_SHOW_PROJECTS: True
