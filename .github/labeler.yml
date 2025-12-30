@@ -22,3 +22,4 @@ python:
 translation:
   - changed-files:
     - any-glob-to-any-file: "sources/translation.json"
+    - any-glob-to-any-file: "locales/**"
