@@ -11,15 +11,19 @@
 > Any kind of help would be greatly appreciated. \
 > Please see issue <https://github.com/anmol098/waka-readme-stats/issues/23> if you would like to help!
 
-# 开发指标在README中，并添加了功能标志 🎌
+ 
+
+# README 中的开发指标与新增功能标志 🎌
 
 ![Project Preview](https://user-images.githubusercontent.com/25841814/79395484-5081ae80-7fac-11ea-9e27-ac91472e31dd.png)
 
+ 
+
 <p align="center">
 
-  ![项目预览](https://user-images.githubusercontent.com/15426564/88030180-8e1c4780-cb58-11ea-8a8b-b3576dd73652.png)
+  ![Project Preview](https://user-images.githubusercontent.com/15426564/88030180-8e1c4780-cb58-11ea-8a8b-b3576dd73652.png)
 
-  <h3 align="center">📌✨项目统计</h3>
+  <h3 align="center">📌✨Awesome README Stats</h3>
 </p>
 
 ----
@@ -32,69 +36,80 @@
    <img src="https://img.shields.io/static/v1?label=%F0%9F%8C%9F&message=If%20Useful&style=style=flat&color=BC4E99" alt="Star Badge"/>
 </p>
 
+ 
+
 <p align="center">
-  你是早鸟 🐤 还是夜猫 🦉？
-  <br/>
-  你一天中最有效率的时间段是什么时候？
-  <br/>
-  你用过哪些编程语言？
-  <br/>
-  让我们在你的个人资料 README 中看看！
+   你是早起的 🐤 还是夜猫子 🦉？
+   <br/>
+   你一天中最高效的时间是什么时候？
+   <br/>
+   你使用哪些编程语言？
+   <br/>
+   在你的个人资料 README 中查看吧！
 </p>
 
-<div align="center">
-    <a href="https://github.com/anmol098/waka-readme-stats/issues">报告错误</a>
-    ·
-    <a href="https://github.com/anmol098/waka-readme-stats/issues">请求功能</a>
-</div>
+<p align="center">
+    <a href="https://github.com/anmol098/waka-readme-stats/issues">Report Bug</a>
+    <a href="https://github.com/anmol098/waka-readme-stats/issues">Request Feature</a>
+  </p>
 
 ## 准备工作
 
-1. You need to update the markdown file(`.md`) with 2 comments. You can refer [here](#update-your-readme) for updating it.
-2. You'll need a WakaTime API Key. You can get that from your WakaTime Account Settings
-    - You can refer [here](#new-to-wakatime), if you're new to WakaTime.
-3. You'll need a GitHub API Token with `repo` and `user` scope from [here](https://github.com/settings/tokens) if you're running the action to get commit metrics.
-   - You can use [this](#profile-repository) example to work it out.
+1. 你需要更新 markdown 文件（`.md`）中的两个注释。你可以参考 [这里](#update-your-readme) 进行更新。
+2. 你将需要一个 WakaTime API 密钥。可以从你的 WakaTime 账户设置中获取该密钥
+    - 如果你是 WakaTime 的新用户，可以参考 [这里](#new-to-wakatime)。
+3. 如果你要运行操作以获取提交指标，你需要从 [这里](https://github.com/settings/tokens) 获取一个具有 `repo` 和 `user` 权限的 GitHub API 令牌。
+   - 你可以使用 [这个](#profile-repository) 示例来处理。
 
 > [!NOTE]
 > Enabling the `repo` scope seems **DANGEROUS**, \
 > but this GitHub Action only accesses your commit timestamps and the number of lines of code added or deleted in repositories that you contributed to.
 
-1. You need to save the WakaTime API Key and the GitHub API Token in the repository secrets. You can find that in the Settings of your repository. \
-  Be sure to save those as the following:
-    - WakaTime API Key as `WAKATIME_API_KEY=<your wakatime API Key>`
-    - GitHub Personal Access Token (PAT) as `GH_TOKEN=<your github access token>`
-2. You can enable and disable feature flags based on your requirements.
+ 
 
-This GitHub Action can be set to run at any time you want using `cron`. See [Crontab.guru](https://crontab.guru/) and [this](https://crontab.cronhub.io/) website to generate `cron` expressions.
+1. 你需要将 WakaTime API 密钥和 GitHub API 令牌保存在仓库的 secrets 中。你可以在仓库的 Settings 中找到它们。 \
+  确保以以下方式保存：
+    - WakaTime API 密钥为 `WAKATIME_API_KEY=<your wakatime API Key>`
+    - GitHub Personal Access Token (PAT) 为 `GH_TOKEN=<your github access token>`
+2. 你可以根据需求启用或禁用功能标志。
 
-## Update your Readme
+这个 GitHub Action 可以使用 `cron` 在你想要的任何时间运行。查看 [Crontab.guru](https://crontab.guru/) 和 [this](https://crontab.cronhub.io/) 网站来生成 `cron` 表达式。
 
-Add a comment to your `README.md` like this:
+ 
+
+## 更新你的 Readme
+
+在你的 `README.md` 中添加如下注释：
 
 ```md
 <!--START_SECTION:waka-->
 <!--END_SECTION:waka-->
 ```
 
-根据 `[可用标志](#flags-available)` 部分，`waka` 可以被 `SECTION_NAME` 标志指定的任何字符串替换。
+ 
+
+`waka` 可以由 `SECTION_NAME` 标志中指定的任何字符串替换，详见[可用标志部分](#flags-available)。
 
 这些行将成为我们开发指标的入口点。
 
-## 新手使用 WakaTime
+ 
 
-WakaTime 能让你了解你真正花在编码上的时间，帮助你提高生产力并获得竞争优势。
+## 新手入门 WakaTime
 
-- 访问 <https://wakatime.com> 并创建账户。
-- 在 WakaTime 的 [账户设置](https://wakatime.com/settings/account) 中获取你的 API 密钥。
-- 安装 WakaTime 插件到你喜欢的编辑器/IDE 中。
-- 将 API 密钥粘贴进去开始分析。
+WakaTime 可以让你了解你真正用于编码的时间。这有助于提高你的工作效率和竞争力。
 
-### Profile Repository
+- 前往 <https://wakatime.com> 并创建一个账户。
+- 从 WakaTime 的 [账户设置](https://wakatime.com/settings/account) 中获取你的 WakaTime API 密钥。
+- 在你最喜欢的编辑器 / IDE 中安装 [WakaTime 插件](https://wakatime.com/plugins)。
+- 粘贴你的 API 密钥以开始分析。
 
-You'll need to get a [GitHub Access Token](https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token) with a `repo` and `user` scope and save it in the Repo Secrets `GH_TOKEN = <Your GitHub Access Token>`
+ 
 
-Here is a sample workflow File for running it:
+### 配置仓库
+
+你需要获取一个具有 `repo` 和 `user` 权限范围的 [GitHub 访问令牌](https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token)，并将其保存在仓库密钥中：`GH_TOKEN = <Your GitHub Access Token>`
+
+这是一个运行该流程的示例工作流文件：
 
 ```yml
 name: Waka Readme
@@ -115,11 +130,15 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 ```
 
-- 现在你可以提交并等待自动运行，或者也可以手动触发运行以立即查看结果。只需前往你的仓库的“操作”部分，选择“Profile Readme 开发统计”工作流程，然后点击“运行工作流程”。稍等一会儿（大约一两分钟），你将看到更改效果。
+ 
 
-## 额外信息
+现在你可以提交代码并等待其自动运行，或者你也可以手动触发运行以立即查看结果。只需前往你仓库中的 `Actions`，选择你的 `Profile Readme Development Stats` 工作流程，然后点击 `Run workflow`。现在等待一两分钟，你就会看到你的更改。
 
-如果你想将其他信息添加到统计数据中，可以在工作流文件中添加多个 `FLAGS`。默认情况下，所有标志都启用（除了代码行标志，因为它涉及到大量操作）。
+ 
+
+## 额外功能
+
+如果你想将其他信息添加到你的统计中，可以在工作流文件中添加多个 `FLAGS`。默认情况下所有标志都是启用的（除了代码行数标志，因为执行了耗时操作）
 
 ```yml
 - uses: anmol098/waka-readme-stats@master
@@ -130,41 +149,43 @@ jobs:
       SHOW_PROJECTS: "False"
 ```
 
+ 
+
 ### 可用标志
 
 ---
 
-`LOCALE` 此标志可用于以您的语言显示统计数据。默认值为英语。请参考 [国家/地区代码列表](https://saimana.com/list-of-country-locale-code/) 来传递标志变量中的简写。示例最终结果可参阅 [此处](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)。
+`LOCALE` 此标志可用于以您的语言显示统计数据。默认为英文。在标志变量中传递 Locale [简写](https://saimana.com/list-of-country-locale-code/)。最终结果示例可在此处找到 [here](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)
 
-`SECTION_NAME` 标志可以设置为任何字符串，并将作为 README 中要替换的节名称。
+`SECTION_NAME` 标志可以设置为任何字符串，并将成为替换 README 中的章节名称。
 
-`COMMIT_BY_ME` 标志可设置为 `True`，以使用您的名字和电子邮件提交代码。
+`COMMIT_BY_ME` 标志可以设置为 `True`，以使用您的姓名和电子邮件提交代码。
 
-`COMMIT_MESSAGE` 标志用于提交消息。默认值为 "更新了开发指标"。
+`COMMIT_MESSAGE` 标志可用于设置提交信息。默认是 "Updated with Dev Metrics"。
 
-`COMMIT_USERNAME` 标志可设置为提交代码的用户名。默认值为 "readme-bot"。
+`COMMIT_USERNAME` 标志可设置为用户名来提交代码。默认是 "readme-bot"。
 
-`COMMIT_EMAIL` 标志可设置为提交代码的电子邮件地址。默认值为 "41898282+github-actions[bot]@users.noreply.github.com"。
+`COMMIT_EMAIL` 标志可以设置为用于提交代码的电子邮件地址。默认是 "41898282+github-actions[bot]@users.noreply.github.com"。
 
 `SHOW_UPDATED_DATE` 标志可设置为 `True`，以在段落末尾显示更新日期。
 
-`UPDATED_DATE_FORMAT` 标志可用于将更新日期格式化为特定格式。默认值为 `"%d/%m/%Y %H:%M:%S"`。
+`UPDATED_DATE_FORMAT` 标志可以设置为将更新日期格式化。默认是 `"%d/%m/%Y %H:%M:%S"`。
 
-`SHOW_LINES_OF_CODE` 标志可设置为 `True`，以显示截至日期已编写的代码行数。
+`SHOW_LINES_OF_CODE` 标志可设置为 `True`，以显示到目前为止编写的代码行数。
 
-![代码行数](https://img.shields.io/badge/从“Hello World”我已编写-130万行代码-blue)
+![Lines of Code](https://img.shields.io/badge/From%20Hello%20World%20I've%20written-1.3%20million%20Lines%20of%20code-blue)
 
-`SHOW_TOTAL_CODE_TIME` 标志可设置为 `False`，以隐藏 *代码时间*。
+`SHOW_TOTAL_CODE_TIME` 标志可设置为 `False` 以隐藏 *Code Time*。
 
-![代码时间](http://img.shields.io/badge/代码时间-1天4小时54分钟-blue)
+![Code Time](http://img.shields.io/badge/Code%20Time-1%2C438%20hrs%2054%20mins-blue)
 
-`SHOW_PROFILE_VIEWS` 标志可设置为 `False`，以隐藏 **个人资料浏览量**。
+`SHOW_PROFILE_VIEWS` 标志可设置为 `False` 以隐藏 **Profile Views**。
 
-![个人资料浏览量](http://img.shields.io/badge/个人资料浏览量-2189次-blue)
+![Profile Views](http://img.shields.io/badge/Profile%20Views-2189-blue)
 
-`SHOW_COMMIT` 标志可设置为 `False`，以隐藏提交统计数据。
+`SHOW_COMMIT` 标志可设置为 `False` 以隐藏提交统计数据。
 
-我是一个早期 🐤
+**我是个早期 🐤**
 
 ```text
 🌞 Morning    95 commits     ███████░░░░░░░░░░░░░░░░░░   30.55% 
@@ -174,7 +195,8 @@ jobs:
 
 ```
 
-设置 `SHOW_DAYS_OF_WEEK` 标志为 `False` 可以隐藏按周不同日期的提交。
+
+`SHOW_DAYS_OF_WEEK` 标志可以设置为 `False`，以隐藏一周中不同日子的提交记录。
 
 📅 **我周日最有效率**
 
@@ -189,7 +211,9 @@ Sunday       86 commits     █████░░░░░░░░░░░░�
 
 ```
 
-设置 `SHOW_LANGUAGE` 标志为 `False` 可以隐藏您使用的编程语言。
+ 
+
+`SHOW_LANGUAGE` 标志可以设置为 `False` 以隐藏您使用的编程语言。
 
 ```text
 💬 Languages:
@@ -200,14 +224,18 @@ Python                   22 mins             █░░░░░░░░░░�
 XML                      8 mins              ░░░░░░░░░░░░░░░░░░░░░░░░░   1.62%
 ```
 
-设置 `SHOW_OS` 标志为 `False` 可以隐藏您的操作系统细节。
+ 
+
+`SHOW_OS` 标志可以设置为 `False` 以隐藏您的操作系统详细信息。
 
 ```text
 💻 Operating Systems:
 Windows                  8 hrs 46 mins       █████████████████████████   100.0%
 ```
 
-设置 `SHOW_PROJECTS` 标志为 `False` 可隐藏已完成项目。
+ 
+
+`SHOW_PROJECTS` 标志可以设置为 `False` 以隐藏正在工作的项目。
 
 ```text
 🐱‍💻 Projects:
@@ -218,13 +246,17 @@ cable                    54 mins             ██░░░░░░░░░�
 denAPI                   40 mins             ██░░░░░░░░░░░░░░░░░░░░░░░   7.66%
 ```
 
-设置 `SHOW_TIMEZONE` 标志为 `False` 可以隐藏你所在的时区。
+ 
+
+`SHOW_TIMEZONE` 标志可以设置为 `False` 以隐藏您所在的时区。
 
 ```text
 ⌚︎ Timezone: Asia/Calcutta
 ```
 
-设置 `SHOW_EDITORS` 标志为 `False` 可隐藏显示使用的代码编辑器/IDE 列表。
+ 
+
+`SHOW_EDITORS` 标志可以设置为 `False` 以隐藏使用的代码编辑器/IDE 列表。
 
 ```text
 🔥 Editors:
@@ -233,9 +265,11 @@ PhpStorm                 1 hr 35 mins        ████░░░░░░░�
 PyCharm                  23 mins             █░░░░░░░░░░░░░░░░░░░░░░░░   4.49%
 ```
 
-设置 `SHOW_LANGUAGE_PER_REPO` 标志为 `False` 可以隐藏不同编程语言和框架的仓库数量。
+ 
 
-我主要用 Vue 编写代码。
+`SHOW_LANGUAGE_PER_REPO` 标志可以设置为 `False`，以隐藏不同编程语言和框架中的仓库数量。
+
+**我主要使用 Vue 进行开发**
 
 ```text
 Vue          8 repos        ██████░░░░░░░░░░░░░░░░░░░   25.0% 
@@ -248,72 +282,77 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 
 ```
 
-The `SHOW_SHORT_INFO` flag can be set to `False` to hide the short fun fact info of a user.
+ 
+
+`SHOW_SHORT_INFO` 标志可以设置为 `False` 以隐藏用户的简短趣闻信息。
 
 > [!NOTE]
 > This section requires a Personal Access Token (PAT) with the `user` scope, otherwise the data shown here will be incorrect.
 
+ 
+
 **🐱 我的 GitHub 数据**
 
-> 🏆 2020 年贡献 433 次
+> 🏆 2020 年贡献了 433 次
 >
-> 📦 使用 GitHub 存储空间 292.3 kB
+> 📦 使用了 292.3 kB 的 GitHub 存储空间
 >
 > 💼 选择雇佣
 >
 > 📜 25 个公开仓库
 >
-> 🔑 15 个私有仓库（所有者）
+> 🔑 15 个私有仓库
 
-`SHOW_LOC_CHART` 标志可设置为 `False` 以隐藏不同年份和季度中不同代码行。
+`SHOW_LOC_CHART` 标志可以设置为 `False` 来隐藏不同年份不同季度编写的代码行数。
 
-`IGNORED_REPOS` 标志可设置为 `"waka-readme-stats, my-first-repo"`（仅示例）以忽略不希望计入的仓库。
+`IGNORED_REPOS` 标志可以设置为 `"waka-readme-stats, my-first-repo"`（仅作示例）来忽略一些你不希望被计算的仓库。
 
-`SYMBOL_VERSION` 标志可用于自定义进度条符号（默认：`1`）。
+`SYMBOL_VERSION` 标志可以设置用于进度条符号（默认：`1`）。
 
-| 版本 | 完成块 | 空白块 |
-|------|----------|---------|
-|    1  |      █    |       ░   |
-|    2  |      ⣿    |       ⣀   |
-|    3  |      ⬛   |       ⬜   |
+| 版本 | 完成块 | 空块 |
+|----- | ------- | ------ |
+|    1    |      █     |       ░     |
+|    2    |      ⣿     |       ⣀     |
+|    3    |      ⬛    |       ⬜    |
 
-`DEBUG_LOGGING` 标志可设置以增加 GitHub Action 的输出详细程度，默认值与内部运行程序调试属性相同。
+`DEBUG_LOGGING` 标志可以设置以增加 GitHub Action 的输出详细程度，默认等于内部运行器调试属性
 
 **时间线**
 
 ![图表未找到](https://raw.githubusercontent.com/anmol098/anmol098/master/charts/bar_graph.png)
 
-## :sparkling_heart: 支持项目
+## :sparkling_heart: 支持这个项目
 
-I open-source almost everything I can, and I try to reply to everyone needing help using these projects. Obviously,
-this takes time. You can use this service for free.
+我尽可能地开源了几乎所有的东西，并且我努力回复每一个需要帮助的人。显然，
+这需要时间。你可以免费使用这项服务。
 
-However, if you are using this project and happy with it or just want to encourage me to continue creating stuff, there are few ways you can do it :-
+然而，如果你正在使用这个项目并且喜欢它，或者只是想鼓励我继续创造更多内容，有几种方式可以做到 :-
 
-- Giving proper credit when you use this action on your readme, linking back to it :D
-- Starring and sharing the project :rocket:
-- [![paypal.me/aapreneur](https://ionicabizau.github.io/badges/paypal.svg)](https://www.paypal.me/aapreneur) - You can make one-time donations via PayPal. I'll probably buy some ~~beer~~ wine 🍷.
+- 在你的 readme 中使用此操作时给予适当的信用，并链接回该项目 :D
+- 给予星标并分享这个项目 :rocket:
+- [![paypal.me/aapreneur](https://ionicabizau.github.io/badges/paypal.svg)](https://www.paypal.me/aapreneur) - 你可以通过 PayPal 进行一次性捐赠。我可能会买一些 ~~啤酒~~ 葡萄酒 🍷。
 
-Thanks! :heart:
+谢谢！:heart:
 
 ---
 
-# 贡献指南
+ 
 
-欢迎贡献♥！请分享任何功能，并添加单元测试！使用拉取请求和问题系统进行贡献。
 
-# 贡献者选择
+欢迎贡献 ♥！请分享任何功能，并添加单元测试！使用拉取请求和问题系统进行贡献。
 
-* [Anmol Pratap Singh](https://github.com/anmol098): 维护者
-* [Alexander Sergeev](https://github.com/pseusys): 维护者
-* [Aravind V. Nair](https://github.com/aravindvnair99): 维护者
-* [Prabhat Singh](https://github.com/prabhatdev): 用于代码时间线图 [#18](https://github.com/anmol098/waka-readme-stats/pull/18)
-* [Hedy Li](https://github.com/hedythedev): 用于拉取请求 [#34](https://github.com/anmol098/waka-readme-stats/pull/34) 和 [#23](https://github.com/anmol098/waka-readme-stats/pull/23)
-* [Pedro Torres](https://github.com/Corfucinas): 用于拉取请求 [#29](https://github.com/anmol098/waka-readme-stats/pull/29)
-* [Aaron Meese](https://github.com/ajmeese7): 用于拉取请求 [#45](https://github.com/anmol098/waka-readme-stats/pull/45)
-* [Arnav Jindal](https://github.com/Daggy1234): 用于拉取请求 [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
-* [Daniel Rowe](https://github.com/DanRowe): 用于拉取请求 [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
-* [Ss5h](https://github.com/tlatkdgus1): 添加自然句子写作支持翻译 [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
+精选贡献者
+
+1. [Anmol Pratap Singh](https://github.com/anmol098): 维护者  
+2. [Alexander Sergeev](https://github.com/pseusys): 维护者  
+3. [Aravind V. Nair](https://github.com/aravindvnair99): 维护者  
+4. [Prabhat Singh](https://github.com/prabhatdev): 代码时间线图表 [#18](https://github.com/anmol098/waka-readme-stats/pull/18)  
+5. [Hedy Li](https://github.com/hedythedev): 拉取请求 [#34](https://github.com/anmol098/waka-readme-stats/pull/34) 和 [#23](https://github.com/anmol098/waka-readme-stats/pull/23)  
+6. [Pedro Torres](https://github.com/Corfucinas): 拉取请求 [#29](https://github.com/anmol098/waka-readme-stats/pull/29)  
+7. [Aaron Meese](https://github.com/ajmeese7): 拉取请求 [#45](https://github.com/anmol098/waka-readme-stats/pull/45)  
+8. [Arnav Jindal](https://github.com/Daggy1234): 拉取请求 [#48](https://github.com/anmol098/waka-readme-stats/pull/48)  
+9. [Daniel Rowe](https://github.com/DanRowe): 拉取请求 [#57](https://github.com/anmol098/waka-readme-stats/pull/57)  
+10. [Ss5h](https://github.com/tlatkdgus1): 添加对自然句子写作翻译的支持 [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
 
 <details>
 
@@ -459,19 +498,26 @@ Thanks! :heart:
 
 </details>
 
-- 你呢！如果你正在使用它，但尚未在列表中，请通过发送 [特殊提及](https://github.com/anmol098/waka-readme-stats/issues/new/choose) 问题告诉我们！😊 我们很乐意将你添加到列表中。
+ 
 
-用 ❤️ 和 Python 🐍 编写。
+而且你！如果你现在正在使用它，但不在名单上，请通过发送一个 [Special Mention](https://github.com/anmol098/waka-readme-stats/issues/new/choose) 问题告诉我们！:blush: \
+我们会很高兴将你加入名单。
 
-# 灵感来源
+用 :heart: 和 Python 🐍 制作。
 
-> [Awesome Pinned Gists](https://github.com/matchai/awesome-pinned-gists)
->
+
+</think>
+
+灵感来自
+
+> [Awesome Pinned Gists](https://github.com/matchai/awesome-pinned-gists) <br/>
 > [athul/waka-readme](https://github.com/athul/waka-readme)
 
-### 这个项目需要你给它一个 **星标** 🌟
+ 
 
-## 随时间变化的关注者数量
+这个项目需要你的一颗星星 ⭐ ♥
+
+## 历史上的星标数量
 
 [![Stargazers over time](https://starchart.cc/anmol098/waka-readme-stats.svg)](https://starchart.cc/anmol098/waka-readme-stats)
 
