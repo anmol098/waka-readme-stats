@@ -1,7 +1,9 @@
 <!--START_SECTION:navbar-->
+
 <div align="center">
-  <a href="../README.md">🇺🇸 English</a> | <a href="README.de.md">🇩🇪 Deutsch</a> | <a href="README.es.md">🇪🇸 Español</a> | <a href="README.fr.md">🇫🇷 Français</a> | <a href="README.hi.md">🇮🇳 हिंदी</a> | <a href="README.ja.md">🇯🇵 日本語</a> | <a href="README.ko.md">🇰🇷 한국어</a> | <a href="README.pt.md">🇵🇹 Português</a> | <a href="README.ru.md">🇷🇺 Русский</a> | <a href="README.zh.md">🇨🇳 中文</a>
+  <a href="../README.md">🇺🇸 English</a> | <a href="../locales/README.de.md">🇩🇪 Deutsch</a> | <a href="../locales/README.es.md">🇪🇸 Español</a> | <a href="../locales/README.fr.md">🇫🇷 Français</a> | <a href="../locales/README.hi.md">🇮🇳 हिंदी</a> | <a href="../locales/README.ja.md">🇯🇵 日本語</a> | <a href="../locales/README.ko.md">🇰🇷 한국어</a> | <a href="../locales/README.pt.md">🇵🇹 Português</a> | <a href="../locales/README.ru.md">🇷🇺 Русский</a> | <a href="../locales/README.zh.md">🇨🇳 中文</a>
 </div>
+
 <!--END_SECTION:navbar-->
 
 > [!IMPORTANT]
@@ -9,7 +11,7 @@
 > Any kind of help would be greatly appreciated. \
 > Please see issue <https://github.com/anmol098/waka-readme-stats/issues/23> if you would like to help!
 
-# 开发指标在 README 中，添加了功能标志 🎌
+# 开发指标在README中，并添加了功能标志 🎌
 
 ![Project Preview](https://user-images.githubusercontent.com/25841814/79395484-5081ae80-7fac-11ea-9e27-ac91472e31dd.png)
 
@@ -31,20 +33,20 @@
 </p>
 
 <p align="center">
-   你是早鸟 🐤 还是夜猫 🦉？
-   <br/>
-   你一天中最有效率的时间段是什么时候？
-   <br/>
-   你用过哪些编程语言？
-   <br/>
-   让我们在你的个人资料 README 中看看！
+  你是早鸟 🐤 还是夜猫 🦉？
+  <br/>
+  你一天中最有效率的时间段是什么时候？
+  <br/>
+  你用过哪些编程语言？
+  <br/>
+  让我们在你的个人资料 README 中看看！
 </p>
 
-<p align="center">
+<div align="center">
     <a href="https://github.com/anmol098/waka-readme-stats/issues">报告错误</a>
     ·
     <a href="https://github.com/anmol098/waka-readme-stats/issues">请求功能</a>
-</p>
+</div>
 
 ## 准备工作
 
@@ -75,17 +77,17 @@ Add a comment to your `README.md` like this:
 <!--END_SECTION:waka-->
 ```
 
-`waka` 可以根据 `SECTION_NAME` 标志指定的任何字符串进行替换，具体参考 [可用标志](#flags-available) 部分。
+根据 `[可用标志](#flags-available)` 部分，`waka` 可以被 `SECTION_NAME` 标志指定的任何字符串替换。
 
-这些行将作为我们开发指标的入口点。
+这些行将成为我们开发指标的入口点。
 
 ## 新手使用 WakaTime
 
-WakaTime 能让你了解你实际花在编码上的时间，帮助你提高生产力和竞争力。
+WakaTime 能让你了解你真正花在编码上的时间，帮助你提高生产力并获得竞争优势。
 
 - 访问 <https://wakatime.com> 并创建账户。
-- 在 WakaTime 账户设置中获取你的 API 密钥：[WakaTime 账户设置](https://wakatime.com/settings/account)。
-- 在你喜欢的编辑器/IDE中安装 WakaTime 插件：[WakaTime 插件](https://wakatime.com/plugins)。
+- 在 WakaTime 的 [账户设置](https://wakatime.com/settings/account) 中获取你的 API 密钥。
+- 安装 WakaTime 插件到你喜欢的编辑器/IDE 中。
 - 将 API 密钥粘贴进去开始分析。
 
 ### Profile Repository
@@ -113,7 +115,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 ```
 
-- 现在你可以提交并等待自动运行，或者也可以触发立即运行以查看结果。只需前往你的仓库的 `Actions`，选择 `Profile Readme Development Stats` 工作流程，然后点击 `运行工作流程`。等待一分钟左右，你就会看到更改。
+- 现在你可以提交并等待自动运行，或者也可以手动触发运行以立即查看结果。只需前往你的仓库的“操作”部分，选择“Profile Readme 开发统计”工作流程，然后点击“运行工作流程”。稍等一会儿（大约一两分钟），你将看到更改效果。
 
 ## 额外信息
 
@@ -132,37 +134,37 @@ jobs:
 
 ---
 
-`LOCALE`  此标志可用于以您的语言显示统计数据。默认值为英语。请参考 [国家/地区本地化代码列表](https://saimana.com/list-of-country-locale-code/) 来传递标志变量。示例最终结果可参考 [这里](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)。
+`LOCALE` 此标志可用于以您的语言显示统计数据。默认值为英语。请参考 [国家/地区代码列表](https://saimana.com/list-of-country-locale-code/) 来传递标志变量中的简写。示例最终结果可参阅 [此处](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)。
 
-`SECTION_NAME`  可以设置为任何字符串，作为 README 中要替换的节名称。
+`SECTION_NAME` 标志可以设置为任何字符串，并将作为 README 中要替换的节名称。
 
-`COMMIT_BY_ME`  可以设置为 `True`，以使用您的姓名和电子邮件提交代码。
+`COMMIT_BY_ME` 标志可设置为 `True`，以使用您的名字和电子邮件提交代码。
 
-`COMMIT_MESSAGE`  用于设置提交消息。默认值为 "更新了开发指标"。
+`COMMIT_MESSAGE` 标志用于提交消息。默认值为 "更新了开发指标"。
 
-`COMMIT_USERNAME`  可以设置为提交代码的用户名。默认值为 "readme-bot"。
+`COMMIT_USERNAME` 标志可设置为提交代码的用户名。默认值为 "readme-bot"。
 
-`COMMIT_EMAIL`  用于设置提交代码的电子邮件。默认值为 "41898282+github-actions[bot]@users.noreply.github.com"。
+`COMMIT_EMAIL` 标志可设置为提交代码的电子邮件地址。默认值为 "41898282+github-actions[bot]@users.noreply.github.com"。
 
-`SHOW_UPDATED_DATE`  可以设置为 `True`，以在段落末尾显示更新日期。
+`SHOW_UPDATED_DATE` 标志可设置为 `True`，以在段落末尾显示更新日期。
 
-`UPDATED_DATE_FORMAT`  用于设置更新日期的格式。默认值为 `"%d/%m/%Y %H:%M:%S"`。
+`UPDATED_DATE_FORMAT` 标志可用于将更新日期格式化为特定格式。默认值为 `"%d/%m/%Y %H:%M:%S"`。
 
-`SHOW_LINES_OF_CODE`  可以设置为 `True`，以显示至今已编写的代码行数。
+`SHOW_LINES_OF_CODE` 标志可设置为 `True`，以显示截至日期已编写的代码行数。
 
 ![代码行数](https://img.shields.io/badge/从“Hello World”我已编写-130万行代码-blue)
 
-`SHOW_TOTAL_CODE_TIME`  可以设置为 `False`，以隐藏 *代码时间*。
+`SHOW_TOTAL_CODE_TIME` 标志可设置为 `False`，以隐藏 *代码时间*。
 
-![代码时间](http://img.shields.io/badge/代码时间-1,438小时54分钟-blue)
+![代码时间](http://img.shields.io/badge/代码时间-1天4小时54分钟-blue)
 
-`SHOW_PROFILE_VIEWS`  可以设置为 `False`，以隐藏 **个人资料浏览量**。
+`SHOW_PROFILE_VIEWS` 标志可设置为 `False`，以隐藏 **个人资料浏览量**。
 
 ![个人资料浏览量](http://img.shields.io/badge/个人资料浏览量-2189次-blue)
 
-`SHOW_COMMIT`  可以设置为 `False`，以隐藏提交统计数据。
+`SHOW_COMMIT` 标志可设置为 `False`，以隐藏提交统计数据。
 
-**我是一个早期 🐤**
+我是一个早期 🐤
 
 ```text
 🌞 Morning    95 commits     ███████░░░░░░░░░░░░░░░░░░   30.55% 
@@ -172,7 +174,7 @@ jobs:
 
 ```
 
-设置 `SHOW_DAYS_OF_WEEK` 标志为 `False` 可以隐藏按周不同日期的提交记录。
+设置 `SHOW_DAYS_OF_WEEK` 标志为 `False` 可以隐藏按周不同日期的提交。
 
 📅 **我周日最有效率**
 
@@ -205,7 +207,7 @@ XML                      8 mins              ░░░░░░░░░░░�
 Windows                  8 hrs 46 mins       █████████████████████████   100.0%
 ```
 
-`显示项目` 标志可以设置为 `False` 以隐藏已工作过的项目。
+设置 `SHOW_PROJECTS` 标志为 `False` 可隐藏已完成项目。
 
 ```text
 🐱‍💻 Projects:
@@ -216,13 +218,13 @@ cable                    54 mins             ██░░░░░░░░░�
 denAPI                   40 mins             ██░░░░░░░░░░░░░░░░░░░░░░░   7.66%
 ```
 
-`SHOW_TIMEZONE` 标志可以设置为 `False` 以隐藏您所在的时区。
+设置 `SHOW_TIMEZONE` 标志为 `False` 可以隐藏你所在的时区。
 
 ```text
 ⌚︎ Timezone: Asia/Calcutta
 ```
 
-`SHOW_EDITORS` 标志可以设置为 `False` 以隐藏使用的代码编辑器/IDE 列表。
+设置 `SHOW_EDITORS` 标志为 `False` 可隐藏显示使用的代码编辑器/IDE 列表。
 
 ```text
 🔥 Editors:
@@ -231,9 +233,9 @@ PhpStorm                 1 hr 35 mins        ████░░░░░░░�
 PyCharm                  23 mins             █░░░░░░░░░░░░░░░░░░░░░░░░   4.49%
 ```
 
-`SHOW_LANGUAGE_PER_REPO` 标志可以设置为 `False` 以隐藏不同编程语言和框架的仓库数量。
+设置 `SHOW_LANGUAGE_PER_REPO` 标志为 `False` 可以隐藏不同编程语言和框架的仓库数量。
 
-**我主要使用 Vue 进行编码**
+我主要用 Vue 编写代码。
 
 ```text
 Vue          8 repos        ██████░░░░░░░░░░░░░░░░░░░   25.0% 
@@ -251,37 +253,37 @@ The `SHOW_SHORT_INFO` flag can be set to `False` to hide the short fun fact info
 > [!NOTE]
 > This section requires a Personal Access Token (PAT) with the `user` scope, otherwise the data shown here will be incorrect.
 
-**🐱 GitHub 数据**
+**🐱 我的 GitHub 数据**
 
 > 🏆 2020 年贡献 433 次
 >
-> 📦 使用 GitHub 存储 292.3 kB
+> 📦 使用 GitHub 存储空间 292.3 kB
 >
-> 💼 选择招聘
+> 💼 选择雇佣
 >
 > 📜 25 个公开仓库
 >
-> 🔑 15 个私有仓库
+> 🔑 15 个私有仓库（所有者）
 
-`SHOW_LOC_CHART` 标志可设置为 `False` 以隐藏不同季度和不同年份的代码行。
+`SHOW_LOC_CHART` 标志可设置为 `False` 以隐藏不同年份和季度中不同代码行。
 
-`IGNORED_REPOS` 标志可设置为 `"waka-readme-stats, my-first-repo"`（仅示例）以忽略不希望被统计的一些仓库。
+`IGNORED_REPOS` 标志可设置为 `"waka-readme-stats, my-first-repo"`（仅示例）以忽略不希望计入的仓库。
 
-`SYMBOL_VERSION` 标志可用于设置进度条符号（默认：`1`）。
+`SYMBOL_VERSION` 标志可用于自定义进度条符号（默认：`1`）。
 
-| 版本 | 完成块 | 空块 |
-|------|----------|------|
-| 1     | █        | ░    |
-| 2     | ⣿        | ⣀    |
-| 3     | ⬛       | ⬜    |
+| 版本 | 完成块 | 空白块 |
+|------|----------|---------|
+|    1  |      █    |       ░   |
+|    2  |      ⣿    |       ⣀   |
+|    3  |      ⬛   |       ⬜   |
 
-`DEBUG_LOGGING` 标志可设置以增加 GitHub Action 的输出详细程度，默认值与内部运行器调试属性相同。
+`DEBUG_LOGGING` 标志可设置以增加 GitHub Action 的输出详细程度，默认值与内部运行程序调试属性相同。
 
 **时间线**
 
 ![图表未找到](https://raw.githubusercontent.com/anmol098/anmol098/master/charts/bar_graph.png)
 
-## :心形火花: 支持项目
+## :sparkling_heart: 支持项目
 
 I open-source almost everything I can, and I try to reply to everyone needing help using these projects. Obviously,
 this takes time. You can use this service for free.
@@ -298,20 +300,20 @@ Thanks! :heart:
 
 # 贡献指南
 
-欢迎贡献 ♥！请分享任何功能特性，并添加单元测试！使用拉取请求和问题系统进行贡献。
+欢迎贡献♥！请分享任何功能，并添加单元测试！使用拉取请求和问题系统进行贡献。
 
-# 选定贡献者
+# 贡献者选择
 
-1. [Anmol Pratap Singh](https://github.com/anmol098)：维护人
-2. [Alexander Sergeev](https://github.com/pseusys)：维护人
-3. [Aravind V. Nair](https://github.com/aravindvnair99)：维护人
-4. [Prabhat Singh](https://github.com/prabhatdev)：为代码时间线图贡献 [#18](https://github.com/anmol098/waka-readme-stats/pull/18)
-5. [Hedy Li](https://github.com/hedythedev)：为 Pull Request [#34](https://github.com/anmol098/waka-readme-stats/pull/34) 和 [#23](https://github.com/anmol098/waka-readme-stats/pull/23)
-6. [Pedro Torres](https://github.com/Corfucinas)：为 Pull Request [#29](https://github.com/anmol098/waka-readme-stats/pull/29)
-7. [Aaron Meese](https://github.com/ajmeese7)：为 Pull Request [#45](https://github.com/anmol098/waka-readme-stats/pull/45)
-8. [Arnav Jindal](https://github.com/Daggy1234)：为 Pull Request [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
-9. [Daniel Rowe](https://github.com/DanRowe)：为 Pull Request [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
-10. [Ss5h](https://github.com/tlatkdgus1)：为自然句子写作翻译支持添加 [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
+* [Anmol Pratap Singh](https://github.com/anmol098): 维护者
+* [Alexander Sergeev](https://github.com/pseusys): 维护者
+* [Aravind V. Nair](https://github.com/aravindvnair99): 维护者
+* [Prabhat Singh](https://github.com/prabhatdev): 用于代码时间线图 [#18](https://github.com/anmol098/waka-readme-stats/pull/18)
+* [Hedy Li](https://github.com/hedythedev): 用于拉取请求 [#34](https://github.com/anmol098/waka-readme-stats/pull/34) 和 [#23](https://github.com/anmol098/waka-readme-stats/pull/23)
+* [Pedro Torres](https://github.com/Corfucinas): 用于拉取请求 [#29](https://github.com/anmol098/waka-readme-stats/pull/29)
+* [Aaron Meese](https://github.com/ajmeese7): 用于拉取请求 [#45](https://github.com/anmol098/waka-readme-stats/pull/45)
+* [Arnav Jindal](https://github.com/Daggy1234): 用于拉取请求 [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
+* [Daniel Rowe](https://github.com/DanRowe): 用于拉取请求 [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
+* [Ss5h](https://github.com/tlatkdgus1): 添加自然句子写作支持翻译 [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
 
 <details>
 
@@ -457,18 +459,19 @@ Thanks! :heart:
 
 </details>
 
-- 还有你！如果你此刻正在使用它，但并未在列表中，请通过发送 [特殊提及](https://github.com/anmol098/waka-readme-stats/issues/new/choose) 问题告诉我们！：脸红： 我们很乐意将你添加到列表中。
+- 你呢！如果你正在使用它，但尚未在列表中，请通过发送 [特殊提及](https://github.com/anmol098/waka-readme-stats/issues/new/choose) 问题告诉我们！😊 我们很乐意将你添加到列表中。
 
-用 :heart: 和 Python 🐍 制作。
+用 ❤️ 和 Python 🐍 编写。
 
 # 灵感来源
 
 > [Awesome Pinned Gists](https://github.com/matchai/awesome-pinned-gists)
+>
 > [athul/waka-readme](https://github.com/athul/waka-readme)
 
-### 这个项目需要你给它一个 **星** ⭐
+### 这个项目需要你给它一个 **星标** 🌟
 
-## 随着时间的星级关注者
+## 随时间变化的关注者数量
 
 [![Stargazers over time](https://starchart.cc/anmol098/waka-readme-stats.svg)](https://starchart.cc/anmol098/waka-readme-stats)
 
