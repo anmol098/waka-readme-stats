@@ -40,8 +40,8 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Run README Translator
-      # Use @v1 for the stable version, or @main for the bleeding edge
-        uses: DataBoySu/databoysu-readme-translator@v1
+      # Use @latest for the most up-to-date release, or @main for the bleeding edge
+        uses: DataBoySu/databoysu-readme-translator@latest
         with:
           lang: ${{ matrix.lang }}
 
@@ -74,7 +74,7 @@ jobs:
           merge-multiple: true
 
       - name: Navigation Bar
-        uses: DataBoySu/databoysu-readme-translator@v1
+        uses: DataBoySu/databoysu-readme-translator@latest
         with:
           mode: navbar
 
