@@ -1,6 +1,6 @@
 <!--START_SECTION:navbar-->
 <div align="center">
-  <a href="../README.md">🇺🇸 English</a> | <a href="README.es.md">🇪🇸 Español</a> | <a href="README.fr.md">🇫🇷 Français</a> | <a href="README.hi.md">🇮🇳 हिंदी</a> | <a href="README.ja.md">🇯🇵 日本語</a> | <a href="README.ko.md">🇰🇷 한국어</a> | <a href="README.pt.md">🇵🇹 Português</a> | <a href="README.ru.md">🇷🇺 Русский</a> | <a href="README.zh.md">🇨🇳 中文</a>
+  <a href="../README.md">🇺🇸 English</a> | <a href="README.de.md">🇩🇪 Deutsch</a> | <a href="README.es.md">🇪🇸 Español</a> | <a href="README.fr.md">🇫🇷 Français</a> | <a href="README.hi.md">🇮🇳 हिंदी</a> | <a href="README.ja.md">🇯🇵 日本語</a> | <a href="README.ko.md">🇰🇷 한국어</a> | <a href="README.pt.md">🇵🇹 Português</a> | <a href="README.ru.md">🇷🇺 Русский</a> | <a href="README.zh.md">🇨🇳 中文</a>
 </div>
 <!--END_SECTION:navbar-->
 
@@ -31,13 +31,13 @@
 </p>
 
 <p align="center">
-   Es-tu un lève-tôt 🐤 ou un couche-tard 🦉 ?
+   Êtes-vous un 🐤 matinal ou un 🦉 nocturne ?
    <br/>
-   Quand es-tu le plus productif pendant la journée ?
+   À quel moment de la journée êtes-vous le plus productif ?
    <br/>
-   Quelles sont les langues dans lesquelles tu codes ?
+   Quelles sont les langues de programmation que vous utilisez ?
    <br/>
-   Découvre-le dans ton README de profil !
+   Découvrez-le dans votre README de profil !
 </p>
 
 <p align="center">
@@ -50,8 +50,8 @@
 1. Vous devez mettre à jour le fichier markdown (`.md`) avec 2 commentaires. Vous pouvez vous référer [ici](#update-your-readme) pour le mettre à jour.
 2. Vous aurez besoin d'une clé API WakaTime. Vous pouvez l'obtenir depuis les paramètres du compte WakaTime
     - Vous pouvez vous référer [ici](#new-to-wakatime), si vous êtes nouveau sur WakaTime.
-3. Vous aurez besoin d'un jeton API GitHub avec les autorisations `repo` et `user` depuis [ici](https://github.com/settings/tokens) si vous exécutez l'action pour obtenir les métriques de commit.
-   - Vous pouvez utiliser [cet exemple](#profile-repository) pour vous y retrouver.
+3. Vous aurez besoin d'un jeton API GitHub avec les portées `repo` et `user` depuis [ici](https://github.com/settings/tokens) si vous exécutez l'action pour obtenir les métriques de commit.
+   - Vous pouvez utiliser [cet exemple](#profile-repository) pour le configurer.
 
 > [!NOTE]
 > Enabling the `repo` scope seems **DANGEROUS**, \
@@ -61,7 +61,7 @@
   Assurez-vous de les enregistrer comme suit :
     - Clé API WakaTime comme `WAKATIME_API_KEY=<votre clé API WakaTime>`
     - Jeton d'accès personnel (PAT) GitHub comme `GH_TOKEN=<votre jeton d'accès GitHub>`
-2. Vous pouvez activer et désactiver les drapeaux de fonctionnalité en fonction de vos besoins.
+2. Vous pouvez activer et désactiver les drapeaux de fonctionnalité selon vos besoins.
 
 Cette action GitHub peut être configurée pour s'exécuter à tout moment souhaité à l'aide de `cron`. Consultez [Crontab.guru](https://crontab.guru/) et [celui-ci](https://crontab.cronhub.io/) pour générer des expressions `cron`.
 
@@ -80,16 +80,16 @@ Ces lignes seront nos points d'entrée pour les métriques de développement.
 
 ## Nouveau sur WakaTime
 
-WakaTime vous donne une idée du temps que vous avez vraiment passé à coder. Cela vous aide à améliorer votre productivité et votre avantage concurrentiel.
+WakaTime vous donne une idée du temps réellement passé à coder. Cela vous aide à améliorer votre productivité et votre avantage concurrentiel.
 
 - Allez sur <https://wakatime.com> et créez un compte.
 - Obtenez votre clé API WakaTime depuis vos [Paramètres du compte sur WakaTime](https://wakatime.com/settings/account).
 - Installez le [plugin WakaTime](https://wakatime.com/plugins) dans votre éditeur / IDE préféré.
 - Collez votre clé API pour commencer l'analyse.
 
-### Répository de profil
+### Répertoire de profil
 
-Vous aurez besoin d'obtenir un [GitHub Access Token](https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token) avec une portée `repo` et `user` et de l'enregistrer dans les Secrets du Répository `GH_TOKEN = <Your GitHub Access Token>`
+Vous devrez obtenir un [GitHub Access Token](https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token) avec une portée `repo` et `user` et le sauvegarder dans les Secrets du Répertoire `GH_TOKEN = <Your GitHub Access Token>`
 
 Voici un exemple de fichier de workflow pour l'exécuter :
 
@@ -112,11 +112,11 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 ```
 
-- Maintenant, vous pouvez commiter et attendre qu'il s'exécute automatiquement, ou vous pouvez également le déclencher pour voir le résultat maintenant. Allez simplement dans `Actions` de votre dépôt, sélectionnez votre workflow `Profile Readme Development Stats` et cliquez sur `Run workflow`. Maintenant, attendez une minute ou deux et vous verrez vos modifications.
+- Maintenant, vous pouvez commiter et attendre qu'il s'exécute automatiquement, ou vous pouvez également le déclencher pour voir le résultat maintenant. Allez simplement dans `Actions` dans votre dépôt, sélectionnez votre workflow `Profile Readme Development Stats` et cliquez sur `Run workflow`. Maintenant, attendez une minute ou deux et vous verrez vos modifications.
 
 ## Extras
 
-Si vous souhaitez ajouter d'autres informations à vos statistiques, vous pouvez ajouter plusieurs `FLAGS` dans votre fichier de workflow. Par défaut, tous les drapeaux sont activés (sauf le drapeau correspondant au nombre de lignes de code en raison de l'opération lourde qu'il effectue)
+Si vous souhaitez ajouter d'autres informations à vos statistiques, vous pouvez ajouter plusieurs `FLAGS` dans votre fichier de workflow. Par défaut, tous les drapeaux sont activés (sauf le drapeau du nombre de lignes de code en raison de l'opération lourde effectuée)
 
 ```yml
 - uses: anmol098/waka-readme-stats@master
@@ -131,13 +131,13 @@ Si vous souhaitez ajouter d'autres informations à vos statistiques, vous pouvez
 
 ---
 
-`LOCALE` Ce drapeau peut être utilisé pour afficher les statistiques dans votre langue. La valeur par défaut est l'anglais. Le code de la langue [abrégé](https://saimana.com/list-of-country-locale-code/) doit être passé dans la variable du drapeau. Un exemple du résultat final peut être trouvé [ici](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)
+`LOCALE` Ce drapeau peut être utilisé pour afficher les statistiques dans votre langue. La valeur par défaut est l'anglais. Le code de localisation [abréviation](https://saimana.com/list-of-country-locale-code/) doit être passé dans la variable du drapeau. Un exemple du résultat final peut être trouvé [ici](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)
 
 Le drapeau `SECTION_NAME` peut être défini à n'importe quelle chaîne, et sera le nom de la section à remplacer dans le README.
 
 Le drapeau `COMMIT_BY_ME` peut être défini à `True` pour commiter le code en utilisant votre nom et votre adresse e-mail.
 
-Le drapeau `COMMIT_MESSAGE` peut être défini pour le message de commit. La valeur par défaut est "Mise à jour avec les métriques de développement".
+Le drapeau `COMMIT_MESSAGE` peut être défini pour le message de commit. La valeur par défaut est "Updated with Dev Metrics"
 
 Le drapeau `COMMIT_USERNAME` peut être défini comme un nom d'utilisateur pour commiter le code. La valeur par défaut est "readme-bot".
 
@@ -149,7 +149,7 @@ Le drapeau `UPDATED_DATE_FORMAT` peut être défini pour mettre la date de mise 
 
 Le drapeau `SHOW_LINES_OF_CODE` peut être défini à `True` pour afficher le nombre de lignes de code écrites jusqu'à présent.
 
-![Lignes de Code](https://img.shields.io/badge/From%20Hello%20World%20I've%20written-1.3%20million%20Lines%20of%20code-blue)
+![Lines of Code](https://img.shields.io/badge/From%20Hello%20World%20I've%20written-1.3%20million%20Lines%20of%20code-blue)
 
 Le drapeau `SHOW_TOTAL_CODE_TIME` peut être défini à `False` pour cacher *Code Time*.
 
@@ -171,9 +171,9 @@ Le drapeau `SHOW_COMMIT` peut être défini à `False` pour cacher les statistiq
 
 ```
 
-Le drapeau `SHOW_DAYS_OF_WEEK` peut être réglé sur `False` pour cacher les commits effectués les différents jours de la semaine.
+Le drapeau `SHOW_DAYS_OF_WEEK` peut être défini à `False` pour cacher les commits effectués les différents jours de la semaine.
 
-📅 **Je suis le Plus Productif les Dimanches**
+📅 **Je suis le plus productif les dimanches**
 
 ```text
 Monday       50 commits     ███░░░░░░░░░░░░░░░░░░░░░░   13.19% 
@@ -186,7 +186,7 @@ Sunday       86 commits     █████░░░░░░░░░░░░�
 
 ```
 
-Le drapeau `SHOW_LANGUAGE` peut être réglé sur `False` pour cacher les langages de programmation que vous utilisez.
+Le drapeau `SHOW_LANGUAGE` peut être défini à `False` pour cacher les langages de programmation que vous utilisez.
 
 ```text
 💬 Languages:
@@ -197,14 +197,14 @@ Python                   22 mins             █░░░░░░░░░░�
 XML                      8 mins              ░░░░░░░░░░░░░░░░░░░░░░░░░   1.62%
 ```
 
-Le drapeau `SHOW_OS` peut être réglé sur `False` pour cacher vos détails d'OS.
+Le drapeau `SHOW_OS` peut être défini à `False` pour cacher vos détails d'OS.
 
 ```text
 💻 Operating Systems:
 Windows                  8 hrs 46 mins       █████████████████████████   100.0%
 ```
 
-Le drapeau `SHOW_PROJECTS` peut être réglé sur `False` pour cacher les projets sur lesquels on a travaillé.
+Le drapeau `SHOW_PROJECTS` peut être défini à `False` pour cacher les projets sur lesquels on a travaillé.
 
 ```text
 🐱‍💻 Projects:
@@ -215,13 +215,13 @@ cable                    54 mins             ██░░░░░░░░░�
 denAPI                   40 mins             ██░░░░░░░░░░░░░░░░░░░░░░░   7.66%
 ```
 
-Le drapeau `SHOW_TIMEZONE` peut être réglé sur `False` pour cacher le fuseau horaire dans lequel vous êtes.
+Le drapeau `SHOW_TIMEZONE` peut être défini sur `False` pour cacher le fuseau horaire auquel vous appartenez.
 
 ```text
 ⌚︎ Timezone: Asia/Calcutta
 ```
 
-Le drapeau `SHOW_EDITORS` peut être réglé sur `False` pour cacher la liste des éditeurs de code/IDE utilisés.
+Le drapeau `SHOW_EDITORS` peut être défini sur `False` pour cacher la liste des éditeurs de code/IDE utilisés.
 
 ```text
 🔥 Editors:
@@ -230,7 +230,7 @@ PhpStorm                 1 hr 35 mins        ████░░░░░░░�
 PyCharm                  23 mins             █░░░░░░░░░░░░░░░░░░░░░░░░   4.49%
 ```
 
-Le drapeau `SHOW_LANGUAGE_PER_REPO` peut être réglé sur `False` pour cacher le nombre de dépôts dans différentes langues de programmation et cadres.
+Le drapeau `SHOW_LANGUAGE_PER_REPO` peut être défini à `False` pour cacher le nombre de dépôts dans différents langages de programmation et cadres.
 
 **Je code principalement en Vue**
 
@@ -245,7 +245,7 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 
 ```
 
-Le drapeau `SHOW_SHORT_INFO` peut être réglé sur `False` pour cacher l'information amusante courte d'un utilisateur.
+Le drapeau `SHOW_SHORT_INFO` peut être défini sur `False` pour cacher l'information amusante courte d'un utilisateur.
 
 > [!NOTE]
 > This section requires a Personal Access Token (PAT) with the `user` scope, otherwise the data shown here will be incorrect.
@@ -256,7 +256,7 @@ Le drapeau `SHOW_SHORT_INFO` peut être réglé sur `False` pour cacher l'inform
  >
 > 📦 Utilisé 292,3 kB dans le stockage de GitHub
  >
-> 💼 Opté pour l'emploi
+> 💼 Opté pour l'embauche
  >
 > 📜 25 Répertoires publics
  >
@@ -285,7 +285,7 @@ Le drapeau `DEBUG_LOGGING` peut être défini pour augmenter la verbosité de la
 J'open-source presque tout ce que je peux, et j'essaie de répondre à tout le monde qui a besoin d'aide en utilisant ces projets. Évidemment,
 cela prend du temps. Vous pouvez utiliser ce service gratuitement.
 
-Cependant, si vous utilisez ce projet et que vous êtes satisfait ou que vous souhaitez simplement m'encourager à continuer à créer des choses, il y a quelques façons de le faire :-
+Cependant, si vous utilisez ce projet et que vous êtes satisfait ou que vous souhaitez simplement me encourager à continuer à créer des choses, il y a quelques façons de le faire :-
 
 - Donner le crédit approprié lorsque vous utilisez cette action dans votre readme, en lien vers celui-ci :D
 - Étoiler et partager le projet :rocket:
@@ -295,9 +295,9 @@ Merci ! :heart:
 
 # Contribution
 
-Les contributions sont les bienvenues ♥ ! Veuillez partager toute fonctionnalité, et ajoutez des tests unitaires ! Utilisez les systèmes de demande de tirage et d'issues pour contribuer.
+Les contributions sont les bienvenues ♥ ! Veuillez partager toute fonctionnalité, et ajouter des tests unitaires ! Utilisez les systèmes de demande de tirage et de problèmes pour contribuer.
 
-# Contributeurs Sélectionnés
+# Contributeurs sélectionnés
 
 1. [Anmol Pratap Singh](https://github.com/anmol098): Mainteneur
 2. [Alexander Sergeev](https://github.com/pseusys): Mainteneur
@@ -454,8 +454,8 @@ Les contributions sont les bienvenues ♥ ! Veuillez partager toute fonctionnali
 
 </details>
 
-- Et toi ! Si tu l'utilises actuellement et que tu n'es pas sur la liste, n'hésite pas à nous le faire savoir en envoyant un [Special Mention](https://github.com/anmol098/waka-readme-stats/issues/new/choose) ! :blush: \
-  Nous serons ravis de t'ajouter à la liste.
+- Et vous ! Si jamais vous l'utilisez actuellement et que vous n'êtes pas sur la liste, veuillez nous le faire savoir en envoyant un [Special Mention](https://github.com/anmol098/waka-readme-stats/issues/new/choose) ! :blush: \
+  Nous serons ravis de vous ajouter à la liste.
 
 Créé avec :heart: et Python 🐍.
 

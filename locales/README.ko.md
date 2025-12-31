@@ -1,6 +1,6 @@
 <!--START_SECTION:navbar-->
 <div align="center">
-  <a href="../README.md">🇺🇸 English</a> | <a href="README.es.md">🇪🇸 Español</a> | <a href="README.fr.md">🇫🇷 Français</a> | <a href="README.hi.md">🇮🇳 हिंदी</a> | <a href="README.ja.md">🇯🇵 日本語</a> | <a href="README.ko.md">🇰🇷 한국어</a> | <a href="README.pt.md">🇵🇹 Português</a> | <a href="README.ru.md">🇷🇺 Русский</a> | <a href="README.zh.md">🇨🇳 中文</a>
+  <a href="../README.md">🇺🇸 English</a> | <a href="README.de.md">🇩🇪 Deutsch</a> | <a href="README.es.md">🇪🇸 Español</a> | <a href="README.fr.md">🇫🇷 Français</a> | <a href="README.hi.md">🇮🇳 हिंदी</a> | <a href="README.ja.md">🇯🇵 日本語</a> | <a href="README.ko.md">🇰🇷 한국어</a> | <a href="README.pt.md">🇵🇹 Português</a> | <a href="README.ru.md">🇷🇺 Русский</a> | <a href="README.zh.md">🇨🇳 中文</a>
 </div>
 <!--END_SECTION:navbar-->
 
@@ -9,7 +9,7 @@
 > Any kind of help would be greatly appreciated. \
 > Please see issue <https://github.com/anmol098/waka-readme-stats/issues/23> if you would like to help!
 
-# README에서 Dev Metrics 및 추가된 기능 플래그 표시 🎌
+# README에서 Dev Metrics 및 추가된 기능 플래그 사용 🎌
 
 ![Project Preview](https://user-images.githubusercontent.com/25841814/79395484-5081ae80-7fac-11ea-9e27-ac91472e31dd.png)
 
@@ -17,7 +17,7 @@
 
   ![Project Preview](https://user-images.githubusercontent.com/15426564/88030180-8e1c4780-cb58-11ea-8a8b-b3576dd73652.png)
 
-  <h3 align="center">📌✨아주 멋진 README 통계</h3>
+  <h3 align="center">📌✨Awesome README Stats</h3>
 </p>
 
 ----
@@ -31,27 +31,27 @@
 </p>
 
 <p align="center">
-   당신은 조기 🐤 인가요, 아니면 밤 🦉 인가요?
+   Are you an early 🐤 or a night 🦉?
    <br/>
-   하루 중 언제가 가장 생산적인가요?
+   When are you most productive during the day?
    <br/>
-   당신이 사용하는 프로그래밍 언어는 무엇인가요?
+   What are the languages that you code in?
    <br/>
-   프로필의 README에서 확인해 보세요!
+   Let's check it out in your profile's README!
 </p>
 
 <p align="center">
-    <a href="https://github.com/anmol098/waka-readme-stats/issues">버그 보고</a>
+    <a href="https://github.com/anmol098/waka-readme-stats/issues">버그 신고</a>
     <a href="https://github.com/anmol098/waka-readme-stats/issues">기능 요청</a>
   </p>
 
 ## Prep Work
 
-1. 당신은 마크다운 파일(`.md`)에 2개의 주석을 추가해야 합니다. 업데이트 방법은 [여기](#update-your-readme)를 참고하세요.
+1. `.md` 파일에 2개의 주석을 추가해야 합니다. 업데이트 방법은 [여기](#update-your-readme)를 참고하세요.
 2. WakaTime API 키가 필요합니다. 이는 WakaTime 계정 설정에서 얻을 수 있습니다.
-    - WakaTime에 새로 오셨다면 [여기](#new-to-wakatime)를 참고하세요.
+    - WakaTime이 처음이라면 [여기](#new-to-wakatime)를 참고하세요.
 3. 커밋 메트릭을 얻기 위해 액션을 실행하는 경우, [여기](https://github.com/settings/tokens)에서 `repo` 및 `user` 범위를 가진 GitHub API 토큰이 필요합니다.
-   - 이 예시를 참고하여 작업할 수 있습니다. [여기](#profile-repository)
+   - [이](#profile-repository) 예제를 참고하여 설정할 수 있습니다.
 
 > [!NOTE]
 > Enabling the `repo` scope seems **DANGEROUS**, \
@@ -59,13 +59,13 @@
 
 1. 저장소 비밀에 WakaTime API 키와 GitHub API 토큰을 저장해야 합니다. 이는 저장소의 설정에서 찾을 수 있습니다. \
   다음처럼 저장해야 합니다:
-    - WakaTime API 키를 `WAKATIME_API_KEY=<your wakatime API Key>`로 저장합니다.
-    - GitHub 개인 액세스 토큰(PAT)을 `GH_TOKEN=<your github access token>`로 저장합니다.
+    - WakaTime API 키를 `WAKATIME_API_KEY=<your wakatime API Key>`로
+    - GitHub 개인 액세스 토큰(PAT)을 `GH_TOKEN=<your github access token>`로
 2. 요구사항에 따라 기능 플래그를 활성화하거나 비활성화할 수 있습니다.
 
-이 GitHub Action은 원하는 시간에 `cron`을 사용하여 실행할 수 있습니다. `cron` 표현식을 생성하려면 [Crontab.guru](https://crontab.guru/) 및 [이곳](https://crontab.cronhub.io/) 웹사이트를 참조하세요.
+이 GitHub Action은 원하는 시간에 `cron`을 사용하여 실행할 수 있습니다. `cron` 표현식을 생성하려면 [Crontab.guru](https://crontab.guru/) 및 [this](https://crontab.cronhub.io/) 웹사이트를 참조하세요.
 
-## Readme 업데이트
+## README 업데이트
 
 `README.md`에 다음과 같은 주석을 추가하세요:
 
@@ -74,24 +74,24 @@
 <!--END_SECTION:waka-->
 ```
 
-`waka`는 [사용 가능한 플래그 섹션](#flags-available)에 명시된 `SECTION_NAME` 플래그로 지정된 문자열로 대체될 수 있다.
+`waka`는 [사용 가능한 플래그 섹션](#flags-available)에 명시된 `SECTION_NAME` 플래그로 지정된 문자열로 대체될 수 있습니다.
 
-이 줄들은 개발자 메트릭의 진입점이 될 것이다.
+이들 라인은 개발 메트릭스의 진입점이 될 것입니다.
 
-## WakaTime을 처음 사용하는 경우
+## New to WakaTime
 
 WakaTime은 실제로 코딩에 소비한 시간을 알려줍니다. 이는 생산성과 경쟁력을 높이는 데 도움이 됩니다.
 
-- <https://wakatime.com>으로 이동하여 계정을 생성합니다.
-- [WakaTime의 계정 설정](https://wakatime.com/settings/account)에서 WakaTime API 키를 가져옵니다.
-- 좋아하는 에디터 / IDE에 [WakaTime 플러그인](https://wakatime.com/plugins)을 설치합니다.
-- API 키를 붙여넣어 분석을 시작합니다.
+- <https://wakatime.com>으로 이동하여 계정을 생성하십시오.
+- [WakaTime의 계정 설정](https://wakatime.com/settings/account)에서 WakaTime API 키를 가져오십시오.
+- 좋아하는 에디터 / IDE에 [WakaTime 플러그인](https://wakatime.com/plugins)을 설치하십시오.
+- 분석을 시작하려면 API 키를 붙여넣으십시오.
 
 ### 프로필 저장소
 
-GitHub Access Token을 가져야 하며, `repo` 및 `user` 범위를 포함해야 하며, Repo Secrets에 `GH_TOKEN = <Your GitHub Access Token>`으로 저장해야 합니다.
+GitHub Access Token을 가져와야 하며, `repo` 및 `user` 범위를 포함하고 Repo Secrets에 `GH_TOKEN = <Your GitHub Access Token>`으로 저장해야 합니다.
 
-다음은 실행하기 위한 샘플 워크플로우 파일입니다:
+다음은 실행을 위한 샘플 워크플로우 파일입니다:
 
 ```yml
 name: Waka Readme
@@ -112,11 +112,11 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 ```
 
-- 이제 커밋하고 자동으로 실행되기를 기다릴 수 있고, 즉시 결과를 확인하려면 `Actions`로 이동하여 `Profile Readme Development Stats` 워크플로우를 선택하고 `Run workflow`를 클릭하세요. 몇 분 정도 기다리면 변경사항을 확인할 수 있습니다.
+- 이제 커밋하고 자동으로 실행되기를 기다릴 수 있고, 즉시 결과를 확인하려면 `Actions`로 이동하여 `Profile Readme Development Stats` 워크플로우를 선택하고 `Run workflow`를 클릭하세요. 이제 1분에서 2분 정도 기다리면 변경사항을 확인할 수 있습니다.
 
 ## Extras
 
-기본적으로 모든 플래그는 활성화되어 있습니다(코드 줄 수 플래그는 수행되는 중간 작업이 많기 때문에 예외입니다). 통계에 추가 정보를 포함하고 싶다면 워크플로우 파일에 여러 개의 `FLAGS`를 추가할 수 있습니다.
+기본적으로 모든 플래그는 활성화되어 있습니다(코드 줄 수 플래그는 수행되는 중간 작업이 많기 때문에 예외입니다). 통계에 추가 정보를 추가하고 싶다면 워크플로우 파일에 여러 개의 `FLAGS`를 추가할 수 있습니다.
 
 ```yml
 - uses: anmol098/waka-readme-stats@master
@@ -131,11 +131,11 @@ jobs:
 
 ---
 
-`LOCALE` 이 플래그는 사용자의 언어로 통계를 표시할 수 있습니다. 기본값은 영어입니다. 플래그 변수에 [Short Hand](https://saimana.com/list-of-country-locale-code/) 형식의 로케일 코드를 전달해야 합니다. 최종 결과 예시는 [여기](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)에서 확인할 수 있습니다.
+`LOCALE` 이 플래그는 사용자의 언어로 통계를 표시할 수 있습니다. 기본값은 영어입니다. 플래그 변수에 전달할 로케일 [약어](https://saimana.com/list-of-country-locale-code/)를 사용해야 합니다. 최종 결과 예시는 [여기](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)에서 확인할 수 있습니다.
 
 `SECTION_NAME` 플래그는 임의의 문자열로 설정할 수 있으며, README에서 대체할 섹션의 이름이 됩니다.
 
-`COMMIT_BY_ME` 플래그는 `True`로 설정하여 자신의 이름과 이메일로 코드를 커밋할 수 있습니다.
+`COMMIT_BY_ME` 플래그는 `True`로 설정하여 이름과 이메일로 코드를 커밋할 수 있습니다.
 
 `COMMIT_MESSAGE` 플래그는 커밋 메시지를 설정할 수 있습니다. 기본값은 "Updated with Dev Metrics"입니다.
 
@@ -143,7 +143,7 @@ jobs:
 
 `COMMIT_EMAIL` 플래그는 커밋에 사용할 이메일을 설정할 수 있습니다. 기본값은 "41898282+github-actions[bot]@users.noreply.github.com"입니다.
 
-`SHOW_UPDATED_DATE` 플래그는 `True`로 설정하여 단락의 끝에 업데이트 날짜를 표시할 수 있습니다.
+`SHOW_UPDATED_DATE` 플래그는 `True`로 설정하여 단락 끝에 업데이트 날짜를 표시할 수 있습니다.
 
 `UPDATED_DATE_FORMAT` 플래그는 업데이트 날짜를 특정 형식으로 표시할 수 있습니다. 기본값은 `"%d/%m/%Y %H:%M:%S"`입니다.
 
@@ -171,7 +171,7 @@ jobs:
 
 ```
 
-`SHOW_DAYS_OF_WEEK` 플래그를 `False`로 설정하여 주간 각 날짜에 대한 커밋을 숨길 수 있습니다.
+`SHOW_DAYS_OF_WEEK` 플래그를 `False`로 설정하여 주간 각 날짜에 이루어진 커밋을 숨길 수 있습니다.
 
 📅 **일요일에 가장 생산성이 높습니다**
 
@@ -230,7 +230,7 @@ PhpStorm                 1 hr 35 mins        ████░░░░░░░�
 PyCharm                  23 mins             █░░░░░░░░░░░░░░░░░░░░░░░░   4.49%
 ```
 
-`SHOW_LANGUAGE_PER_REPO` 플래그를 `False`로 설정하여 다양한 프로그래밍 언어와 프레임워크별로 저장소 수를 숨길 수 있습니다.
+`SHOW_LANGUAGE_PER_REPO` 플래그를 `False`로 설정하여 다양한 프로그래밍 언어 및 프레임워크별로 저장소 수를 숨길 수 있습니다.
 
 **저는 주로 Vue로 코드를 작성합니다**
 
@@ -250,23 +250,23 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 > [!NOTE]
 > This section requires a Personal Access Token (PAT) with the `user` scope, otherwise the data shown here will be incorrect.
 
-**🐱 제 GitHub 데이터**
+**🐱 My GitHub Data**
 
-> 🏆 2020년 기여 433회
+> 🏆 2020년에 433 Contributions
  >
 > 📦 GitHub 저장소에서 292.3 kB 사용
  >
-> 💼 채용 가능 선택
+> 💼 채용 선택
  >
-> 📜 공개 저장소 25개
+> 📜 25개 공개 저장소
  >
-> 🔑 소유한 비공개 저장소 15개
+> 🔑 15개 소유한 비공개 저장소
 
-`SHOW_LOC_CHART` 플래그를 `False`로 설정하여 연도별 분기별로 작성된 코드 줄 수를 숨길 수 있습니다.
+`SHOW_LOC_CHART` 플래그를 `False`로 설정하여 연도별로 나뉜 분기별로 작성된 코드 줄 수를 숨길 수 있습니다.
 
-`IGNORED_REPOS` 플래그를 `"waka-readme-stats, my-first-repo"`(예시)로 설정하여 계산하지 않으려는 저장소를 무시할 수 있습니다.
+`IGNORED_REPOS` 플래그를 `"waka-readme-stats, my-first-repo"` (예시)로 설정하여 일부 계산하지 않으려는 저장소를 무시할 수 있습니다.
 
-`SYMBOL_VERSION` 플래그는 진행 표시줄의 기호를 설정할 수 있으며, 기본값은 `1`입니다.
+`SYMBOL_VERSION` 플래그는 진행 표시줄의 기호를 위해 설정할 수 있습니다 (기본값: `1`).
 
 | 버전 | 완료 블록 | 빈 블록 |
 |-------- | ---------- | ----------- |
@@ -274,22 +274,22 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 |    2    |      ⣿     |       ⣀     |
 |    3    |      ⬛    |       ⬜    |
 
-`DEBUG_LOGGING` 플래그를 설정하여 GitHub Action의 출력 세부 정보를 증가시킬 수 있으며, 기본값은 내부 실행자 디버그 속성과 같습니다.
+`DEBUG_LOGGING` 플래그를 설정하여 GitHub Action의 출력 세부 수준을 높일 수 있습니다. 기본값은 내부 실행자 디버그 속성과 같습니다.
 
 **타임라인**
 
-![차트 미 발견](https://raw.githubusercontent.com/anmol098/anmol098/master/charts/bar_graph.png)
+![Chart not found](https://raw.githubusercontent.com/anmol098/anmol098/master/charts/bar_graph.png)
 
 ## :sparkling_heart: 프로젝트 지원
 
-나는 할 수 있는 모든 것을 오픈소스로 공개하고, 이 프로젝트를 통해 도움을 요청하는 모든 사람에게 답장을 시도한다. 분명히,
+나는 할 수 있는 모든 것을 오픈소스로 공개하고, 이 프로젝트를 사용하여 도움이 필요한 모든 사람에게 답장을 시도한다. 당연히,
 이것은 시간이 많이 걸린다. 이 서비스는 무료로 사용할 수 있다.
 
-하지만, 이 프로젝트를 사용하고 있고 만족하거나, 계속해서 새로운 것을 만들기를 원한다면 몇 가지 방법으로 도움을 줄 수 있다 :-
+그러나, 이 프로젝트를 사용하고 있고 만족하거나, 계속해서 새로운 것을 만들기를 원한다면, 몇 가지 방법으로 도움을 줄 수 있다 :-
 
-- 이 액션을 readme에 사용할 때 적절한 인용을 하고, 다시 이 프로젝트로 연결해 주는 것 :D
+- 이 액션을 사용할 때 readme에 적절한 인용을 하고, 다시 이 프로젝트로 연결해 주는 것 :D
 - 프로젝트를 스타링하고 공유하는 것 :rocket:
-- [![paypal.me/aapreneur](https://ionicabizau.github.io/badges/paypal.svg)](https://www.paypal.me/aapreneur) - PayPal을 통해 일회성 기부를 할 수 있다. 아마도 ~~맥주~~ 와인 🍷을 살 수 있을 것이다.
+- [![paypal.me/aapreneur](https://ionicabizau.github.io/badges/paypal.svg)](https://www.paypal.me/aapreneur) - PayPal을 통해 일회성 기부를 할 수 있다. 아마도 ~~맥주~~ 와인 🍷를 살 수 있을 것이다.
 
 감사합니다! :heart:
 
@@ -308,7 +308,7 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 7. [Aaron Meese](https://github.com/ajmeese7): Pull Request [#45](https://github.com/anmol098/waka-readme-stats/pull/45)
 8. [Arnav Jindal](https://github.com/Daggy1234): Pull Request [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
 9. [Daniel Rowe](https://github.com/DanRowe): Pull Request [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
-10. [Ss5h](https://github.com/tlatkdgus1): 번역을 위한 자연어 문장 작성 지원 [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
+10. [Ss5h](https://github.com/tlatkdgus1): 번역을 위한 자연 문장 작성 지원 [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
 
 <details>
 
@@ -454,19 +454,19 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 
 </details>
 
-- 그리고 당신도! 만약 지금 그것을 사용하고 있고 목록에 없으면 [Special Mention](https://github.com/anmol098/waka-readme-stats/issues/new/choose) 이슈를 보내告诉我们해주세요! :blush: \
-  목록에 당신을 추가하는 것을 기쁘게 생각합니다.
+- 그리고 당신도! 만약 지금 그것을 사용하고 있고 목록에 없으면 [Special Mention](https://github.com/anmol098/waka-readme-stats/issues/new/choose) 이슈를 보내告诉我们! :blush: \
+  목록에 추가해 드릴 수 있어요.
 
-:heart:와 Python 🐍로 만들어졌습니다.
+:heart: 과 Python 🐍로 만들어졌습니다.
 
 # Inspired From
 
 > [Awesome Pinned Gists](https://github.com/matchai/awesome-pinned-gists) <br/>
 > [athul/waka-readme](https://github.com/athul/waka-readme)
 
-### 이 프로젝트는 당신의 **별표** ⭐가 필요해요 ♥
+### 이 프로젝트는 당신의 **star** ⭐ from you ♥가 필요합니다
 
-## 시간에 따른 스타그azers
+## 시간에 따른 Stargazers 수
 
 [![Stargazers over time](https://starchart.cc/anmol098/waka-readme-stats.svg)](https://starchart.cc/anmol098/waka-readme-stats)
 
