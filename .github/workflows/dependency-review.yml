@@ -6,12 +6,6 @@ on:
       - 'sources/translation.json'
       - 'locales/**'
 
-  push:
-    paths-ignore:
-      - 'README.md'
-      - 'sources/translation.json'
-      - 'locales/**'
-      
 permissions:
   contents: read
   pull-requests: write
