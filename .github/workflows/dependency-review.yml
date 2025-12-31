@@ -6,6 +6,12 @@ on:
       - 'sources/translation.json'
       - 'locales/**'
 
+  push:
+    paths-ignore:
+      - 'README.md'
+      - 'sources/translation.json'
+      - 'locales/**'
+      
 permissions:
   contents: read
   pull-requests: write
@@ -13,6 +19,7 @@ permissions:
 jobs:
   dependency-review:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.head.repo.fork == false
 
     steps:
       - name: Checkout repository 🛎️
