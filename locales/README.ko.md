@@ -57,11 +57,11 @@
 > Enabling the `repo` scope seems **DANGEROUS**, \
 > but this GitHub Action only accesses your commit timestamps and the number of lines of code added or deleted in repositories that you contributed to.
 
-1. 저장소 비밀에 WakaTime API 키와 GitHub API 토큰을 저장해야 합니다. 이는 저장소의 설정에서 찾을 수 있습니다. \
+4. 저장소 비밀에 WakaTime API 키와 GitHub API 토큰을 저장해야 합니다. 이는 저장소의 설정에서 찾을 수 있습니다. \
   다음처럼 저장해야 합니다:
     - WakaTime API 키를 `WAKATIME_API_KEY=<your wakatime API Key>`로
     - GitHub 개인 액세스 토큰(PAT)을 `GH_TOKEN=<your github access token>`로
-2. 요구사항에 따라 기능 플래그를 활성화하거나 비활성화할 수 있습니다.
+5. 요구사항에 따라 기능 플래그를 활성화하거나 비활성화할 수 있습니다.
 
 이 GitHub Action은 원하는 시간에 `cron`을 사용하여 실행할 수 있습니다. `cron` 표현식을 생성하려면 [Crontab.guru](https://crontab.guru/) 및 [this](https://crontab.cronhub.io/) 웹사이트를 참조하세요.
 
@@ -301,14 +301,16 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 
 1. [Anmol Pratap Singh](https://github.com/anmol098): 유지자
 2. [Alexander Sergeev](https://github.com/pseusys): 유지자
-3. [Aravind V. Nair](https://github.com/aravindvnair99): 유지자
-4. [Prabhat Singh](https://github.com/prabhatdev): 코드 타임라인 그래프 [#18](https://github.com/anmol098/waka-readme-stats/pull/18)
-5. [Hedy Li](https://github.com/hedythedev): Pull Request [#34](https://github.com/anmol098/waka-readme-stats/pull/34) 및 [#23](https://github.com/anmol098/waka-readme-stats/pull/23)
-6. [Pedro Torres](https://github.com/Corfucinas): Pull Request [#29](https://github.com/anmol098/waka-readme-stats/pull/29)
-7. [Aaron Meese](https://github.com/ajmeese7): Pull Request [#45](https://github.com/anmol098/waka-readme-stats/pull/45)
-8. [Arnav Jindal](https://github.com/Daggy1234): Pull Request [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
-9. [Daniel Rowe](https://github.com/DanRowe): Pull Request [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
-10. [Ss5h](https://github.com/tlatkdgus1): 번역을 위한 자연 문장 작성 지원 [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
+3. [DataBoySu](https://github.com/DataBoySu): 유지자
+4. [okcoder1](https://github.com/ok-coder1): 유지자
+5. [Aravind V. Nair](https://github.com/aravindvnair99): 유지자
+6. [Prabhat Singh](https://github.com/prabhatdev): 코드 타임라인 그래프를 위한 기여 [#18](https://github.com/anmol098/waka-readme-stats/pull/18)
+7. [Hedy Li](https://github.com/hedythedev): Pull Request [#34](https://github.com/anmol098/waka-readme-stats/pull/34) 및 [#23](https://github.com/anmol098/waka-readme-stats/pull/23)을 위한 기여
+8. [Pedro Torres](https://github.com/Corfucinas): Pull Request [#29](https://github.com/anmol098/waka-readme-stats/pull/29)을 위한 기여
+9. [Aaron Meese](https://github.com/ajmeese7): Pull Request [#45](https://github.com/anmol098/waka-readme-stats/pull/45)을 위한 기여
+10. [Arnav Jindal](https://github.com/Daggy1234): Pull Request [#48](https://github.com/anmol098/waka-readme-stats/pull/48)을 위한 기여
+11. [Daniel Rowe](https://github.com/DanRowe): Pull Request [#57](https://github.com/anmol098/waka-readme-stats/pull/57)을 위한 기여
+12. [Ss5h](https://github.com/tlatkdgus1): 번역을 위한 자연어 문장 작성 지원 추가 [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
 
 <details>
 
@@ -451,6 +453,8 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 - [Yash Naravade](https://github.com/yashnaravade)
 
 - [Luicen Loua](https://github.com/lucien-loua)
+
+- [DataBoySu](https://github.com/DataBoySu)
 
 </details>
 

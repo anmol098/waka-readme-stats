@@ -57,11 +57,11 @@
 > Enabling the `repo` scope seems **DANGEROUS**, \
 > but this GitHub Action only accesses your commit timestamps and the number of lines of code added or deleted in repositories that you contributed to.
 
-1. 你需要将 WakaTime API Key 和 GitHub API Token 保存在仓库的 secrets 中。你可以在仓库的 Settings 中找到它们。 \
+4. 你需要将 WakaTime API Key 和 GitHub API Token 保存在仓库的 secrets 中。你可以在仓库的 Settings 中找到它们。 \
   确保将它们保存为以下格式：
     - WakaTime API Key 作为 `WAKATIME_API_KEY=<your wakatime API Key>`
-    - GitHub 个人访问令牌 (PAT) 作为 `GH_TOKEN=<your github access token>`
-2. 你可以根据你的需求启用或禁用功能标志。
+    - GitHub Personal Access Token (PAT) 作为 `GH_TOKEN=<your github access token>`
+5. 你可以根据你的需求启用或禁用功能标志。
 
 此 GitHub Action 可以使用 `cron` 在你想要的任何时间运行。查看 [Crontab.guru](https://crontab.guru/) 和 [this](https://crontab.cronhub.io/) 网站来生成 `cron` 表达式。
 
@@ -303,14 +303,16 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 
 1. [Anmol Pratap Singh](https://github.com/anmol098): 维护者
 2. [Alexander Sergeev](https://github.com/pseusys): 维护者
-3. [Aravind V. Nair](https://github.com/aravindvnair99): 维护者
-4. [Prabhat Singh](https://github.com/prabhatdev): 为代码时间线图表 [#18](https://github.com/anmol098/waka-readme-stats/pull/18)
-5. [Hedy Li](https://github.com/hedythedev): 为 Pull Request [#34](https://github.com/anmol098/waka-readme-stats/pull/34) 和 [#23](https://github.com/anmol098/waka-readme-stats/pull/23)
-6. [Pedro Torres](https://github.com/Corfucinas): 为 Pull Request [#29](https://github.com/anmol098/waka-readme-stats/pull/29)
-7. [Aaron Meese](https://github.com/ajmeese7): 为 Pull Request [#45](https://github.com/anmol098/waka-readme-stats/pull/45)
-8. [Arnav Jindal](https://github.com/Daggy1234): 为 Pull Request [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
-9. [Daniel Rowe](https://github.com/DanRowe): 为 Pull Request [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
-10. [Ss5h](https://github.com/tlatkdgus1): 为添加支持自然句子写作用于翻译 [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
+3. [DataBoySu](https://github.com/DataBoySu): 维护者
+4. [okcoder1](https://github.com/ok-coder1): 维护者
+5. [Aravind V. Nair](https://github.com/aravindvnair99): 维护者
+6. [Prabhat Singh](https://github.com/prabhatdev): 为代码时间线图 [#18](https://github.com/anmol098/waka-readme-stats/pull/18)
+7. [Hedy Li](https://github.com/hedythedev): 为 Pull Request [#34](https://github.com/anmol098/waka-readme-stats/pull/34) 和 [#23](https://github.com/anmol098/waka-readme-stats/pull/23)
+8. [Pedro Torres](https://github.com/Corfucinas): 为 Pull Request [#29](https://github.com/anmol098/waka-readme-stats/pull/29)
+9. [Aaron Meese](https://github.com/ajmeese7): 为 Pull Request [#45](https://github.com/anmol098/waka-readme-stats/pull/45)
+10. [Arnav Jindal](https://github.com/Daggy1234): 为 Pull Request [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
+11. [Daniel Rowe](https://github.com/DanRowe): 为 Pull Request [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
+12. [Ss5h](https://github.com/tlatkdgus1): 为添加支持自然句子写作用于翻译 [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
 
 <details>
 
@@ -453,6 +455,8 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 - [Yash Naravade](https://github.com/yashnaravade)
 
 - [Luicen Loua](https://github.com/lucien-loua)
+
+- [DataBoySu](https://github.com/DataBoySu)
 
 </details>
 

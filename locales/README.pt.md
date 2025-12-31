@@ -57,11 +57,11 @@
 > Enabling the `repo` scope seems **DANGEROUS**, \
 > but this GitHub Action only accesses your commit timestamps and the number of lines of code added or deleted in repositories that you contributed to.
 
-1. Você precisa salvar a chave da API WakaTime e o token de acesso pessoal (PAT) do GitHub nos segredos do repositório. Você pode encontrá-los nas Configurações do seu repositório. \
+4. Você precisa salvar a chave da API WakaTime e o token de acesso pessoal (PAT) do GitHub nos segredos do repositório. Você pode encontrá-los nas Configurações do seu repositório. \
   Certifique-se de salvá-los da seguinte forma:
     - Chave da API WakaTime como `WAKATIME_API_KEY=<sua chave da API WakaTime>`
-    - Token de Acesso Pessoal (PAT) do GitHub como `GH_TOKEN=<seu token de acesso do GitHub>`
-2. Você pode habilitar e desabilitar bandeiras de recurso com base em suas necessidades.
+    - Token de Acesso Pessoal (PAT) do GitHub como `GH_TOKEN=<seu token de acesso do github>`
+5. Você pode habilitar e desabilitar bandeiras de recurso com base em suas necessidades.
 
 Esta ação do GitHub pode ser configurada para executar em qualquer momento que você quiser usando `cron`. Veja [Crontab.guru](https://crontab.guru/) e [este](https://crontab.cronhub.io/) site para gerar expressões `cron`.
 
@@ -301,14 +301,16 @@ Contribuições são bem-vindas ♥! Por favor, compartilhe quaisquer funcionali
 
 1. [Anmol Pratap Singh](https://github.com/anmol098): Mantenedor
 2. [Alexander Sergeev](https://github.com/pseusys): Mantenedor
-3. [Aravind V. Nair](https://github.com/aravindvnair99): Mantenedor
-4. [Prabhat Singh](https://github.com/prabhatdev): Por gráfico de linha do tempo do código [#18](https://github.com/anmol098/waka-readme-stats/pull/18)
-5. [Hedy Li](https://github.com/hedythedev): Por Pull Request [#34](https://github.com/anmol098/waka-readme-stats/pull/34) e [#23](https://github.com/anmol098/waka-readme-stats/pull/23)
-6. [Pedro Torres](https://github.com/Corfucinas): Por Pull Request [#29](https://github.com/anmol098/waka-readme-stats/pull/29)
-7. [Aaron Meese](https://github.com/ajmeese7): Por Pull Request [#45](https://github.com/anmol098/waka-readme-stats/pull/45)
-8. [Arnav Jindal](https://github.com/Daggy1234): Por Pull Request [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
-9. [Daniel Rowe](https://github.com/DanRowe): Por Pull Request [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
-10. [Ss5h](https://github.com/tlatkdgus1): Por adicionar suporte para escrita de frase natural para tradução [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
+3. [DataBoySu](https://github.com/DataBoySu): Mantenedor
+4. [okcoder1](https://github.com/ok-coder1): Mantenedor
+5. [Aravind V. Nair](https://github.com/aravindvnair99): Mantenedor
+6. [Prabhat Singh](https://github.com/prabhatdev): Por gráfico de linha do tempo do código [#18](https://github.com/anmol098/waka-readme-stats/pull/18)
+7. [Hedy Li](https://github.com/hedythedev): Por Pull Request [#34](https://github.com/anmol098/waka-readme-stats/pull/34) e [#23](https://github.com/anmol098/waka-readme-stats/pull/23)
+8. [Pedro Torres](https://github.com/Corfucinas): Por Pull Request [#29](https://github.com/anmol098/waka-readme-stats/pull/29)
+9. [Aaron Meese](https://github.com/ajmeese7): Por Pull Request [#45](https://github.com/anmol098/waka-readme-stats/pull/45)
+10. [Arnav Jindal](https://github.com/Daggy1234): Por Pull Request [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
+11. [Daniel Rowe](https://github.com/DanRowe): Por Pull Request [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
+12. [Ss5h](https://github.com/tlatkdgus1): Por adicionar suporte para escrita de frase natural para tradução [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
 
 <details>
 
@@ -451,6 +453,8 @@ Contribuições são bem-vindas ♥! Por favor, compartilhe quaisquer funcionali
 - [Yash Naravade](https://github.com/yashnaravade)
 
 - [Luicen Loua](https://github.com/lucien-loua)
+
+- [DataBoySu](https://github.com/DataBoySu)
 
 </details>
 

@@ -57,13 +57,13 @@
 > Enabling the `repo` scope seems **DANGEROUS**, \
 > but this GitHub Action only accesses your commit timestamps and the number of lines of code added or deleted in repositories that you contributed to.
 
-1. Vous devez enregistrer la clé API WakaTime et le jeton d'accès personnel (PAT) GitHub dans les secrets du dépôt. Vous pouvez les trouver dans les Paramètres de votre dépôt. \
+4. Vous devez enregistrer la clé API WakaTime et le jeton d'accès personnel (PAT) GitHub dans les secrets du dépôt. Vous pouvez les trouver dans les Paramètres de votre dépôt. \
   Assurez-vous de les enregistrer comme suit :
     - Clé API WakaTime comme `WAKATIME_API_KEY=<votre clé API WakaTime>`
     - Jeton d'accès personnel (PAT) GitHub comme `GH_TOKEN=<votre jeton d'accès GitHub>`
-2. Vous pouvez activer et désactiver les drapeaux de fonctionnalité selon vos besoins.
+5. Vous pouvez activer et désactiver les drapeaux de fonctionnalité en fonction de vos besoins.
 
-Cette action GitHub peut être configurée pour s'exécuter à tout moment souhaité à l'aide de `cron`. Consultez [Crontab.guru](https://crontab.guru/) et [celui-ci](https://crontab.cronhub.io/) pour générer des expressions `cron`.
+Cette action GitHub peut être configurée pour s'exécuter à tout moment souhaité à l'aide de `cron`. Consultez [Crontab.guru](https://crontab.guru/) et [cela](https://crontab.cronhub.io/) pour générer des expressions `cron`.
 
 ## Mettez à jour votre Readme
 
@@ -301,14 +301,16 @@ Les contributions sont les bienvenues ♥ ! Veuillez partager toute fonctionnali
 
 1. [Anmol Pratap Singh](https://github.com/anmol098): Mainteneur
 2. [Alexander Sergeev](https://github.com/pseusys): Mainteneur
-3. [Aravind V. Nair](https://github.com/aravindvnair99): Mainteneur
-4. [Prabhat Singh](https://github.com/prabhatdev): Pour le graphique du chronogramme du code [#18](https://github.com/anmol098/waka-readme-stats/pull/18)
-5. [Hedy Li](https://github.com/hedythedev): Pour la demande de tirage [#34](https://github.com/anmol098/waka-readme-stats/pull/34) et [#23](https://github.com/anmol098/waka-readme-stats/pull/23)
-6. [Pedro Torres](https://github.com/Corfucinas): Pour la demande de tirage [#29](https://github.com/anmol098/waka-readme-stats/pull/29)
-7. [Aaron Meese](https://github.com/ajmeese7): Pour la demande de tirage [#45](https://github.com/anmol098/waka-readme-stats/pull/45)
-8. [Arnav Jindal](https://github.com/Daggy1234): Pour la demande de tirage [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
-9. [Daniel Rowe](https://github.com/DanRowe): Pour la demande de tirage [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
-10. [Ss5h](https://github.com/tlatkdgus1): Pour l'ajout de la prise en charge de l'écriture de phrases naturelles pour la traduction [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
+3. [DataBoySu](https://github.com/DataBoySu): Mainteneur
+4. [okcoder1](https://github.com/ok-coder1): Mainteneur
+5. [Aravind V. Nair](https://github.com/aravindvnair99): Mainteneur
+6. [Prabhat Singh](https://github.com/prabhatdev): Pour le graphique du chronogramme du code [#18](https://github.com/anmol098/waka-readme-stats/pull/18)
+7. [Hedy Li](https://github.com/hedythedev): Pour la demande de tirage [#34](https://github.com/anmol098/waka-readme-stats/pull/34) et [#23](https://github.com/anmol098/waka-readme-stats/pull/23)
+8. [Pedro Torres](https://github.com/Corfucinas): Pour la demande de tirage [#29](https://github.com/anmol098/waka-readme-stats/pull/29)
+9. [Aaron Meese](https://github.com/ajmeese7): Pour la demande de tirage [#45](https://github.com/anmol098/waka-readme-stats/pull/45)
+10. [Arnav Jindal](https://github.com/Daggy1234): Pour la demande de tirage [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
+11. [Daniel Rowe](https://github.com/DanRowe): Pour la demande de tirage [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
+12. [Ss5h](https://github.com/tlatkdgus1): Pour l'ajout de la prise en charge de l'écriture de phrases naturelles pour la traduction [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
 
 <details>
 
@@ -451,6 +453,8 @@ Les contributions sont les bienvenues ♥ ! Veuillez partager toute fonctionnali
 - [Yash Naravade](https://github.com/yashnaravade)
 
 - [Luicen Loua](https://github.com/lucien-loua)
+
+- [DataBoySu](https://github.com/DataBoySu)
 
 </details>
 

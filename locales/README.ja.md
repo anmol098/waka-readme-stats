@@ -45,9 +45,9 @@
     <a href="https://github.com/anmol098/waka-readme-stats/issues">機能をリクエスト</a>
   </p>
 
-## プリペアワーク
+## プリップワーク
 
-1. `.md`ファイルのマークダウンファイルを2つのコメントで更新する必要があります。更新方法は[こちら](#update-your-readme)を参照してください。
+1. `.md`ファイルのマークダウンファイルを2つのコメントで更新する必要があります。更新方法については[こちら](#update-your-readme)を参照してください。
 2. WakaTime APIキーが必要です。これはWakaTimeアカウント設定から取得できます。
     - WakaTimeに新規ユーザーの場合、[こちら](#new-to-wakatime)を参照してください。
 3. コミットメトリクスを取得するアクションを実行する場合、[こちら](https://github.com/settings/tokens)から`repo`および`user`スコープを持つGitHub APIトークンが必要です。
@@ -57,17 +57,17 @@
 > Enabling the `repo` scope seems **DANGEROUS**, \
 > but this GitHub Action only accesses your commit timestamps and the number of lines of code added or deleted in repositories that you contributed to.
 
-1. リポジトリのシークレットにWakaTime APIキーおよびGitHub APIトークンを保存する必要があります。リポジトリの「設定」で確認できます。  
+4. リポジトリのシークレットにWakaTime APIキーおよびGitHub APIトークンを保存する必要があります。リポジトリの「設定」で確認できます。\
   以下の通りに保存してください:
     - WakaTime APIキーを`WAKATIME_API_KEY=<your wakatime API Key>`として保存
     - GitHubパーソナルアクセストークン(PAT)を`GH_TOKEN=<your github access token>`として保存
-2. ご要望に応じて、機能フラグを有効または無効にできます。
+5. ご要望に応じて、機能フラグを有効または無効にできます。
 
-このGitHub Actionは、`cron`を使用していつでも実行できます。`cron`式を生成するには、[Crontab.guru](https://crontab.guru/)および[this](https://crontab.cronhub.io/)のウェブサイトをご覧ください。
+このGitHub Actionは、`cron`を使用していつでも実行できます。`cron`式を生成するには[Crontab.guru](https://crontab.guru/)および[this](https://crontab.cronhub.io/)のウェブサイトをご覧ください。
 
-## READMEを更新する
+## Readmeの更新
 
-`README.md`にコメントを追加する例:
+`README.md`に以下のコメントを追加してください:
 
 ```md
 <!--START_SECTION:waka-->
@@ -131,7 +131,7 @@ jobs:
 
 ---
 
-`LOCALE` このフラグは、自分の言語で統計を表示するために使用できます。デフォルトは英語です。フラグ変数にLocale [Short Hand](https://saimana.com/list-of-country-locale-code/) を渡してください。最終的な結果の例は [ここ](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md) にあります。
+`LOCALE` このフラグは、自分の言語で統計を表示するために使用できます。デフォルトは英語です。フラグ変数に[略称](https://saimana.com/list-of-country-locale-code/)形式のロケールを渡してください。最終的な結果の例は[こちら](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)にあります。
 
 `SECTION_NAME` フラグは任意の文字列に設定でき、READMEに置き換えるセクションの名前になります。
 
@@ -139,13 +139,13 @@ jobs:
 
 `COMMIT_MESSAGE` フラグはコミットメッセージに設定できます。デフォルトは "Updated with Dev Metrics" です。
 
-`COMMIT_USERNAME` フラグはコミットに使用するユーザー名として設定できます。デフォルトは "readme-bot" です。
+`COMMIT_USERNAME` フラグはコミットに使用するユーザー名に設定できます。デフォルトは "readme-bot" です。
 
-`COMMIT_EMAIL` フラグはコミットに使用するメールアドレスとして設定できます。デフォルトは "41898282+github-actions[bot]@users.noreply.github.com" です。
+`COMMIT_EMAIL` フラグはコミットに使用するメールアドレスに設定できます。デフォルトは "41898282+github-actions[bot]@users.noreply.github.com" です。
 
-`SHOW_UPDATED_DATE` フラグを `True` に設定すると、段落の終わりに更新日時を表示します。
+`SHOW_UPDATED_DATE` フラグを `True` に設定すると、段落の終わりに更新日を表示します。
 
-`UPDATED_DATE_FORMAT` フラグは、更新日時をフォーマットするために設定できます。デフォルトは `"%d/%m/%Y %H:%M:%S"` です。
+`UPDATED_DATE_FORMAT` フラグは、更新日を指定された形式に設定できます。デフォルトは `"%d/%m/%Y %H:%M:%S"` です。
 
 `SHOW_LINES_OF_CODE` フラグを `True` に設定すると、これまでに書かれたコードの行数を表示します。
 
@@ -161,7 +161,7 @@ jobs:
 
 `SHOW_COMMIT` フラグを `False` に設定すると、コミット統計を非表示にします。
 
-**私はまだ若手の 🐤**
+**私はまだ早期の 🐤**
 
 ```text
 🌞 Morning    95 commits     ███████░░░░░░░░░░░░░░░░░░   30.55% 
@@ -173,7 +173,7 @@ jobs:
 
 `SHOW_DAYS_OF_WEEK` フラグを `False` に設定して、週の異なる日に作成されたコミットを非表示にできます。
 
-📅 **日曜日に最も生産的です**
+📅 **私は日曜日に最も生産的です**
 
 ```text
 Monday       50 commits     ███░░░░░░░░░░░░░░░░░░░░░░   13.19% 
@@ -252,29 +252,29 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 
 **🐱 My GitHub Data**
 
-> 🏆 2020年における寄付 433
+> 🏆 2020年における寄与数 433
  >
-> 📦 GitHubのストレージで 292.3 kB 使用
+> 📦 GitHubのストレージで使用 292.3 kB
  >
-> 💼 雇用を選択
+> 💼 雇用を希望
  >
 > 📜 公開リポジトリ 25
  >
 > 🔑 所有プライベートリポジトリ 15
 
-`SHOW_LOC_CHART` フラグを `False` に設定することで、異なる年ごとの四半期ごとのコード行数を表示する線を非表示にできます。
+`SHOW_LOC_CHART`フラグを`False`に設定することで、年ごとの四半期ごとのコード行数を表示する線を非表示にできます。
 
-`IGNORED_REPOS` フラグを `"waka-readme-stats, my-first-repo"`（例）に設定することで、カウントされたくないリポジトリを無視できます。
+`IGNORED_REPOS`フラグを`"waka-readme-stats, my-first-repo"`（これは例です）に設定することで、カウントされたくないリポジトリを無視できます。
 
-`SYMBOL_VERSION` フラグは、進行状況バーの記号を設定するために使用できます（デフォルト: `1`）。
+`SYMBOL_VERSION`フラグは、進行状況バーの記号を設定するために使用できます（デフォルト: `1`）。
 
 | バージョン | 完了ブロック | 空ブロック |
-|-------- | ---------- | ----------- |
+|---------- | ------------ | ---------- |
 |    1    |      █     |       ░     |
 |    2    |      ⣿     |       ⣀     |
 |    3    |      ⬛    |       ⬜    |
 
-`DEBUG_LOGGING` フラグを設定することで、GitHub Actionの出力の詳細度を増やすことができます。デフォルトでは内部ランナーのデバッグプロパティに等しくなります。
+`DEBUG_LOGGING`フラグを設定することで、GitHub Actionの出力の詳細度を高めることができます。デフォルトでは内部ランナーのデバッグプロパティに等しくなります。
 
 **タイムライン**
 
@@ -284,30 +284,32 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 
 私はできる限りすべてをオープンソース化しており、これらのプロジェクトを使って助けが必要な人全員に返信しようと努力しています。明らかに、これは時間がかかります。このサービスは無料で利用できます。
 
-しかし、このプロジェクトを使用していて満足している、またはただ継続して作成することを奨励したいだけでも、いくつかの方法があります :-
+しかし、このプロジェクトを使用し、それが気に入っている、または私が物事を続けて作成することを奨励したいだけでも、いくつかの方法があります :-
 
-- このアクションを使用するときに readme で適切なクレジットを記載し、リンクを戻す :D
+- このアクションを使用するときにreadmeで適切なクレジットを記載し、リンクを戻す :D
 - プロジェクトをスター付きにし、共有する :rocket:
-- [![paypal.me/aapreneur](https://ionicabizau.github.io/badges/paypal.svg)](https://www.paypal.me/aapreneur) - PayPal を通じて一回限りの寄付を行うことができます。私はおそらく~~ビール~~ワイン 🍷を購入するでしょう。
+- [![paypal.me/aapreneur](https://ionicabizau.github.io/badges/paypal.svg)](https://www.paypal.me/aapreneur) - PayPalを通じて一回限りの寄付を行うことができます。私はおそらく~~ビール~~ワイン 🍷を購入するでしょう。
 
 ありがとう！:heart:
 
 # 貢献
 
-貢献は歓迎されます ♥! ご希望の機能や、ユニットテストをぜひご提供ください。プルリクエストやイシューのシステムをご利用ください。
+貢献は歓迎されます ♥! ご希望の機能やユニットテストをぜひご提供ください。プルリクエストおよびイシューのシステムをご利用ください。
 
 # 選出された貢献者
 
 1. [Anmol Pratap Singh](https://github.com/anmol098): メンテナ
 2. [Alexander Sergeev](https://github.com/pseusys): メンテナ
-3. [Aravind V. Nair](https://github.com/aravindvnair99): メンテナ
-4. [Prabhat Singh](https://github.com/prabhatdev): コードタイムライングラフの実装 [#18](https://github.com/anmol098/waka-readme-stats/pull/18)
-5. [Hedy Li](https://github.com/hedythedev): プルリクエスト [#34](https://github.com/anmol098/waka-readme-stats/pull/34) および [#23](https://github.com/anmol098/waka-readme-stats/pull/23) への貢献
-6. [Pedro Torres](https://github.com/Corfucinas): プルリクエスト [#29](https://github.com/anmol098/waka-readme-stats/pull/29) への貢献
-7. [Aaron Meese](https://github.com/ajmeese7): プルリクエスト [#45](https://github.com/anmol098/waka-readme-stats/pull/45) への貢献
-8. [Arnav Jindal](https://github.com/Daggy1234): プルリクエスト [#48](https://github.com/anmol098/waka-readme-stats/pull/48) への貢献
-9. [Daniel Rowe](https://github.com/DanRowe): プルリクエスト [#57](https://github.com/anmol098/waka-readme-stats/pull/57) への貢献
-10. [Ss5h](https://github.com/tlatkdgus1): 翻訳用自然文の記述をサポート [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
+3. [DataBoySu](https://github.com/DataBoySu): メンテナ
+4. [okcoder1](https://github.com/ok-coder1): メンテナ
+5. [Aravind V. Nair](https://github.com/aravindvnair99): メンテナ
+6. [Prabhat Singh](https://github.com/prabhatdev): コードタイムライングラフの実装 [#18](https://github.com/anmol098/waka-readme-stats/pull/18)
+7. [Hedy Li](https://github.com/hedythedev): プルリクエスト [#34](https://github.com/anmol098/waka-readme-stats/pull/34) および [#23](https://github.com/anmol098/waka-readme-stats/pull/23) への貢献
+8. [Pedro Torres](https://github.com/Corfucinas): プルリクエスト [#29](https://github.com/anmol098/waka-readme-stats/pull/29) への貢献
+9. [Aaron Meese](https://github.com/ajmeese7): プルリクエスト [#45](https://github.com/anmol098/waka-readme-stats/pull/45) への貢献
+10. [Arnav Jindal](https://github.com/Daggy1234): プルリクエスト [#48](https://github.com/anmol098/waka-readme-stats/pull/48) への貢献
+11. [Daniel Rowe](https://github.com/DanRowe): プルリクエスト [#57](https://github.com/anmol098/waka-readme-stats/pull/57) への貢献
+12. [Ss5h](https://github.com/tlatkdgus1): 翻訳用自然文の記述をサポート [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
 
 <details>
 
@@ -451,10 +453,12 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 
 - [Luicen Loua](https://github.com/lucien-loua)
 
+- [DataBoySu](https://github.com/DataBoySu)
+
 </details>
 
-- そしてあなたも！もし今現在使用しているがリストに載っていない場合は、[Special Mention](https://github.com/anmol098/waka-readme-stats/issues/new/choose) の issue を送って教えてください！:blush: \
-  リストに加えてくれることを喜んでいます。
+- そしてあなたも！もし今それを使用していてリストにいない場合は、[Special Mention](https://github.com/anmol098/waka-readme-stats/issues/new/choose) の問題を送信して教えてください！:blush: \
+  リストに加えることを喜んでいます。
 
 :heart: と Python 🐍 で作成されました。
 

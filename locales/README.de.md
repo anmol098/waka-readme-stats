@@ -57,13 +57,13 @@
 > Enabling the `repo` scope seems **DANGEROUS**, \
 > but this GitHub Action only accesses your commit timestamps and the number of lines of code added or deleted in repositories that you contributed to.
 
-1. Du musst den WakaTime API Key und den GitHub API Token in den Repository-Secrets speichern. Du kannst das in den Einstellungen deines Repositorys finden. \
+4. Du musst den WakaTime API Key und den GitHub API Token in den Repository-Secrets speichern. Du kannst das in den Einstellungen deines Repositorys finden. \
   Stelle sicher, sie unter folgenden Namen zu speichern:
     - WakaTime API Key als `WAKATIME_API_KEY=<deiner wakatime API Key>`
     - GitHub Personal Access Token (PAT) als `GH_TOKEN=<dein github access token>`
-2. Du kannst Feature-Flags basierend auf deinen Anforderungen aktivieren und deaktivieren.
+5. Du kannst Feature-Flags basierend auf deinen Anforderungen aktivieren und deaktivieren.
 
-Diese GitHub Action kann so konfiguriert werden, dass sie zu jedem Zeitpunkt, den du willst, mit `cron` läuft. Sieh dir [Crontab.guru](https://crontab.guru/) und [dieses](https://crontab.cronhub.io/) Website an, um `cron` Ausdrücke zu generieren.
+Dieser GitHub Action kann so konfiguriert werden, dass er zu jedem Zeitpunkt, den du möchtest, mit `cron` läuft. Sieh dir [Crontab.guru](https://crontab.guru/) und [dieses](https://crontab.cronhub.io/) Website an, um `cron` Ausdrücke zu generieren.
 
 ## Update your Readme
 
@@ -301,14 +301,16 @@ Beiträge sind willkommen ♥! Bitte teile jede Funktion und füge Unit-Tests hi
 
 1. [Anmol Pratap Singh](https://github.com/anmol098): Maintainer
 2. [Alexander Sergeev](https://github.com/pseusys): Maintainer
-3. [Aravind V. Nair](https://github.com/aravindvnair99): Maintainer
-4. [Prabhat Singh](https://github.com/prabhatdev): Für den Code-Zeitlinien-Graphen [#18](https://github.com/anmol098/waka-readme-stats/pull/18)
-5. [Hedy Li](https://github.com/hedythedev): Für den Pull Request [#34](https://github.com/anmol098/waka-readme-stats/pull/34) und [#23](https://github.com/anmol098/waka-readme-stats/pull/23)
-6. [Pedro Torres](https://github.com/Corfucinas): Für den Pull Request [#29](https://github.com/anmol098/waka-readme-stats/pull/29)
-7. [Aaron Meese](https://github.com/ajmeese7): Für den Pull Request [#45](https://github.com/anmol098/waka-readme-stats/pull/45)
-8. [Arnav Jindal](https://github.com/Daggy1234): Für den Pull Request [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
-9. [Daniel Rowe](https://github.com/DanRowe): Für den Pull Request [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
-10. [Ss5h](https://github.com/tlatkdgus1): Für die Hinzufügung von Unterstützung für natürliche Satzformulierungen für Übersetzungen [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
+3. [DataBoySu](https://github.com/DataBoySu): Maintainer
+4. [okcoder1](https://github.com/ok-coder1): Maintainer
+5. [Aravind V. Nair](https://github.com/aravindvnair99): Maintainer
+6. [Prabhat Singh](https://github.com/prabhatdev): Für den Code-Zeitlinien-Graphen [#18](https://github.com/anmol098/waka-readme-stats/pull/18)
+7. [Hedy Li](https://github.com/hedythedev): Für den Pull Request [#34](https://github.com/anmol098/waka-readme-stats/pull/34) und [#23](https://github.com/anmol098/waka-readme-stats/pull/23)
+8. [Pedro Torres](https://github.com/Corfucinas): Für den Pull Request [#29](https://github.com/anmol098/waka-readme-stats/pull/29)
+9. [Aaron Meese](https://github.com/ajmeese7): Für den Pull Request [#45](https://github.com/anmol098/waka-readme-stats/pull/45)
+10. [Arnav Jindal](https://github.com/Daggy1234): Für den Pull Request [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
+11. [Daniel Rowe](https://github.com/DanRowe): Für den Pull Request [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
+12. [Ss5h](https://github.com/tlatkdgus1): Für die Hinzufügung von Unterstützung für natürliche Satzformulierungen bei der Übersetzung [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
 
 <details>
 
@@ -451,6 +453,8 @@ Beiträge sind willkommen ♥! Bitte teile jede Funktion und füge Unit-Tests hi
 - [Yash Naravade](https://github.com/yashnaravade)
 
 - [Luicen Loua](https://github.com/lucien-loua)
+
+- [DataBoySu](https://github.com/DataBoySu)
 
 </details>
 
