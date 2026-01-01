@@ -31,13 +31,13 @@
 </p>
 
 <p align="center">
-   Êtes-vous un 🐤 matinal ou un 🦉 nocturne ?
+   Êtes-vous un très tôt 🐤 ou un nocturne 🦉?
    <br/>
-   À quel moment de la journée êtes-vous le plus productif ?
+   À quel moment de la journée êtes-vous le plus productif?
    <br/>
-   Quelles sont les langues de programmation que vous utilisez ?
+   Quelles sont les langues dans lesquelles vous codez?
    <br/>
-   Découvrez-le dans votre README de profil !
+   Découvrez-le dans votre README de profil!
 </p>
 
 <p align="center">
@@ -51,7 +51,7 @@
 2. Vous aurez besoin d'une clé API WakaTime. Vous pouvez l'obtenir depuis les paramètres du compte WakaTime
     - Vous pouvez vous référer [ici](#new-to-wakatime), si vous êtes nouveau sur WakaTime.
 3. Vous aurez besoin d'un jeton API GitHub avec les portées `repo` et `user` depuis [ici](https://github.com/settings/tokens) si vous exécutez l'action pour obtenir les métriques de commit.
-   - Vous pouvez utiliser [cet exemple](#profile-repository) pour le configurer.
+   - Vous pouvez utiliser [cet exemple](#profile-repository) pour vous y retrouver.
 
 > [!NOTE]
 > Enabling the `repo` scope seems **DANGEROUS**, \
@@ -61,9 +61,9 @@
   Assurez-vous de les enregistrer comme suit :
     - Clé API WakaTime comme `WAKATIME_API_KEY=<votre clé API WakaTime>`
     - Jeton d'accès personnel (PAT) GitHub comme `GH_TOKEN=<votre jeton d'accès GitHub>`
-5. Vous pouvez activer et désactiver les drapeaux de fonctionnalité en fonction de vos besoins.
+5. Vous pouvez activer et désactiver les drapeaux de fonctionnalité selon vos besoins.
 
-Cette action GitHub peut être configurée pour s'exécuter à tout moment souhaité à l'aide de `cron`. Consultez [Crontab.guru](https://crontab.guru/) et [cela](https://crontab.cronhub.io/) pour générer des expressions `cron`.
+Cette action GitHub peut être configurée pour s'exécuter à tout moment souhaité à l'aide de `cron`. Consultez [Crontab.guru](https://crontab.guru/) et [celui-ci](https://crontab.cronhub.io/) pour générer des expressions `cron`.
 
 ## Mettez à jour votre Readme
 
@@ -131,7 +131,7 @@ Si vous souhaitez ajouter d'autres informations à vos statistiques, vous pouvez
 
 ---
 
-`LOCALE` Ce drapeau peut être utilisé pour afficher les statistiques dans votre langue. La valeur par défaut est l'anglais. Le code de localisation [abréviation](https://saimana.com/list-of-country-locale-code/) doit être passé dans la variable du drapeau. Un exemple du résultat final peut être trouvé [ici](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)
+`LOCALE` Ce drapeau peut être utilisé pour afficher les statistiques dans votre langue. La valeur par défaut est l'anglais. Le code de localisation [abrégé](https://saimana.com/list-of-country-locale-code/) doit être transmis dans la variable du drapeau. Un exemple du résultat final peut être trouvé [ici](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)
 
 Le drapeau `SECTION_NAME` peut être défini à n'importe quelle chaîne, et sera le nom de la section à remplacer dans le README.
 
@@ -215,7 +215,7 @@ cable                    54 mins             ██░░░░░░░░░�
 denAPI                   40 mins             ██░░░░░░░░░░░░░░░░░░░░░░░   7.66%
 ```
 
-Le drapeau `SHOW_TIMEZONE` peut être défini sur `False` pour cacher le fuseau horaire auquel vous appartenez.
+Le drapeau `SHOW_TIMEZONE` peut être défini à `False` pour cacher le fuseau horaire auquel vous appartenez.
 
 ```text
 ⌚︎ Timezone: Asia/Calcutta
@@ -287,7 +287,7 @@ cela prend du temps. Vous pouvez utiliser ce service gratuitement.
 
 Cependant, si vous utilisez ce projet et que vous êtes satisfait ou que vous souhaitez simplement me encourager à continuer à créer des choses, il y a quelques façons de le faire :-
 
-- Donner le crédit approprié lorsque vous utilisez cette action dans votre readme, en lien vers celui-ci :D
+- Donner le crédit approprié lorsque vous utilisez cette action dans votre readme, en y faisant un lien de retour :D
 - Étoiler et partager le projet :rocket:
 - [![paypal.me/aapreneur](https://ionicabizau.github.io/badges/paypal.svg)](https://www.paypal.me/aapreneur) - Vous pouvez faire des dons uniques via PayPal. Je vais probablement acheter un peu de ~~bière~~ vin 🍷.
 

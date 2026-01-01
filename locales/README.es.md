@@ -31,7 +31,7 @@
 </p>
 
 <p align="center">
-   ¿Eres un pollito 🐤 o un búho 🦉?
+   ¿Eres un polluelo 🐤 o un búho 🦉?
    <br/>
    ¿Cuándo estás más productivo durante el día?
    <br/>
@@ -135,13 +135,13 @@ Si quieres agregar otra información a tus estadísticas, puedes agregar múltip
 
 La bandera `SECTION_NAME` se puede establecer en cualquier cadena y será el nombre de la sección para reemplazar en el README.
 
-La bandera `COMMIT_BY_ME` se puede establecer en `True` para realizar el commit del código usando tu nombre y correo electrónico.
+La bandera `COMMIT_BY_ME` se puede establecer en `True` para hacer el commit del código usando tu nombre y correo electrónico.
 
 La bandera `COMMIT_MESSAGE` se puede establecer para el mensaje del commit. El valor predeterminado es "Actualizado con Dev Metrics".
 
-La bandera `COMMIT_USERNAME` se puede establecer como un nombre de usuario para realizar el commit del código. El valor predeterminado es "readme-bot".
+La bandera `COMMIT_USERNAME` se puede establecer como un nombre de usuario para hacer el commit del código. El valor predeterminado es "readme-bot".
 
-La bandera `COMMIT_EMAIL` se puede establecer en un correo electrónico para realizar el commit del código. El valor predeterminado es "41898282+github-actions[bot]@users.noreply.github.com".
+La bandera `COMMIT_EMAIL` se puede establecer en un correo electrónico para hacer el commit del código. El valor predeterminado es "41898282+github-actions[bot]@users.noreply.github.com".
 
 La bandera `SHOW_UPDATED_DATE` se puede establecer en `True` para mostrar la fecha de actualización al final del párrafo.
 
@@ -256,15 +256,15 @@ La bandera `SHOW_SHORT_INFO` se puede establecer en `False` para ocultar la info
  >
 > 📦 Usado 292.3 kB en el almacenamiento de GitHub
  >
-> 💼 Opté por Contratar
+> 💼 Optado para contratar
  >
-> 📜 25 Repositorio Público
+> 📜 25 Repositorio público
  >
-> 🔑 15 Repositorio Privado Propio
+> 🔑 15 Repositorio privado propiedad
 
 La bandera `SHOW_LOC_CHART` se puede establecer en `False` para ocultar las líneas de código escritas en diferentes trimestres de diferentes años.
 
-La bandera `IGNORED_REPOS` se puede establecer en `"waka-readme-stats, my-first-repo"` (solo un ejemplo) para ignorar algunos repositorios que no quieres que se cuenten.
+La bandera `IGNORED_REPOS` se puede establecer en `"waka-readme-stats, my-first-repo"` (solo un ejemplo) para ignorar algunos repositorios que no desea que se cuenten.
 
 La bandera `SYMBOL_VERSION` se puede establecer para el símbolo de la barra de progreso (por defecto: `1`).
 
@@ -274,7 +274,7 @@ La bandera `SYMBOL_VERSION` se puede establecer para el símbolo de la barra de 
 |    2    |      ⣿     |       ⣀     |
 |    3    |      ⬛    |       ⬜    |
 
-La bandera `DEBUG_LOGGING` se puede establecer para aumentar la verbosidad de la salida de la Acción de GitHub, por defecto es igual a la propiedad de depuración del ejecutor interno
+La bandera `DEBUG_LOGGING` se puede establecer para aumentar la verbosidad de la salida de la acción de GitHub, por defecto es igual a la propiedad de depuración del ejecutor interno
 
 **Línea de tiempo**
 
@@ -285,10 +285,10 @@ La bandera `DEBUG_LOGGING` se puede establecer para aumentar la verbosidad de la
 Abro-sourcing casi todo lo que puedo, y trato de responder a todos los que necesitan ayuda usando estos proyectos. Obviamente,
 esto toma tiempo. Puedes usar este servicio gratis.
 
-Sin embargo, si estás usando este proyecto y estás contento con él o simplemente quieres animarme a seguir creando cosas, hay algunas formas en que puedes hacerlo :-
+Sin embargo, si estás usando este proyecto y estás contento con él o simplemente quieres animarme a seguir creando cosas, hay algunas formas en las que puedes hacerlo :-
 
-- Dar el crédito adecuado cuando uses esta acción en tu readme, vinculándote de vuelta a él :D
-- Estrella y comparte el proyecto :rocket:
+- Dando el crédito adecuado cuando uses esta acción en tu readme, vinculándote de vuelta a él :D
+- Estrellando y compartiendo el proyecto :rocket:
 - [![paypal.me/aapreneur](https://ionicabizau.github.io/badges/paypal.svg)](https://www.paypal.me/aapreneur) - Puedes hacer donaciones únicas a través de PayPal. Probablemente compraré algo ~~cerveza~~ vino 🍷.
 
 ¡Gracias! :heart:
@@ -304,7 +304,7 @@ Las contribuciones son bienvenidas ♥! Por favor, comparta cualquier caracterí
 3. [DataBoySu](https://github.com/DataBoySu): Mantenedor
 4. [okcoder1](https://github.com/ok-coder1): Mantenedor
 5. [Aravind V. Nair](https://github.com/aravindvnair99): Mantenedor
-6. [Prabhat Singh](https://github.com/prabhatdev): Por el gráfico de línea de tiempo del código [#18](https://github.com/anmol098/waka-readme-stats/pull/18)
+6. [Prabhat Singh](https://github.com/prabhatdev): Por el gráfico de línea de código [#18](https://github.com/anmol098/waka-readme-stats/pull/18)
 7. [Hedy Li](https://github.com/hedythedev): Por la solicitud de extracción [#34](https://github.com/anmol098/waka-readme-stats/pull/34) y [#23](https://github.com/anmol098/waka-readme-stats/pull/23)
 8. [Pedro Torres](https://github.com/Corfucinas): Por la solicitud de extracción [#29](https://github.com/anmol098/waka-readme-stats/pull/29)
 9. [Aaron Meese](https://github.com/ajmeese7): Por la solicitud de extracción [#45](https://github.com/anmol098/waka-readme-stats/pull/45)
