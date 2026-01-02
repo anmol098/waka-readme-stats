@@ -37,7 +37,7 @@ jobs:
 
     steps:
     - name: Checkout 🛎️
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
     
     - name: Setup Python 3.13 🐍
       uses: actions/setup-python@v5
@@ -52,13 +52,13 @@ jobs:
           echo "CODEQL_PYTHON=$(which python)" >> $GITHUB_ENV
           
     - name: Initialize CodeQL 🧑‍💻
-      uses: github/codeql-action/init@v3
+      uses: github/codeql-action/init@v4
       with:
         languages: ${{ matrix.language }}
         queries: security-and-quality
         setup-python-dependencies: false
 
     - name: Perform CodeQL Analysis 📈
-      uses: github/codeql-action/analyze@v3
+      uses: github/codeql-action/analyze@v4
       with:
         category: "/language:${{matrix.language}}"
