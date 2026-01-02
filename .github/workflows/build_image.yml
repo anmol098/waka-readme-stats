@@ -2,15 +2,9 @@ name: PUBLISH_IMAGE
 
 on:
   push:
-    paths-ignore:
-      - 'README.md'
-      - 'sources/translation.json'
-      - 'locales/**'
+  
   pull_request_target:
-    paths-ignore:
-      - 'README.md'
-      - 'sources/translation.json'
-      - 'locales/**'
+  
   workflow_dispatch:
 
 concurrency:
