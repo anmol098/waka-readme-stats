@@ -139,8 +139,8 @@ def make_language_per_repo_list(repositories: Dict) -> str:
     percents = [round(language_count[lang]["count"] / len(repos_with_language) * 100, 2) for lang in names]
 
     if language_count:
-    top_language = max(language_count.keys(), key=lambda x: language_count[x]["count"])
-    title = f"**{FM.t('I Mostly Code in') % top_language}** \n\n"
+        top_language = max(language_count.keys(), key=lambda x: language_count[x]["count"])
+        title = f"**{FM.t('I Mostly Code in') % top_language}** \n\n"
     else:
         title = ""
     return f"{title}```text\n{make_list(names=names, texts=texts, percents=percents)}\n```\n\n"
