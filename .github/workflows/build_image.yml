@@ -40,7 +40,7 @@ jobs:
       - name: Build and push Docker image 🏗️
         uses: docker/build-push-action@v5
         with:
-          push: ${{ github.event_name != 'pull_request_target' && (github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/releases')) }}
+          push: ${{ github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/releases')) }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
