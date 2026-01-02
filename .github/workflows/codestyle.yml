@@ -2,6 +2,10 @@ name: CODESTYLE
 
 on:
   push:
+    paths-ignore:
+      - 'README.md'
+      - 'sources/translation.json'
+      - 'locales/**'
 
 jobs:
   lint:
