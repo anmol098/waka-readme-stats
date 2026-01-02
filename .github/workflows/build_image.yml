@@ -10,6 +10,7 @@ concurrency:
 
 jobs:
   publish-server-image:
+    if: ${{ !github.event.repository.fork }}
     name: Publish 'waka-readme-stats' image
     runs-on: ubuntu-latest
 
