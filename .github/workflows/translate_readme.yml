@@ -7,10 +7,10 @@ on:
         description: 'Languages to translate (comma-separated)'
         required: false
         default: 'fr,de,es,ja,zh,ru,pt,ko,hi'
-  push:
-    paths:
-      - 'README.md'
-
+  # push:
+  #   paths:
+  #     - 'README.md'
+# commenting so contributor translations are not lost
 permissions:
   contents: write
 
