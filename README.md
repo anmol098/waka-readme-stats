@@ -4,6 +4,7 @@
 </div>
 <!--END_SECTION:navbar-->
 
+---
 > [!IMPORTANT]
 > We are looking for translators for this project. \
 > Any kind of help would be greatly appreciated. \
@@ -279,7 +280,7 @@ The `DEBUG_LOGGING` flag can be set to increase the GitHub Action's output verbo
 
 **Timeline**
 
-![Chart not found](https://raw.githubusercontent.com/anmol098/anmol098/master/charts/bar_graph.png)
+![Timeline Chart](https://raw.githubusercontent.com/anmol098/anmol098/master/charts/bar_graph.png)
 
 ## :sparkling_heart: Support the project
 
