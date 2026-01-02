@@ -15,7 +15,7 @@ class EnvironmentManager:
 
     GH_TOKEN = environ["INPUT_GH_TOKEN"]
     WAKATIME_API_KEY = environ["INPUT_WAKATIME_API_KEY"]
-    WAKATIME_API_URL = getenv("INPUT_WAKATIME_API_URL", "https://wakatime.com/api/v1")
+    WAKATIME_API_URL = getenv("INPUT_WAKATIME_API_URL", "https://wakatime.com/api/v1/")
     if not WAKATIME_API_URL.endswith("/"):
         WAKATIME_API_URL += "/"
 
