@@ -14,10 +14,11 @@ documentation:
 github_actions:
   - changed-files:
     - any-glob-to-any-file: ".github/workflows/**"
+    - any-glob-to-any-file: ".github/labeler.yml"
 
 python:
   - changed-files:
-    - any-glob-to-any-file: ["sources/**", "!sources/translation.json"]
+    - any-glob-to-any-file: ["sources/**.py"]
 
 translation:
   - changed-files:

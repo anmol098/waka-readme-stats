@@ -46,7 +46,7 @@ jobs:
           lang: ${{ matrix.lang }}
 
       - name: Uploading Translation Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: locale-${{ matrix.lang }}
           path: locales/README.${{ matrix.lang }}.md
