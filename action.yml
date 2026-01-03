@@ -1,6 +1,6 @@
 name: 'Profile Readme Development Stats'
 author: Anmol Pratap Singh
-description: 'Are you an early 🐤 or a night 🦉? When are you most productive during the day? Let''s check out in your readme!'
+description: 'Are you an early 🐤 or a night 🦉? When are you most productive during the day? Check out in your readme!'
 
 inputs:
   GH_TOKEN:
@@ -11,6 +11,11 @@ inputs:
   WAKATIME_API_KEY:
     description: 'Your Wakatime API Key'
     required: true
+  
+  WAKATIME_API_URL:
+    description: 'Your Wakatime API URL'
+    required: false
+    default: "https://wakatime.com/api/v1/"
 
   SECTION_NAME:
     description: 'Name used in readme to scope the updated section'
@@ -154,3 +159,4 @@ runs:
 branding:
   icon: 'activity'
   color: 'orange'
+
