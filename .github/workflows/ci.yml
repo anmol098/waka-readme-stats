@@ -1,8 +1,12 @@
 name: CI
 
 on:
-  - pull_request_target
-  - workflow_dispatch
+  pull_request_target:
+    paths-ignore:
+      - 'README.md'
+      - 'sources/translation.json'
+      - 'locales/**'
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
@@ -15,7 +19,7 @@ jobs:
 
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Python 3.13 🐍
         uses: actions/setup-python@v6
@@ -76,6 +80,7 @@ jobs:
           path: assets
 
       - name: Create Comment 💬
+        if: github.event_name == 'pull_request_target'
         uses: jungwinter/comment@v1
         with:
           type: create
