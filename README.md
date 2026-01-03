@@ -12,12 +12,32 @@
 
 # Dev Metrics in README with added feature flags 🎌
 
-![Project Preview](https://user-images.githubusercontent.com/25841814/79395484-5081ae80-7fac-11ea-9e27-ac91472e31dd.png)
+<p align="center">
+  <picture>
+    <source
+      srcset="https://user-images.githubusercontent.com/25841814/79395484-5081ae80-7fac-11ea-9e27-ac91472e31dd.png"
+      media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"
+    />
+    <source
+      srcset="https://github.com/user-attachments/assets/984f227c-b331-425d-9d34-15a8414dc11d"
+      media="(prefers-color-scheme: dark)"
+    />
+    <img title="Project Preview" alt="Project Preview" src="https://user-images.githubusercontent.com/25841814/79395484-5081ae80-7fac-11ea-9e27-ac91472e31dd.png">
+  </picture>
+</p>
 
 <p align="center">
-
-  ![Project Preview](https://user-images.githubusercontent.com/15426564/88030180-8e1c4780-cb58-11ea-8a8b-b3576dd73652.png)
-
+  <picture>
+    <source
+      srcset="https://user-images.githubusercontent.com/15426564/88030180-8e1c4780-cb58-11ea-8a8b-b3576dd73652.png"
+      media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"
+    />
+    <source
+      srcset="https://github.com/user-attachments/assets/2133b6bb-7c3e-4f94-9381-1e41379378b3"
+      media="(prefers-color-scheme: dark)"
+    />
+    <img title="Project Preview" alt="Project Preview" src="https://user-images.githubusercontent.com/15426564/88030180-8e1c4780-cb58-11ea-8a8b-b3576dd73652.png">
+  </picture>
   <h3 align="center">📌✨Awesome README Stats</h3>
 </p>
 
@@ -32,26 +52,24 @@
 </p>
 
 <p align="center">
-   Are you an early 🐤 or a night 🦉?
+   Are you an early bird 🐤 or a night owl 🦉?
    <br/>
    When are you most productive during the day?
    <br/>
    What are the languages that you code in?
    <br/>
-   Let's check it out in your profile's README!
+   Check it out in your profile's README!
 </p>
 
 <p align="center">
-    <a href="https://github.com/anmol098/waka-readme-stats/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/anmol098/waka-readme-stats/issues">Request Feature</a>
+    <a href="https://github.com/anmol098/waka-readme-stats/issues">Report Bugs</a> · <a href="https://github.com/anmol098/waka-readme-stats/issues">Request Features</a>
   </p>
 
 ## Prep Work
 
-1. You need to update the markdown file(`.md`) with 2 comments. You can refer [here](#update-your-readme) for updating it.
-2. You'll need a WakaTime API Key. You can get that from your WakaTime Account Settings
-    - You can refer [here](#new-to-wakatime), if you're new to WakaTime.
+1. You need to update the README Markdown file (`README.md`) with 2 comments. You can refer to [Updating your README](#update-your-readme) for updating it.
+2. You'll need a WakaTime API Key. You can get that from your WakaTime Account Settings.
+    - Please refer to [New to WakaTime](#new-to-wakatime), if you're new to WakaTime.
 3. You'll need a GitHub API Token with `repo` and `user` scope from [here](https://github.com/settings/tokens) if you're running the action to get commit metrics.
    - You can use [this](#profile-repository) example to work it out.
 
@@ -65,9 +83,9 @@
     - GitHub Personal Access Token (PAT) as `GH_TOKEN=<your github access token>`
 5. You can enable and disable feature flags based on your requirements.
 
-This GitHub Action can be set to run at any time you want using `cron`. See [Crontab.guru](https://crontab.guru/) and [this](https://crontab.cronhub.io/) website to generate `cron` expressions.
+This GitHub Action can be set to run at any time you want using `cron`. See [Crontab.guru](https://crontab.guru/) and [this website](https://crontab.cronhub.io/) to generate `cron` expressions.
 
-## Update your Readme
+## Update your README
 
 Add a comment to your `README.md` like this:
 
@@ -76,7 +94,7 @@ Add a comment to your `README.md` like this:
 <!--END_SECTION:waka-->
 ```
 
-`waka` can be replaced by any string specified in the `SECTION_NAME` flag as per [the available flags section](#flags-available).
+`waka` can be replaced by any string specified in the `SECTION_NAME` flag as per [Available Flags](#available-flags).
 
 These lines will be our entry-points for the dev metrics.
 
@@ -91,17 +109,19 @@ WakaTime gives you an idea of the time you really spent on coding. This helps yo
 
 ### Profile Repository
 
-You'll need to get a [GitHub Access Token](https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token) with a `repo` and `user` scope and save it in the Repo Secrets `GH_TOKEN = <Your GitHub Access Token>`
+You'll need to get a [GitHub Personal Access Token (PAT)](https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token) with a `repo` and `user` scope and save it in the repository's secrets as `GH_TOKEN = <Your GitHub Personal Access Token>`.
 
-Here is a sample workflow File for running it:
+Here is a sample workflow for running it:
 
-```yml
+```yml title="update-readme.yml"
 name: Waka Readme
 
 on:
   schedule:
-    # Runs at 12am IST
+    # Runs at 12 AM IST
     - cron: '30 18 * * *'
+    # Runs at 12 AM UTC
+    - cron: '0 0 * * *'
   workflow_dispatch:
 jobs:
   update-readme:
@@ -118,7 +138,7 @@ jobs:
 
 ## Extras
 
-If you want to add the other info to your stats, you can add multiple `FLAGS` in your workflow file. By default all flags are enabled (except the lines of code flag due to the heavy operation performed)
+If you want to add the other info to your stats, you can add multiple `FLAGS` in your workflow file. By default, all flags are enabled (except the lines of code flag due to the heavy operation performed).
 
 ```yml
 - uses: anmol098/waka-readme-stats@master
@@ -129,7 +149,7 @@ If you want to add the other info to your stats, you can add multiple `FLAGS` in
       SHOW_PROJECTS: "False"
 ```
 
-### Flags Available
+### Available flags
 
 ---
 
