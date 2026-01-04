@@ -1,5 +1,5 @@
 from typing import Dict
-
+#fixing empty array being sent to numpy
 from numpy import arange, array, add, amax, zeros
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
