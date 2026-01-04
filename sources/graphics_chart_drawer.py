@@ -35,7 +35,7 @@ async def create_loc_graph(yearly_data: Dict, save_path: str):
             for lang in langs:
                 if lang not in languages_all_loc:
                     languages_all_loc[lang] = np.zeros((years, 4, 2), dtype=int)
-                languages_all_loc[lang][i][q - 1] = array([yearly_data[y][q][lang]["add"], yearly_data[y][q][lang]["del"]])
+                languages_all_loc[lang][i][q - 1] = np.array([yearly_data[y][q][lang]["add"], yearly_data[y][q][lang]["del"]])
 
     fig = plt.figure()
     ax = fig.add_axes([0, 0, 1.5, 1])
