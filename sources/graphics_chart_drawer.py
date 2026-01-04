@@ -3,7 +3,6 @@ from typing import Dict
 import numpy as np
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
-
 from manager_download import DownloadManager as DM
 from manager_file import FileManager as FM
 
