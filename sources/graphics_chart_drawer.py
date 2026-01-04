@@ -24,7 +24,7 @@ async def create_loc_graph(yearly_data: Dict, save_path: str):
     if colors is None:
         colors = dict()
     years = len(yearly_data.keys())
-    year_indexes = arange(years)
+    year_indexes = np.arange(years)
 
     languages_all_loc = dict()
     for i, y in enumerate(sorted(yearly_data.keys())):
@@ -53,7 +53,7 @@ async def create_loc_graph(yearly_data: Dict, save_path: str):
     ax.axhline(y=0.5, lw=0.5, snap=True, color="k")
 
     ax.set_ylabel("LOC added", fontdict=dict(weight="bold"))
-    ax.set_xticks(np.array([arange(i, i + 0.84, step=0.21) for i in year_indexes]).flatten(), labels=["Q1", "Q2", "Q3", "Q4"] * years)
+    ax.set_xticks(np.array([np.arange(i, i + 0.84, step=0.21) for i in year_indexes]).flatten(), labels=["Q1", "Q2", "Q3", "Q4"] * years)
 
     sax = ax.secondary_xaxis("top")
     sax.set_xticks(year_indexes + 0.42, labels=sorted(yearly_data.keys()))
