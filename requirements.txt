@@ -7,11 +7,11 @@ pytz~=2022.7
 humanize~=4.6
 
 # Graphs drawing modules:
-matplotlib~=3.7
+matplotlib~=3.10
 numpy~=1.24
 
 # Request making and response parsing modules:
-httpx~=0.23
+httpx~=0.27
 PyYAML~=6.0
 
 # Codestyle checking modules:
