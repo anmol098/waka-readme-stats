@@ -67,7 +67,7 @@ async def create_loc_graph(yearly_data: Dict, save_path: str):
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
 
-    max_offset = 0.05 * amax(cumulative.flatten())
+    max_offset = 0.05 * np.amax(cumulative.flatten())
     joined = cumulative.reshape(-1, cumulative.shape[-1])
     max_additions = amax(joined[:, 0])
     max_deletions = amax(joined[:, 1])
