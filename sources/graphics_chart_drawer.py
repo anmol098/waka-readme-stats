@@ -1,6 +1,5 @@
 from typing import Dict
-#fixing empty array being sent to numpy
-#replaced individual numpy function imports with entire import
+#replace amax with max
 import numpy as np
 
 import matplotlib.patches as mpatches
