@@ -41,7 +41,7 @@ async def create_loc_graph(yearly_data: Dict, save_path: str):
     ax = fig.add_axes([0, 0, 1.5, 1])
 
     language_handles = []
-    cumulative = zeros((years, 4, 2), dtype=int)
+    cumulative = np.zeros((years, 4, 2), dtype=int)
 
     for key, value in languages_all_loc.items():
         color = colors[key].get("color", "tab:gray")
