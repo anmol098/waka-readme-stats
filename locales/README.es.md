@@ -4,12 +4,13 @@
 </div>
 <!--END_SECTION:navbar-->
 
+---
 > [!IMPORTANT]
 > We are looking for translators for this project. \
 > Any kind of help would be greatly appreciated. \
 > Please see issue <https://github.com/anmol098/waka-readme-stats/issues/23> if you would like to help!
 
-# [Dev Metrics in README with added feature flags] 🎌
+# Métricas de desarrollo en el README con banderas de características añadidas 🎌
 
 ![Project Preview](https://user-images.githubusercontent.com/25841814/79395484-5081ae80-7fac-11ea-9e27-ac91472e31dd.png)
 
@@ -20,7 +21,7 @@
   <h3 align="center">📌✨Awesome README Stats</h3>
 </p>
 
-----
+---
 
 <p align="center">
    <img src="https://img.shields.io/badge/language-python-blue?style"/>
