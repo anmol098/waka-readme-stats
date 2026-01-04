@@ -50,7 +50,7 @@ async def create_loc_graph(yearly_data: Dict, save_path: str):
         for quarter in range(4):
             ax.bar(year_indexes + quarter * 0.21, value[:, quarter][:, 0], 0.2, bottom=cumulative[:, quarter][:, 0], color=color)
             ax.bar(year_indexes + quarter * 0.21, -value[:, quarter][:, 1], 0.2, bottom=-cumulative[:, quarter][:, 1], color=color)
-            cumulative[:, quarter] = add(cumulative[:, quarter], value[:, quarter])
+            cumulative[:, quarter] = np.add(cumulative[:, quarter], value[:, quarter])
     ax.axhline(y=0.5, lw=0.5, snap=True, color="k")
 
     ax.set_ylabel("LOC added", fontdict=dict(weight="bold"))
