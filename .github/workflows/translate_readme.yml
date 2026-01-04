@@ -37,7 +37,7 @@ jobs:
       matrix:
         lang: ${{ fromJson(needs.prepare.outputs.matrix) }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Run README Translator
       # Use @latest for the most up-to-date release, or @main for the bleeding edge
@@ -57,7 +57,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
           ref: ${{ github.head_ref || github.ref_name }}
@@ -79,7 +79,7 @@ jobs:
           mode: navbar
 
       - name: Commit Changes
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "✨💖 docs: updated translations & navbar! 🌸✨"
           # To use your own avatar, uncomment and set your name/email:
