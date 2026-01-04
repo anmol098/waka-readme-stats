@@ -78,8 +78,8 @@
 
 4. You need to save the WakaTime API Key and the GitHub API Token in the repository secrets. You can find that in the Settings of your repository. \
   Be sure to save those as the following:
-    - WakaTime API Key as `WAKATIME_API_KEY=<your wakatime API Key>`
-    - GitHub Personal Access Token (PAT) as `GH_TOKEN=<your github access token>`
+    - WakaTime API Key as `WAKATIME_API_KEY=<Your WakaTime API Key>`
+    - GitHub Personal Access Token (PAT) as `GH_TOKEN=<Your GitHub Personal Access Token>`
 5. You can enable and disable feature flags based on your requirements.
 
 This GitHub Action can be set to run at any time you want using `cron`. See [Crontab.guru](https://crontab.guru/) and [this website](https://crontab.cronhub.io/) to generate `cron` expressions.
@@ -108,7 +108,7 @@ WakaTime gives you an idea of the time you really spent on coding. This helps yo
 
 ### Profile Repository
 
-You'll need to get a [GitHub Personal Access Token (PAT)](https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token) with a `repo` and `user` scope and save it in the repository's secrets as `GH_TOKEN = <Your GitHub Personal Access Token>`.
+You'll need to get a [GitHub Personal Access Token (PAT)](https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token) with the `repo` and `user` scopes and save it in the repository's secrets as `GH_TOKEN`.
 
 Here is a sample workflow for running it:
 
@@ -133,11 +133,11 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 ```
 
-- Now you can commit and wait for it to run automatically, or you can also trigger to run it to see the result now. Just go to the `Actions` in your repo, select your `Profile Readme Development Stats` workflow and click `Run workflow`. Now wait for a minute or two and you will see your changes.
+- Now you can commit and wait for it to run automatically, or you can also trigger to run it to see the result now. Just go to the `Actions` in your repo, select your `Profile Readme Development Stats` workflow and click `Run workflow`. Now wait for a minute or two and you will see your statistics added to your README.
 
 ## Extras
 
-If you want to add the other info to your stats, you can add multiple `FLAGS` in your workflow file. By default, all flags are enabled (except the lines of code flag due to the heavy operation performed).
+If you want to add the other info to your stats, you can add multiple [flags](#available-flags) in your workflow. By default, all flags are enabled (except the lines of code flag due to the heavy operation performed).
 
 ```yml
 - uses: anmol098/waka-readme-stats@master
@@ -148,49 +148,23 @@ If you want to add the other info to your stats, you can add multiple `FLAGS` in
       SHOW_PROJECTS: "False"
 ```
 
-### Available flags
+## Available Flags
 
----
-
-`LOCALE`  This flag can be used to show stats in your language. Default is English. Locale [Short Hand](https://saimana.com/list-of-country-locale-code/) to be passed in the flag variable. Example of the final result can be found [here](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)
-
-The `SECTION_NAME` flag can be set to any string, and will be the name of the section to replace in the README.
-
-The `COMMIT_BY_ME` flag can be set to `True` to commit the code using your name and email.
-
-The `COMMIT_MESSAGE` flag can be set for the commit message. The default is "Updated with Dev Metrics"
-
-The `COMMIT_USERNAME` flag can be set as a username to commit the code. The default is "readme-bot".
-
-The `COMMIT_EMAIL` flag can be set to an email to commit the code. The default is "41898282+github-actions[bot]@users.noreply.github.com".
-
-The `SHOW_UPDATED_DATE` flag can be set to `True` to show the updated date in end of paragraph.
-
-The `UPDATED_DATE_FORMAT` flag can be set to put the updated date into a format. The default is `"%d/%m/%Y %H:%M:%S"`.
-
-The `SHOW_LINES_OF_CODE` flag can be set to `True` to show the number of lines of code writen till date.
-
-![Lines of Code](https://img.shields.io/badge/From%20Hello%20World%20I've%20written-1.3%20million%20Lines%20of%20code-blue)
-
-The `SHOW_TOTAL_CODE_TIME` flag can be set to `False` to hide *Code Time*.
-
-![Code Time](http://img.shields.io/badge/Code%20Time-1%2C438%20hrs%2054%20mins-blue)
-
-The `SHOW_PROFILE_VIEWS` flag can be set to `False` to hide **Profile Views**
-
-![Profile Views](http://img.shields.io/badge/Profile%20Views-2189-blue)
-
-The `SHOW_COMMIT` flag can be set to `False` to hide the commit stats.
-
-**I'm an early 🐤**
-
-```text
-🌞 Morning    95 commits     ███████░░░░░░░░░░░░░░░░░░   30.55% 
-🌆 Daytime    78 commits     ██████░░░░░░░░░░░░░░░░░░░   25.08% 
-🌃 Evening    112 commits    █████████░░░░░░░░░░░░░░░░   36.01% 
-🌙 Night      26 commits     ██░░░░░░░░░░░░░░░░░░░░░░░   8.36%
-
-```
+|    Flag           |                                                                               Description                                                                      |  Default                                            | Example |
+|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------|---------|
+| `LOCALE`          | This flag can be used to show stats in your language. Locale [Short Hand](https://saimana.com/list-of-country-locale-code/) to be passed in the flag variable. | `en` (English)                                      | [Here](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)                                                                                                                                                                                      |
+| `SECTION_NAME`    | This flag can be set to any string, and will be the name of the section to replace in the README.                                                              | `waka`                                              | N/A     |
+| `COMMIT_BY_ME`    | This flag can be set to `True` to commit the code using your name and email.                                                                                   | `False`                                             | N/A     |
+| `COMMIT_MESSAGE`  | This flag can be set for the commit message.                                                                                                                   | `Updated with Dev Metrics`                          | <img title="Updated with Dev Metrics" src="https://github.com/user-attachments/assets/54cf4304-6f96-4a34-a94a-dea7db7859f7" />                                                                                                                              |
+| `COMMIT_USERNAME` | This flag can be set as a username to commit the code.                                                                                                         | `readme-bot`                                            | N/A |
+| `COMMIT_EMAIL`    | This flag can be set to an email to commit the code.                                                                                                           | `41898282+github-actions[bot]@users.noreply.github.com` | N/A |
+| `SHOW_UPDATED_DATE` | This flag can be used to show the updated date in end of paragraph.                                                                                          | `True`                                                  | <img title="Show updated date" alt="Show updated date" src="https://github.com/user-attachments/assets/e3a9d332-6f63-4d05-b521-029bbb1b6a62" />                                           | `True`                                                  |     |
+| `UPDATED_DATE_FORMAT` | This flag can be set to put the updated date into a format.                                                                                                | `%d/%m/%Y %H:%M:%S`                                           |
+| `SHOW_LINES_OF_CODE`  | This flag can be used to show the number of lines of code writen till date.                                                                                | `False`                                                 | ![Lines of Code](https://img.shields.io/badge/From%20Hello%20World%20I've%20written-1.3%20million%20Lines%20of%20code-blue)                                                                                                                           |
+| `SHOW_TOTAL_CODE_TIME` | This flag can be used to show **Code Time**.                                                                                                              | `True`                                                  | ![Code Time](http://img.shields.io/badge/Code%20Time-1%2C438%20hrs%2054%20mins-blue)                                                                                                                                                                  |
+| `SHOW_PROFILE_VIEWS`   | This flag can be used to show **Profile Views**.                                                                                                          | `True`                                                  | ![Profile Views](http://img.shields.io/badge/Profile%20Views-2189-blue)                                                                                                                                                                               |
+| `SHOW_COMMIT`          | This flag can be used to show the commit stats.                                                                                                           | `True`                                                  | **I'm an early 🐤** <pre> 🌞 Morning    95 commits     ███████░░░░░░░░░░░░░░░░░░   30.55% <br> 🌆 Daytime    78 commits     ██████░░░░░░░░░░░░░░░░░░░   25.08% <br> 🌃 Evening    112 commits    █████████░░░░░░░░░░░░░░░░   36.01% <br> 🌙 Night      26 commits     ██░░░░░░░░░░░░░░░░░░░░░░░   8.36%</pre>                                                                                                                                                                                             |
+| `SHOW_DAYS_OF_WEEK`    | This flag can be used to show the commits made on different days of the week.                                                                             | `True`                                                  | 📅 **I'm Most Productive on Sundays** <br> <pre> Monday       50 commits     ███░░░░░░░░░░░░░░░░░░░░░░   13.19% <br> Tuesday      85 commits     █████░░░░░░░░░░░░░░░░░░░░   22.43% <br> Wednesday    56 commits     ███░░░░░░░░░░░░░░░░░░░░░░   14.78% <br> Thursday     44 commits     ███░░░░░░░░░░░░░░░░░░░░░░   11.61% <br> Friday       28 commits     █░░░░░░░░░░░░░░░░░░░░░░░░   7.39% <br> Saturday     30 commits     ██░░░░░░░░░░░░░░░░░░░░░░░   7.92% <br> Sunday       86 commits     █████░░░░░░░░░░░░░░░░░░░░   22.69%</pre>                                                                                                                                                                                                             |
 
 The `SHOW_DAYS_OF_WEEK` flag can be set to `False` to hide the commits made on the different days of the week.
 
