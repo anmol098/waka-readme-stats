@@ -20,7 +20,7 @@
   <h3 align="center">📌✨Awesome README Stats</h3>
 </p>
 
-----
+---
 
 <p align="center">
    <img src="https://img.shields.io/badge/language-python-blue?style"/>
