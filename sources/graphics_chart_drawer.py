@@ -1,5 +1,4 @@
 from typing import Dict
-#replace amax with max with a default at 0 if arr is empty
 import numpy as np
 
 import matplotlib.patches as mpatches
