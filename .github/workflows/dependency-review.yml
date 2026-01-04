@@ -1,5 +1,10 @@
 name: Dependency review
-on: pull_request
+on:
+  pull_request:
+    paths-ignore:
+      - 'README.md'
+      - 'sources/translation.json'
+      - 'locales/**'
 
 permissions:
   contents: read
@@ -8,10 +13,11 @@ permissions:
 jobs:
   dependency-review:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.head.repo.fork == false
 
     steps:
       - name: Checkout repository 🛎️
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Dependency review 👀
         uses: actions/dependency-review-action@v4

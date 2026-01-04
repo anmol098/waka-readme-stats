@@ -1,4 +1,4 @@
-from asyncio import Task
+import asyncio
 from hashlib import md5
 from json import dumps
 from string import Template
@@ -151,7 +151,8 @@ class DownloadManager:
         :param resources: Static queries, formatted like "IDENTIFIER"="URL".
         """
         for resource, url in resources.items():
-            DownloadManager._REMOTE_RESOURCES_CACHE[resource] = DownloadManager._client.get(url)
+            # Schedule the coroutine as a Task so it can be cancelled/inspected later
+            DownloadManager._REMOTE_RESOURCES_CACHE[resource] = asyncio.create_task(DownloadManager._client.get(url))
 
     @staticmethod
     async def close_remote_resources():
@@ -160,10 +161,22 @@ class DownloadManager:
         Await all queries that could not be cancelled.
         """
         for resource in DownloadManager._REMOTE_RESOURCES_CACHE.values():
-            if isinstance(resource, Task):
+            # Prefer Tasks: cancel and await them to ensure proper cleanup.
+            if isinstance(resource, asyncio.Task):
                 resource.cancel()
+                try:
+                    await resource
+                except asyncio.CancelledError:
+                    # Expected when task was cancelled
+                    pass
+                except Exception as e:
+                    DBM.w(f"Error while awaiting cancelled resource: {e}")
             elif isinstance(resource, Awaitable):
-                await resource
+                # Fallback for plain awaitables: await and log exceptions
+                try:
+                    await resource
+                except Exception as e:
+                    DBM.w(f"Error while awaiting resource: {e}")
 
     @staticmethod
     async def _get_remote_resource(resource: str, convertor: Optional[Callable[[bytes], Dict]]) -> Dict or None:
