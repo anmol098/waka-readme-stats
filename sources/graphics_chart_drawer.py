@@ -1,7 +1,7 @@
 from typing import Dict
 #fixing empty array being sent to numpy
 import numpy as np
-from numpy import arange
+from numpy
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 
