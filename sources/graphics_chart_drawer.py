@@ -1,6 +1,8 @@
 from typing import Dict
 #fixing empty array being sent to numpy
+#replaced individual numpy function imports with entire import
 import numpy as np
+
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 from manager_download import DownloadManager as DM
