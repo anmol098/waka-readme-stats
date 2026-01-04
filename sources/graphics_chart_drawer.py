@@ -69,8 +69,7 @@ async def create_loc_graph(yearly_data: Dict, save_path: str):
 
     max_offset = 0.05 * np.amax(cumulative.flatten())
     joined = cumulative.reshape(-1, cumulative.shape[-1])
-    max_additions = amax(joined[:, 0])
-    max_deletions = amax(joined[:, 1])
+    max_additions = np.amax(joined[:, 1])
     plt.ylim(top=max_additions + max_offset, bottom=-max_deletions - max_offset)
 
     plt.savefig(save_path, bbox_inches="tight")
