@@ -7,7 +7,7 @@ from shutil import copy, rmtree
 from string import ascii_letters
 
 from git import Repo, Actor
-from github import Github, AuthenticatedUser, Repository
+from github import Auth, AuthenticatedUser, Github, Repository
 
 from manager_environment import EnvironmentManager as EM
 from manager_file import FileManager as FM
@@ -44,7 +44,7 @@ class GitHubManager:
         - Named repo of the user [username]/[username].
         - Clone of the named repo.
         """
-        github = Github(EM.GH_TOKEN)
+        github = Github(auth=Auth.Token(EM.GH_TOKEN))
         clone_path = "repo"
         GitHubManager.USER = github.get_user()
         rmtree(clone_path, ignore_errors=True)
