@@ -1,5 +1,5 @@
 # GitHub integration modules:
-PyGithub~=1.58
+PyGithub~=2.8
 GitPython~=3.1
 
 # Markdown visualization modules:
@@ -15,5 +15,5 @@ httpx~=0.27
 PyYAML~=6.0
 
 # Codestyle checking modules:
-flake8~=6.0
+flake8~=7.3
 black~=23.1
