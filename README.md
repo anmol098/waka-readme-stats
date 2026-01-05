@@ -268,6 +268,8 @@ The `SHOW_LOC_CHART` flag can be set to `False` to hide the lines of code writte
 
 The `IGNORED_REPOS` flag can be set to `"waka-readme-stats, my-first-repo"` (just an example) to ignore some repos you don’t want to be counted.
 
+The `WAKATIME_API_URL` flag can be set if you are hosting your own wakatime compliant backend like [wakapi](https://github.com/muety/wakapi). You only have to supply your base url like so `https://your-own-wakapi.dev/api/`
+
 The `SYMBOL_VERSION` flag can be set for the symbol for the progress bar (default: `1`).
 
 | Version | Done block | Empty block |
