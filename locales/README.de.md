@@ -4,6 +4,7 @@
 </div>
 <!--END_SECTION:navbar-->
 
+---
 > [!IMPORTANT]
 > We are looking for translators for this project. \
 > Any kind of help would be greatly appreciated. \
@@ -18,9 +19,10 @@
   ![Project Preview](https://user-images.githubusercontent.com/15426564/88030180-8e1c4780-cb58-11ea-8a8b-b3576dd73652.png)
 
   <h3 align="center">📌✨Awesome README Stats</h3>
+
 </p>
 
-----
+---
 
 <p align="center">
    <img src="https://img.shields.io/badge/language-python-blue?style"/>

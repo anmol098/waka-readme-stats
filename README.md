@@ -4,6 +4,7 @@
 </div>
 <!--END_SECTION:navbar-->
 
+---
 > [!IMPORTANT]
 > We are looking for translators for this project. \
 > Any kind of help would be greatly appreciated. \
@@ -20,7 +21,7 @@
   <h3 align="center">📌✨Awesome README Stats</h3>
 </p>
 
-----
+---
 
 <p align="center">
    <img src="https://img.shields.io/badge/language-python-blue?style"/>
@@ -281,7 +282,7 @@ The `DEBUG_LOGGING` flag can be set to increase the GitHub Action's output verbo
 
 **Timeline**
 
-![Chart not found](https://raw.githubusercontent.com/anmol098/anmol098/master/charts/bar_graph.png)
+![Timeline Chart](https://raw.githubusercontent.com/anmol098/anmol098/master/charts/bar_graph.png)
 
 ## :sparkling_heart: Support the project
 
@@ -300,7 +301,9 @@ Thanks! :heart:
 
 # Contributing
 
-Contributions are welcome ♥! Please share any features, and add unit tests! Use the pull request and issue systems to contribute.
+Contributions are welcome ♥!
+
+Please share any features, and add unit tests! Use the pull request and issue systems to contribute.
 
 # Selected Contributors
 
