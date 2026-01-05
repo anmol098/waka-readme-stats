@@ -1,4 +1,4 @@
-FROM python:3.13-alpine
+FROM python:3.14-alpine
 
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -13,3 +13,4 @@ RUN git config --global user.email "41898282+github-actions[bot]@users.noreply.g
 
 ADD sources/* /waka-readme-stats/
 ENTRYPOINT cd /waka-readme-stats/ && python3 main.py
+
