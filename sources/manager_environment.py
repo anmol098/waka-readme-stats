@@ -15,6 +15,9 @@ class EnvironmentManager:
 
     GH_TOKEN = environ["INPUT_GH_TOKEN"]
     WAKATIME_API_KEY = environ["INPUT_WAKATIME_API_KEY"]
+    WAKATIME_API_URL = getenv("INPUT_WAKATIME_API_URL", "https://wakatime.com/api/v1/")
+    if not WAKATIME_API_URL.endswith("/"):
+        WAKATIME_API_URL += "/"
 
     SECTION_NAME = getenv("INPUT_SECTION_NAME", "waka")
     PULL_BRANCH_NAME = getenv("INPUT_PULL_BRANCH_NAME", "")
@@ -45,6 +48,7 @@ class EnvironmentManager:
     UPDATED_DATE_FORMAT = getenv("INPUT_UPDATED_DATE_FORMAT", "%d/%m/%Y %H:%M:%S")
     IGNORED_REPOS = getenv("INPUT_IGNORED_REPOS", "").replace(" ", "").split(",")
     SYMBOL_VERSION = int(getenv("INPUT_SYMBOL_VERSION"))
+    BADGE_STYLE = getenv("BADGE_STYLE", "flat")
 
     DEBUG_LOGGING = getenv("INPUT_DEBUG_LOGGING", "0").lower() in _TRUTHY
     DEBUG_RUN = getenv("DEBUG_RUN", "False").lower() in _TRUTHY
