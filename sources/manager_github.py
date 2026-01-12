@@ -39,8 +39,8 @@ class GitHubManager:
     @staticmethod
     def prepare_github_env():
         """
-        Download and store for future use:
-        - Current GitHub user.
+        - Updated for PyGitHub's v2.x use of Auth
+        - Authenticate with GitHub using token
         - Named repo of the user [username]/[username].
         - Clone of the named repo.
         """
