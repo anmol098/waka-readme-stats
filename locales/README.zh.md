@@ -86,7 +86,7 @@ WakaTime 可以帮你统计出你投身代码的时间长度。这可以帮你�
 
 - 前往 <https://wakatime.com>，创建一个账户。
 - 从 [WakaTime 账户设置](https://wakatime.com/settings/account)中获取你的 WakaTime API 密钥。
-- 在你的编辑器 / 集成开发环境（IDE）中安装 [WakaTime 插件](<https://wakatime.com/plugins)>)。
+- 在你的编辑器 / 集成开发环境（IDE）中安装 [WakaTime 插件](https://wakatime.com/plugins)。
 - 填入你的 API 密钥即可开始分析。
 
 ### 用户页面
@@ -133,7 +133,7 @@ jobs:
 
 ---
 
-`LOCALE` 标志可以按你的语言显示统计数据。默认为英语。标志变量中需填入本地化[语言键缩写](https://saimana.com/list-of-country-locale-code/)。最终结果示例可以在[这里](<https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)>)找到。
+`LOCALE` 标志可以按你的语言显示统计数据。默认为英语。标志变量中需填入本地化[语言键缩写](https://saimana.com/list-of-country-locale-code/)。最终结果示例可以在[这里](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)找到。
 
 `SCTION_NAME` 标志可以设置成任意字符串，是自述文件中替换部分的名称。
 
