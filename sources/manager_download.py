@@ -1,5 +1,6 @@
 import asyncio
 import collections.abc
+import json
 from hashlib import md5
 from json import dumps
 from json import load as json_load
@@ -266,10 +267,26 @@ class DownloadManager:
         )
         if res.status_code == 200:
             return res.json()
-        elif res.status_code == 502 and retries_count > 0:
+
+        # Transient errors can happen (GitHub flakiness, rate limiting, proxies returning HTML/empty bodies).
+        if res.status_code in (502, 503, 504, 429, 403) and retries_count > 0:
+            # Minimal backoff (keeps behavior simple but avoids tight recursion loops)
+            await asyncio.sleep(1.0)
             return await DownloadManager._fetch_graphql_query(query, retries_count - 1, **kwargs)
-        else:
-            raise Exception(f"Query '{query}' failed to run by returning code of {res.status_code}: {res.json()}")
+
+        try:
+            body_obj = res.json()
+            body_preview = dumps(body_obj)[:500]
+        except (json.JSONDecodeError, ValueError):
+            body_preview = (res.text or "").replace("\n", " ").replace("\r", " ")[:500]
+
+        content_type = res.headers.get("content-type", "")
+        rate_remaining = res.headers.get("x-ratelimit-remaining", "?")
+        rate_reset = res.headers.get("x-ratelimit-reset", "?")
+        raise Exception(
+            f"Query '{query}' failed (HTTP {res.status_code}, content-type='{content_type}', "
+            f"x-ratelimit-remaining={rate_remaining}, x-ratelimit-reset={rate_reset}). Body: {body_preview}"
+        )
 
     @staticmethod
     def _find_pagination_and_data_list(response: dict) -> Tuple[List, dict]:
