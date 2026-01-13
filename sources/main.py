@@ -136,16 +136,28 @@ async def collect_user_repositories() -> Dict:
     :returns: Complete list of user repositories.
     """
     DBM.i("Getting user repositories list...")
-    repositories = await DM.get_remote_graphql("user_repository_list", username=GHM.USER.login, id=GHM.USER.node_id)
+    repositories = await DM.get_remote_graphql(
+        "user_repository_list",
+        username=GHM.USER.login,
+        id=GHM.USER.node_id,
+        _max_nodes=(EM.MAX_REPOS if EM.MAX_REPOS > 0 else None),
+    )
+    if EM.MAX_REPOS > 0 and len(repositories) >= EM.MAX_REPOS:
+        DBM.w(f"\tMAX_REPOS cap reached ({EM.MAX_REPOS}); skipping contributed repos.")
+        return repositories[: EM.MAX_REPOS]
     repo_names = [repo["name"] for repo in repositories]
     DBM.g("\tUser repository list collected!")
 
-    contributed = await DM.get_remote_graphql("repos_contributed_to", username=GHM.USER.login)
+    remaining = (EM.MAX_REPOS - len(repositories)) if EM.MAX_REPOS > 0 else None
+    contributed = await DM.get_remote_graphql("repos_contributed_to", username=GHM.USER.login, _max_nodes=remaining)
 
     contributed_nodes = [repo for repo in contributed if repo is not None and repo["name"] not in repo_names and not repo["isFork"]]
     DBM.g("\tUser contributed to repository list collected!")
 
-    return repositories + contributed_nodes
+    combined = repositories + contributed_nodes
+    if EM.MAX_REPOS > 0:
+        return combined[: EM.MAX_REPOS]
+    return combined
 
 
 async def get_stats() -> str:
