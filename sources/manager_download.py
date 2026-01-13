@@ -1,10 +1,11 @@
 import asyncio
+import collections.abc
 from hashlib import md5
 from json import dumps
 from json import load as json_load
 from os.path import join
 from string import Template
-from typing import Awaitable, Dict, Callable, Optional, List, Tuple
+from typing import Dict, Callable, Optional, List, Tuple
 
 from httpx import AsyncClient
 from yaml import safe_load
@@ -165,7 +166,7 @@ class DownloadManager:
         for resource, url in resources.items():
             # Use mock instead of live
             existing = DownloadManager._REMOTE_RESOURCES_CACHE.get(resource)
-            if isinstance(existing, Dict):
+            if isinstance(existing, dict):
                 continue
             # Schedule the coroutine as a Task so it can be cancelled/inspected later
             DownloadManager._REMOTE_RESOURCES_CACHE[resource] = asyncio.create_task(DownloadManager._client.get(url))
@@ -187,7 +188,7 @@ class DownloadManager:
                     pass
                 except Exception as e:
                     DBM.w(f"Error while awaiting cancelled resource: {e}")
-            elif isinstance(resource, Awaitable):
+            elif isinstance(resource, collections.abc.Awaitable):
                 # Fallback for plain awaitables: await and log exceptions
                 try:
                     await resource
@@ -205,12 +206,13 @@ class DownloadManager:
             By default `response.json()` is used.
         :return: Response dictionary or None.
         """
+        # use mock and prevent network data from being requested
         cached = DownloadManager._REMOTE_RESOURCES_CACHE.get(resource)
-        if isinstance(cached, Dict):
+        if isinstance(cached, dict):
             return cached
 
         DBM.i(f"\tMaking a remote API query named '{resource}'...")
-        if isinstance(DownloadManager._REMOTE_RESOURCES_CACHE[resource], Awaitable):
+        if isinstance(DownloadManager._REMOTE_RESOURCES_CACHE[resource], collections.abc.Awaitable):
             res = await DownloadManager._REMOTE_RESOURCES_CACHE[resource]
             DownloadManager._REMOTE_RESOURCES_CACHE[resource] = res
             DBM.g(f"\tQuery '{resource}' finished, result saved!")
