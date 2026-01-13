@@ -1,89 +1,80 @@
 name: CI
 
 on:
-  workflow_dispatch:
   push:
-    branches: master
+    branches:
+      - master
+      - main
+  workflow_dispatch:
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
-  required-check:
-    name: PR Required Check
+  ci:
+    name: Run Test and Review (main)
     runs-on: ubuntu-latest
-    outputs:
-      needs_ci: ${{ steps.filter.outputs.code }}
+
     steps:
-      - name: Checkout PR head
+      - name: Checkout 🛎️
         uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-          ref: ${{ github.event.pull_request.head.ref }}
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
 
       - name: Detect changed paths
         id: filter
         uses: dorny/paths-filter@v3
         with:
+          base: ${{ github.event.before }}
+          ref: ${{ github.sha }}
           filters: |
-            # changes that should trigger the heavy CI
-            code:
-              - 'sources/**'
-              - '!sources/translation.json'
-              - '.github/workflows/**'
-
-            # does NOT require heavy CI
             docs:
               - 'locales/**'
               - 'README.md'
+              - 'README*.md'
               - 'LICENSE'
               - 'CONTRIBUTING.md'
               - 'CODE_OF_CONDUCT.md'
               - 'sources/translation.json'
+              - 'scripts/zh.txt'
+            code:
+              - 'sources/**'
+              - '!sources/translation.json'
+              - 'scripts/**'
+              - '!scripts/zh.txt'
+              - 'waka-readme-stats/**'
+              - '.github/workflows/**'
 
-      - name: Report decision
+      - name: Docs-only change (skip)
+        if: ${{ steps.filter.outputs.code != 'true' }}
         run: |
-          echo "code=${{ steps.filter.outputs.code }}"
-          echo "docs=${{ steps.filter.outputs.docs }}"
-
-  ci:
-    name: Run Test and Review PR
-    runs-on: ubuntu-latest
-    needs: required-check
-
-    steps:
-      - name: Check requirement
-        run: echo "needs_ci=${{ needs.required-check.outputs.needs_ci }}"
-
-      - name: Checkout 🛎️
-        if: ${{ needs.required-check.outputs.needs_ci == 'true' }}
-        uses: actions/checkout@v6
+          echo "Docs-only push detected; skipping comprehensive CI."
 
       - name: Setup Python 3.13 🐍
-        if: ${{ needs.required-check.outputs.needs_ci == 'true' }}
+        if: ${{ steps.filter.outputs.code == 'true' }}
         uses: actions/setup-python@v6
         with:
           python-version: 3.13
           cache: 'pip'
 
       - name: Install Dependencies 📥
-        if: ${{ needs.required-check.outputs.needs_ci == 'true' }}
+        if: ${{ steps.filter.outputs.code == 'true' }}
         run: pip install -r requirements.txt
 
       - name: Create Assets Folder 📥
-        if: ${{ needs.required-check.outputs.needs_ci == 'true' }}
+        if: ${{ steps.filter.outputs.code == 'true' }}
         run: mkdir assets
 
       - name: Create Previous Comments 🫣
-        if: ${{ needs.required-check.outputs.needs_ci == 'true' }}
+        if: ${{ steps.filter.outputs.code == 'true' }}
         uses: int128/hide-comment-action@v1
         with:
           starts-with: "README stats current output:"
 
       - name: Run Action Preview on Current Code 🧪
-        if: ${{ needs.required-check.outputs.needs_ci == 'true' }}
+        if: ${{ steps.filter.outputs.code == 'true' }}
         id: make-stats
         env:
           INPUT_GH_TOKEN: ${{ secrets.INPUT_GITHUB_TOKEN }}
@@ -108,7 +99,7 @@ jobs:
         run: python3 sources/main.py
 
       - name: Save Branch Name Without Slashes 📛
-        if: ${{ needs.required-check.outputs.needs_ci == 'true' && github.ref != 'refs/heads/master' }}
+        if: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/main' }}
         env:
           BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
         run: |
@@ -117,32 +108,8 @@ jobs:
           echo BRANCH_NAME=${BRANCH_NAME} >> $GITHUB_ENV
 
       - name: Upload Artifact 📦
-        if: ${{ needs.required-check.outputs.needs_ci == 'true' && github.ref != 'refs/heads/master' }}
+        if: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/main' }}
         uses: actions/upload-artifact@v6
         with:
           name: ${{ format('github-pages-for-branch-{0}', env.BRANCH_NAME) }}
           path: assets
-
-      - name: Create Comment 💬
-        if: ${{ needs.required-check.outputs.needs_ci == 'true' && github.event_name == 'pull_request_target' }}
-        uses: jungwinter/comment@v1
-        with:
-          type: create
-          body: ${{ steps.make-stats.outputs.README_CONTENT }}
-          issue_number: ${{ github.event.number }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Skip heavy CI
-        if: ${{ needs.required-check.outputs.needs_ci != 'true' }}
-        run: echo "Skipping heavy CI because changes appear docs/translation-only."
-
-  noop-status:
-    name: PR Required Check (status)
-    runs-on: ubuntu-latest
-    needs: required-check
-    if: ${{ needs.required-check.outputs.needs_ci != 'true' }}
-    steps:
-      - name: Checkout (noop)
-        uses: actions/checkout@v6
-      - name: No-op
-        run: echo "No CI needed for this PR; marking required check as passed."

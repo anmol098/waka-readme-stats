@@ -1,6 +1,8 @@
 import asyncio
 from hashlib import md5
 from json import dumps
+from json import load as json_load
+from os.path import join
 from string import Template
 from typing import Awaitable, Dict, Callable, Optional, List, Tuple
 
@@ -121,6 +123,14 @@ async def init_download_manager(user_login: str):
 
     :param user_login: GitHub user login.
     """
+    if EM.MOCK_WAKATIME:
+        DownloadManager._REMOTE_RESOURCES_CACHE["waka_latest"] = DownloadManager._load_mock_json("mock_wakatime_stats.json")
+        # `waka_all` is optional; if present, also load it so SHOW_TOTAL_CODE_TIME can be enabled.
+        try:
+            DownloadManager._REMOTE_RESOURCES_CACHE["waka_all"] = DownloadManager._load_mock_json("mock_wakatime_all_time.json")
+        except FileNotFoundError:
+            pass
+
     await DownloadManager.load_remote_resources(
         linguist="https://cdn.jsdelivr.net/gh/github/linguist@master/lib/linguist/languages.yml",
         waka_latest=f"{EM.WAKATIME_API_URL}users/current/stats/last_7_days?api_key={EM.WAKATIME_API_KEY}",
@@ -145,12 +155,23 @@ class DownloadManager:
     _REMOTE_RESOURCES_CACHE = dict()
 
     @staticmethod
+    def _load_mock_json(filename: str) -> Dict:
+        path = join(EM.MOCK_DATA_DIR, filename)
+        with open(path, "r", encoding="utf-8") as f:
+            return json_load(f)
+
+    @staticmethod
     async def load_remote_resources(**resources: str):
         """
         Prepare DownloadManager to launch GitHub API queries and launch all static queries.
         :param resources: Static queries, formatted like "IDENTIFIER"="URL".
         """
         for resource, url in resources.items():
+            # If a resource is already cached as a parsed Dict (e.g. mocked WakaTime JSON),
+            # do not overwrite it with a scheduled HTTP request.
+            existing = DownloadManager._REMOTE_RESOURCES_CACHE.get(resource)
+            if isinstance(existing, Dict):
+                continue
             # Schedule the coroutine as a Task so it can be cancelled/inspected later
             DownloadManager._REMOTE_RESOURCES_CACHE[resource] = asyncio.create_task(DownloadManager._client.get(url))
 
@@ -189,6 +210,10 @@ class DownloadManager:
             By default `response.json()` is used.
         :return: Response dictionary or None.
         """
+        cached = DownloadManager._REMOTE_RESOURCES_CACHE.get(resource)
+        if isinstance(cached, Dict):
+            return cached
+
         DBM.i(f"\tMaking a remote API query named '{resource}'...")
         if isinstance(DownloadManager._REMOTE_RESOURCES_CACHE[resource], Awaitable):
             res = await DownloadManager._REMOTE_RESOURCES_CACHE[resource]

@@ -13,11 +13,18 @@ class EnvironmentManager:
 
     _TRUTHY = ["true", "1", "t", "y", "yes"]
 
+    # Mocking is supported only for WakaTime (to avoid requiring a WakaTime key in PR CI).
+    MOCK_WAKATIME = getenv("MOCK_WAKATIME", "False").lower() in _TRUTHY
+    MOCK_DATA_DIR = getenv("MOCK_DATA_DIR", "mock_data")
+
     GH_TOKEN = environ["INPUT_GH_TOKEN"]
-    WAKATIME_API_KEY = environ["INPUT_WAKATIME_API_KEY"]
+    WAKATIME_API_KEY = getenv("INPUT_WAKATIME_API_KEY", "")
     WAKATIME_API_URL = getenv("INPUT_WAKATIME_API_URL", "https://wakatime.com/api/v1/")
     if not WAKATIME_API_URL.endswith("/"):
         WAKATIME_API_URL += "/"
+
+    if not MOCK_WAKATIME and WAKATIME_API_KEY == "":
+        raise KeyError("Missing required secret: INPUT_WAKATIME_API_KEY")
 
     SECTION_NAME = getenv("INPUT_SECTION_NAME", "waka")
     PULL_BRANCH_NAME = getenv("INPUT_PULL_BRANCH_NAME", "")
