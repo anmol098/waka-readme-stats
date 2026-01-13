@@ -51,30 +51,38 @@ jobs:
     name: Run Test and Review PR
     runs-on: ubuntu-latest
     needs: required-check
-    if: ${{ needs.required-check.outputs.needs_ci == 'true' }}
 
     steps:
+      - name: Check requirement
+        run: echo "needs_ci=${{ needs.required-check.outputs.needs_ci }}"
+
       - name: Checkout 🛎️
+        if: ${{ needs.required-check.outputs.needs_ci == 'true' }}
         uses: actions/checkout@v6
 
       - name: Setup Python 3.13 🐍
+        if: ${{ needs.required-check.outputs.needs_ci == 'true' }}
         uses: actions/setup-python@v6
         with:
           python-version: 3.13
           cache: 'pip'
 
       - name: Install Dependencies 📥
+        if: ${{ needs.required-check.outputs.needs_ci == 'true' }}
         run: pip install -r requirements.txt
 
       - name: Create Assets Folder 📥
+        if: ${{ needs.required-check.outputs.needs_ci == 'true' }}
         run: mkdir assets
 
       - name: Create Previous Comments 🫣
+        if: ${{ needs.required-check.outputs.needs_ci == 'true' }}
         uses: int128/hide-comment-action@v1
         with:
           starts-with: "README stats current output:"
 
       - name: Run Action Preview on Current Code 🧪
+        if: ${{ needs.required-check.outputs.needs_ci == 'true' }}
         id: make-stats
         env:
           INPUT_GH_TOKEN: ${{ secrets.INPUT_GITHUB_TOKEN }}
@@ -99,7 +107,7 @@ jobs:
         run: python3 sources/main.py
 
       - name: Save Branch Name Without Slashes 📛
-        if: ${{ github.ref != 'refs/heads/master' }}
+        if: ${{ needs.required-check.outputs.needs_ci == 'true' && github.ref != 'refs/heads/master' }}
         env:
           BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
         run: |
@@ -108,20 +116,24 @@ jobs:
           echo BRANCH_NAME=${BRANCH_NAME} >> $GITHUB_ENV
 
       - name: Upload Artifact 📦
+        if: ${{ needs.required-check.outputs.needs_ci == 'true' && github.ref != 'refs/heads/master' }}
         uses: actions/upload-artifact@v6
-        if: ${{ github.ref != 'refs/heads/master' }}
         with:
           name: ${{ format('github-pages-for-branch-{0}', env.BRANCH_NAME) }}
           path: assets
 
       - name: Create Comment 💬
-        if: github.event_name == 'pull_request_target'
+        if: ${{ needs.required-check.outputs.needs_ci == 'true' && github.event_name == 'pull_request_target' }}
         uses: jungwinter/comment@v1
         with:
           type: create
           body: ${{ steps.make-stats.outputs.README_CONTENT }}
           issue_number: ${{ github.event.number }}
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Skip heavy CI
+        if: ${{ needs.required-check.outputs.needs_ci != 'true' }}
+        run: echo "Skipping heavy CI because changes appear docs/translation-only."
 
   noop-status:
     name: PR Required Check (status)
