@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Detect changed paths
         id: filter
@@ -54,7 +54,7 @@ jobs:
 
       - name: Setup Python 3.13 🐍
         if: ${{ steps.filter.outputs.code == 'true' }}
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v5
         with:
           python-version: 3.13
           cache: 'pip'
@@ -67,18 +67,13 @@ jobs:
         if: ${{ steps.filter.outputs.code == 'true' }}
         run: mkdir assets
 
-      - name: Create Previous Comments 🫣
-        if: ${{ steps.filter.outputs.code == 'true' }}
-        uses: int128/hide-comment-action@v1
-        with:
-          starts-with: "README stats current output:"
-
       - name: Run Action Preview on Current Code 🧪
         if: ${{ steps.filter.outputs.code == 'true' }}
         id: make-stats
         env:
           INPUT_GH_TOKEN: ${{ secrets.INPUT_GITHUB_TOKEN }}
           INPUT_WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+          DEBUG_RUN: True
           INPUT_SHOW_TIMEZONE: True
           INPUT_SHOW_PROJECTS: True
           INPUT_SHOW_EDITORS: True
@@ -97,19 +92,3 @@ jobs:
           INPUT_COMMIT_BY_ME: True
 
         run: python3 sources/main.py
-
-      - name: Save Branch Name Without Slashes 📛
-        if: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/main' }}
-        env:
-          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
-        run: |
-          BRANCH_NAME=${{ env.BRANCH_NAME }}
-          BRANCH_NAME=${BRANCH_NAME////_}
-          echo BRANCH_NAME=${BRANCH_NAME} >> $GITHUB_ENV
-
-      - name: Upload Artifact 📦
-        if: ${{ github.ref != 'refs/heads/master' && github.ref != 'refs/heads/main' }}
-        uses: actions/upload-artifact@v6
-        with:
-          name: ${{ format('github-pages-for-branch-{0}', env.BRANCH_NAME) }}
-          path: assets

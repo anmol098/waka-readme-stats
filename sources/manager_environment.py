@@ -13,11 +13,13 @@ class EnvironmentManager:
 
     _TRUTHY = ["true", "1", "t", "y", "yes"]
 
-    # Mocking is supported only for WakaTime (to avoid requiring a WakaTime key in PR CI).
+    # Mocking with my stats for waka
     MOCK_WAKATIME = getenv("MOCK_WAKATIME", "False").lower() in _TRUTHY
     MOCK_DATA_DIR = getenv("MOCK_DATA_DIR", "mock_data")
 
     GH_TOKEN = environ["INPUT_GH_TOKEN"]
+    # stats for the author or the one with the token
+    GH_USER = getenv("INPUT_GH_USER", "").strip()
     WAKATIME_API_KEY = getenv("INPUT_WAKATIME_API_KEY", "")
     WAKATIME_API_URL = getenv("INPUT_WAKATIME_API_URL", "https://wakatime.com/api/v1/")
     if not WAKATIME_API_URL.endswith("/"):

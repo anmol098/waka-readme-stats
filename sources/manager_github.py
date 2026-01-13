@@ -46,17 +46,23 @@ class GitHubManager:
         """
         github = Github(EM.GH_TOKEN)
         clone_path = "repo"
-        GitHubManager.USER = github.get_user()
+
+        # In PR CI we generate author's stats from impicit github token; remove cred need
+        if EM.GH_USER:
+            GitHubManager.USER = github.get_user(EM.GH_USER)
+        else:
+            GitHubManager.USER = github.get_user()
 
         GitHubManager._REMOTE_NAME = f"{GitHubManager.USER.login}/{GitHubManager.USER.login}"
         GitHubManager._REPO_PATH = f"https://{EM.GH_TOKEN}@github.com/{GitHubManager._REMOTE_NAME}.git"
-        GitHubManager.REMOTE = github.get_repo(GitHubManager._REMOTE_NAME)
 
-        # In DEBUG_RUN mode (used by PR CI), do not clone/push anything.
-        # We only need API access for reading metadata and producing output.
+        # In DEBUG_RUN mode, nothing is pushed nor run
         if EM.DEBUG_RUN:
+            GitHubManager.REMOTE = None
             GitHubManager.REPO = None
             return
+
+        GitHubManager.REMOTE = github.get_repo(GitHubManager._REMOTE_NAME)
 
         rmtree(clone_path, ignore_errors=True)
         GitHubManager.REPO = Repo.clone_from(GitHubManager._REPO_PATH, to_path=clone_path)

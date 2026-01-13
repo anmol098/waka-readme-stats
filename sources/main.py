@@ -175,9 +175,12 @@ async def get_stats() -> str:
             stats += f"![Code Time](http://img.shields.io/badge/{quote('Code Time')}-{quote(str(data['data']['text']))}-blue?style={quote(EM.BADGE_STYLE)})\n\n"
 
     if EM.SHOW_PROFILE_VIEWS:
-        DBM.i("Adding profile views info...")
-        data = GHM.REMOTE.get_views_traffic(per="week")
-        stats += f"![Profile Views](http://img.shields.io/badge/{quote(FM.t('Profile Views'))}-{data['count']}-blue?style={quote(EM.BADGE_STYLE)})\n\n"
+        if EM.DEBUG_RUN or GHM.REMOTE is None:
+            DBM.w("Profile views skipped in DEBUG_RUN mode.")
+        else:
+            DBM.i("Adding profile views info...")
+            data = GHM.REMOTE.get_views_traffic(per="week")
+            stats += f"![Profile Views](http://img.shields.io/badge/{quote(FM.t('Profile Views'))}-{data['count']}-blue?style={quote(EM.BADGE_STYLE)})\n\n"
 
     if EM.SHOW_LINES_OF_CODE:
         DBM.i("Adding lines of code info...")

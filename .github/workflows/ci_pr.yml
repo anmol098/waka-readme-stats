@@ -74,10 +74,10 @@ jobs:
           DEBUG_RUN: True
           INPUT_DEBUG_LOGGING: True
 
-          # Real GitHub token. For forks, contributors must run this in their fork.
-          INPUT_GH_TOKEN: ${{ secrets.INPUT_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          INPUT_GH_TOKEN: ${{ github.token }}
+          # Stats of the PR Author are generated, not owner's
+          INPUT_GH_USER: ${{ github.event.pull_request.user.login }}
 
-          # Comprehensive feature flags
           INPUT_SYMBOL_VERSION: 1
           INPUT_SHOW_TIMEZONE: True
           INPUT_SHOW_PROJECTS: True
@@ -86,7 +86,7 @@ jobs:
           INPUT_SHOW_LANGUAGE: True
           INPUT_SHOW_LINES_OF_CODE: True
           INPUT_SHOW_LOC_CHART: True
-          INPUT_SHOW_PROFILE_VIEWS: True
+          INPUT_SHOW_PROFILE_VIEWS: False
           INPUT_SHOW_TOTAL_CODE_TIME: True
           INPUT_SHOW_SHORT_INFO: True
           INPUT_SHOW_COMMIT: True

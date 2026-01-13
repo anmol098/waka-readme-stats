@@ -125,7 +125,7 @@ async def init_download_manager(user_login: str):
     """
     if EM.MOCK_WAKATIME:
         DownloadManager._REMOTE_RESOURCES_CACHE["waka_latest"] = DownloadManager._load_mock_json("mock_wakatime_stats.json")
-        # `waka_all` is optional; if present, also load it so SHOW_TOTAL_CODE_TIME can be enabled.
+        
         try:
             DownloadManager._REMOTE_RESOURCES_CACHE["waka_all"] = DownloadManager._load_mock_json("mock_wakatime_all_time.json")
         except FileNotFoundError:
@@ -167,8 +167,7 @@ class DownloadManager:
         :param resources: Static queries, formatted like "IDENTIFIER"="URL".
         """
         for resource, url in resources.items():
-            # If a resource is already cached as a parsed Dict (e.g. mocked WakaTime JSON),
-            # do not overwrite it with a scheduled HTTP request.
+            # Use mock instead of live
             existing = DownloadManager._REMOTE_RESOURCES_CACHE.get(resource)
             if isinstance(existing, Dict):
                 continue
