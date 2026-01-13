@@ -68,23 +68,28 @@ jobs:
         if: ${{ steps.changed.outputs.code == 'true' }}
         run: pip install -r requirements.txt
 
+      - name: Create Assets Folder 📥
+        if: ${{ steps.changed.outputs.code == 'true' }}
+        run: mkdir assets
+
       - name: Hide previous preview comments 🫣
         if: ${{ steps.changed.outputs.code == 'true' && github.event.pull_request.head.repo.full_name == github.repository }}
         uses: int128/hide-comment-action@v1
         with:
           starts-with: "README stats current output:"
 
-      - name: Run comprehensive CI (real GitHub, mock WakaTime) 🧪
+      - name: Run CI_PR (real GitHub, mock WakaTime) 🧪
         if: ${{ steps.changed.outputs.code == 'true' }}
         id: make-stats
         env:
           MOCK_WAKATIME: True
           MOCK_DATA_DIR: sources/mock_data
+
           DEBUG_RUN: True
           INPUT_DEBUG_LOGGING: True
 
           INPUT_GH_TOKEN: ${{ github.token }}
-          # Stats of the PR Author are generated, not owner's
+          # Generate stats for the PR author
           INPUT_GH_USER: ${{ github.event.pull_request.user.login }}
 
           INPUT_SYMBOL_VERSION: 1

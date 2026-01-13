@@ -87,14 +87,6 @@ async def get_short_github_info() -> str:
     DBM.i("Adding user disk usage info...")
     if GHM.USER.disk_usage is None:
         disk_usage = FM.t("Used in GitHub's Storage") % "?"
-        msg = (
-            "GitHub token does not have enough user/account permissions to read profile fields (disk_usage is null). "
-            "Provide a PAT with user/account read permissions (classic PAT: add 'user' scope; fine-grained PAT: enable Account/profile read), "
-            "or disable strict mode (INPUT_STRICT_GITHUB=False)."
-        )
-        if EM.STRICT_GITHUB:
-            raise RuntimeError(msg)
-        DBM.p(msg)
     else:
         disk_usage = FM.t("Used in GitHub's Storage") % naturalsize(GHM.USER.disk_usage)
     stats += f"> 📦 {disk_usage} \n > \n"

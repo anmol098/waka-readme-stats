@@ -80,7 +80,6 @@ jobs:
           INPUT_GH_TOKEN: ${{ secrets.INPUT_GITHUB_TOKEN }}
           INPUT_WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
           DEBUG_RUN: True
-          INPUT_STRICT_GITHUB: True
           INPUT_SHOW_TIMEZONE: True
           INPUT_SHOW_PROJECTS: True
           INPUT_SHOW_EDITORS: True

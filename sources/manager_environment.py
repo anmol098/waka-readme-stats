@@ -17,23 +17,15 @@ class EnvironmentManager:
     MOCK_WAKATIME = getenv("MOCK_WAKATIME", "False").lower() in _TRUTHY
     MOCK_DATA_DIR = getenv("MOCK_DATA_DIR", "mock_data")
 
-    # GitHub token can come from multiple env var names depending on how the script is invoked.
-    # Priority: explicit action-style inputs first, then generic runner env vars.
-    GH_TOKEN = (
-        getenv("INPUT_GH_TOKEN")
-        or getenv("INPUT_GITHUB_TOKEN")
-        or getenv("GH_TOKEN")
-        or getenv("GITHUB_TOKEN")
-    )
+    # Hard requirement: do not accept fallback env var names.
+    # This keeps CI_PR (github.token) and non-PR runs (repo secret mapped into INPUT_GH_TOKEN)
+    # from accidentally diverging based on runner environment.
+    GH_TOKEN = getenv("INPUT_GH_TOKEN")
     if not GH_TOKEN:
-        raise KeyError("Missing required token: set INPUT_GH_TOKEN (or INPUT_GITHUB_TOKEN/GH_TOKEN/GITHUB_TOKEN)")
+        raise KeyError("Missing required token: set INPUT_GH_TOKEN")
 
     # stats for the author or the one with the token
     GH_USER = getenv("INPUT_GH_USER", "").strip()
-
-    # When enabled, treat missing GitHub user-scope data as a hard failure.
-    # Intended for CI on protected branches.
-    STRICT_GITHUB = getenv("INPUT_STRICT_GITHUB", "False").lower() in _TRUTHY
     WAKATIME_API_KEY = getenv("INPUT_WAKATIME_API_KEY", "")
     WAKATIME_API_URL = getenv("INPUT_WAKATIME_API_URL", "https://wakatime.com/api/v1/")
     if not WAKATIME_API_URL.endswith("/"):

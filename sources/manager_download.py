@@ -125,11 +125,12 @@ async def init_download_manager(user_login: str):
     """
     if EM.MOCK_WAKATIME:
         DownloadManager._REMOTE_RESOURCES_CACHE["waka_latest"] = DownloadManager._load_mock_json("mock_wakatime_stats.json")
-        
+
         try:
             DownloadManager._REMOTE_RESOURCES_CACHE["waka_all"] = DownloadManager._load_mock_json("mock_wakatime_all_time.json")
         except FileNotFoundError:
-            pass
+            DBM.w("MOCK_WAKATIME enabled but mock_wakatime_all_time.json is missing; using stub waka_all.")
+            DownloadManager._REMOTE_RESOURCES_CACHE["waka_all"] = {"data": {"text": "test"}}
 
     await DownloadManager.load_remote_resources(
         linguist="https://cdn.jsdelivr.net/gh/github/linguist@master/lib/linguist/languages.yml",
@@ -199,7 +200,7 @@ class DownloadManager:
                     DBM.w(f"Error while awaiting resource: {e}")
 
     @staticmethod
-    async def _get_remote_resource(resource: str, convertor: Optional[Callable[[bytes], Dict]]) -> Dict or None:
+    async def _get_remote_resource(resource: str, convertor: Optional[Callable[[bytes], Dict]]) -> Optional[Dict]:
         """
         Receive execution result of static query, wait for it if necessary.
         If the query wasn't cached previously, cache it.
@@ -236,7 +237,7 @@ class DownloadManager:
             raise Exception(f"Query '{res.url}' failed to run by returning code of {res.status_code}: {res.json()}")
 
     @staticmethod
-    async def get_remote_json(resource: str) -> Dict or None:
+    async def get_remote_json(resource: str) -> Optional[Dict]:
         """
         Shortcut for `_get_remote_resource` to return JSON response data.
         :param resource: Static query identifier.
@@ -245,7 +246,7 @@ class DownloadManager:
         return await DownloadManager._get_remote_resource(resource, None)
 
     @staticmethod
-    async def get_remote_yaml(resource: str) -> Dict or None:
+    async def get_remote_yaml(resource: str) -> Optional[Dict]:
         """
         Shortcut for `_get_remote_resource` to return YAML response data.
         :param resource: Static query identifier.
