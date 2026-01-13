@@ -17,9 +17,6 @@ class EnvironmentManager:
     MOCK_WAKATIME = getenv("MOCK_WAKATIME", "False").lower() in _TRUTHY
     MOCK_DATA_DIR = getenv("MOCK_DATA_DIR", "mock_data")
 
-    # Hard requirement: do not accept fallback env var names.
-    # This keeps CI_PR (github.token) and non-PR runs (repo secret mapped into INPUT_GH_TOKEN)
-    # from accidentally diverging based on runner environment.
     GH_TOKEN = getenv("INPUT_GH_TOKEN")
     if not GH_TOKEN:
         raise KeyError("Missing required token: set INPUT_GH_TOKEN")

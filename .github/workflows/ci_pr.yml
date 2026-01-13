@@ -2,7 +2,6 @@ name: CI_PR
 
 on:
   pull_request:
-  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
@@ -11,7 +10,6 @@ concurrency:
 permissions:
   contents: read
   issues: write
-  pull-requests: write
 
 jobs:
   ci:
@@ -78,7 +76,7 @@ jobs:
         with:
           starts-with: "README stats current output:"
 
-      - name: Run CI_PR (real GitHub, mock WakaTime) 🧪
+      - name: Run Action Preview on PR Code(Mock Waka stats/Implicit Github token) 🧪
         if: ${{ steps.changed.outputs.code == 'true' }}
         id: make-stats
         env:

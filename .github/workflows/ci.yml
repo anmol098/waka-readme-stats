@@ -23,7 +23,8 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
 
-      - name: Detect changed paths
+      - name: Detect changed paths (push)
+        if: ${{ github.event_name == 'push' }}
         id: filter
         uses: dorny/paths-filter@v3
         with:
@@ -44,37 +45,37 @@ jobs:
               - '!sources/mock_data/**'
               - '.github/workflows/**'
 
+      - name: Compute run gate
+        id: gate
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "code=true" >> $GITHUB_OUTPUT
+          else
+            echo "code=${{ steps.filter.outputs.code }}" >> $GITHUB_OUTPUT
+          fi
+
       - name: Docs-only change (skip)
-        if: ${{ steps.filter.outputs.code != 'true' }}
+        if: ${{ github.event_name == 'push' && steps.gate.outputs.code != 'true' }}
         run: |
           echo "Docs-only push detected; skipping comprehensive CI."
 
       - name: Setup Python 3.13 🐍
-        if: ${{ steps.filter.outputs.code == 'true' }}
+        if: ${{ steps.gate.outputs.code == 'true' }}
         uses: actions/setup-python@v5
         with:
           python-version: 3.13
           cache: 'pip'
 
       - name: Install Dependencies 📥
-        if: ${{ steps.filter.outputs.code == 'true' }}
+        if: ${{ steps.gate.outputs.code == 'true' }}
         run: pip install -r requirements.txt
 
       - name: Create Assets Folder 📥
-        if: ${{ steps.filter.outputs.code == 'true' }}
+        if: ${{ steps.gate.outputs.code == 'true' }}
         run: mkdir assets
 
-      - name: Verify GitHub token secret is configured 🔐
-        if: ${{ steps.filter.outputs.code == 'true' }}
-        run: |
-          if [ -z "${{ secrets.INPUT_GITHUB_TOKEN }}" ]; then
-            echo "::error::Missing required secret INPUT_GITHUB_TOKEN (CI_MASTER does not use fallbacks)."
-            exit 1
-          fi
-          echo "Using secret: INPUT_GITHUB_TOKEN"
-
       - name: Run Action Preview on Current Code 🧪
-        if: ${{ steps.filter.outputs.code == 'true' }}
+        if: ${{ steps.gate.outputs.code == 'true' }}
         id: make-stats
         env:
           INPUT_GH_TOKEN: ${{ secrets.INPUT_GITHUB_TOKEN }}
@@ -100,7 +101,7 @@ jobs:
         run: python3 sources/main.py
 
       - name: Save Branch Name Without Slashes 📛
-        if: ${{ steps.filter.outputs.code == 'true' }}
+        if: ${{ steps.gate.outputs.code == 'true' }}
         env:
           BRANCH_NAME: ${{ github.ref_name }}
         run: |
@@ -109,7 +110,7 @@ jobs:
           echo BRANCH_NAME=${BRANCH_NAME} >> $GITHUB_ENV
 
       - name: Upload Artifact 📦
-        if: ${{ steps.filter.outputs.code == 'true' }}
+        if: ${{ steps.gate.outputs.code == 'true' }}
         uses: actions/upload-artifact@v4
         with:
           name: ${{ format('assets-{0}', github.ref_name) }}
