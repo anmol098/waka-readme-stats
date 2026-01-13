@@ -87,7 +87,10 @@ async def get_short_github_info() -> str:
     DBM.i("Adding user disk usage info...")
     if GHM.USER.disk_usage is None:
         disk_usage = FM.t("Used in GitHub's Storage") % "?"
-        DBM.p("Please add new github personal access token with user permission!")
+        msg = "Please add new github personal access token with user permission!"
+        if EM.STRICT_GITHUB:
+            raise RuntimeError(msg)
+        DBM.p(msg)
     else:
         disk_usage = FM.t("Used in GitHub's Storage") % naturalsize(GHM.USER.disk_usage)
     stats += f"> 📦 {disk_usage} \n > \n"
