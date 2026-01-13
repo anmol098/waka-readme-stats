@@ -47,7 +47,7 @@ class GitHubManager:
         github = Github(EM.GH_TOKEN)
         clone_path = "repo"
 
-        # In PR CI we generate author's stats from impicit github token; remove cred need
+        # we take the pr author's creds or the creds of token owner
         if EM.GH_USER:
             GitHubManager.USER = github.get_user(EM.GH_USER)
         else:

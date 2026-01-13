@@ -59,7 +59,7 @@ class EnvironmentManager:
     LOCALE = getenv("INPUT_LOCALE", "en")
     UPDATED_DATE_FORMAT = getenv("INPUT_UPDATED_DATE_FORMAT", "%d/%m/%Y %H:%M:%S")
     IGNORED_REPOS = getenv("INPUT_IGNORED_REPOS", "").replace(" ", "").split(",")
-    SYMBOL_VERSION = int(getenv("INPUT_SYMBOL_VERSION"))
+    SYMBOL_VERSION = int(getenv("INPUT_SYMBOL_VERSION", "1"))
     BADGE_STYLE = getenv("BADGE_STYLE", "flat")
 
     DEBUG_LOGGING = getenv("INPUT_DEBUG_LOGGING", "0").lower() in _TRUTHY

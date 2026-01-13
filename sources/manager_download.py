@@ -125,12 +125,7 @@ async def init_download_manager(user_login: str):
     """
     if EM.MOCK_WAKATIME:
         DownloadManager._REMOTE_RESOURCES_CACHE["waka_latest"] = DownloadManager._load_mock_json("mock_wakatime_stats.json")
-
-        try:
-            DownloadManager._REMOTE_RESOURCES_CACHE["waka_all"] = DownloadManager._load_mock_json("mock_wakatime_all_time.json")
-        except FileNotFoundError:
-            DBM.w("MOCK_WAKATIME enabled but mock_wakatime_all_time.json is missing; using stub waka_all.")
-            DownloadManager._REMOTE_RESOURCES_CACHE["waka_all"] = {"data": {"text": "test"}}
+        DownloadManager._REMOTE_RESOURCES_CACHE["waka_all"] = DownloadManager._load_mock_json("mock_wakatime_all_time.json")
 
     await DownloadManager.load_remote_resources(
         linguist="https://cdn.jsdelivr.net/gh/github/linguist@master/lib/linguist/languages.yml",
