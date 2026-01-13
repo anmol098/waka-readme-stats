@@ -10,6 +10,7 @@ concurrency:
 permissions:
   contents: read
   issues: write
+  pull-requests: write
 
 jobs:
   ci:
@@ -109,29 +110,9 @@ jobs:
         run: python3 sources/main.py
 
       - name: Create Comment 💬
-        if: ${{ steps.changed.outputs.code == 'true' && github.event.pull_request.head.repo.full_name == github.repository }}
-        uses: actions/github-script@v7
-        env:
-          README_CONTENT: ${{ steps.make-stats.outputs.README_CONTENT }}
+        uses: jungwinter/comment@v1
         with:
-          script: |
-            let body = process.env.README_CONTENT || ''
-            if (body.trim().length === 0) {
-              core.warning('No README_CONTENT output found; skipping comment.')
-              return
-            }
-
-            // GitHub comment body limit is 65536 chars.
-            const max = 65000
-            if (body.length > max) {
-              const note = '\n\n---\n\n(Preview truncated: exceeded GitHub comment size limit.)\n'
-              body = body.slice(0, max - note.length) + note
-              core.warning(`README_CONTENT too large (${process.env.README_CONTENT.length} chars). Posting truncated preview.`)
-            }
-
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.payload.pull_request.number,
-              body,
-            })
+          type: create
+          body: ${{ steps.make-stats.outputs.README_CONTENT }}
+          issue_number: ${{ github.event.pull_request.number }}
+          token: ${{ github.token }}
