@@ -103,13 +103,17 @@ jobs:
 
         run: python3 sources/main.py
 
-      - name: Create or Update Preview Comment 💬
-        if:  ${{ steps.changed.outputs.code == 'true' }}
-        uses: thollander/actions-comment-pull-request@v2
+      - name: Hide previous preview comments 🫣
+        if: ${{ steps.changed.outputs.code == 'true' }}
+        uses: int128/hide-comment-action@v1
         with:
-          message: |
-            ## README stats current output:
-            
-            ${{ steps.make-stats.outputs.README_CONTENT }}
-          comment_tag: readme_stats_preview
-          mode: recreate
+          starts-with: "README stats current output:"
+
+      - name: Update Comment 💬
+        uses: jungwinter/comment@v1
+        with:
+          type: create
+          body: ${{ steps.make-stats.outputs.README_CONTENT }}
+          issue_number: ${{ github.event.pull_request.number }}
+          token: ${{ github.token }}
+
