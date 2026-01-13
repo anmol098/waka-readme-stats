@@ -71,12 +71,6 @@ jobs:
         if: ${{ steps.changed.outputs.code == 'true' }}
         run: mkdir assets
 
-      - name: Hide previous preview comments 🫣
-        if: ${{ steps.changed.outputs.code == 'true' && github.event.pull_request.head.repo.full_name == github.repository }}
-        uses: int128/hide-comment-action@v1
-        with:
-          starts-with: "README stats current output:"
-
       - name: Run Action Preview on PR Code(Mock Waka stats/Implicit Github token) 🧪
         if: ${{ steps.changed.outputs.code == 'true' }}
         id: make-stats
@@ -109,7 +103,13 @@ jobs:
 
         run: python3 sources/main.py
 
-      - name: Create Comment 💬
+      - name: Hide previous preview comments 🫣
+        if: ${{ steps.changed.outputs.code == 'true' && github.event.pull_request.head.repo.full_name == github.repository }}
+        uses: int128/hide-comment-action@v1
+        with:
+          starts-with: "README stats current output:"
+
+      - name: Update Comment 💬
         uses: jungwinter/comment@v1
         with:
           type: create
