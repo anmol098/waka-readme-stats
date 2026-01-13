@@ -103,3 +103,74 @@ jobs:
           INPUT_SHOW_UPDATED_DATE: True
 
         run: python3 sources/main.py
+
+      - name: Upsert preview comment 💬
+        if: ${{ steps.changed.outputs.code == 'true' }}
+        uses: actions/github-script@v7
+        env:
+          README_CONTENT: ${{ steps.make-stats.outputs.README_CONTENT }}
+        with:
+          script: |
+            const marker = 'README stats current output:'
+            const body = process.env.README_CONTENT || ''
+
+            if (!context.payload.pull_request) {
+              core.info('No pull_request in context; skipping comment.')
+              return
+            }
+
+            if (!body.trim()) {
+              core.warning('README_CONTENT is empty; skipping comment.')
+              return
+            }
+
+            const { owner, repo } = context.repo
+            const issue_number = context.payload.pull_request.number
+
+            try {
+              const { data: comments } = await github.rest.issues.listComments({
+                owner,
+                repo,
+                issue_number,
+                per_page: 100,
+              })
+
+              const botComments = comments
+                .filter(c => c.user?.type === 'Bot')
+                .filter(c => (c.body || '').startsWith(marker))
+                .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+
+              const [latest, ...older] = botComments
+
+              // Hide older previews (if any)
+              for (const c of older) {
+                const current = c.body || ''
+                const alreadyHidden = current.startsWith('~~')
+                if (alreadyHidden) continue
+                await github.rest.issues.updateComment({
+                  owner,
+                  repo,
+                  comment_id: c.id,
+                  body: `~~${current}~~\n\n_This preview has been superseded by a newer run._`,
+                })
+              }
+
+              // Update the most recent preview if it exists; otherwise create one.
+              if (latest) {
+                await github.rest.issues.updateComment({
+                  owner,
+                  repo,
+                  comment_id: latest.id,
+                  body,
+                })
+              } else {
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number,
+                  body,
+                })
+              }
+            } catch (e) {
+              core.warning(`Unable to create/update PR comment: ${e.message || e}`)
+            }
