@@ -102,16 +102,18 @@ jobs:
 
       - name: Save Branch Name Without Slashes 📛
         if: ${{ steps.gate.outputs.code == 'true' }}
+        id: branch
         env:
           BRANCH_NAME: ${{ github.ref_name }}
         run: |
           BRANCH_NAME=${{ env.BRANCH_NAME }}
           BRANCH_NAME=${BRANCH_NAME////_}
           echo BRANCH_NAME=${BRANCH_NAME} >> $GITHUB_ENV
+          echo branch_name=${BRANCH_NAME} >> $GITHUB_OUTPUT
 
       - name: Upload Artifact 📦
         if: ${{ steps.gate.outputs.code == 'true' }}
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ format('assets-{0}', github.ref_name) }}
+          name: ${{ format('assets-{0}', steps.branch.outputs.branch_name) }}
           path: assets
