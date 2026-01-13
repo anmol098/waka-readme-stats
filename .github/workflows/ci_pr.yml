@@ -10,6 +10,7 @@ concurrency:
 permissions:
   contents: read
   issues: write
+  pull-requests: write
 
 jobs:
   ci:
@@ -108,21 +109,10 @@ jobs:
 
         run: python3 sources/main.py
 
-      - name: Comment preview output 💬
-        if: ${{ steps.changed.outputs.code == 'true' && github.event.pull_request.head.repo.full_name == github.repository }}
-        uses: actions/github-script@v7
-        env:
-          README_CONTENT: ${{ steps.make-stats.outputs.README_CONTENT }}
+      - name: Create Comment 💬
+        uses: jungwinter/comment@v1
         with:
-          script: |
-            const body = process.env.README_CONTENT
-            if (!body || body.trim().length === 0) {
-              core.warning('No README_CONTENT output found; skipping comment.')
-              return
-            }
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.payload.pull_request.number,
-              body,
-            })
+          type: create
+          body: ${{ steps.make-stats.outputs.README_CONTENT }}
+          issue_number: ${{ github.event.pull_request.number }}
+          token: ${{ github.token }}
