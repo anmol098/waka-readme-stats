@@ -136,12 +136,16 @@ async def collect_user_repositories() -> Dict:
     :returns: Complete list of user repositories.
     """
     DBM.i("Getting user repositories list...")
+    if EM.MAX_REPOS > 0:
+        DBM.i(f"\tMAX_REPOS enabled: {EM.MAX_REPOS}")
     repositories = await DM.get_remote_graphql(
         "user_repository_list",
         username=GHM.USER.login,
         id=GHM.USER.node_id,
         _max_nodes=(EM.MAX_REPOS if EM.MAX_REPOS > 0 else None),
     )
+    if EM.MAX_REPOS > 0:
+        DBM.i(f"\tFetched {len(repositories)} repos out of MAX_REPOS={EM.MAX_REPOS}")
     if EM.MAX_REPOS > 0 and len(repositories) >= EM.MAX_REPOS:
         DBM.w(f"\tMAX_REPOS cap reached ({EM.MAX_REPOS}); skipping contributed repos.")
         return repositories[: EM.MAX_REPOS]
@@ -156,6 +160,10 @@ async def collect_user_repositories() -> Dict:
 
     combined = repositories + contributed_nodes
     if EM.MAX_REPOS > 0:
+        if len(combined) < EM.MAX_REPOS:
+            DBM.i(f"\tFetched repos < MAX_REPOS ({len(combined)} < {EM.MAX_REPOS}).")
+        else:
+            DBM.i(f"\tMAX_REPOS reached ({EM.MAX_REPOS}).")
         return combined[: EM.MAX_REPOS]
     return combined
 
