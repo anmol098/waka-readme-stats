@@ -64,11 +64,20 @@ jobs:
         if: ${{ steps.filter.outputs.code == 'true' }}
         run: mkdir assets
 
+      - name: Verify GitHub token secret is configured 🔐
+        if: ${{ steps.filter.outputs.code == 'true' }}
+        run: |
+          if [ -z "${{ secrets.INPUT_GITHUB_TOKEN }}" ]; then
+            echo "::error::Missing required secret INPUT_GITHUB_TOKEN (CI_MASTER does not use fallbacks)."
+            exit 1
+          fi
+          echo "Using secret: INPUT_GITHUB_TOKEN"
+
       - name: Run Action Preview on Current Code 🧪
         if: ${{ steps.filter.outputs.code == 'true' }}
         id: make-stats
         env:
-          INPUT_GH_TOKEN: ${{ secrets.INPUT_GITHUB_TOKEN || secrets.GITHUB_TOKEN || github.token }}
+          INPUT_GH_TOKEN: ${{ secrets.INPUT_GITHUB_TOKEN }}
           INPUT_WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
           DEBUG_RUN: True
           INPUT_STRICT_GITHUB: True
