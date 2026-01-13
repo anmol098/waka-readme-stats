@@ -33,18 +33,14 @@ jobs:
             docs:
               - 'locales/**'
               - 'README.md'
-              - 'README*.md'
               - 'LICENSE'
               - 'CONTRIBUTING.md'
               - 'CODE_OF_CONDUCT.md'
               - 'sources/translation.json'
-              - 'scripts/zh.txt'
+              - 'mock_data/**'
             code:
               - 'sources/**'
               - '!sources/translation.json'
-              - 'scripts/**'
-              - '!scripts/zh.txt'
-              - 'waka-readme-stats/**'
               - '.github/workflows/**'
 
       - name: Docs-only change (skip)

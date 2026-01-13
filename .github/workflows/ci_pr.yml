@@ -43,7 +43,8 @@ jobs:
               p === 'LICENSE' ||
               p === 'CONTRIBUTING.md' ||
               p === 'CODE_OF_CONDUCT.md' ||
-              p === 'sources/translation.json'
+              p === 'sources/translation.json' ||
+              p.startsWith('mock_data/')
             )
 
             const codeChanged = paths.some(p => !isDoc(p))
