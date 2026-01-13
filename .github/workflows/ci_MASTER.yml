@@ -113,5 +113,5 @@ jobs:
         if: ${{ steps.gate.outputs.code == 'true' }}
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ format('assets-{0}', github.ref_name) }}
+          name: ${{ format('assets-{0}', env.BRANCH_NAME) }}
           path: assets

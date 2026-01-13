@@ -11,8 +11,7 @@ RUN apk add --no-cache g++ jpeg-dev zlib-dev libjpeg make git && pip3 install -r
 RUN git config --global user.name "readme-bot"
 RUN git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-ADD sources/* /waka-readme-stats/ locales/*
+ADD sources/ /waka-readme-stats/sources/
+ADD locales/ /waka-readme-stats/locales/
 ENTRYPOINT cd /waka-readme-stats/ && python3 main.py
-
-
 
