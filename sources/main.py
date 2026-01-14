@@ -199,8 +199,35 @@ async def get_stats() -> str:
             DBM.w("Profile views skipped in DEBUG_RUN mode.")
         else:
             DBM.i("Adding profile views info...")
-            data = GHM.REMOTE.get_views_traffic(per="week")
-            stats += f"![Profile Views](http://img.shields.io/badge/{quote(FM.t('Profile Views'))}-{data['count']}-blue?style={quote(EM.BADGE_STYLE)})\n\n"
+            views_count = 0
+            try:
+                traffic = GHM.REMOTE.get_views_traffic(per="week")
+            except Exception as e:
+                DBM.w(f"Profile views unavailable, defaulting to 0: {e}")
+            else:
+                if isinstance(traffic, dict):
+                    views_count = traffic.get("count")
+                elif hasattr(traffic, "count"):
+                    views_count = getattr(traffic, "count")
+                elif isinstance(traffic, (list, tuple)):
+                    first = traffic[0] if len(traffic) > 0 else None
+                    if isinstance(first, dict):
+                        views_count = first.get("count")
+                    elif hasattr(first, "count"):
+                        views_count = getattr(first, "count")
+                    elif isinstance(first, list) and all(hasattr(v, "count") for v in first):
+                        views_count = sum(getattr(v, "count") for v in first)
+                    elif all(hasattr(v, "count") for v in traffic):
+                        views_count = sum(getattr(v, "count") for v in traffic)
+
+                if views_count is None:
+                    DBM.w(f"Profile views returned unexpected type ({type(traffic)}), defaulting to 0.")
+                    views_count = 0
+
+            stats += (
+                f"![Profile Views](http://img.shields.io/badge/"
+                f"{quote(FM.t('Profile Views'))}-{views_count}-blue?style={quote(EM.BADGE_STYLE)})\n\n"
+            )
 
     if EM.SHOW_LINES_OF_CODE:
         DBM.i("Adding lines of code info...")
