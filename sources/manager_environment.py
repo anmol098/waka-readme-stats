@@ -60,7 +60,10 @@ class EnvironmentManager:
     UPDATED_DATE_FORMAT = getenv("INPUT_UPDATED_DATE_FORMAT", "%d/%m/%Y %H:%M:%S")
     IGNORED_REPOS = getenv("INPUT_IGNORED_REPOS", "").replace(" ", "").split(",")
     _raw_max_repos = getenv("INPUT_MAX_REPOS", "0").strip()
-    MAX_REPOS = int(_raw_max_repos) if _raw_max_repos else 0
+    _raw_max_cap = getenv("INPUT_MAX_CAP", "0").strip()
+    # Prefer MAX_REPOS; fall back to MAX_CAP for compatibility.
+    _raw_repo_cap = _raw_max_repos if _raw_max_repos not in ("", "0") else _raw_max_cap
+    MAX_REPOS = int(_raw_repo_cap) if _raw_repo_cap else 0
     if MAX_REPOS < 0:
         MAX_REPOS = 0
     SYMBOL_VERSION = int(getenv("INPUT_SYMBOL_VERSION", "1"))
