@@ -174,4 +174,3 @@ jobs:
             } catch (e) {
               core.warning(`Unable to create/update PR comment: ${e.message || e}`)
             }
-
