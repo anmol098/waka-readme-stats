@@ -169,7 +169,7 @@ inputs:
 
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: 'docker://wakareadmestats/waka-readme-stats:master'
 
 branding:
   icon: 'activity'
