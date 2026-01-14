@@ -2,8 +2,7 @@ import asyncio
 import collections.abc
 import json
 from hashlib import md5
-from json import dumps
-from json import load as json_load
+from json import dumps, load as json_load
 from os.path import join
 from string import Template
 from typing import Any, Callable, Optional, List, Tuple
