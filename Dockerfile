@@ -16,7 +16,7 @@ RUN git config --global user.email "41898282+github-actions[bot]@users.noreply.g
 COPY sources/. ./
 COPY locales/. ./locales/
 
-ENTRYPOINT ["python3", "main.py"]
+ENTRYPOINT ["python3", "/waka-readme-stats/sources/main.py"]
 
 
 
