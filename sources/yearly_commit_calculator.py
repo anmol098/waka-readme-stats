@@ -75,7 +75,7 @@ async def update_data_with_commit_stats(repo_details: Dict, yearly_data: Dict, d
             )
         except Exception as e:
             repo_name = "[private]" if repo_details.get("isPrivate") else f"{owner}/{repo_details.get('name', '?')}"
-            DBM.w(f"\t\tSkipping branch due to commit query error ({repo_name}@{branch.get('name','?')}): {e}")
+            DBM.w(f"\t\tSkipping branch due to commit query error ({repo_name}@{branch.get('name', '?')}): {e}")
             continue
         for commit in commit_data:
             date = search(r"\d+-\d+-\d+", commit["committedDate"]).group()
