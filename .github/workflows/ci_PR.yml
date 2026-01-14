@@ -102,10 +102,33 @@ jobs:
           INPUT_SHOW_LANGUAGE_PER_REPO: True
           INPUT_SHOW_UPDATED_DATE: True
 
-        run: python3 sources/main.py
+        run: |
+          mkdir -p preview
+          python3 sources/main.py 2>&1 | tee preview/run.log
+
+      - name: Write preview markdown
+        if: ${{ steps.changed.outputs.code == 'true' }}
+        env:
+          README_CONTENT: ${{ steps.make-stats.outputs.README_CONTENT }}
+        run: |
+          mkdir -p preview
+          printf '%s\n' "$README_CONTENT" > preview/preview.md
+          if [ ! -s preview/preview.md ]; then
+            echo "README_CONTENT was empty." > preview/preview.md
+          fi
+
+      - name: Upload preview artifact
+        if: ${{ always() && steps.changed.outputs.code == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview-stats
+          path: |
+            preview/preview.md
+            preview/run.log
+          if-no-files-found: ignore
 
       - name: Upsert preview comment 💬
-        if: ${{ steps.changed.outputs.code == 'true' }}
+        if: ${{ steps.changed.outputs.code == 'true' && github.event.pull_request.head.repo.full_name == github.repository }}
         uses: actions/github-script@v7
         env:
           README_CONTENT: ${{ steps.make-stats.outputs.README_CONTENT }}
