@@ -1,7 +1,7 @@
 import asyncio
 import collections.abc
+import json
 from hashlib import md5
-from json import dumps, load as json_load
 from os.path import join
 from string import Template
 from typing import Any, Callable, Optional, List, Tuple
@@ -154,7 +154,7 @@ class DownloadManager:
     def _load_mock_json(filename: str) -> dict:
         path = join(EM.MOCK_DATA_DIR, filename)
         with open(path, "r", encoding="utf-8") as f:
-            return json_load(f)
+            return json.load(f)
 
     @staticmethod
     async def load_remote_resources(**resources: str):
@@ -274,7 +274,7 @@ class DownloadManager:
 
         try:
             body_obj = res.json()
-            body_preview = dumps(body_obj)[:500]
+            body_preview = json.dumps(body_obj)[:500]
         except (json.JSONDecodeError, ValueError):
             body_preview = (res.text or "").replace("\n", " ").replace("\r", " ")[:500]
 
@@ -352,7 +352,7 @@ class DownloadManager:
         max_nodes = kwargs.pop("_max_nodes", None)
         cache_key_kwargs = dict(kwargs)
         cache_key_kwargs["_max_nodes"] = max_nodes
-        key = f"{query}_{md5(dumps(cache_key_kwargs, sort_keys=True).encode('utf-8')).digest()}"
+        key = f"{query}_{md5(json.dumps(cache_key_kwargs, sort_keys=True).encode('utf-8')).digest()}"
         if key not in DownloadManager._REMOTE_RESOURCES_CACHE:
             if "$pagination" in GITHUB_API_QUERIES[query]:
                 res = await DownloadManager._fetch_graphql_paginated(query, max_nodes=max_nodes, **kwargs)
