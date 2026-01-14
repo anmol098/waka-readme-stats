@@ -54,13 +54,29 @@ async def update_data_with_commit_stats(repo_details: Dict, yearly_data: Dict, d
     :param date_data: Commit date dictionary to update.
     """
     owner = repo_details["owner"]["login"]
-    branch_data = await DM.get_remote_graphql("repo_branch_list", owner=owner, name=repo_details["name"])
+    try:
+        branch_data = await DM.get_remote_graphql("repo_branch_list", owner=owner, name=repo_details["name"])
+    except Exception as e:
+        repo_name = "[private]" if repo_details.get("isPrivate") else f"{owner}/{repo_details.get('name', '?')}"
+        DBM.w(f"\t\tSkipping repo due to branch query error ({repo_name}): {e}")
+        return
     if len(branch_data) == 0:
         DBM.w("\t\tSkipping repo.")
         return
 
     for branch in branch_data:
-        commit_data = await DM.get_remote_graphql("repo_commit_list", owner=owner, name=repo_details["name"], branch=branch["name"], id=GHM.USER.node_id)
+        try:
+            commit_data = await DM.get_remote_graphql(
+                "repo_commit_list",
+                owner=owner,
+                name=repo_details["name"],
+                branch=branch["name"],
+                id=GHM.USER.node_id,
+            )
+        except Exception as e:
+            repo_name = "[private]" if repo_details.get("isPrivate") else f"{owner}/{repo_details.get('name', '?')}"
+            DBM.w(f"\t\tSkipping branch due to commit query error ({repo_name}@{branch.get('name', '?')}): {e}")
+            continue
         for commit in commit_data:
             date = search(r"\d+-\d+-\d+", commit["committedDate"]).group()
             curr_year = datetime.fromisoformat(date).year
