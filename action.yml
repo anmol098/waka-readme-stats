@@ -142,6 +142,16 @@ inputs:
     description: "Repos you don't want to be counted"
     default: ""
 
+  MAX_REPOS:
+    required: false
+    description: "Maximum number of GitHub repositories to fetch (0 = unlimited)"
+    default: "0"
+
+  MAX_CAP:
+    required: false
+    description: "(Deprecated) Alias for MAX_REPOS"
+    default: "0"
+
   SYMBOL_VERSION:
     required: false
     description: "Version of the symbol block and empty of the progress bar"
@@ -159,7 +169,7 @@ inputs:
 
 runs:
   using: 'docker'
-  image: 'docker://wakareadmestats/waka-readme-stats:master'
+  image: 'Dockerfile'
 
 branding:
   icon: 'activity'
