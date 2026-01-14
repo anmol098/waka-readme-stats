@@ -1,6 +1,5 @@
 import asyncio
 import collections.abc
-import json
 from hashlib import md5
 from json import dumps, load as json_load
 from os.path import join
