@@ -1,4 +1,4 @@
-from os import getenv, environ
+from os import getenv
 
 
 class EnvironmentManager:
@@ -8,13 +8,28 @@ class EnvironmentManager:
     The others have a provided default value.
     For all boolean variables a 'truthy'-list is checked (not only true/false, but also 1, t, y and yes are accepted).
     List variable `IGNORED_REPOS` is split and parsed.
-    Integer variable `SYMBOL_VERSION` is parsed.
+    Integer variables `SYMBOL_VERSION` and `MAX_REPOS` are parsed.
     """
 
     _TRUTHY = ["true", "1", "t", "y", "yes"]
 
-    GH_TOKEN = environ["INPUT_GH_TOKEN"]
-    WAKATIME_API_KEY = environ["INPUT_WAKATIME_API_KEY"]
+    # Mocking with my stats for waka
+    MOCK_WAKATIME = getenv("MOCK_WAKATIME", "False").lower() in _TRUTHY
+    MOCK_DATA_DIR = getenv("MOCK_DATA_DIR", "mock_data")
+
+    GH_TOKEN = getenv("INPUT_GH_TOKEN")
+    if not GH_TOKEN:
+        raise KeyError("Missing required token: set INPUT_GH_TOKEN")
+
+    # stats for the author or the one with the token
+    GH_USER = getenv("INPUT_GH_USER", "").strip()
+    WAKATIME_API_KEY = getenv("INPUT_WAKATIME_API_KEY", "")
+    WAKATIME_API_URL = getenv("INPUT_WAKATIME_API_URL", "https://wakatime.com/api/v1/")
+    if not WAKATIME_API_URL.endswith("/"):
+        WAKATIME_API_URL += "/"
+
+    if not MOCK_WAKATIME and WAKATIME_API_KEY == "":
+        raise KeyError("Missing required secret: INPUT_WAKATIME_API_KEY")
 
     SECTION_NAME = getenv("INPUT_SECTION_NAME", "waka")
     PULL_BRANCH_NAME = getenv("INPUT_PULL_BRANCH_NAME", "")
@@ -44,7 +59,15 @@ class EnvironmentManager:
     LOCALE = getenv("INPUT_LOCALE", "en")
     UPDATED_DATE_FORMAT = getenv("INPUT_UPDATED_DATE_FORMAT", "%d/%m/%Y %H:%M:%S")
     IGNORED_REPOS = getenv("INPUT_IGNORED_REPOS", "").replace(" ", "").split(",")
-    SYMBOL_VERSION = int(getenv("INPUT_SYMBOL_VERSION"))
+    _raw_max_repos = getenv("INPUT_MAX_REPOS", "0").strip()
+    _raw_max_cap = getenv("INPUT_MAX_CAP", "0").strip()
+    # Prefer MAX_REPOS; fall back to MAX_CAP for compatibility.
+    _raw_repo_cap = _raw_max_repos if _raw_max_repos not in ("", "0") else _raw_max_cap
+    MAX_REPOS = int(_raw_repo_cap) if _raw_repo_cap else 0
+    if MAX_REPOS < 0:
+        MAX_REPOS = 0
+    SYMBOL_VERSION = int(getenv("INPUT_SYMBOL_VERSION", "1"))
+    BADGE_STYLE = getenv("BADGE_STYLE", "flat")
 
     DEBUG_LOGGING = getenv("INPUT_DEBUG_LOGGING", "0").lower() in _TRUTHY
     DEBUG_RUN = getenv("DEBUG_RUN", "False").lower() in _TRUTHY

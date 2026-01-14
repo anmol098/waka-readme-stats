@@ -1,19 +1,19 @@
 # GitHub integration modules:
-PyGithub~=1.58
+PyGithub==2.8.1
 GitPython~=3.1
 
 # Markdown visualization modules:
 pytz~=2022.7
-humanize~=4.6
+humanize~=4.15
 
 # Graphs drawing modules:
-matplotlib~=3.7
-numpy~=1.24
+numpy~=2.3
+matplotlib~=3.10
 
 # Request making and response parsing modules:
-httpx~=0.23
+httpx~=0.27
 PyYAML~=6.0
 
 # Codestyle checking modules:
-flake8~=6.0
-black~=23.1
+black~=25.12
+flake8~=7.3
