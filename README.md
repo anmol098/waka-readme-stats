@@ -63,11 +63,11 @@
 
 <p align="center">
     <a href="https://github.com/anmol098/waka-readme-stats/issues">Report Bugs</a> · <a href="https://github.com/anmol098/waka-readme-stats/issues">Request Features</a>
-  </p>
+</p>
 
 ## Prep Work
 
-1. You need to update the README Markdown file (`README.md`) with 2 comments. You can refer to [Updating your README](#update-your-readme) for updating it.
+1. You need to update the README Markdown file (`README.md`) with 2 comments. You can refer to [Update your README](#update-your-readme) for updating it.
 2. You'll need a WakaTime API Key. You can get that from your WakaTime Account Settings.
     - Please refer to [New to WakaTime](#new-to-wakatime), if you're new to WakaTime.
 3. You'll need a GitHub API Token with `repo` and `user` scope from [here](https://github.com/settings/tokens) if you're running the action to get commit metrics.
@@ -134,7 +134,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 ```
 
-- Now you can commit and wait for it to run automatically, or you can also trigger to run it to see the result now. Just go to the `Actions` in your repo, select your `Profile Readme Development Stats` workflow and click `Run workflow`. Now wait for a minute or two and you will see your statistics added to your README.
+Now you can commit and wait for it to run automatically, or you can also trigger to run it to see the result now. Just go to the `Actions` in your repo, select your `Profile Readme Development Stats` workflow and click `Run workflow`. Now wait for a minute or two and you will see your statistics added to your README.
 
 ## Extras
 
