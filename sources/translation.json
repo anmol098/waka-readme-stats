@@ -168,9 +168,9 @@
     "Used in GitHub's Storage": " 使用了 %s GitHub 存储空间",
     "Opted to Hire": "开放招聘",
     "Not Opted to Hire": "不开放招聘",
-    "Profile Views": "个人资料观看次数",
+    "Profile Views": "资料页浏览次数",
     "From Hello World I have written": "从「Hello World」起我已经写了",
-    "I am Most Productive on": "我最有效率是在 %s",
+    "I am Most Productive on": "%s 时的我最有干劲",
     "This Week I Spend My Time On": "本周消耗时间",
     "I Mostly Code in": "我最常使用 %s",
     "Timeline": "时间线",
@@ -181,8 +181,8 @@
     "public repositories": "%d 个公共仓库",
     "private repository": "%d 个私人仓库",
     "private repositories": "%d 个私人仓库",
-    "I am an Early": "我是早起的 🐤",
-    "I am a Night": "我是夜猫子 🦉"
+    "I am an Early": "我是早鸟 🐤",
+    "I am a Night": "我是夜猫 🦉"
   },
   "zh_TW": {
     "Monday": "星期一",
@@ -218,8 +218,8 @@
     "public repositories": "%d 公共倉庫",
     "private repository": "%d 私人倉庫",
     "private repositories": "%d 私人倉庫",
-    "I am an Early": "我是早起的",
-    "I am a Night": "我是夜貓子"
+    "I am an Early": "我是早起的 🐤",
+    "I am a Night": "我是夜貓子 🦉"
   },
   "ar": {
     "Monday": "الأثنين",
