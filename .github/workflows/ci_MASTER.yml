@@ -21,7 +21,7 @@ jobs:
 
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Detect changed paths (push)
         if: ${{ github.event_name == 'push' }}
