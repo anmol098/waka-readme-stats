@@ -153,128 +153,34 @@ If you want to add the other info to your stats, you can add multiple [flags](#a
 
 |    Flag           |                                                                               Description                                                                      |  Default                                            | Example |
 |-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------|---------|
-| `LOCALE`          | This flag can be used to show stats in your language. Locale [Short Hand](https://saimana.com/list-of-country-locale-code/) to be passed in the flag variable. | `en` (English)                                      | [Here](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)                                                                                                                                                                                      |
+| `LOCALE`          | This flag can be used to show stats in your language. Locale [Short Hand](https://saimana.com/list-of-country-locale-code/) to be passed in the flag variable. | `en` (English)                                      | [Example](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)                                                                                                                                                                                      |
+| `WAKATIME_API_URL`| This flag can be set if you are hosting your own wakatime compliant backend like [wakapi](https://github.com/muety/wakapi).                                    | `https://wakatime.com/api/v1/`                      | `https://your-own-wakapi.dev/api/v1/`                                                                                                                                                                                                                |
 | `SECTION_NAME`    | This flag can be set to any string, and will be the name of the section to replace in the README.                                                              | `waka`                                              | N/A     |
 | `COMMIT_BY_ME`    | This flag can be set to `True` to commit the code using your name and email.                                                                                   | `False`                                             | N/A     |
-| `COMMIT_MESSAGE`  | This flag can be set for the commit message.                                                                                                                   | `Updated with Dev Metrics`                          | <img title="Updated with Dev Metrics" src="https://github.com/user-attachments/assets/54cf4304-6f96-4a34-a94a-dea7db7859f7" />                                                                                                                              |
-| `COMMIT_USERNAME` | This flag can be set as a username to commit the code.                                                                                                         | `readme-bot`                                            | N/A |
+| `COMMIT_MESSAGE`  | This flag can be set for the commit message.                                                                                                                   | `Updated with Dev Metrics`                          | <img title="Updated with Dev Metrics" src="https://github.com/user-attachments/assets/54cf4304-6f96-4a34-a94a-dea7db7859f7" />                                                                                                                            |
+| `COMMIT_USERNAME` | This flag can be set as a username to commit the code.                                                                                                         | `readme-bot`                                        | `waka-stats`                                                                                                                                                                                                                                               |
 | `COMMIT_EMAIL`    | This flag can be set to an email to commit the code.                                                                                                           | `41898282+github-actions[bot]@users.noreply.github.com` | N/A |
 | `SHOW_UPDATED_DATE` | This flag can be used to show the updated date in end of paragraph.                                                                                          | `True`                                                  | <img title="Show updated date" alt="Show updated date" src="https://github.com/user-attachments/assets/e3a9d332-6f63-4d05-b521-029bbb1b6a62" />                                           | `True`                                                  |     |
-| `UPDATED_DATE_FORMAT` | This flag can be set to put the updated date into a format.                                                                                                | `%d/%m/%Y %H:%M:%S`                                           |
+| `UPDATED_DATE_FORMAT` | This flag can be set to put the updated date into a format.                                                                                                | `%d/%m/%Y %H:%M:%S`                                     | `%m/%d/%y %H:%M`                                                                                                                                                                                                                                     |
 | `SHOW_LINES_OF_CODE`  | This flag can be used to show the number of lines of code writen till date.                                                                                | `False`                                                 | ![Lines of Code](https://img.shields.io/badge/From%20Hello%20World%20I've%20written-1.3%20million%20Lines%20of%20code-blue)                                                                                                                           |
 | `SHOW_TOTAL_CODE_TIME` | This flag can be used to show **Code Time**.                                                                                                              | `True`                                                  | ![Code Time](http://img.shields.io/badge/Code%20Time-1%2C438%20hrs%2054%20mins-blue)                                                                                                                                                                  |
 | `SHOW_PROFILE_VIEWS`   | This flag can be used to show **Profile Views**.                                                                                                          | `True`                                                  | ![Profile Views](http://img.shields.io/badge/Profile%20Views-2189-blue)                                                                                                                                                                               |
-| `SHOW_COMMIT`          | This flag can be used to show the commit stats.                                                                                                           | `True`                                                  | **I'm an early 🐤** <pre> 🌞 Morning    95 commits     ███████░░░░░░░░░░░░░░░░░░   30.55% <br> 🌆 Daytime    78 commits     ██████░░░░░░░░░░░░░░░░░░░   25.08% <br> 🌃 Evening    112 commits    █████████░░░░░░░░░░░░░░░░   36.01% <br> 🌙 Night      26 commits     ██░░░░░░░░░░░░░░░░░░░░░░░   8.36%</pre>                                                                                                                                                                                             |
+| `SHOW_COMMIT`          | This flag can be used to show the commit stats.                                                                                                           | `True`                                                  | **I'm an early 🐤** <br> <pre> 🌞 Morning    95 commits     ███████░░░░░░░░░░░░░░░░░░   30.55% <br> 🌆 Daytime    78 commits     ██████░░░░░░░░░░░░░░░░░░░   25.08% <br> 🌃 Evening    112 commits    █████████░░░░░░░░░░░░░░░░   36.01% <br> 🌙 Night      26 commits     ██░░░░░░░░░░░░░░░░░░░░░░░   8.36%</pre>                                                                                                                                                                                    |
 | `SHOW_DAYS_OF_WEEK`    | This flag can be used to show the commits made on different days of the week.                                                                             | `True`                                                  | 📅 **I'm Most Productive on Sundays** <br> <pre> Monday       50 commits     ███░░░░░░░░░░░░░░░░░░░░░░   13.19% <br> Tuesday      85 commits     █████░░░░░░░░░░░░░░░░░░░░   22.43% <br> Wednesday    56 commits     ███░░░░░░░░░░░░░░░░░░░░░░   14.78% <br> Thursday     44 commits     ███░░░░░░░░░░░░░░░░░░░░░░   11.61% <br> Friday       28 commits     █░░░░░░░░░░░░░░░░░░░░░░░░   7.39% <br> Saturday     30 commits     ██░░░░░░░░░░░░░░░░░░░░░░░   7.92% <br> Sunday       86 commits     █████░░░░░░░░░░░░░░░░░░░░   22.69%</pre>                                                                                                                                                                                                             |
-
-The `SHOW_DAYS_OF_WEEK` flag can be set to `False` to hide the commits made on the different days of the week.
-
-📅 **I'm Most Productive on Sundays**
-
-```text
-Monday       50 commits     ███░░░░░░░░░░░░░░░░░░░░░░   13.19% 
-Tuesday      85 commits     █████░░░░░░░░░░░░░░░░░░░░   22.43% 
-Wednesday    56 commits     ███░░░░░░░░░░░░░░░░░░░░░░   14.78% 
-Thursday     44 commits     ███░░░░░░░░░░░░░░░░░░░░░░   11.61% 
-Friday       28 commits     █░░░░░░░░░░░░░░░░░░░░░░░░   7.39% 
-Saturday     30 commits     ██░░░░░░░░░░░░░░░░░░░░░░░   7.92% 
-Sunday       86 commits     █████░░░░░░░░░░░░░░░░░░░░   22.69%
-
-```
-
-The `SHOW_LANGUAGE` flag can be set to `False` to hide the programming languages you use.
-
-```text
-💬 Languages:
-JavaScript               5 hrs 26 mins       ███████████████░░░░░░░░░░   61.97%
-PHP                      1 hr 35 mins        ████░░░░░░░░░░░░░░░░░░░░░   18.07%
-Markdown                 1 hr 9 mins         ███░░░░░░░░░░░░░░░░░░░░░░   13.3%
-Python                   22 mins             █░░░░░░░░░░░░░░░░░░░░░░░░   4.32%
-XML                      8 mins              ░░░░░░░░░░░░░░░░░░░░░░░░░   1.62%
-```
-
-The `SHOW_OS` flag can be set to `False` to hide your OS details.
-
-```text
-💻 Operating Systems:
-Windows                  8 hrs 46 mins       █████████████████████████   100.0%
-```
-
-The `SHOW_PROJECTS` flag can be set to `False` to hide the projects worked on.
-
-```text
-🐱‍💻 Projects:
-ctx_connector            4 hrs 3 mins        ███████████░░░░░░░░░░░░░░   46.33%
-NetSuite-Connector       1 hr 31 mins        ████░░░░░░░░░░░░░░░░░░░░░   17.29%
-mango-web-master         1 hr 12 mins        ███░░░░░░░░░░░░░░░░░░░░░░   13.77%
-cable                    54 mins             ██░░░░░░░░░░░░░░░░░░░░░░░   10.41%
-denAPI                   40 mins             ██░░░░░░░░░░░░░░░░░░░░░░░   7.66%
-```
-
-The `SHOW_TIMEZONE` flag can be set to `False` to hide the time zone you are in.
-
-```text
-⌚︎ Timezone: Asia/Calcutta
-```
-
-The `SHOW_EDITORS` flag can be set to `False` to hide the list of code editors/IDEs used.
-
-```text
-🔥 Editors:
-WebStorm                 6 hrs 47 mins       ███████████████████░░░░░░   77.43%
-PhpStorm                 1 hr 35 mins        ████░░░░░░░░░░░░░░░░░░░░░   18.07%
-PyCharm                  23 mins             █░░░░░░░░░░░░░░░░░░░░░░░░   4.49%
-```
-
-The `SHOW_LANGUAGE_PER_REPO` flag can be set to `False` to hide the number of repositories in different programming languages and frameworks.
-
-**I mostly code in Vue**
-
-```text
-Vue          8 repos        ██████░░░░░░░░░░░░░░░░░░░   25.0% 
-Java         6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75% 
-JavaScript   6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75% 
-PHP          3 repos        ██░░░░░░░░░░░░░░░░░░░░░░░   9.38% 
-Python       2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25% 
-Dart         2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25% 
-CSS          2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
-
-```
-
-The `SHOW_SHORT_INFO` flag can be set to `False` to hide the short fun fact info of a user.
-
-> [!NOTE]
-> This section requires a Personal Access Token (PAT) with the `user` scope, otherwise the data shown here will be incorrect.
-
-**🐱 My GitHub Data**
-
-> 🏆 433 Contributions in year 2020
- >
-> 📦 Used 292.3 kB in GitHub's Storage
- >
-> 💼 Opted to Hire
- >
-> 📜 25 Public Repository
- >
-> 🔑 15 Owned Private Repository
-
-The `SHOW_LOC_CHART` flag can be set to `False` to hide the lines of code written in different quarters of different years.
-
-The `IGNORED_REPOS` flag can be set to `"waka-readme-stats, my-first-repo"` (just an example) to ignore some repos you don’t want to be counted.
-
-The `SYMBOL_VERSION` flag can be set for the symbol for the progress bar (default: `1`).
-
-| Version | Done block | Empty block |
-|-------- | ---------- | ----------- |
-|    1    |      █     |       ░     |
-|    2    |      ⣿     |       ⣀     |
-|    3    |      ⬛    |       ⬜    |
-
-The `DEBUG_LOGGING` flag can be set to increase the GitHub Action's output verbosity, by default equals internal runner debug property
-
-**Timeline**
-
-![Timeline Chart](https://raw.githubusercontent.com/anmol098/anmol098/master/charts/bar_graph.png)
+| `SHOW_LANGUAGE`        | This flag can be used to show what programming languages you use.                                                                                         | `True`                                                  | <img width="1033" height="169" alt="Screen Shot 2026-01-16 at 11 12 45 PM" src="https://github.com/user-attachments/assets/5b7e8a93-0577-4b2e-a90c-b03ff8402f8d" />                                                                                       |
+| `SHOW_OS`              | This flag can be used to show what OS you use.                                                                                                            | `True`                                                  | <img width="1058" height="94" alt="Screen Shot 2026-01-16 at 11 12 53 PM" src="https://github.com/user-attachments/assets/98950d41-7f27-4590-b5a5-b595853ae25a" />                                                                                        |
+| `SHOW_PROJECTS`        | This flag can be used to show the projects worked on.                                                                                                     | `True`                                                  | <img width="1044" height="165" alt="Screen Shot 2026-01-16 at 11 12 58 PM" src="https://github.com/user-attachments/assets/32e82108-be20-41f6-a0fc-fd3067e17cbe" />                                                                                       |
+| `SHOW_TIMEZONE`        | This flag can be used to show the timezone you are in.                                                                                                    | `True`                                                  | <img width="1036" height="66" alt="Screen Shot 2026-01-16 at 11 13 04 PM" src="https://github.com/user-attachments/assets/b5bcd3b5-2257-415e-95e6-e6718f6653ff" />                                                                                        |
+| `SHOW_EDITORS`         | This flag can be used to show the IDEs/code editors used.                                                                                                 | `True`                                                  | <img width="1043" height="123" alt="Screen Shot 2026-01-16 at 11 13 11 PM" src="https://github.com/user-attachments/assets/7ac755cd-9f98-4bd8-a019-70243cf4a1a7" />                                                                                       |
+| `SHOW_LANGUAGE_PER_REPO` | This flag can be used to show the number of repositories in different programming languages and frameworks.                                             | `True`                                                  | <img width="880" height="254" alt="Screen Shot 2026-01-16 at 11 25 53 PM" src="https://github.com/user-attachments/assets/fa3eb47b-0108-450c-8a96-53908eb282a4" />                                                                                        |
+| `SHOW_SHORT_INFO`        | This flag can be used to show a short info of the GitHub data of a user. **NOTE:** This section requires a Personal Access Token (PAT) with the `user` scope. | `True`                                            | <img width="403" height="245" alt="Screen Shot 2026-01-16 at 11 30 20 PM" src="https://github.com/user-attachments/assets/18654722-a8d1-4fda-9cef-dde5cec78c01" />                                                                                        |
+| `SHOW_LOC_CHART`         | This flag can be used to show the lines of code written in different quarters of different years.                                                             | `True`                                            | ![Timeline Chart](https://raw.githubusercontent.com/anmol098/anmol098/master/charts/bar_graph.png)                                                                                                                                                    |
+| `IGNORED_REPOS`          | This flag can be set to ignore some repositories you do not want to be counted.                                                                               | N/A                                               | `waka-readme-stats, my-first-repo`                                                                                                                                                                                                                   |
+| `MAX_REPOS`              | This flag can be set to limit how many GitHub repositories are fetched for analysis. This can be useful to speed up runs for accounts with many repositories. | `0` (unlimited)                                   | N/A |
+| `MAX_CAP`                | <ins><mark>***DEPRECATED***</mark></ins>: Alias for `MAX_REPOS`                                                                                               | N/A                                               | N/A |
+| `SYMBOL_VERSION`         | This flag can be set for the symbol of the progress bar.                                                                                                      | `1`                                               | <img width="336" height="166" alt="Screen Shot 2026-01-16 at 11 13 45 PM" src="https://github.com/user-attachments/assets/af1a39ae-2ed7-4855-b0a2-181e7ba4a7ef" />                                                                                        |
+| `BADGE_STYLE`            | This flag defines the style for the generated badges.                                                                                                         | `flat`                                            | <img width="302" height="240" alt="Screen Shot 2026-01-16 at 11 37 50 PM" src="https://github.com/user-attachments/assets/d9e8c9cb-8998-466b-85cf-cbfc47f933d4" />                                                                                        |
+| `DEBUG_LOGGING`          | This flag can be set to increase the GitHub Action's output verbosity.                                                                                        | Runner debug property                             | N/A |
 
 ## :sparkling_heart: Support the project
 
