@@ -298,7 +298,7 @@ Please share any features, and add unit tests! Use the pull request and issue sy
   
 - [Dev-Mehta](https://github.com/Dev-Mehta/)
   
-- [> EdgyCoder ✌](https://github.com/edgycoder)
+- [EdgyCoder](https://github.com/edgycoder)
   
 - [Korel Kashri](https://github.com/korelkashri)
   
@@ -362,6 +362,10 @@ Please share any features, and add unit tests! Use the pull request and issue sy
 
 - [DataBoySu](https://github.com/DataBoySu)
 
+- [Souleymane Sy](https://github.com/souleymanesy7)
+
+- [Md Sarfaraz Alam](https://github.com/mdsarfarazalam840)
+
 </details>
 
 - And you! If ever you are using it right now and you are not on the list please tell us by sending a [Special Mention](https://github.com/anmol098/waka-readme-stats/issues/new/choose) issue! :blush: \
@@ -371,7 +375,7 @@ Made with :heart: and Python 🐍.
 
 # Inspired From
 
-> [Awesome Pinned Gists](https://github.com/matchai/awesome-pinned-gists) <br/>
+> [Awesome Pinned Gists](https://github.com/matchai/awesome-pinned-gists) \
 > [athul/waka-readme](https://github.com/athul/waka-readme)
 
 ### This project needs a **star** ⭐ from you ♥
