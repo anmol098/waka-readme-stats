@@ -16,9 +16,9 @@
 
 <p align="center">
 
-    ![Project Preview](https://user-images.githubusercontent.com/15426564/88030180-8e1c4780-cb58-11ea-8a8b-b3576dd73652.png)
+![Project Preview](https://user-images.githubusercontent.com/15426564/88030180-8e1c4780-cb58-11ea-8a8b-b3576dd73652.png)
 
-    <h3 align="center">📌✨अद्भुत README तथ्याङ्क</h3>
+<h3 align="center">📌✨अद्भुत README तथ्याङ्क</h3>
 </p>
 
 ---
