@@ -1,0 +1,119 @@
+name: CI_MASTER
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    name: Run Test and Review (main)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Detect changed paths (push)
+        if: ${{ github.event_name == 'push' }}
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          base: ${{ github.event.before }}
+          ref: ${{ github.sha }}
+          filters: |
+            docs:
+              - 'locales/**'
+              - 'README.md'
+              - 'LICENSE'
+              - 'CONTRIBUTING.md'
+              - 'CODE_OF_CONDUCT.md'
+              - 'sources/translation.json'
+              - 'sources/mock_data/**'
+            code:
+              - 'sources/**'
+              - '!sources/translation.json'
+              - '!sources/mock_data/**'
+              - '.github/workflows/**'
+
+      - name: Compute run gate
+        id: gate
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "code=true" >> $GITHUB_OUTPUT
+          else
+            echo "code=${{ steps.filter.outputs.code }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Docs-only change (skip)
+        if: ${{ github.event_name == 'push' && steps.gate.outputs.code != 'true' }}
+        run: |
+          echo "Docs-only push detected; skipping comprehensive CI."
+
+      - name: Setup Python 3.13 🐍
+        if: ${{ steps.gate.outputs.code == 'true' }}
+        uses: actions/setup-python@v6
+        with:
+          python-version: 3.13
+          cache: 'pip'
+
+      - name: Install Dependencies 📥
+        if: ${{ steps.gate.outputs.code == 'true' }}
+        run: pip install -r requirements.txt
+
+      - name: Create Assets Folder 📥
+        if: ${{ steps.gate.outputs.code == 'true' }}
+        run: mkdir assets
+
+      - name: Run Action Preview on Current Code 🧪
+        if: ${{ steps.gate.outputs.code == 'true' }}
+        id: make-stats
+        env:
+          INPUT_GH_TOKEN: ${{ secrets.INPUT_GITHUB_TOKEN }}
+          INPUT_WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+          DEBUG_RUN: True
+          INPUT_SHOW_TIMEZONE: True
+          INPUT_SHOW_PROJECTS: True
+          INPUT_SHOW_EDITORS: True
+          INPUT_SHOW_OS: True
+          INPUT_SHOW_LANGUAGE: True
+          INPUT_SYMBOL_VERSION: 1
+          INPUT_SHOW_LINES_OF_CODE: True
+          INPUT_SHOW_LOC_CHART: True
+          INPUT_SHOW_PROFILE_VIEWS: True
+          INPUT_SHOW_TOTAL_CODE_TIME: True
+          INPUT_SHOW_SHORT_INFO: True
+          INPUT_SHOW_COMMIT: True
+          INPUT_SHOW_DAYS_OF_WEEK: True
+          INPUT_SHOW_LANGUAGE_PER_REPO: True
+          INPUT_SHOW_UPDATED_DATE: True
+          INPUT_COMMIT_BY_ME: True
+
+        run: python3 sources/main.py
+
+      - name: Save Branch Name Without Slashes 📛
+        if: ${{ steps.gate.outputs.code == 'true' }}
+        id: branch
+        env:
+          BRANCH_NAME: ${{ github.ref_name }}
+        run: |
+          BRANCH_NAME=${{ env.BRANCH_NAME }}
+          BRANCH_NAME=${BRANCH_NAME////_}
+          echo BRANCH_NAME=${BRANCH_NAME} >> $GITHUB_ENV
+          echo branch_name=${BRANCH_NAME} >> $GITHUB_OUTPUT
+
+      - name: Upload Artifact 📦
+        if: ${{ steps.gate.outputs.code == 'true' }}
+        uses: actions/upload-artifact@v6
+        with:
+          name: ${{ format('assets-{0}', steps.branch.outputs.branch_name) }}
+          path: assets
