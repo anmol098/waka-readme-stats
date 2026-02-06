@@ -156,7 +156,7 @@ inputs:
     required: false
     description: "Version of the symbol block and empty of the progress bar"
     default: "1"
-  
+
   SYMBOL_STYLE:
     required: false
     description: "Style of the symbol block and empty of the progress bar"
@@ -184,4 +184,5 @@ runs:
 branding:
   icon: 'activity'
   color: 'orange'
+
 
