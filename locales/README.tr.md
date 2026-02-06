@@ -115,7 +115,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 ```
 
-- Şimdi commit yapabilir ve otomatik olarak çalışmasını bekleyebilirsiniz, ya da sonuçları hemen görmek için çalıştırma işlemini manuel olarak da tetikleyebilirsiniz. Sadece repo'nuzdaki `Actions` bölümüne gidin, `Profile Readme Development Stats` workflow'ünü seçin ve `Run workflow`'a tıklayın. Bir ya da iki dakika bekleyin ve değişikliklerinizi göreceksiniz.
+- Şimdi commit yapabilir ve otomatik olarak çalışmasını bekleyebilirsiniz, ya da sonuçları hemen görmek için çalıştırma işlemini manuel olarak da tetikleyebilirsiniz. Sadece repo'nuzdaki `Actions` bölümüne gidin, `Profile Readme Development Stats` workflow'unu seçin ve `Run workflow`'a tıklayın. Bir ya da iki dakika bekleyin ve değişikliklerinizi göreceksiniz.
 
 ## Ekstra Bilgiler
 
@@ -174,7 +174,7 @@ jobs:
 
 ```
 
-`SHOW_DAYS_OF_WEEK` bayrağı, haftanın farklı günlerinde yapılan değişiklikleri gizlemek için `False` olarak ayarlanabilir.
+`SHOW_DAYS_OF_WEEK` flagı, haftanın farklı günlerinde yapılan değişiklikleri gizlemek için `False` olarak ayarlanabilir.
 
 📅 **En Üretken Olduğum Gün Pazar**
 
@@ -189,7 +189,7 @@ Pazar        86 commits     █████░░░░░░░░░░░░�
 
 ```
 
-`SHOW_LANGUAGE` bayrağı, kullandığınız programlama dillerini gizlemek için `False` olarak ayarlanabilir.
+`SHOW_LANGUAGE` flagı, kullandığınız programlama dillerini gizlemek için `False` olarak ayarlanabilir.
 
 ```text
 💬 Languages:
@@ -200,14 +200,14 @@ Python                   22 mins             █░░░░░░░░░░�
 XML                      8 mins              ░░░░░░░░░░░░░░░░░░░░░░░░░   1.62%
 ```
 
-`SHOW_OS` bayrağı `False` olarak ayarlanarak işletim sisteminiz hakkında detaylar gizlenebilir.
+`SHOW_OS` flagı `False` olarak ayarlanarak işletim sisteminiz hakkında detaylar gizlenebilir.
 
 ```text
 💻 Operating Systems:
 Windows                  8 hrs 46 mins       █████████████████████████   100.0%
 ```
 
-`SHOW_PROJECTS` bayrağı, çalışılan projeleri gizlemek için `False` olarak ayarlanabilir.
+`SHOW_PROJECTS` flagı, çalışılan projeleri gizlemek için `False` olarak ayarlanabilir.
 
 ```text
 🐱‍💻 Projects:
@@ -218,13 +218,13 @@ cable                    54 mins             ██░░░░░░░░░�
 denAPI                   40 mins             ██░░░░░░░░░░░░░░░░░░░░░░░   7.66%
 ```
 
-`SHOW_TIMEZONE` bayrağı, bulunduğunuz zaman dilimini gizlemek için `False` olarak ayarlanabilir.
+`SHOW_TIMEZONE` flagı, bulunduğunuz zaman dilimini gizlemek için `False` olarak ayarlanabilir.
 
 ```text
 ⌚︎ Timezone: Asia/Calcutta
 ```
 
-`SHOW_EDITORS` bayrağı, kod editörleri/IDE'lerin listesini gizlemek için `False` olarak ayarlanabilir.
+`SHOW_EDITORS` flagı, kod editörleri/IDE'lerin listesini gizlemek için `False` olarak ayarlanabilir.
 
 ```text
 🔥 Editors:
@@ -248,7 +248,7 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 
 ```
 
-`SHOW_SHORT_INFO` bayrağı, kullanıcı hakkındaki kısa ve eğlenceli bilgileri gizlemek için `False` olarak ayarlanabilir.
+`SHOW_SHORT_INFO` flagı, kullanıcı hakkındaki kısa ve eğlenceli bilgileri gizlemek için `False` olarak ayarlanabilir.
 
 > [!NOTE]
 > Bu bölüm `user` kapsamına sahip bir Kişisel Erişim Tokeni (PAT) gerektirir, aksi takdirde burada gösterilen veriler yanlış olacaktır.
@@ -265,17 +265,17 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
  
 > 🔑 15 Sahip Olunan Özel Depo
 
-`SHOW_LOC_CHART` bayrağı, farklı yılların farklı çeyreklerinde yazılan satır sayısını gizlemek için `False` olarak ayarlanabilir.
+`SHOW_LOC_CHART` flagı, farklı yılların farklı çeyreklerinde yazılan satır sayısını gizlemek için `False` olarak ayarlanabilir.
 
-`IGNORED_REPOS` bayrağı, saymamak istediğiniz bazı reposları atlamak için `"waka-readme-stats, my-first-repo"` (sadece bir örnek) olarak ayarlanabilir.
+`IGNORED_REPOS` flagı, saymamak istediğiniz bazı reposları atlamak için `"waka-readme-stats, my-first-repo"` (sadece bir örnek) olarak ayarlanabilir.
 
-`MAX_REPOS` bayrağı, analiz için alınan GitHub reposu sayısını sınırlamak için ayarlanabilir (varsayılan: `0` = sınırsız). Bu, birçok repo ile hesaplar için çalışmayı hızlandırabilir.
+`MAX_REPOS` flagı, analiz için alınan GitHub reposu sayısını sınırlamak için ayarlanabilir (varsayılan: `0` = sınırsız). Bu, birçok repo ile hesaplar için çalışmayı hızlandırabilir.
 
 `MAX_CAP` kullanımlarını görürseniz, bu `MAX_REPOS` için eski bir takma adıdır.
 
-`WAKATIME_API_URL` bayrağı, kendi wakatime uyumlu arka uç sunucunuzu barındırıyorsanız ayarlanabilir, örneğin [wakapi](https://github.com/muety/wakapi). Sadece temel URL'nizi sağlamanız yeterlidir, örneğin `https://your-own-wakapi.dev/api/`
+`WAKATIME_API_URL` flagı, kendi wakatime uyumlu arka uç sunucunuzu barındırıyorsanız ayarlanabilir, örneğin [wakapi](https://github.com/muety/wakapi). Sadece temel URL'nizi sağlamanız yeterlidir, örneğin `https://your-own-wakapi.dev/api/`
 
-`SYMBOL_VERSION` bayrağı, ilerleme çubuğu sembolü için ayarlanabilir (varsayılan: `1`).
+`SYMBOL_VERSION` flagı, ilerleme çubuğu sembolü için ayarlanabilir (varsayılan: `1`).
 
 | Sürüm | Yapılan Blok | Boş Blok |
 | ------- | ---------- | ----------- |
