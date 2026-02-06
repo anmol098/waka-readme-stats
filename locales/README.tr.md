@@ -320,11 +320,11 @@ Lütfen herhangi bir özellik paylaşın ve birim testleri ekleyin! Katkıda bul
 
 # Seçilen Katkıda Bulunanlar
 
-1. [Anmol Pratap Singh](https://github.com/anmol098): Proje Yöneticisi
-2. [Alexander Sergeev](https://github.com/pseusys): Proje Yöneticisi
-3. [DataBoySu](https://github.com/DataBoySu): Proje Yöneticisi
-4. [okcoder1](https://github.com/ok-coder1): Proje Yöneticisi
-5. [Aravind V. Nair](https://github.com/aravindvnair99): Proje Yöneticisi
+1. [Anmol Pratap Singh](https://github.com/anmol098): Proje Yöneticisi" (Maintainer)
+2. [Alexander Sergeev](https://github.com/pseusys): Proje Yöneticisi" (Maintainer)
+3. [DataBoySu](https://github.com/DataBoySu): Proje Yöneticisi" (Maintainer)
+4. [okcoder1](https://github.com/ok-coder1): Proje Yöneticisi" (Maintainer)
+5. [Aravind V. Nair](https://github.com/aravindvnair99): Proje Yöneticisi" (Maintainer)
 6. [Prabhat Singh](https://github.com/prabhatdev): Kod zaman çizelgesi grafiği için [#18](https://github.com/anmol098/waka-readme-stats/pull/18)
 7. [Hedy Li](https://github.com/hedythedev): Pull Request [#34](https://github.com/anmol098/waka-readme-stats/pull/34) ve [#23](https://github.com/anmol098/waka-readme-stats/pull/23) için
 8. [Pedro Torres](https://github.com/Corfucinas): Pull Request [#29](https://github.com/anmol098/waka-readme-stats/pull/29) için
