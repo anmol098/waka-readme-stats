@@ -479,7 +479,7 @@ Lütfen herhangi bir özellik paylaşın ve birim testleri ekleyin! Katkıda bul
 
 </details>
 
-- Hey sen! Eğer şu anda kullanıyorsan ve listede değilsen, lütfen bize bir [Özel Teşekkür](https://github.com/anmol098/waka-readme-stats/issues/new/choose) bildirimi göndererek haber ver! :blush: \
+- Peki ya sen? Eğer şu anda kullanıyorsan ve listede değilsen, lütfen bize bir [Özel Teşekkür](https://github.com/anmol098/waka-readme-stats/issues/new/choose) bildirimi göndererek haber ver! :blush: \
   Seni listeye eklemekten mutluluk duyarız.
 
 Python 🐍 ve :heart: ile geliştirildi.
