@@ -157,6 +157,16 @@ inputs:
     description: "Version of the symbol block and empty of the progress bar"
     default: "1"
 
+  SYMBOL_STYLE:
+    required: false
+    description: "Style of the symbol block and empty of the progress bar"
+    default: ""
+
+  CODE_BLOCK_LANGUAGE:
+    required: false
+    description: "Language of the code block"
+    default: "text"
+
   BADGE_STYLE:
     required: false
     description: "Style for the badge maker (flat, flat-square, plastic, for-the-badge, social)"
@@ -174,4 +184,5 @@ runs:
 branding:
   icon: 'activity'
   color: 'orange'
+
 

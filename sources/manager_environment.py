@@ -67,6 +67,8 @@ class EnvironmentManager:
     if MAX_REPOS < 0:
         MAX_REPOS = 0
     SYMBOL_VERSION = int(getenv("INPUT_SYMBOL_VERSION", "1"))
+    SYMBOL_STYLE: str = getenv("INPUT_SYMBOL_STYLE", "")
+    CODE_BLOCK_LANGUAGE: str = getenv("INPUT_CODE_BLOCK_LANGUAGE", "text")
     BADGE_STYLE = getenv("BADGE_STYLE", "flat")
 
     DEBUG_LOGGING = getenv("INPUT_DEBUG_LOGGING", "0").lower() in _TRUTHY
