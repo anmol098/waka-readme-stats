@@ -7,11 +7,11 @@
 ---
 
 > [!IMPORTANT]
-> We are looking for translators for this project. \
-> Any kind of help would be greatly appreciated. \
-> Please see issue <https://github.com/anmol098/waka-readme-stats/issues/23> if you would like to help!
+> Bu proje için çevirmenler arıyoruz. \
+> Her türlü katkı bizim için çok değerlidir. \
+> Yardım etmek isterseniz lütfen <https://github.com/anmol098/waka-readme-stats/issues/23> adresindeki Issue başlığına göz atın!
 
-# Dev Metrics in README with added feature flags 🎌
+# Ek özellik flag'leriyle README'de Geliştirici Metrikleri 🎌
 
 ![Project Preview](https://user-images.githubusercontent.com/25841814/79395484-5081ae80-7fac-11ea-9e27-ac91472e31dd.png)
 
@@ -33,39 +33,40 @@
 </p>
 
 <p align="center">
-   Erken bir 🐤 misin yoksa gece bir 🦉 misin?
+   Erkenci bir 🐤 misiniz yoksa gece kuşu 🦉 mu?
    <br/>
-   Gün içinde en üretken olduğun saatler hangileri?
+   Gün içinde en üretken olduğunuz saatler hangileri?
    <br/>
-   Hangi dillerde kod yazarsın?
+   Hangi dillerde kod yazıyorsunuz?
    <br/>
-   Profilin README'sinde bunları inceleyelim!
+   Profilinizin README'sinde bunları inceleyelim!
 </p>
 
 <p align="center">
     <a href="https://github.com/anmol098/waka-readme-stats/issues">Hata Bildir</a>
+    ·
     <a href="https://github.com/anmol098/waka-readme-stats/issues">Özellik Talep Et</a>
   </p>
 
 ## Hazırlık Çalışmaları
 
-1. `.md` uzantılı markdown dosyasını 2 yorumla güncellemeniz gerekir. Bu konuda [buraya](#update-your-readme) bakabilirsiniz.
+1. `.md` uzantılı markdown dosyanızı 2 yorum satırı ekleyerek güncellemeniz gerekir. Bu konuda [buraya](#update-your-readme) bakabilirsiniz.
 2. WakaTime API Anahtarı'na ihtiyacınız olacak. Bu anahtarı WakaTime Hesap Ayarlarınızdan alabilirsiniz
     - WakaTime'a yeniyseniz [buraya](#new-to-wakatime) bakabilirsiniz.
-3. Commit metriklerini almak için eylemi çalıştırıyorsanız, [buradan](https://github.com/settings/tokens) `repo` ve `user` kapsamına sahip bir GitHub API Token'ına ihtiyacınız olacak.
+3. Commit metriklerini almak için eylemi çalıştırıyorsanız, [buradan](https://github.com/settings/tokens) `repo` ve `user` scope'larına (yetki alanlarına) sahip bir GitHub API Token'ına ihtiyacınız olacak.
    - Bunun nasıl yapılacağını görmek için [buraya](#profile-repository) örnek kullanabilirsiniz.
 
 > [!NOTE]
-> Enabling the `repo` scope seems **DANGEROUS**, \
-> but this GitHub Action only accesses your commit timestamps and the number of lines of code added or deleted in repositories that you contributed to.
+> `repo` scope'unu etkinleştirmek **TEHLİKELİ** görünebilir, \
+> ancak bu GitHub Action yalnızca commit zaman damgalarınıza ve katkıda bulunduğunuz depolarda eklenen veya silinen kod satırı sayısına erişir.
 
-4. WakaTime API Anahtarını ve GitHub API Token'ını depo gizli bilgilerinde kaydetmeniz gerekir. Bu, depo ayarlarınızda bulabilirsiniz. \
+4. WakaTime API Anahtarını ve GitHub API Token'ını Repository Secrets (Depo Sırları) kısmına kaydetmeniz gerekir. Bunu depo ayarlarınızda bulabilirsiniz. \
   Aşağıdaki şekilde bunları kaydetmekten emin olun:
     - WakaTime API Anahtarını `WAKATIME_API_KEY=<your wakatime API Key>` olarak
     - GitHub Kişisel Erişim Token'ını (PAT) `GH_TOKEN=<your github access token>` olarak
 5. Gereksinimlerinize göre özellik bayraklarını etkinleştirebilir ve devre dışı bırakabilirsiniz.
 
-Bu GitHub Eylemi, isterseniz `cron` kullanarak herhangi bir zaman da çalıştırılabilir. `cron` ifadeleri oluşturmak için [Crontab.guru](https://crontab.guru/) ve [bu](https://crontab.cronhub.io/) web sitesine bakın.
+Bu GitHub Action, isterseniz `cron` kullanarak herhangi bir zaman da çalıştırılabilir. `cron` ifadeleri oluşturmak için [Crontab.guru](https://crontab.guru/) ve [bu](https://crontab.cronhub.io/) web sitesine bakın.
 
 ## Readme'nizi Güncelleyin
 
@@ -91,16 +92,16 @@ WakaTime, kodlama üzerinde gerçekten harcadığınız süreyi size gösterir. 
 
 ### Profil Depo
 
-Bir [GitHub Erişim Tokenı](https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token) almanız gerekir ve `repo` ve `user` kapsamına sahip olmalıdır ve `GH_TOKEN = <Your GitHub Access Token>` Depo Gizliliklerinde kaydetmelisiniz.
+Bir [GitHub Access Token](https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token) almanız gerekir ve `repo` ve `user` scope'larına sahip olmalıdır ve `GH_TOKEN = <Your GitHub Access Token>` olarak Repository Secrets (Depo Sırları) kısmına kaydetmelisiniz.
 
-Bunu çalıştırmak için örnek bir workflow Dosyası aşağıdadır:
+Bunu çalıştırmak için örnek bir Workflow dosyası aşağıdadır:
 
 ```yml
 name: Waka Readme
 
 on:
   schedule:
-    # Runs at 12am IST
+    # Her gün gece 12'de (IST) çalışır
     - cron: '30 18 * * *'
   workflow_dispatch:
 jobs:
@@ -114,11 +115,11 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 ```
 
-- Şimdi commit yapabilir ve otomatik olarak çalışmasını bekleyebilirsiniz, ya da sonuçları hemen görmek için çalıştırma işlemini manuel olarak da tetikleyebilirsiniz. Sadece repo'nuzdaki `Actions` bölümüne gidin, `Profile Readme Development Stats` iş akışınızı seçin ve `Run workflow`'a tıklayın. Bir ya da iki dakika bekleyin ve değişikliklerinizi göreceksiniz.
+- Şimdi commit yapabilir ve otomatik olarak çalışmasını bekleyebilirsiniz, ya da sonuçları hemen görmek için çalıştırma işlemini manuel olarak da tetikleyebilirsiniz. Sadece repo'nuzdaki `Actions` bölümüne gidin, `Profile Readme Development Stats` workflow'ünü seçin ve `Run workflow`'a tıklayın. Bir ya da iki dakika bekleyin ve değişikliklerinizi göreceksiniz.
 
 ## Ekstra Bilgiler
 
-İstatistiklerinize diğer bilgileri eklemek isterseniz, iş akış dosyanıza birden fazla `FLAGS` ekleyebilirsiniz. Varsayılan olarak tüm bayraklar etkinleştirilir (satır sayısı bayrağı hariç, çünkü bu işlem yoğun bir işlemdir).
+İstatistiklerinize diğer bilgileri eklemek isterseniz, Workflow dosyanıza birden fazla `FLAGS` ekleyebilirsiniz. Varsayılan olarak tüm flaglar etkinleştirilir (satır sayısı flagı hariç, çünkü bu işlem yoğun bir işlemdir).
 
 ```yml
 - uses: anmol098/waka-readme-stats@master
@@ -129,62 +130,62 @@ jobs:
       SHOW_PROJECTS: "False"
 ```
 
-### Kullanılabilir Bayraklar
+### Kullanılabilir flaglar
 
 ---
 
-`LOCALE`  Bu bayrak, istatistikleri kendi dilinizde göstermek için kullanılabilir. Varsayılan olarak İngilizcedir. Locale [Kısa Form](https://saimana.com/list-of-country-locale-code/) bayrak değişkenine aktarılmalıdır. Sonuçta elde edilecek örnek [burada](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md) bulunabilir.
+`LOCALE`  Bu flagı, istatistikleri kendi dilinizde göstermek için kullanılabilir. Varsayılan olarak İngilizcedir. Locale [Kısa Form](https://saimana.com/list-of-country-locale-code/) flagı değişkenine aktarılmalıdır. Sonuçta elde edilecek örnek [burada](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md) bulunabilir.
 
-`SECTION_NAME` bayrağı herhangi bir string olarak ayarlanabilir ve README'de değiştirilecek bölümün adı olacaktır.
+`SECTION_NAME` flagı herhangi bir string olarak ayarlanabilir ve README'de değiştirilecek bölümün adı olacaktır.
 
-`COMMIT_BY_ME` bayrağı `True` olarak ayarlanarak kodu kendi adınız ve e-posta adresinizle commit edebilirsiniz.
+`COMMIT_BY_ME` flagı `True` olarak ayarlanarak kodu kendi adınız ve e-posta adresinizle commit edebilirsiniz.
 
-`COMMIT_MESSAGE` bayrağı commit mesajı için ayarlanabilir. Varsayılan "Updated with Dev Metrics" dir.
+`COMMIT_MESSAGE` flagı commit mesajı için ayarlanabilir. Varsayılan "Updated with Dev Metrics" dir.
 
-`COMMIT_USERNAME` bayrağı, kodu commit etmek için bir kullanıcı adı olarak ayarlanabilir. Varsayılan "readme-bot" dur.
+`COMMIT_USERNAME` flagı, kodu commit etmek için bir kullanıcı adı olarak ayarlanabilir. Varsayılan "readme-bot" dur.
 
-`COMMIT_EMAIL` bayrağı, kodu commit etmek için bir e-posta olarak ayarlanabilir. Varsayılan "41898282+github-actions[bot]@users.noreply.github.com" dir.
+`COMMIT_EMAIL` flagı, kodu commit etmek için bir e-posta olarak ayarlanabilir. Varsayılan "41898282+github-actions[bot]@users.noreply.github.com" dir.
 
-`SHOW_UPDATED_DATE` bayrağı `True` olarak ayarlanarak paragrafın sonunda güncellenme tarihi gösterilebilir.
+`SHOW_UPDATED_DATE` flagı `True` olarak ayarlanarak paragrafın sonunda güncellenme tarihi gösterilebilir.
 
-`UPDATED_DATE_FORMAT` bayrağı, güncellenme tarihini bir formatla göstermek için ayarlanabilir. Varsayılan `"%d/%m/%Y %H:%M:%S"` dir.
+`UPDATED_DATE_FORMAT` flagı, güncellenme tarihini bir formatla göstermek için ayarlanabilir. Varsayılan `"%d/%m/%Y %H:%M:%S"` dir.
 
-`SHOW_LINES_OF_CODE` bayrağı `True` olarak ayarlanarak bugüne kadar yazılan satır sayısının gösterilmesi sağlanabilir.
+`SHOW_LINES_OF_CODE` flagı `True` olarak ayarlanarak bugüne kadar yazılan satır sayısının gösterilmesi sağlanabilir.
 
 ![Lines of Code](https://img.shields.io/badge/From%20Hello%20World%20I've%20written-1.3%20million%20Lines%20of%20code-blue)
 
-`SHOW_TOTAL_CODE_TIME` bayrağı `False` olarak ayarlanarak *Code Time* gizlenebilir.
+`SHOW_TOTAL_CODE_TIME` flagı `False` olarak ayarlanarak *Code Time* gizlenebilir.
 
 ![Code Time](http://img.shields.io/badge/Code%20Time-1%2C438%20hrs%2054%20mins-blue)
 
-`SHOW_PROFILE_VIEWS` bayrağı `False` olarak ayarlanarak **Profile Views** gizlenebilir.
+`SHOW_PROFILE_VIEWS` flagı `False` olarak ayarlanarak **Profile Views** gizlenebilir.
 
 ![Profile Views](http://img.shields.io/badge/Profile%20Views-2189-blue)
 
-`SHOW_COMMIT` bayrağı `False` olarak ayarlanarak commit istatistikleri gizlenebilir.
+`SHOW_COMMIT` flagı `False` olarak ayarlanarak commit istatistikleri gizlenebilir.
 
-**Ben erken bir 🐤**
+**Ben erkenci bir kuşum 🐤**
 
 ```text
-🌞 Morning    95 commits     ███████░░░░░░░░░░░░░░░░░░   30.55% 
-🌆 Daytime    78 commits     ██████░░░░░░░░░░░░░░░░░░░   25.08% 
-🌃 Evening    112 commits    █████████░░░░░░░░░░░░░░░░   36.01% 
-🌙 Night      26 commits     ██░░░░░░░░░░░░░░░░░░░░░░░   8.36%
+🌞 Sabah      95 commits     ███████░░░░░░░░░░░░░░░░░░   30.55% 
+🌆 Gündüz     78 commits     ██████░░░░░░░░░░░░░░░░░░░   25.08% 
+🌃 Akşam      112 commits    █████████░░░░░░░░░░░░░░░░   36.01% 
+🌙 Gece       26 commits     ██░░░░░░░░░░░░░░░░░░░░░░░   8.36%
 
 ```
 
 `SHOW_DAYS_OF_WEEK` bayrağı, haftanın farklı günlerinde yapılan değişiklikleri gizlemek için `False` olarak ayarlanabilir.
 
-📅 **Hafta Sonu En Üretken Günüm**
+📅 **En Üretken Olduğum Gün Pazar**
 
 ```text
-Monday       50 commits     ███░░░░░░░░░░░░░░░░░░░░░░   13.19% 
-Tuesday      85 commits     █████░░░░░░░░░░░░░░░░░░░░   22.43% 
-Wednesday    56 commits     ███░░░░░░░░░░░░░░░░░░░░░░   14.78% 
-Thursday     44 commits     ███░░░░░░░░░░░░░░░░░░░░░░   11.61% 
-Friday       28 commits     █░░░░░░░░░░░░░░░░░░░░░░░░   7.39% 
-Saturday     30 commits     ██░░░░░░░░░░░░░░░░░░░░░░░   7.92% 
-Sunday       86 commits     █████░░░░░░░░░░░░░░░░░░░░   22.69%
+Pazartesi    50 commits     ███░░░░░░░░░░░░░░░░░░░░░░   13.19% 
+Salı         85 commits     █████░░░░░░░░░░░░░░░░░░░░   22.43% 
+Çarşamba     56 commits     ███░░░░░░░░░░░░░░░░░░░░░░   14.78% 
+Perşembe     44 commits     ███░░░░░░░░░░░░░░░░░░░░░░   11.61% 
+Cuma         28 commits     █░░░░░░░░░░░░░░░░░░░░░░░░   7.39% 
+Cumartesi    30 commits     ██░░░░░░░░░░░░░░░░░░░░░░░   7.92% 
+Pazar        86 commits     █████░░░░░░░░░░░░░░░░░░░░   22.69%
 
 ```
 
@@ -234,7 +235,7 @@ PyCharm                  23 mins             █░░░░░░░░░░�
 
 `SHOW_LANGUAGE_PER_REPO` bayrağı, farklı programlama dilleri ve çerçevelerdeki depo sayısını gizlemek için `False` olarak ayarlanabilir.
 
-**Vue'de çoğunlukla kod yazıyorum**
+**En çok Vue kullanıyorum**
 
 ```text
 Vue          8 repos        ██████░░░░░░░░░░░░░░░░░░░   25.0% 
@@ -247,10 +248,10 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 
 ```
 
-`SHOW_SHORT_INFO` bayrağı, bir kullanıcının kısa eğlenceli bilgi bilgisini gizlemek için `False` olarak ayarlanabilir.
+`SHOW_SHORT_INFO` bayrağı, kullanıcı hakkındaki kısa ve eğlenceli bilgileri gizlemek için `False` olarak ayarlanabilir.
 
 > [!NOTE]
-> This section requires a Personal Access Token (PAT) with the `user` scope, otherwise the data shown here will be incorrect.
+> Bu bölüm `user` kapsamına sahip bir Kişisel Erişim Tokeni (PAT) gerektirir, aksi takdirde burada gösterilen veriler yanlış olacaktır.
 
 **🐱 GitHub Verilerim**
 
@@ -260,9 +261,9 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
  >
 > 💼 İşe Alım için Seçildi
  >
-> 📜 25 Kamuoyu Repository
- >
-> 🔑 15 Sahipli Özel Repository
+> 📜 25 Herkese Açık Depo
+ 
+> 🔑 15 Sahip Olunan Özel Depo
 
 `SHOW_LOC_CHART` bayrağı, farklı yılların farklı çeyreklerinde yazılan satır sayısını gizlemek için `False` olarak ayarlanabilir.
 
@@ -282,15 +283,15 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 |    2    |      ⣿     |       ⣀     |
 |    3    |      ⬛    |       ⬜    |
 
-`DEBUG_LOGGING` bayrağı, GitHub Eylemi çıktısının yoğunluğunu artırmak için ayarlanabilir. Varsayılan, iç runner'ın hata ayıklama özelliğidir.
-`BADGE_STYLE` bayrağı, oluşturulan levhaların tarzını tanımlar ve `flat`, `flat-square`, `plastic`, `for-the-badge` veya `social` olarak ayarlanabilir.
-|    Levha Tarzı    | Önizleme |
-| ----------------- |- |
-|       `flat`      | ![Levha Tarzı `flat`](https://img.shields.io/badge/Badge-Style-blue?style=flat)                   |
-|   `flat-square`   | ![Levha Tarzı `flat-square`](https://img.shields.io/badge/Badge-Style-blue?style=flat-square)     |
-|     `plastic`     | ![Levha Tarzı `plastic`](https://img.shields.io/badge/Badge-Style-blue?style=plastic)             |
-|  `for-the-badge`  | ![Levha Tarzı `for-the-badge`](https://img.shields.io/badge/Badge-Style-blue?style=for-the-badge) |
-|      `social`     | ![Levha Tarzı `social`](https://img.shields.io/badge/Badge-Style-blue?style=social)               |
+`DEBUG_LOGGING` bayrağı, GitHub Action çıktısının yoğunluğunu artırmak için ayarlanabilir. Varsayılan olarak, GitHub runner'ın debug ayarını kullanır.
+`BADGE_STYLE` bayrağı, oluşturulan rozetlerin stilini tanımlar ve `flat`, `flat-square`, `plastic`, `for-the-badge` veya `social` olarak ayarlanabilir.
+|    Rozet Stili    |                                             Önizleme                                               |
+| ----------------- | ------------------------------------------------------------------------------------------------- |
+|       `flat`      | ![Rozet Stili `flat`](https://img.shields.io/badge/Badge-Style-blue?style=flat)                   |
+|   `flat-square`   | ![Rozet Stili `flat-square`](https://img.shields.io/badge/Badge-Style-blue?style=flat-square)     |
+|     `plastic`     | ![Rozet Stili `plastic`](https://img.shields.io/badge/Badge-Style-blue?style=plastic)             |
+|  `for-the-badge`  | ![Rozet Stili `for-the-badge`](https://img.shields.io/badge/Badge-Style-blue?style=for-the-badge) |
+|      `social`     | ![Rozet Stili `social`](https://img.shields.io/badge/Badge-Style-blue?style=social)               |
 
 **Zaman Çizelgesi**
 
@@ -298,30 +299,32 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 
 ## :sparkling_heart: Proje destekleyin
 
-İşlemi açık kaynaklı hale getirmeye çalışıyorum ve bu projelerle ilgili yardım isteyen herkese cevap vermeye çalışıyorum. Elbette,
+Neredeyse her şeyi açık kaynak olarak yayınlıyorum ve bu projeleri kullanan herkese yardımcı olmaya çalışıyorum. Elbette,
 bu zaman alır. Bu hizmeti ücretsiz olarak kullanabilirsiniz.
 
-Ancak, bu projeyi kullanıyorsanız ve ondan memnunsanız veya sadece devam ederek şey yaratmamı teşvik etmek istiyorsanız, bunu yapabileceğiniz birkaç yol vardır :-
+Ancak, bu projeyi kullanıyorsanız ve memnunsanız ya da sadece yeni şeyler yaratmam için beni teşvik etmek istiyorsanız, bunu yapmanın birkaç yolu var :-
 
-- Bu eylemi readme dosyanızda kullandığınızda uygun şekilde atıf yapın ve buraya geri dönmeyi unutmayın :D
+- Bu GitHub Action readme dosyanızda kullandığınızda uygun şekilde atıf yapın ve projeye geri bağlantı (link) vermeyi unutmayın :D
 - Projeyi yıldızla ve paylaşın :rocket:
-- [![paypal.me/aapreneur](https://ionicabizau.github.io/badges/paypal.svg)](https://www.paypal.me/aapreneur) - PayPal üzerinden tek seferlik bağışlar yapabilirsiniz. Muhtemelen bir ~~bira~~ şarap 🍷 alırım.
+- [![paypal.me/aapreneur](https://ionicabizau.github.io/badges/paypal.svg)](https://www.paypal.me/aapreneur) - PayPal üzerinden tek seferlik bağışlar yapabilirsiniz. Muhtemelen kendime bir şarap 🍷 ısmarlarım.
 
 Teşekkürler! :heart:
 
-# Katkıda Bulunma
+---
 
-Katkılar hoştur ♥!
+# Katkıda Bulunma (Contributor)
 
-Lütfen herhangi bir özellik paylaşın ve birim testleri ekleyin! Katkıda bulunmak için çekme istekleri ve sorun sistemlerini kullanın.
+Katkılar memnuniyetle karşılanır ♥!
+
+Lütfen herhangi bir özellik paylaşın ve birim testleri ekleyin! Katkıda bulunmak için Pull Request (PR) ve Issue sistemlerini kullanın.
 
 # Seçilen Katkıda Bulunanlar
 
-1. [Anmol Pratap Singh](https://github.com/anmol098): Bakım
-2. [Alexander Sergeev](https://github.com/pseusys): Bakım
-3. [DataBoySu](https://github.com/DataBoySu): Bakım
-4. [okcoder1](https://github.com/ok-coder1): Bakım
-5. [Aravind V. Nair](https://github.com/aravindvnair99): Bakım
+1. [Anmol Pratap Singh](https://github.com/anmol098): Proje Yöneticisi
+2. [Alexander Sergeev](https://github.com/pseusys): Proje Yöneticisi
+3. [DataBoySu](https://github.com/DataBoySu): Proje Yöneticisi
+4. [okcoder1](https://github.com/ok-coder1): Proje Yöneticisi
+5. [Aravind V. Nair](https://github.com/aravindvnair99): Proje Yöneticisi
 6. [Prabhat Singh](https://github.com/prabhatdev): Kod zaman çizelgesi grafiği için [#18](https://github.com/anmol098/waka-readme-stats/pull/18)
 7. [Hedy Li](https://github.com/hedythedev): Pull Request [#34](https://github.com/anmol098/waka-readme-stats/pull/34) ve [#23](https://github.com/anmol098/waka-readme-stats/pull/23) için
 8. [Pedro Torres](https://github.com/Corfucinas): Pull Request [#29](https://github.com/anmol098/waka-readme-stats/pull/29) için
@@ -332,7 +335,7 @@ Lütfen herhangi bir özellik paylaşın ve birim testleri ekleyin! Katkıda bul
 
 <details>
 
-<summary>Special mention for those who are currently making their profile readme more awesome :smile: :tada:</summary>
+<summary>Profil README'lerini daha havalı hale getiren kişilere özel teşekkür :smile: :tada:</summary>
 
 - [Stanislas](https://github.com/angristan)
   
@@ -476,19 +479,18 @@ Lütfen herhangi bir özellik paylaşın ve birim testleri ekleyin! Katkıda bul
 
 </details>
 
-- Ve sen! Eğer şu anda kullanıyorsan ve listede değilse lütfen bize bir [Special Mention](https://github.com/anmol098/waka-readme-stats/issues/new/choose) konusu göndererek bildir! :blush: \
-  Listeye ekmemiz için memnuniyetle oluruz.
+- Hey sen! Eğer şu anda kullanıyorsan ve listede değilsen, lütfen bize bir [Özel Teşekkür](https://github.com/anmol098/waka-readme-stats/issues/new/choose) bildirimi göndererek haber ver! :blush: \
+  Seni listeye eklemekten mutluluk duyarız.
 
-:heart: ve Python 🐍 ile yapıldı.
+Python 🐍 ve :heart: ile geliştirildi.
 
-# Ilham Alan Kaynaklar
+# İlham Kaynakları
 
 > [Awesome Pinned Gists](https://github.com/matchai/awesome-pinned-gists) <br/>
 > [athul/waka-readme](https://github.com/athul/waka-readme)
 
-### Bu proje sizden bir **yıldız** ⭐ istiyor ♥
+### Bu proje sizden bir **Yıldız** ⭐ istiyor ♥
 
 ## Zaman içinde yıldız verenler
 
 [![Stargazers over time](https://starchart.cc/anmol098/waka-readme-stats.svg)](https://starchart.cc/anmol098/waka-readme-stats)
-
