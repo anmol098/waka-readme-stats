@@ -110,7 +110,7 @@ class GitHubManager:
         dst_path = join(GitHubManager.REPO.working_tree_dir, src_path)
         makedirs(dirname(dst_path), exist_ok=True)
         copy(src_path, dst_path)
-        GitHubManager.REPO.git.add(dst_path)
+        GitHubManager.REPO.git.add(dst_path, force=True)
 
     @staticmethod
     def update_readme(stats: str):
