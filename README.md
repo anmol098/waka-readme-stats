@@ -141,7 +141,7 @@ The `COMMIT_BY_ME` flag can be set to `True` to commit the code using your name 
 
 The `COMMIT_MESSAGE` flag can be set for the commit message. The default is "Updated with Dev Metrics"
 
-The `COMMIT_USERNAME` flag can be set as a username to commit the code. The default is "readme-bot".
+The `COMMIT_USERNAME` flag can be set to username to commit the code. The default is "github-actions[bot]"
 
 The `COMMIT_EMAIL` flag can be set to an email to commit the code. The default is "41898282+github-actions[bot]@users.noreply.github.com".
 
