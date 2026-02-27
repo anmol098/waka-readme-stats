@@ -113,7 +113,7 @@ jobs:
 
       - name: Upload Artifact 📦
         if: ${{ steps.gate.outputs.code == 'true' }}
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ format('assets-{0}', steps.branch.outputs.branch_name) }}
           path: assets
