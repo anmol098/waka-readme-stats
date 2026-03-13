@@ -26,7 +26,7 @@ jobs:
       - name: Detect changed paths (push)
         if: ${{ github.event_name == 'push' }}
         id: filter
-        uses: dorny/paths-filter@v3
+        uses: dorny/paths-filter@v4
         with:
           base: ${{ github.event.before }}
           ref: ${{ github.sha }}
