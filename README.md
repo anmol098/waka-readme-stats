@@ -282,7 +282,12 @@ The `SYMBOL_VERSION` flag can be set for the symbol for the progress bar (defaul
 |    2    |      ⣿     |       ⣀     |
 |    3    |      ⬛    |       ⬜    |
 
+The `SYMBOL_STYLE` flag can be set to `"▰▱"` (just an example) to change the style of progress bar (by default is empty). If the length of the string is not 2, the default symbol version will be used.
+
+The `CODE_BLOCK_LANGUAGE` flag can be set to `"python"` (just an example) to change the language of code blocks (by default is `"text"`). Here is a [list](https://github.com/jincheng9/markdown_supported_languages) of the language code blocks supported by github.
+
 The `DEBUG_LOGGING` flag can be set to increase the GitHub Action's output verbosity, The default is the internal runner's debug property.
+
 The `BADGE_STYLE` flag defines the style for the generated badges and can be set to `flat`, `flat-square`, `plastic`, `for-the-badge`, or `social`.
 |    Badge Style    |                                             Preview                                               |
 | ----------------- | ------------------------------------------------------------------------------------------------- |
@@ -459,6 +464,8 @@ Please share any features, and add unit tests! Use the pull request and issue sy
 - [Wyatt Walsh](https://www.github.com/wyattowalsh)
 
 - [Nithin Balaji](https://github.com/thenithinbalaji)
+  
+- [Caupolicán Ré](https://github.com/caupolicanre)
 
 - [John Cortés](https://github.com/johncortes117)
 
