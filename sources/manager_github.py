@@ -107,7 +107,7 @@ class GitHubManager:
         :param src_path: Source file path.
         """
         # Force add flag check
-        forced_add = getattr(EM, 'FORCE_ADD', False)
+        forced_add = getattr(EM, "FORCE_ADD", False)
         dst_path = join(GitHubManager.REPO.working_tree_dir, src_path)
         makedirs(dirname(dst_path), exist_ok=True)
         copy(src_path, dst_path)
