@@ -1,0 +1,199 @@
+name: CI_PR
+
+on:
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+  repository-projects: read
+
+jobs:
+  ci:
+    name: Run Test and Review PR
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Detect whether code changed
+        id: changed
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request
+            if (!pr) {
+              core.setOutput('code', 'true')
+              return
+            }
+            const owner = pr.base.repo.owner.login
+            const repo = pr.base.repo.name
+            const files = await github.paginate(github.rest.pulls.listFiles, { owner, repo, pull_number: pr.number })
+            const paths = files.map(f => f.filename)
+
+            const isDoc = (p) => (
+              p.startsWith('locales/') ||
+              p === 'README.md' ||
+              p.startsWith('README.') ||
+              p === 'LICENSE' ||
+              p === 'CONTRIBUTING.md' ||
+              p === 'CODE_OF_CONDUCT.md' ||
+              p === 'sources/translation.json' ||
+              p.startsWith('sources/mock_data/')
+            )
+
+            const codeChanged = paths.some(p => !isDoc(p))
+            core.setOutput('code', codeChanged ? 'true' : 'false')
+            core.setOutput('files', paths.join('\n'))
+
+      - name: Docs-only PR (skip)
+        if: ${{ steps.changed.outputs.code != 'true' }}
+        run: |
+          echo "Docs-only PR detected; skipping comprehensive CI."
+
+      - name: Setup Python 3.13 🐍
+        if: ${{ steps.changed.outputs.code == 'true' }}
+        uses: actions/setup-python@v6
+        with:
+          python-version: 3.13
+          cache: 'pip'
+
+      - name: Install Dependencies 📥
+        if: ${{ steps.changed.outputs.code == 'true' }}
+        run: pip install -r requirements.txt
+
+      - name: Create Assets Folder 📥
+        if: ${{ steps.changed.outputs.code == 'true' }}
+        run: mkdir assets
+
+      - name: Run Action Preview on PR Code(Mock Waka stats/Implicit Github token) 🧪
+        if: ${{ steps.changed.outputs.code == 'true' }}
+        id: make-stats
+        env:
+          MOCK_WAKATIME: True
+          MOCK_DATA_DIR: sources/mock_data
+
+          DEBUG_RUN: True
+          INPUT_DEBUG_LOGGING: True
+
+          INPUT_GH_TOKEN: ${{ github.token }}
+          # Generate stats for the PR author
+          INPUT_GH_USER: ${{ github.event.pull_request.user.login }}
+
+          INPUT_SYMBOL_VERSION: 1
+          INPUT_SHOW_TIMEZONE: True
+          INPUT_SHOW_PROJECTS: True
+          INPUT_SHOW_EDITORS: True
+          INPUT_SHOW_OS: True
+          INPUT_SHOW_LANGUAGE: True
+          INPUT_SHOW_LINES_OF_CODE: True
+          INPUT_SHOW_LOC_CHART: True
+          INPUT_SHOW_PROFILE_VIEWS: False
+          INPUT_SHOW_TOTAL_CODE_TIME: True
+          INPUT_SHOW_SHORT_INFO: True
+          INPUT_SHOW_COMMIT: True
+          INPUT_SHOW_DAYS_OF_WEEK: True
+          INPUT_SHOW_LANGUAGE_PER_REPO: True
+          INPUT_SHOW_UPDATED_DATE: True
+
+        run: |
+          mkdir -p preview
+          python3 sources/main.py 2>&1 | tee preview/run.log
+
+      - name: Write preview markdown
+        if: ${{ steps.changed.outputs.code == 'true' }}
+        env:
+          README_CONTENT: ${{ steps.make-stats.outputs.README_CONTENT }}
+        run: |
+          mkdir -p preview
+          printf '%s\n' "$README_CONTENT" > preview/preview.md
+          if [ ! -s preview/preview.md ]; then
+            echo "README_CONTENT was empty." > preview/preview.md
+          fi
+
+      - name: Upload preview artifact
+        if: ${{ always() && steps.changed.outputs.code == 'true' }}
+        uses: actions/upload-artifact@v6
+        with:
+          name: preview-stats
+          path: |
+            preview/preview.md
+            preview/run.log
+          if-no-files-found: ignore
+
+      - name: Upsert preview comment 💬
+        if: ${{ steps.changed.outputs.code == 'true' && github.event.pull_request.head.repo.full_name == github.repository }}
+        uses: actions/github-script@v7
+        env:
+          README_CONTENT: ${{ steps.make-stats.outputs.README_CONTENT }}
+        with:
+          script: |
+            const marker = 'README stats current output:'
+            const body = process.env.README_CONTENT || ''
+
+            if (!context.payload.pull_request) {
+              core.info('No pull_request in context; skipping comment.')
+              return
+            }
+
+            if (!body.trim()) {
+              core.warning('README_CONTENT is empty; skipping comment.')
+              return
+            }
+
+            const { owner, repo } = context.repo
+            const issue_number = context.payload.pull_request.number
+
+            try {
+              const { data: comments } = await github.rest.issues.listComments({
+                owner,
+                repo,
+                issue_number,
+                per_page: 100,
+              })
+
+              const botComments = comments
+                .filter(c => c.user?.type === 'Bot')
+                .filter(c => (c.body || '').startsWith(marker))
+                .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+
+              const [latest, ...older] = botComments
+
+              // Hide older previews (if any)
+              for (const c of older) {
+                const current = c.body || ''
+                const alreadyHidden = current.startsWith('~~')
+                if (alreadyHidden) continue
+                await github.rest.issues.updateComment({
+                  owner,
+                  repo,
+                  comment_id: c.id,
+                  body: `~~${current}~~\n\n_This preview has been superseded by a newer run._`,
+                })
+              }
+
+              // Update the most recent preview if it exists; otherwise create one.
+              if (latest) {
+                await github.rest.issues.updateComment({
+                  owner,
+                  repo,
+                  comment_id: latest.id,
+                  body,
+                })
+              } else {
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number,
+                  body,
+                })
+              }
+            } catch (e) {
+              core.warning(`Unable to create/update PR comment: ${e.message || e}`)
+            }

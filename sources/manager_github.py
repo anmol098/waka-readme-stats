@@ -7,7 +7,9 @@ from shutil import copy, rmtree
 from string import ascii_letters
 
 from git import Repo, Actor
-from github import Github, AuthenticatedUser, Repository
+from github import Auth, Github
+from github.AuthenticatedUser import AuthenticatedUser
+from github.Repository import Repository
 
 from manager_environment import EnvironmentManager as EM
 from manager_file import FileManager as FM
@@ -44,15 +46,27 @@ class GitHubManager:
         - Named repo of the user [username]/[username].
         - Clone of the named repo.
         """
-        github = Github(EM.GH_TOKEN)
+        github = Github(auth=Auth.Token(EM.GH_TOKEN))
         clone_path = "repo"
-        GitHubManager.USER = github.get_user()
-        rmtree(clone_path, ignore_errors=True)
+
+        # we take the pr author's creds or the creds of token owner
+        if EM.GH_USER:
+            GitHubManager.USER = github.get_user(EM.GH_USER)
+        else:
+            GitHubManager.USER = github.get_user()
 
         GitHubManager._REMOTE_NAME = f"{GitHubManager.USER.login}/{GitHubManager.USER.login}"
         GitHubManager._REPO_PATH = f"https://{EM.GH_TOKEN}@github.com/{GitHubManager._REMOTE_NAME}.git"
 
+        # In DEBUG_RUN mode, nothing is pushed nor run
+        if EM.DEBUG_RUN:
+            GitHubManager.REMOTE = None
+            GitHubManager.REPO = None
+            return
+
         GitHubManager.REMOTE = github.get_repo(GitHubManager._REMOTE_NAME)
+
+        rmtree(clone_path, ignore_errors=True)
         GitHubManager.REPO = Repo.clone_from(GitHubManager._REPO_PATH, to_path=clone_path)
 
         if EM.COMMIT_SINGLE:

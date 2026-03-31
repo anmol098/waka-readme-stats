@@ -1,6 +1,7 @@
 """
 Readme Development Metrics With waka time progress
 """
+
 from asyncio import run
 from datetime import datetime
 from typing import Dict
@@ -15,7 +16,11 @@ from manager_file import init_localization_manager, FileManager as FM
 from manager_debug import init_debug_manager, DebugManager as DBM
 from graphics_chart_drawer import create_loc_graph, GRAPH_PATH
 from yearly_commit_calculator import calculate_commit_data
-from graphics_list_formatter import make_list, make_commit_day_time_list, make_language_per_repo_list
+from graphics_list_formatter import (
+    make_list,
+    make_commit_day_time_list,
+    make_language_per_repo_list,
+)
 
 
 async def get_waka_time_stats(repositories: Dict, commit_dates: Dict) -> str:
@@ -98,7 +103,10 @@ async def get_short_github_info() -> str:
 
     DBM.i("Adding contributions info...")
     if len(data["years"]) > 0:
-        contributions = FM.t("Contributions in the year") % (intcomma(data["years"][0]["total"]), data["years"][0]["year"])
+        contributions = FM.t("Contributions in the year") % (
+            intcomma(data["years"][0]["total"]),
+            data["years"][0]["year"],
+        )
         stats += f"> 🏆 {contributions}\n > \n"
     else:
         DBM.p("GitHub contributions data unavailable!")
@@ -135,16 +143,36 @@ async def collect_user_repositories() -> Dict:
     :returns: Complete list of user repositories.
     """
     DBM.i("Getting user repositories list...")
-    repositories = await DM.get_remote_graphql("user_repository_list", username=GHM.USER.login, id=GHM.USER.node_id)
+    if EM.MAX_REPOS > 0:
+        DBM.i(f"\tMAX_REPOS enabled: {EM.MAX_REPOS}")
+    repositories = await DM.get_remote_graphql(
+        "user_repository_list",
+        username=GHM.USER.login,
+        id=GHM.USER.node_id,
+        _max_nodes=(EM.MAX_REPOS if EM.MAX_REPOS > 0 else None),
+    )
+    if EM.MAX_REPOS > 0:
+        DBM.i(f"\tFetched {len(repositories)} repos out of MAX_REPOS={EM.MAX_REPOS}")
+    if EM.MAX_REPOS > 0 and len(repositories) >= EM.MAX_REPOS:
+        DBM.w(f"\tMAX_REPOS cap reached ({EM.MAX_REPOS}); skipping contributed repos.")
+        return repositories[: EM.MAX_REPOS]
     repo_names = [repo["name"] for repo in repositories]
     DBM.g("\tUser repository list collected!")
 
-    contributed = await DM.get_remote_graphql("repos_contributed_to", username=GHM.USER.login)
+    remaining = (EM.MAX_REPOS - len(repositories)) if EM.MAX_REPOS > 0 else None
+    contributed = await DM.get_remote_graphql("repos_contributed_to", username=GHM.USER.login, _max_nodes=remaining)
 
     contributed_nodes = [repo for repo in contributed if repo is not None and repo["name"] not in repo_names and not repo["isFork"]]
     DBM.g("\tUser contributed to repository list collected!")
 
-    return repositories + contributed_nodes
+    combined = repositories + contributed_nodes
+    if EM.MAX_REPOS > 0:
+        if len(combined) < EM.MAX_REPOS:
+            DBM.i(f"\tFetched repos < MAX_REPOS ({len(combined)} < {EM.MAX_REPOS}).")
+        else:
+            DBM.i(f"\tMAX_REPOS reached ({EM.MAX_REPOS}).")
+        return combined[: EM.MAX_REPOS]
+    return combined
 
 
 async def get_stats() -> str:
@@ -171,18 +199,49 @@ async def get_stats() -> str:
         if data is None:
             DBM.p("WakaTime data unavailable!")
         else:
-            stats += f"![Code Time](http://img.shields.io/badge/{quote('Code Time')}-{quote(str(data['data']['text']))}-blue)\n\n"
+            stats += f"![Code Time](http://img.shields.io/badge/{quote('Code Time')}-{quote(str(data['data']['text']))}-blue?style={quote(EM.BADGE_STYLE)})\n\n"
 
     if EM.SHOW_PROFILE_VIEWS:
-        DBM.i("Adding profile views info...")
-        data = GHM.REMOTE.get_views_traffic(per="week")
-        stats += f"![Profile Views](http://img.shields.io/badge/{quote(FM.t('Profile Views'))}-{data['count']}-blue)\n\n"
+        if EM.DEBUG_RUN or GHM.REMOTE is None:
+            DBM.w("Profile views skipped in DEBUG_RUN mode.")
+        else:
+            DBM.i("Adding profile views info...")
+            views_count = 0
+            try:
+                traffic = GHM.REMOTE.get_views_traffic(per="week")
+            except Exception as e:
+                DBM.w(f"Profile views unavailable, defaulting to 0: {e}")
+            else:
+                if isinstance(traffic, dict):
+                    views_count = traffic.get("count")
+                elif hasattr(traffic, "count"):
+                    views_count = getattr(traffic, "count")
+                elif isinstance(traffic, (list, tuple)):
+                    first = traffic[0] if len(traffic) > 0 else None
+                    if isinstance(first, dict):
+                        views_count = first.get("count")
+                    elif hasattr(first, "count"):
+                        views_count = getattr(first, "count")
+                    elif isinstance(first, list) and all(hasattr(v, "count") for v in first):
+                        views_count = sum(getattr(v, "count") for v in first)
+                    elif all(hasattr(v, "count") for v in traffic):
+                        views_count = sum(getattr(v, "count") for v in traffic)
+
+                if views_count is None:
+                    DBM.w(f"Profile views returned unexpected type ({type(traffic)}), defaulting to 0.")
+                    views_count = 0
+
+            stats += f"![Profile Views](http://img.shields.io/badge/" f"{quote(FM.t('Profile Views'))}-{views_count}-blue?style={quote(EM.BADGE_STYLE)})\n\n"
 
     if EM.SHOW_LINES_OF_CODE:
         DBM.i("Adding lines of code info...")
         total_loc = sum([yearly_data[y][q][d]["add"] for y in yearly_data.keys() for q in yearly_data[y].keys() for d in yearly_data[y][q].keys()])
-        data = f"{intword(total_loc)} {FM.t('Lines of code')}"
-        stats += f"![Lines of code](https://img.shields.io/badge/{quote(FM.t('From Hello World I have written'))}-{quote(data)}-blue)\n\n"
+        data = f"{intword(total_loc, format='%.2f')} {FM.t('Lines of code')}"
+        stats += (
+            f"![Lines of code](https://img.shields.io/badge/"
+            f"{quote(FM.t('From Hello World I have written'))}-{quote(data)}-blue?"
+            f"style={quote(EM.BADGE_STYLE)})\n\n"
+        )
 
     if EM.SHOW_SHORT_INFO:
         stats += await get_short_github_info()

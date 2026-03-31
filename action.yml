@@ -1,6 +1,6 @@
 name: 'Profile Readme Development Stats'
 author: Anmol Pratap Singh
-description: 'Are you an early 🐤 or a night 🦉? When are you most productive during the day? Let''s check out in your readme!'
+description: 'Are you an early 🐤 or a night 🦉? When are you most productive during the day? Check out in your readme!'
 
 inputs:
   GH_TOKEN:
@@ -11,6 +11,11 @@ inputs:
   WAKATIME_API_KEY:
     description: 'Your Wakatime API Key'
     required: true
+  
+  WAKATIME_API_URL:
+    description: 'Your Wakatime API URL'
+    required: false
+    default: "https://wakatime.com/api/v1/"
 
   SECTION_NAME:
     description: 'Name used in readme to scope the updated section'
@@ -137,10 +142,25 @@ inputs:
     description: "Repos you don't want to be counted"
     default: ""
 
+  MAX_REPOS:
+    required: false
+    description: "Maximum number of GitHub repositories to fetch (0 = unlimited)"
+    default: "0"
+
+  MAX_CAP:
+    required: false
+    description: "(Deprecated) Alias for MAX_REPOS"
+    default: "0"
+
   SYMBOL_VERSION:
     required: false
     description: "Version of the symbol block and empty of the progress bar"
     default: "1"
+
+  BADGE_STYLE:
+    required: false
+    description: "Style for the badge maker (flat, flat-square, plastic, for-the-badge, social)"
+    default: "flat"
 
   DEBUG_LOGGING:
     required: false
@@ -154,3 +174,4 @@ runs:
 branding:
   icon: 'activity'
   color: 'orange'
+
