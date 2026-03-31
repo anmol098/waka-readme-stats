@@ -119,9 +119,7 @@ class GitHubManager:
                 DBM.p(f"Potential Config Error!: '{src_path}' is ignored by .gitignore and was not added.")
                 DBM.p("To fix this, set the 'FORCE_ADD' flag in your workflow file to 'True'.")
                 # Fail fast to avoid continuing with an uncommitted asset
-                raise
-            else:
-                raise
+            raise
 
     @staticmethod
     def update_readme(stats: str):
