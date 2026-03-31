@@ -164,7 +164,7 @@ inputs:
 
   FORCE_ADD:
     required: false
-    description: "Whether to override repository gitignore file while committing the assets"
+    description: "Whether to override repository .gitignore file while committing the assets"
     default: "False"
 
   DEBUG_LOGGING:
