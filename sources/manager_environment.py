@@ -16,6 +16,8 @@ class EnvironmentManager:
     # Mocking with my stats for waka
     MOCK_WAKATIME = getenv("MOCK_WAKATIME", "False").lower() in _TRUTHY
     MOCK_DATA_DIR = getenv("MOCK_DATA_DIR", "mock_data")
+    
+    FORCE_ADD = getenv("FORCE_ADD", "false").lower() == "true"
 
     GH_TOKEN = getenv("INPUT_GH_TOKEN")
     if not GH_TOKEN:

@@ -5,6 +5,7 @@ from random import choice
 from re import sub
 from shutil import copy, rmtree
 from string import ascii_letters
+from git.exc import GitCommandError
 
 from git import Repo, Actor
 from github import Auth, Github
