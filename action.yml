@@ -162,6 +162,11 @@ inputs:
     description: "Style for the badge maker (flat, flat-square, plastic, for-the-badge, social)"
     default: "flat"
 
+  FORCE_ADD:
+    required: false
+    description: "Whether to override repository .gitignore file while committing the assets"
+    default: "False"
+
   DEBUG_LOGGING:
     required: false
     description: "Whether to enable action debug logging"
