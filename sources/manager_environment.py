@@ -17,8 +17,6 @@ class EnvironmentManager:
     MOCK_WAKATIME = getenv("MOCK_WAKATIME", "False").lower() in _TRUTHY
     MOCK_DATA_DIR = getenv("MOCK_DATA_DIR", "mock_data")
 
-    FORCE_ADD = getenv("FORCE_ADD", "false").lower() in _TRUTHY
-
     GH_TOKEN = getenv("INPUT_GH_TOKEN")
     if not GH_TOKEN:
         raise KeyError("Missing required token: set INPUT_GH_TOKEN")
@@ -57,6 +55,7 @@ class EnvironmentManager:
     COMMIT_USERNAME = getenv("INPUT_COMMIT_USERNAME", "")
     COMMIT_EMAIL = getenv("INPUT_COMMIT_EMAIL", "")
     COMMIT_SINGLE = getenv("INPUT_COMMIT_SINGLE", "").lower() in _TRUTHY
+    FORCE_ADD = getenv("INPUT_FORCE_ADD", "false").lower() in _TRUTHY
 
     LOCALE = getenv("INPUT_LOCALE", "en")
     UPDATED_DATE_FORMAT = getenv("INPUT_UPDATED_DATE_FORMAT", "%d/%m/%Y %H:%M:%S")
