@@ -55,6 +55,7 @@ class EnvironmentManager:
     COMMIT_USERNAME = getenv("INPUT_COMMIT_USERNAME", "")
     COMMIT_EMAIL = getenv("INPUT_COMMIT_EMAIL", "")
     COMMIT_SINGLE = getenv("INPUT_COMMIT_SINGLE", "").lower() in _TRUTHY
+    FORCE_ADD = getenv("INPUT_FORCE_ADD", "false").lower() in _TRUTHY
 
     LOCALE = getenv("INPUT_LOCALE", "en")
     UPDATED_DATE_FORMAT = getenv("INPUT_UPDATED_DATE_FORMAT", "%d/%m/%Y %H:%M:%S")

@@ -6,6 +6,7 @@ from re import sub
 from shutil import copy, rmtree
 from string import ascii_letters
 
+from git.exc import GitCommandError
 from git import Repo, Actor
 from github import Auth, Github
 from github.AuthenticatedUser import AuthenticatedUser
@@ -107,10 +108,19 @@ class GitHubManager:
 
         :param src_path: Source file path.
         """
+        # Force add flag check
         dst_path = join(GitHubManager.REPO.working_tree_dir, src_path)
         makedirs(dirname(dst_path), exist_ok=True)
         copy(src_path, dst_path)
-        GitHubManager.REPO.git.add(dst_path)
+
+        try:
+            GitHubManager.REPO.git.add(dst_path, force=EM.FORCE_ADD)
+        except GitCommandError as e:
+            if "ignored" in str(e):
+                DBM.p(f"Potential Config Error!: '{src_path}' is ignored by .gitignore and was not added.")
+                DBM.p("To fix this, set the 'FORCE_ADD' flag in your workflow file to 'True'.")
+                # Fail fast to avoid continuing with an uncommitted asset
+            raise
 
     @staticmethod
     def update_readme(stats: str):
