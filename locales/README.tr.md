@@ -50,11 +50,11 @@
 
 ## Hazırlık Çalışmaları
 
-1. `.md` uzantılı markdown dosyanızı 2 yorum satırı ekleyerek güncellemeniz gerekir. Bu konuda [buraya](#update-your-readme) bakabilirsiniz.
+1. `.md` uzantılı markdown dosyanızı 2 yorum satırı ekleyerek güncellemeniz gerekir. Bu konuda [buraya](#readmenizi-güncelleyin) bakabilirsiniz.
 2. WakaTime API Anahtarı'na ihtiyacınız olacak. Bu anahtarı WakaTime Hesap Ayarlarınızdan alabilirsiniz
-    - WakaTime'a yeniyseniz [buraya](#new-to-wakatime) bakabilirsiniz.
+    - WakaTime'a yeniyseniz [buraya](#wakatimea-yeni-misiniz) bakabilirsiniz.
 3. Commit metriklerini almak için eylemi çalıştırıyorsanız, [buradan](https://github.com/settings/tokens) `repo` ve `user` scope'larına (yetki alanlarına) sahip bir GitHub API Token'ına ihtiyacınız olacak.
-   - Bunun nasıl yapılacağını görmek için [buraya](#profile-repository) örnek kullanabilirsiniz.
+   - Bunun nasıl yapılacağını görmek için [buraya](#profil-deposu) örnek kullanabilirsiniz.
 
 > [!NOTE]
 > `repo` scope'unu etkinleştirmek **TEHLİKELİ** görünebilir, \
