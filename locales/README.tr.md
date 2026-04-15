@@ -77,7 +77,7 @@ Bu GitHub Action, isterseniz `cron` kullanarak herhangi bir zaman da çalıştı
 <!--END_SECTION:waka-->
 ```
 
-`waka` `SECTION_NAME` bayrağı ile belirtilen herhangi bir dize ile değiştirilebilir. Daha fazla bilgi için [mevcut bayraklar bölümüne](#flags-available) bakın.
+`waka` `SECTION_NAME` bayrağı ile belirtilen herhangi bir dize ile değiştirilebilir. Daha fazla bilgi için mevcut bayraklar bölümüne bakın.
 
 Bu satırlar, geliştirici metriklerimiz için giriş noktalarımız olacaktır.
 
