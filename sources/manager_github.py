@@ -57,7 +57,9 @@ class GitHubManager:
             GitHubManager.USER = github.get_user()
 
         GitHubManager._REMOTE_NAME = f"{GitHubManager.USER.login}/{GitHubManager.USER.login}"
-        GitHubManager._REPO_PATH = f"https://{EM.GH_TOKEN}@github.com/{GitHubManager._REMOTE_NAME}.git"
+
+        push_token = EM.PUSH_TOKEN if EM.PUSH_TOKEN else EM.GH_TOKEN
+        GitHubManager._REPO_PATH = f"https://{push_token}@github.com/{GitHubManager._REMOTE_NAME}.git"
 
         # In DEBUG_RUN mode, nothing is pushed nor run
         if EM.DEBUG_RUN:
