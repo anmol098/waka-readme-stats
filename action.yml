@@ -8,6 +8,11 @@ inputs:
     required: true
     default: ${{ github.token }}
 
+  PUSH_TOKEN:
+    description: 'GitHub token used for git push. Set to github.token to prevent polluting your activity feed.'
+    required: false
+    default: ''
+
   WAKATIME_API_KEY:
     description: 'Your Wakatime API Key'
     required: true
