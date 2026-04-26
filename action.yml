@@ -8,6 +8,11 @@ inputs:
     required: true
     default: ${{ github.token }}
 
+  PUSH_TOKEN:
+    description: 'GitHub token used for git authentication (clone/remote URL/push). To prevent polluting your activity feed, set this to `${{ github.token }}` and ensure your workflow has `permissions: contents: write`.'
+    required: false
+    default: ${{ github.token }}
+
   WAKATIME_API_KEY:
     description: 'Your Wakatime API Key'
     required: true
