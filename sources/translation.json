@@ -460,7 +460,7 @@
     "operating system": "İşletim Sistemi",
     "Projects": "Projeler",
     "Timezone": "Zaman Dilimi",
-    "Contributions in the year": "%s yılında %s katkı",
+    "Contributions in the year": "%s katkı (%s yılında)",
     "Used in GitHub's Storage": "GitHub Depolama Alanında %s kullanıldı",
     "Opted to Hire": "İş Tekliflerine Açık",
     "Not Opted to Hire": "İş Tekliflerine Açık Değil",
