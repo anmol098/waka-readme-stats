@@ -9,6 +9,7 @@ repo/
 
 # Library roots:
 venv/
+.venv/
 
 # Python caches:
 __pycache__/

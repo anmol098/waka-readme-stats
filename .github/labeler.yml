@@ -1,5 +1,5 @@
 dependencies:
-  - head-branch: ["^dep", "deps"]
+  - head-branch: ["dep*", "deps"]
   - changed-files:
     - any-glob-to-any-file: "requirements.txt"
 
@@ -9,16 +9,19 @@ docker:
 
 documentation:
   - changed-files:
-    - any-glob-to-any-file: "**/**.md"
+    - any-glob-to-any-file: "**/*.md"
 
 github_actions:
   - changed-files:
     - any-glob-to-any-file: ".github/workflows/**"
+    - any-glob-to-any-file: ".github/labeler.yml"
 
 python:
   - changed-files:
-    - any-glob-to-any-file: ["sources/**", "!sources/translation.json"]
+    - any-glob-to-any-file: "sources/*.py"
+    - any-glob-to-any-file: "requirements.txt"
 
 translation:
   - changed-files:
     - any-glob-to-any-file: "sources/translation.json"
+    - any-glob-to-any-file: "locales/**"

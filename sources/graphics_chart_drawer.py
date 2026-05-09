@@ -1,9 +1,8 @@
 from typing import Dict
+import numpy as np
 
-from numpy import arange, array, add, amax, zeros
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
-
 from manager_download import DownloadManager as DM
 from manager_file import FileManager as FM
 
@@ -24,7 +23,7 @@ async def create_loc_graph(yearly_data: Dict, save_path: str):
     if colors is None:
         colors = dict()
     years = len(yearly_data.keys())
-    year_indexes = arange(years)
+    year_indexes = np.arange(years)
 
     languages_all_loc = dict()
     for i, y in enumerate(sorted(yearly_data.keys())):
@@ -33,14 +32,14 @@ async def create_loc_graph(yearly_data: Dict, save_path: str):
 
             for lang in langs:
                 if lang not in languages_all_loc:
-                    languages_all_loc[lang] = zeros((years, 4, 2), dtype=int)
-                languages_all_loc[lang][i][q - 1] = array([yearly_data[y][q][lang]["add"], yearly_data[y][q][lang]["del"]])
+                    languages_all_loc[lang] = np.zeros((years, 4, 2), dtype=int)
+                languages_all_loc[lang][i][q - 1] = np.array([yearly_data[y][q][lang]["add"], yearly_data[y][q][lang]["del"]])
 
     fig = plt.figure()
     ax = fig.add_axes([0, 0, 1.5, 1])
 
     language_handles = []
-    cumulative = zeros((years, 4, 2), dtype=int)
+    cumulative = np.zeros((years, 4, 2), dtype=int)
 
     for key, value in languages_all_loc.items():
         color = colors[key].get("color", "tab:gray")
@@ -49,11 +48,11 @@ async def create_loc_graph(yearly_data: Dict, save_path: str):
         for quarter in range(4):
             ax.bar(year_indexes + quarter * 0.21, value[:, quarter][:, 0], 0.2, bottom=cumulative[:, quarter][:, 0], color=color)
             ax.bar(year_indexes + quarter * 0.21, -value[:, quarter][:, 1], 0.2, bottom=-cumulative[:, quarter][:, 1], color=color)
-            cumulative[:, quarter] = add(cumulative[:, quarter], value[:, quarter])
+            cumulative[:, quarter] = np.add(cumulative[:, quarter], value[:, quarter])
     ax.axhline(y=0.5, lw=0.5, snap=True, color="k")
 
     ax.set_ylabel("LOC added", fontdict=dict(weight="bold"))
-    ax.set_xticks(array([arange(i, i + 0.84, step=0.21) for i in year_indexes]).flatten(), labels=["Q1", "Q2", "Q3", "Q4"] * years)
+    ax.set_xticks(np.array([np.arange(i, i + 0.84, step=0.21) for i in year_indexes]).flatten(), labels=["Q1", "Q2", "Q3", "Q4"] * years)
 
     sax = ax.secondary_xaxis("top")
     sax.set_xticks(year_indexes + 0.42, labels=sorted(yearly_data.keys()))
@@ -66,10 +65,10 @@ async def create_loc_graph(yearly_data: Dict, save_path: str):
     ax.spines["top"].set_visible(False)
     ax.spines["right"].set_visible(False)
 
-    max_offset = 0.05 * amax(cumulative.flatten())
+    max_offset = 0.05 * (np.max(cumulative.flatten(), initial=0) if cumulative.flatten().size > 0 else 0)
     joined = cumulative.reshape(-1, cumulative.shape[-1])
-    max_additions = amax(joined[:, 0])
-    max_deletions = amax(joined[:, 1])
+    max_additions = np.max(joined[:, 0], initial=0) if joined[:, 0].size > 0 else 0
+    max_deletions = np.max(joined[:, 1], initial=0) if joined[:, 1].size > 0 else 0
     plt.ylim(top=max_additions + max_offset, bottom=-max_deletions - max_offset)
 
     plt.savefig(save_path, bbox_inches="tight")
