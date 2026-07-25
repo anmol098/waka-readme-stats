@@ -31,7 +31,6 @@ class FileManager:
 
     _LOCALIZATION: Dict[str, str] = dict()
 
-
     @staticmethod
     def load_localization(file: str):
         """
