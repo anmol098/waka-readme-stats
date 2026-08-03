@@ -18,11 +18,11 @@ def init_debug_manager():
 
 
 class DebugManager:
-    _COLOR_RESET = "\u001B[0m"
-    _COLOR_RED = "\u001B[31m"
-    _COLOR_GREEN = "\u001B[32m"
-    _COLOR_BLUE = "\u001B[34m"
-    _COLOR_YELLOW = "\u001B[33m"
+    _COLOR_RESET = "\u001b[0m"
+    _COLOR_RED = "\u001b[31m"
+    _COLOR_GREEN = "\u001b[32m"
+    _COLOR_BLUE = "\u001b[34m"
+    _COLOR_YELLOW = "\u001b[33m"
 
     _DATE_TEMPLATE = "date"
     _TIME_TEMPLATE = "time"

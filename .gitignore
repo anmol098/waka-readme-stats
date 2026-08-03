@@ -9,6 +9,7 @@ repo/
 
 # Library roots:
 venv/
+.venv/
 
 # Python caches:
 __pycache__/
@@ -16,3 +17,7 @@ __pycache__/
 # IDE configuration files:
 .vscode
 .idea
+
+# macOS generated files
+.DS_Store
+*.DS_Store

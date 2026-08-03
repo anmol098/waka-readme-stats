@@ -1,6 +1,6 @@
 name: 'Profile Readme Development Stats'
 author: Anmol Pratap Singh
-description: 'Are you an early 🐤 or a night 🦉? When are you most productive during the day? Let''s check out in your readme!'
+description: 'Are you an early 🐤 or a night 🦉? When are you most productive during the day? Check out in your readme!'
 
 inputs:
   GH_TOKEN:
@@ -8,9 +8,19 @@ inputs:
     required: true
     default: ${{ github.token }}
 
+  PUSH_TOKEN:
+    description: 'GitHub token used for git authentication (clone/remote URL/push). To prevent polluting your activity feed, set this to `${{ github.token }}` and ensure your workflow has `permissions: contents: write`.'
+    required: false
+    default: ${{ github.token }}
+
   WAKATIME_API_KEY:
     description: 'Your Wakatime API Key'
     required: true
+  
+  WAKATIME_API_URL:
+    description: 'Your Wakatime API URL'
+    required: false
+    default: "https://wakatime.com/api/v1/"
 
   SECTION_NAME:
     description: 'Name used in readme to scope the updated section'
@@ -97,6 +107,16 @@ inputs:
     description: "Show Total Time you have coded"
     default: "True"
 
+  SHOW_AI_CODE_TIME:
+    required: false
+    description: "Show the all-time AI Code Time badge"
+    default: "True"
+
+  SHOW_AI_CODING:
+    required: false
+    description: "Show the weekly AI coding breakdown (AI vs human lines, cost, model breakdown, sessions)"
+    default: "True"
+
   COMMIT_BY_ME:
     required: false
     description: "Git commit with your own name and email"
@@ -137,10 +157,60 @@ inputs:
     description: "Repos you don't want to be counted"
     default: ""
 
+  MAX_REPOS:
+    required: false
+    description: "Maximum number of GitHub repositories to fetch (0 = unlimited)"
+    default: "0"
+
+  MAX_CAP:
+    required: false
+    description: "(Deprecated) Alias for MAX_REPOS"
+    default: "0"
+
   SYMBOL_VERSION:
     required: false
     description: "Version of the symbol block and empty of the progress bar"
     default: "1"
+
+  BADGE_STYLE:
+    required: false
+    description: "Style for the badge maker (flat, flat-square, plastic, for-the-badge, social)"
+    default: "flat"
+
+  FORCE_ADD:
+    required: false
+    description: "Whether to override repository .gitignore file while committing the assets"
+    default: "False"
+
+  BAR_STYLE:
+    required: false
+    description: "Whether the bar should be SVG or Unicode text"
+    default: "text"
+
+  BAR_COLOR:
+    required: false
+    description: "Hex color for the filled portion of the SVG bar"
+    default: "#90CAF9"
+
+  BAR_TRACK_COLOR:
+    required: false
+    description: "Hex color for the background track of the SVG bar"
+    default: "#172F45"
+
+  BAR_RADIUS:
+    required: false
+    description: "Border radius for rounded corners of the SVG bar"
+    default: "0"
+
+  TEXT_PRIMARY_COLOR:
+    required: false
+    description: "Hex color for primary SVG list text (e.g. language names)"
+    default: "#c9d1d9"
+
+  TEXT_SECONDARY_COLOR:
+    required: false
+    description: "Hex color for secondary SVG list text (e.g. times, percentages)"
+    default: "#8b949e"
 
   DEBUG_LOGGING:
     required: false
@@ -154,3 +224,4 @@ runs:
 branding:
   icon: 'activity'
   color: 'orange'
+

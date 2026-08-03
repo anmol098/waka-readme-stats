@@ -6,11 +6,15 @@ from re import sub
 from shutil import copy, rmtree
 from string import ascii_letters
 
-from git import Actor, Repo
-from github import AuthenticatedUser, Github, Repository
-from manager_debug import DebugManager as DBM
+from git.exc import GitCommandError
+from git import Repo, Actor
+from github import Auth, Github
+from github.AuthenticatedUser import AuthenticatedUser
+from github.Repository import Repository
+
 from manager_environment import EnvironmentManager as EM
 from manager_file import FileManager as FM
+from manager_debug import DebugManager as DBM
 
 
 def init_github_manager():
@@ -43,15 +47,48 @@ class GitHubManager:
         - Named repo of the user [username]/[username].
         - Clone of the named repo.
         """
-        github = Github(EM.GH_TOKEN)
+        github = Github(auth=Auth.Token(EM.GH_TOKEN))
         clone_path = "repo"
-        GitHubManager.USER = github.get_user()
-        rmtree(clone_path, ignore_errors=True)
+
+        # we take the pr author's creds or the creds of token owner
+        if EM.GH_USER:
+            GitHubManager.USER = github.get_user(EM.GH_USER)
+        else:
+            GitHubManager.USER = github.get_user()
 
         GitHubManager._REMOTE_NAME = f"{GitHubManager.USER.login}/{GitHubManager.USER.login}"
-        GitHubManager._REPO_PATH = f"https://{EM.GH_TOKEN}@github.com/{GitHubManager._REMOTE_NAME}.git"
+
+        push_token = EM.GH_TOKEN
+
+        if EM.PUSH_TOKEN and EM.PUSH_TOKEN != EM.GH_TOKEN:
+            try:
+                temp_github = Github(auth=Auth.Token(EM.PUSH_TOKEN))
+                temp_repo = temp_github.get_repo(GitHubManager._REMOTE_NAME)
+
+                if temp_repo.permissions and temp_repo.permissions.push:
+                    push_token = EM.PUSH_TOKEN
+                    DBM.i("Verified PUSH_TOKEN has push permissions.")
+                else:
+                    DBM.i("Candidate PUSH_TOKEN lacks push permissions. Falling back to GH_TOKEN.")
+            except Exception as e:
+                DBM.i(f"Could not verify PUSH_TOKEN permissions: {e}. Falling back to GH_TOKEN.")
+        else:
+            if not EM.PUSH_TOKEN:
+                DBM.i("No separate PUSH_TOKEN provided. Using GH_TOKEN for push.")
+            else:
+                DBM.i("PUSH_TOKEN is identical to GH_TOKEN. Skipping extra verification.")
+
+        GitHubManager._REPO_PATH = f"https://{push_token}@github.com/{GitHubManager._REMOTE_NAME}.git"
+
+        # In DEBUG_RUN mode, nothing is pushed nor run
+        if EM.DEBUG_RUN:
+            GitHubManager.REMOTE = None
+            GitHubManager.REPO = None
+            return
 
         GitHubManager.REMOTE = github.get_repo(GitHubManager._REMOTE_NAME)
+
+        rmtree(clone_path, ignore_errors=True)
         GitHubManager.REPO = Repo.clone_from(GitHubManager._REPO_PATH, to_path=clone_path)
 
         if EM.COMMIT_SINGLE:
@@ -92,10 +129,19 @@ class GitHubManager:
 
         :param src_path: Source file path.
         """
+        # Force add flag check
         dst_path = join(GitHubManager.REPO.working_tree_dir, src_path)
         makedirs(dirname(dst_path), exist_ok=True)
         copy(src_path, dst_path)
-        GitHubManager.REPO.git.add(dst_path)
+
+        try:
+            GitHubManager.REPO.git.add(dst_path, force=EM.FORCE_ADD)
+        except GitCommandError as e:
+            if "ignored" in str(e):
+                DBM.p(f"Potential Config Error!: '{src_path}' is ignored by .gitignore and was not added.")
+                DBM.p("To fix this, set the 'FORCE_ADD' flag in your workflow file to 'True'.")
+                # Fail fast to avoid continuing with an uncommitted asset
+            raise
 
     @staticmethod
     def update_readme(stats: str):

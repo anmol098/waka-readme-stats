@@ -1,4 +1,4 @@
-from os import getenv, environ
+from os import getenv
 
 
 class EnvironmentManager:
@@ -8,13 +8,30 @@ class EnvironmentManager:
     The others have a provided default value.
     For all boolean variables a 'truthy'-list is checked (not only true/false, but also 1, t, y and yes are accepted).
     List variable `IGNORED_REPOS` is split and parsed.
-    Integer variable `SYMBOL_VERSION` is parsed.
+    Integer variables `SYMBOL_VERSION` and `MAX_REPOS` are parsed.
     """
 
     _TRUTHY = ["true", "1", "t", "y", "yes"]
 
-    GH_TOKEN = environ["INPUT_GH_TOKEN"]
-    WAKATIME_API_KEY = environ["INPUT_WAKATIME_API_KEY"]
+    # Mocking with my stats for waka
+    MOCK_WAKATIME = getenv("MOCK_WAKATIME", "False").lower() in _TRUTHY
+    MOCK_DATA_DIR = getenv("MOCK_DATA_DIR", "mock_data")
+
+    GH_TOKEN = getenv("INPUT_GH_TOKEN")
+    if not GH_TOKEN:
+        raise KeyError("Missing required token: set INPUT_GH_TOKEN")
+
+    PUSH_TOKEN = getenv("INPUT_PUSH_TOKEN", "").strip()
+
+    # stats for the author or the one with the token
+    GH_USER = getenv("INPUT_GH_USER", "").strip()
+    WAKATIME_API_KEY = getenv("INPUT_WAKATIME_API_KEY", "")
+    WAKATIME_API_URL = getenv("INPUT_WAKATIME_API_URL", "https://wakatime.com/api/v1/")
+    if not WAKATIME_API_URL.endswith("/"):
+        WAKATIME_API_URL += "/"
+
+    if not MOCK_WAKATIME and WAKATIME_API_KEY == "":
+        raise KeyError("Missing required secret: INPUT_WAKATIME_API_KEY")
 
     SECTION_NAME = getenv("INPUT_SECTION_NAME", "waka")
     PULL_BRANCH_NAME = getenv("INPUT_PULL_BRANCH_NAME", "")
@@ -34,17 +51,35 @@ class EnvironmentManager:
     SHOW_SHORT_INFO = getenv("INPUT_SHOW_SHORT_INFO", "True").lower() in _TRUTHY
     SHOW_UPDATED_DATE = getenv("INPUT_SHOW_UPDATED_DATE", "True").lower() in _TRUTHY
     SHOW_TOTAL_CODE_TIME = getenv("INPUT_SHOW_TOTAL_CODE_TIME", "True").lower() in _TRUTHY
+    SHOW_AI_CODE_TIME = getenv("INPUT_SHOW_AI_CODE_TIME", "True").lower() in _TRUTHY
+    SHOW_AI_CODING = getenv("INPUT_SHOW_AI_CODING", "True").lower() in _TRUTHY
 
     COMMIT_BY_ME = getenv("INPUT_COMMIT_BY_ME", "False").lower() in _TRUTHY
     COMMIT_MESSAGE = getenv("INPUT_COMMIT_MESSAGE", "Updated with Dev Metrics")
     COMMIT_USERNAME = getenv("INPUT_COMMIT_USERNAME", "")
     COMMIT_EMAIL = getenv("INPUT_COMMIT_EMAIL", "")
     COMMIT_SINGLE = getenv("INPUT_COMMIT_SINGLE", "").lower() in _TRUTHY
+    FORCE_ADD = getenv("INPUT_FORCE_ADD", "false").lower() in _TRUTHY
 
     LOCALE = getenv("INPUT_LOCALE", "en")
     UPDATED_DATE_FORMAT = getenv("INPUT_UPDATED_DATE_FORMAT", "%d/%m/%Y %H:%M:%S")
     IGNORED_REPOS = getenv("INPUT_IGNORED_REPOS", "").replace(" ", "").split(",")
-    SYMBOL_VERSION = int(getenv("INPUT_SYMBOL_VERSION"))
+    _raw_max_repos = getenv("INPUT_MAX_REPOS", "0").strip()
+    _raw_max_cap = getenv("INPUT_MAX_CAP", "0").strip()
+    # Prefer MAX_REPOS; fall back to MAX_CAP for compatibility.
+    _raw_repo_cap = _raw_max_repos if _raw_max_repos not in ("", "0") else _raw_max_cap
+    MAX_REPOS = int(_raw_repo_cap) if _raw_repo_cap else 0
+    if MAX_REPOS < 0:
+        MAX_REPOS = 0
+    SYMBOL_VERSION = int(getenv("INPUT_SYMBOL_VERSION", "1"))
+    BADGE_STYLE = getenv("INPUT_BADGE_STYLE") or getenv("BADGE_STYLE", "flat")
+    BAR_STYLE = (getenv("INPUT_BAR_STYLE") or getenv("BAR_STYLE", "text")).strip()  # "text" or "svg"
+    BAR_COLOR = getenv("INPUT_BAR_COLOR") or getenv("BAR_COLOR", "#90CAF9")
+    BAR_TRACK_COLOR = getenv("INPUT_BAR_TRACK_COLOR") or getenv("BAR_TRACK_COLOR", "#172f45")
+    TEXT_PRIMARY_COLOR = getenv("INPUT_TEXT_PRIMARY_COLOR") or getenv("TEXT_PRIMARY_COLOR", "#c9d1d9")
+    TEXT_SECONDARY_COLOR = getenv("INPUT_TEXT_SECONDARY_COLOR") or getenv("TEXT_SECONDARY_COLOR", "#8b949e")
+    _raw_bar_radius = getenv("INPUT_BAR_RADIUS") or getenv("BAR_RADIUS") or "0"
+    BAR_RADIUS = int(_raw_bar_radius.strip() or "0")  # 0 = square, any number = round
 
     DEBUG_LOGGING = getenv("INPUT_DEBUG_LOGGING", "0").lower() in _TRUTHY
     DEBUG_RUN = getenv("DEBUG_RUN", "False").lower() in _TRUTHY

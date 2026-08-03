@@ -1,3 +1,4 @@
+from os import makedirs
 from os.path import join, isfile, dirname
 from pickle import load as load_pickle, dump as dump_pickle
 from json import load as load_json
@@ -54,7 +55,9 @@ class FileManager:
         :param append: True for appending to file, false for rewriting.
         :param assets: True for saving to 'assets' directory, false otherwise.
         """
-        name = join(FileManager.ASSETS_DIR, name) if assets else name
+        if assets:
+            makedirs(FileManager.ASSETS_DIR, exist_ok=True)
+            name = join(FileManager.ASSETS_DIR, name)
         with open(name, "a" if append else "w", encoding="utf-8") as file:
             file.write(content)
 
@@ -68,7 +71,9 @@ class FileManager:
         :param assets: True for saving to 'assets' directory, false otherwise.
         :returns: File cache contents if content is None, None otherwise.
         """
-        name = join(FileManager.ASSETS_DIR, name) if assets else name
+        if assets:
+            makedirs(FileManager.ASSETS_DIR, exist_ok=True)
+            name = join(FileManager.ASSETS_DIR, name)
         if content is None and not isfile(name):
             return None
 

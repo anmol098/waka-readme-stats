@@ -1,0 +1,47 @@
+{
+    "data": {
+        "id": "00000000-0000-0000-0000-000000000000",
+        "user_id": "11111111-1111-1111-1111-111111111111",
+        "range": "all_time",
+        "start": "2020-07-14T00:00:00Z",
+        "end": "2026-07-27T23:59:59Z",
+        "timezone": "UTC",
+        "status": "ok",
+        "total_seconds": 19356005.587,
+        "human_readable_total": "5,376 hrs 40 mins",
+        "is_up_to_date": true,
+        "percent_calculated": 100,
+        "categories": [
+            {
+                "name": "Coding",
+                "total_seconds": 19021442.488,
+                "percent": 98.27,
+                "digital": "5283:44",
+                "decimal": "5283.73",
+                "text": "5,283 hrs 44 mins",
+                "hours": 5283,
+                "minutes": 44
+            },
+            {
+                "name": "AI Coding",
+                "total_seconds": 278541.827,
+                "percent": 1.44,
+                "digital": "77:22",
+                "decimal": "77.37",
+                "text": "77 hrs 22 mins",
+                "hours": 77,
+                "minutes": 22
+            },
+            {
+                "name": "Writing Docs",
+                "total_seconds": 49815.63,
+                "percent": 0.26,
+                "digital": "13:50",
+                "decimal": "13.83",
+                "text": "13 hrs 50 mins",
+                "hours": 13,
+                "minutes": 50
+            }
+        ]
+    }
+}
