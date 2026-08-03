@@ -84,7 +84,7 @@ jobs:
 
           INPUT_GH_TOKEN: ${{ github.token }}
           # Generate stats for the PR author
-          INPUT_GH_USER: ${{ github.event.pull_request.user.login }}
+          INPUT_GH_USER: pseusys
 
           INPUT_SYMBOL_VERSION: 1
           INPUT_SHOW_TIMEZONE: True
