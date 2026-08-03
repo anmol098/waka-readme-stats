@@ -51,6 +51,8 @@ class EnvironmentManager:
     SHOW_SHORT_INFO = getenv("INPUT_SHOW_SHORT_INFO", "True").lower() in _TRUTHY
     SHOW_UPDATED_DATE = getenv("INPUT_SHOW_UPDATED_DATE", "True").lower() in _TRUTHY
     SHOW_TOTAL_CODE_TIME = getenv("INPUT_SHOW_TOTAL_CODE_TIME", "True").lower() in _TRUTHY
+    SHOW_AI_CODE_TIME = getenv("INPUT_SHOW_AI_CODE_TIME", "True").lower() in _TRUTHY
+    SHOW_AI_CODING = getenv("INPUT_SHOW_AI_CODING", "True").lower() in _TRUTHY
 
     COMMIT_BY_ME = getenv("INPUT_COMMIT_BY_ME", "False").lower() in _TRUTHY
     COMMIT_MESSAGE = getenv("INPUT_COMMIT_MESSAGE", "Updated with Dev Metrics")
@@ -70,7 +72,14 @@ class EnvironmentManager:
     if MAX_REPOS < 0:
         MAX_REPOS = 0
     SYMBOL_VERSION = int(getenv("INPUT_SYMBOL_VERSION", "1"))
-    BADGE_STYLE = getenv("BADGE_STYLE", "flat")
+    BADGE_STYLE = getenv("INPUT_BADGE_STYLE") or getenv("BADGE_STYLE", "flat")
+    BAR_STYLE = (getenv("INPUT_BAR_STYLE") or getenv("BAR_STYLE", "text")).strip()  # "text" or "svg"
+    BAR_COLOR = getenv("INPUT_BAR_COLOR") or getenv("BAR_COLOR", "#90CAF9")
+    BAR_TRACK_COLOR = getenv("INPUT_BAR_TRACK_COLOR") or getenv("BAR_TRACK_COLOR", "#172f45")
+    TEXT_PRIMARY_COLOR = getenv("INPUT_TEXT_PRIMARY_COLOR") or getenv("TEXT_PRIMARY_COLOR", "#c9d1d9")
+    TEXT_SECONDARY_COLOR = getenv("INPUT_TEXT_SECONDARY_COLOR") or getenv("TEXT_SECONDARY_COLOR", "#8b949e")
+    _raw_bar_radius = getenv("INPUT_BAR_RADIUS") or getenv("BAR_RADIUS") or "0"
+    BAR_RADIUS = int(_raw_bar_radius.strip() or "0")  # 0 = square, any number = round
 
     DEBUG_LOGGING = getenv("INPUT_DEBUG_LOGGING", "0").lower() in _TRUTHY
     DEBUG_RUN = getenv("DEBUG_RUN", "False").lower() in _TRUTHY

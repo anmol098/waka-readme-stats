@@ -274,6 +274,57 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 |    2    |      ⣿     |       ⣀     |
 |    3    |      ⬛    |       ⬜    |
 
+**SVGプログレッシブバー**
+
+UnicodeテキストバーからカラフルなSVGバーに切り替えるには、以下のフラグを使用できます:
+
+- `BAR_STYLE` — `"svg"` に設定してSVGバーを有効にするか、`"text"` (デフォルト) でUnicodeバーを使用
+- `BAR_COLOR` — 塗りつぶされた部分の16進数色 (デフォルト: `"#90CAF9"` 薄い青)
+- `BAR_TRACK_COLOR` — 背景トラックの16進数色 (デフォルト: `"#172f45"` 濃い青)
+- `BAR_RADIUS` — 角を丸くするための境界半径 (デフォルト: `"0"` は正方形)
+  - `"0"` = シャープな正方形のエッジ
+  - `"4"` = わずかに丸められたコーナー
+  - 任意の正の整数が機能します
+- `TEXT_PRIMARY_COLOR` — 言語名やプロジェクト名など、SVG リストのプライマリテキストの 16 進数色 (デフォルト: `"#c9d1d9"`)
+- `TEXT_SECONDARY_COLOR` — 時間やパーセンテージなど、SVG リストのセカンダリテキストの 16 進数色 (デフォルト: `"#8b949e"`)
+
+SVGバーが有効なワークフロー例:
+
+```yaml
+- uses: anmol098/waka-readme-stats@master
+  with:
+    WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+    GH_TOKEN: ${{ secrets.GH_TOKEN }}
+    BAR_STYLE: "svg"
+    BAR_COLOR: "#90CAF9"
+    BAR_TRACK_COLOR: "#172f45"
+    BAR_RADIUS: "4"
+    TEXT_PRIMARY_COLOR: "#c9d1d9"
+    TEXT_SECONDARY_COLOR: "#8b949e"
+```
+
+**変更前 / 変更後**
+
+既定の Unicode バー（`BAR_STYLE: "text"`、または `BAR_STYLE` を省略）:
+
+```text
+Vue          8 repos        ██████░░░░░░░░░░░░░░░░░░░   25.0%
+Java         6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75%
+JavaScript   6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75%
+PHP          3 repos        ██░░░░░░░░░░░░░░░░░░░░░░░   9.38%
+Python       2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+Dart         2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+CSS          2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+```
+
+SVG バー・直角（`BAR_STYLE: "svg"`, `BAR_RADIUS: "0"`、既定の `BAR_COLOR` / `BAR_TRACK_COLOR`）:
+
+![SVG プログレスバー（直角）](https://i.imgur.com/eShKuJH.png)
+
+SVG バー・角丸（`BAR_STYLE: "svg"`, `BAR_RADIUS: "4"`）:
+
+![SVG プログレスバー（角丸）](https://i.imgur.com/dYOgG6I.png)
+
 `DEBUG_LOGGING` フラグを設定することで、GitHub Actionの出力の詳細度を増やすことができます。デフォルトでは内部ランナーのデバッグプロパティに等しくなります。
 
 **タイムライン**
@@ -310,6 +361,7 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 10. [Arnav Jindal](https://github.com/Daggy1234): プルリクエスト [#48](https://github.com/anmol098/waka-readme-stats/pull/48) への貢献
 11. [Daniel Rowe](https://github.com/DanRowe): プルリクエスト [#57](https://github.com/anmol098/waka-readme-stats/pull/57) への貢献
 12. [Ss5h](https://github.com/tlatkdgus1): 翻訳用自然文の記述をサポート [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
+13. [acheronx0577](https://github.com/acheronx0577): 色と形のオプション付き SVG プログレスバーのサポートを追加 [#657](https://github.com/anmol098/waka-readme-stats/pull/657)
 
 <details>
 
@@ -454,6 +506,8 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 - [Luicen Loua](https://github.com/lucien-loua)
 
 - [DataBoySu](https://github.com/DataBoySu)
+
+- [AcheronX.](https://github.com/acheronx0577)
 
 </details>
 
