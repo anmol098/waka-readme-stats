@@ -21,6 +21,8 @@ class EnvironmentManager:
     if not GH_TOKEN:
         raise KeyError("Missing required token: set INPUT_GH_TOKEN")
 
+    PUSH_TOKEN = getenv("INPUT_PUSH_TOKEN", "").strip()
+
     # stats for the author or the one with the token
     GH_USER = getenv("INPUT_GH_USER", "").strip()
     WAKATIME_API_KEY = getenv("INPUT_WAKATIME_API_KEY", "")
