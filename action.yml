@@ -177,6 +177,36 @@ inputs:
     description: "Whether to override repository .gitignore file while committing the assets"
     default: "False"
 
+  BAR_STYLE:
+    required: false
+    description: "Whether the bar should be SVG or Unicode text"
+    default: "text"
+
+  BAR_COLOR:
+    required: false
+    description: "Hex color for the filled portion of the SVG bar"
+    default: "#90CAF9"
+
+  BAR_TRACK_COLOR:
+    required: false
+    description: "Hex color for the background track of the SVG bar"
+    default: "#172F45"
+
+  BAR_RADIUS:
+    required: false
+    description: "Border radius for rounded corners of the SVG bar"
+    default: "0"
+
+  TEXT_PRIMARY_COLOR:
+    required: false
+    description: "Hex color for primary SVG list text (e.g. language names)"
+    default: "#c9d1d9"
+
+  TEXT_SECONDARY_COLOR:
+    required: false
+    description: "Hex color for secondary SVG list text (e.g. times, percentages)"
+    default: "#8b949e"
+
   DEBUG_LOGGING:
     required: false
     description: "Whether to enable action debug logging"

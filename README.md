@@ -326,6 +326,57 @@ The `SYMBOL_VERSION` flag can be set for the symbol for the progress bar (defaul
 |    2    |      ⣿     |       ⣀     |
 |    3    |      ⬛    |       ⬜    |
 
+**SVG Progress Bars**
+
+You can switch from Unicode text bars to colorful SVG bars with the following flags:
+
+- `BAR_STYLE` — Set to `"svg"` to enable SVG bars, or `"text"` (default) for Unicode bars
+- `BAR_COLOR` — Hex color for the filled portion (default: `"#90CAF9"` light blue)
+- `BAR_TRACK_COLOR` — Hex color for the background track (default: `"#172f45"` dark blue)
+- `BAR_RADIUS` — Border radius for rounded corners (default: `"0"` for square)
+  - `"0"` = Sharp square edges
+  - `"4"` = Subtle rounded corners
+  - Any positive integer works
+- `TEXT_PRIMARY_COLOR` — Hex color for primary SVG list text such as language/project names (default: `"#c9d1d9"`)
+- `TEXT_SECONDARY_COLOR` — Hex color for secondary SVG list text such as times and percentages (default: `"#8b949e"`)
+
+Example workflow with SVG bars enabled:
+
+```yaml
+- uses: anmol098/waka-readme-stats@master
+  with:
+    WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+    GH_TOKEN: ${{ secrets.GH_TOKEN }}
+    BAR_STYLE: "svg"
+    BAR_COLOR: "#90CAF9"
+    BAR_TRACK_COLOR: "#172f45"
+    BAR_RADIUS: "4"
+    TEXT_PRIMARY_COLOR: "#c9d1d9"
+    TEXT_SECONDARY_COLOR: "#8b949e"
+```
+
+**Before / after**
+
+Default Unicode bars (`BAR_STYLE: "text"`, or omitting `BAR_STYLE`):
+
+```text
+Vue          8 repos        ██████░░░░░░░░░░░░░░░░░░░   25.0%
+Java         6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75%
+JavaScript   6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75%
+PHP          3 repos        ██░░░░░░░░░░░░░░░░░░░░░░░   9.38%
+Python       2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+Dart         2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+CSS          2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+```
+
+SVG bars, square corners (`BAR_STYLE: "svg"`, `BAR_RADIUS: "0"`, default `BAR_COLOR` / `BAR_TRACK_COLOR`):
+
+![SVG progress bars (square)](https://i.imgur.com/eShKuJH.png)
+
+SVG bars, rounded corners (`BAR_STYLE: "svg"`, `BAR_RADIUS: "4"`):
+
+![SVG progress bars (rounded)](https://i.imgur.com/dYOgG6I.png)
+
 The `DEBUG_LOGGING` flag can be set to increase the GitHub Action's output verbosity, The default is the internal runner's debug property.
 The `BADGE_STYLE` flag defines the style for the generated badges and can be set to `flat`, `flat-square`, `plastic`, `for-the-badge`, or `social`.
 |    Badge Style    |                                             Preview                                               |
@@ -375,6 +426,7 @@ Please share any features, and add unit tests! Use the pull request and issue sy
 10. [Arnav Jindal](https://github.com/Daggy1234): For Pull Request [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
 11. [Daniel Rowe](https://github.com/DanRowe): For Pull Request [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
 12. [Ss5h](https://github.com/tlatkdgus1): For adding support for natural sentence writing for translation [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
+13. [acheronx0577](https://github.com/acheronx0577): For adding SVG progress bar support with color and shape options [#657](https://github.com/anmol098/waka-readme-stats/pull/657)
 
 <details>
 
@@ -519,6 +571,8 @@ Please share any features, and add unit tests! Use the pull request and issue sy
 - [Luicen Loua](https://github.com/lucien-loua)
 
 - [DataBoySu](https://github.com/DataBoySu)
+
+- [AcheronX.](https://github.com/acheronx0577)
 
 </details>
 
