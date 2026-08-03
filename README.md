@@ -157,6 +157,50 @@ The `SHOW_TOTAL_CODE_TIME` flag can be set to `False` to hide *Code Time*.
 
 ![Code Time](http://img.shields.io/badge/Code%20Time-1%2C438%20hrs%2054%20mins-blue)
 
+> [!NOTE]
+> The `SHOW_AI_CODE_TIME` and `SHOW_AI_CODING` flags below require WakaTime's AI coding tracking to be recording activity on your account. If your account has no all-time AI data the **AI Code Time** badge is hidden entirely; if it has no AI data for the current week, the weekly block still shows with a "No AI Coding Activity Tracked This Week" message instead of numbers.
+
+The `SHOW_AI_CODE_TIME` flag can be set to `False` to hide the all-time **AI Code Time** badge.
+
+![AI Code Time](http://img.shields.io/badge/AI%20Code%20Time-77%20hrs%2022%20mins-blue)
+
+The `SHOW_AI_CODING` flag can be set to `False` to hide the weekly AI coding breakdown: AI coding time, AI vs. human written lines, token usage, estimated AI cost, sessions/prompts, a per-model breakdown, and a few deduced insights.
+
+**🤖 AI Coding This Week**
+
+```text
+⏱ AI Coding Time: 1 hr 53 mins (3.59%)
+
+✍️ 1,245 lines written by AI, 3,120 lines written by hand (28.52% AI-written)
+
+🔤 845,000 Input Tokens, 21,000 Output Tokens
+
+💵 $12.48 Estimated AI Cost This Week
+
+🧠 5 AI Sessions, 20 AI Prompts
+
+Sonnet                   1,200 lines         ██████████████████████░░░   89.96 %
+GPT-4                    134 lines           ███░░░░░░░░░░░░░░░░░░░░░░   10.04 %
+
+🔎 AI Coding Insights:
+🧑‍💻 Mostly Hands-On — 28.52% of written lines came from AI
+📄 Detailed Prompter — average 925 characters per prompt
+🔁 Iterative Prompter — average 4 prompts per session
+🔍 Hands-On Reviewer — 73.29% of changed lines were hand-edited
+```
+
+The insight lines are all deduced from the raw numbers above, not extra API data:
+- **AI Reliance** (`🤖 AI-Driven` / `⚖️ Balanced with AI` / `🧑‍💻 Mostly Hands-On`) — from the share of added lines written by AI.
+- **Prompt Style** (`📝 Concise` / `📄 Detailed` / `📚 Verbose`) — from the average prompt length.
+- **Session Style** (`🎯 One-Shot` / `🔁 Iterative`) — from the average number of prompts per AI session, i.e. whether you tend to get it right in one prompt or rely on follow-ups.
+- **Review Style** (`🔍 Hands-On Reviewer` / `🚀 High AI Trust`) — from the share of all changed lines that were still hand-edited, as a proxy for how much AI output gets manually reviewed/reworked.
+
+If there was no AI coding activity that week, the block still renders with a fallback message instead of disappearing:
+
+```text
+No AI Coding Activity Tracked This Week
+```
+
 The `SHOW_PROFILE_VIEWS` flag can be set to `False` to hide **Profile Views**
 
 ![Profile Views](http://img.shields.io/badge/Profile%20Views-2189-blue)
