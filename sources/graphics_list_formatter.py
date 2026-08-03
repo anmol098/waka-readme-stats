@@ -190,6 +190,7 @@ def make_language_per_repo_list(repositories: Dict) -> str:
     else:
         return f"{title}```text\n{make_list(names=names, texts=texts, percents=percents)}\n```\n\n"
 
+
 def pad_string(string: str, length: int) -> str:
     """
     Pad string with spaces to the specified length, or truncate it if it's too long.
