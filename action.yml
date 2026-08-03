@@ -9,7 +9,7 @@ inputs:
     default: ${{ github.token }}
 
   PUSH_TOKEN:
-    description: 'GitHub token used for git authentication (clone/remote URL/push). To prevent polluting your activity feed, set this to `${{ github.token }}` and ensure your workflow has `permissions: contents: write`.'
+    description: 'GitHub token used for git authentication (clone/remote URL/push). To prevent polluting your activity feed, pass the workflow GitHub token and ensure your workflow has contents write permission.'
     required: false
     default: ${{ github.token }}
 
