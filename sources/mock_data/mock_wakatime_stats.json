@@ -8,6 +8,42 @@
         "timeout": 15,
         "writes_only": false,
         "timezone": "UTC",
+        "ai_additions": 1245,
+        "ai_deletions": 89,
+        "human_additions": 3120,
+        "human_deletions": 540,
+        "ai_line_changes_total": 1334,
+        "ai_model_total_cost": 12.4821,
+        "ai_input_tokens": 845000,
+        "ai_output_tokens": 21000,
+        "ai_prompt_length_sum": 18500,
+        "ai_prompt_length_avg": 925,
+        "ai_prompt_events_total": 20,
+        "ai_prompt_events_avg_per_session": 4,
+        "ai_prompt_events_median_per_session": 3,
+        "ai_prompt_length_avg_per_session": 1233,
+        "ai_prompt_length_median_per_session": 1100,
+        "ai_sessions": 5,
+        "ai_model_line_changes": {
+            "Sonnet": 1200,
+            "GPT-4": 134
+        },
+        "ai_model_costs": {
+            "Sonnet": 9.5,
+            "GPT-4": 2.98
+        },
+        "ai_model_breakdown": [
+            {
+                "name": "Sonnet",
+                "lines": 1200,
+                "cost": 9.5
+            },
+            {
+                "name": "GPT-4",
+                "lines": 134,
+                "cost": 2.98
+            }
+        ],
         "holidays": 0,
         "status": "ok",
         "created_at": "2025-12-31T23:02:40Z",

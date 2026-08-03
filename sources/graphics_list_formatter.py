@@ -1,6 +1,7 @@
 from enum import Enum
 from typing import Dict, Tuple, List
 from datetime import datetime
+from html import escape
 
 from pytz import timezone, utc
 from wcwidth import wcswidth, wcwidth
@@ -37,12 +38,14 @@ class Symbol(Enum):
 
 def make_graph(percent: float):
     """
-    Make text progress bar.
-    Length of the progress bar is 25 characters.
+    Make a text progress bar (25 characters wide).
 
     :param percent: Completion percent of the progress bar.
     :return: The string progress bar representation.
     """
+    # Clamp percent to valid range [0, 100]
+    percent = max(0, min(100, percent))
+
     done_block, empty_block = Symbol.get_symbols(EM.SYMBOL_VERSION)
     percent_quart = round(percent / 4)
     return f"{done_block * percent_quart}{empty_block * (25 - percent_quart)}"
@@ -72,8 +75,39 @@ def make_list(data: List = None, names: List[str] = None, texts: List[str] = Non
 
     data = list(zip(names, texts, percents))
     top_data = sorted(data[:top_num], key=lambda record: record[2], reverse=True) if sort else data[:top_num]
-    data_list = [f"{pad_string(n, 25)}{pad_string(t, 20)}{make_graph(p)}   {p:05.2f} % " for n, t, p in top_data]
-    return "\n".join(data_list)
+
+    if EM.BAR_STYLE == "svg":
+        # Fixed column layout (widths in user units; total view width = sum of columns + trailing margin):
+        # name x=0..169 (170px), time x=170..279 (110px), bar x=280..639 (BAR_WIDTH 360px), % text from x=648.
+        SVG_COL_NAME_X = 0
+        SVG_COL_TIME_X = 170
+        SVG_COL_BAR_X = 280
+        SVG_BAR_WIDTH = 360
+        SVG_COL_PCT_X = 648
+        SVG_VIEW_WIDTH = SVG_COL_PCT_X + 72  # 720: room for "100.00%" after the bar column
+        row_height = 24  # vertical pitch per data row
+        height = 20 + (row_height * len(top_data))
+        rows_svg = ""
+
+        for i, (n, t, p) in enumerate(top_data):
+            y = 16 + (i * row_height)
+            filled = round(SVG_BAR_WIDTH * p / 100)
+
+            # Truncate and escape text for SVG
+            name_text = escape(n[:25])
+            time_text = escape(t[:25])
+
+            rows_svg += f'<text x="{SVG_COL_NAME_X}" y="{y}" font-family="monospace" font-size="13" fill="{EM.TEXT_PRIMARY_COLOR}">{name_text}</text>'
+            rows_svg += f'<text x="{SVG_COL_TIME_X}" y="{y}" font-family="monospace" font-size="13" fill="{EM.TEXT_SECONDARY_COLOR}">{time_text}</text>'
+            rows_svg += f'<rect x="{SVG_COL_BAR_X}" y="{y-10}" width="{SVG_BAR_WIDTH}" height="8" rx="{EM.BAR_RADIUS}" fill="{EM.BAR_TRACK_COLOR}"/>'
+            rows_svg += f'<rect x="{SVG_COL_BAR_X}" y="{y-10}" width="{filled}" height="8" rx="{EM.BAR_RADIUS}" fill="{EM.BAR_COLOR}"/>'
+            rows_svg += f'<text x="{SVG_COL_PCT_X}" y="{y}" font-family="monospace" font-size="12" fill="{EM.TEXT_SECONDARY_COLOR}">{p:.2f}%</text>'
+
+        return f'<svg width="{SVG_VIEW_WIDTH}" viewBox="0 0 {SVG_VIEW_WIDTH} {height}" xmlns="http://www.w3.org/2000/svg">{rows_svg}</svg>'
+    else:
+        # Fall back to text mode
+        data_list = [f"{pad_string(n, 25)}{pad_string(t, 20)}{make_graph(p)}   {p:05.2f} % " for n, t, p in top_data]
+        return "\n".join(data_list)
 
 
 async def make_commit_day_time_list(time_zone: str, repositories: Dict, commit_dates: Dict) -> str:
@@ -109,14 +143,20 @@ async def make_commit_day_time_list(time_zone: str, repositories: Dict, commit_d
         dt_texts = [f"{day_time} commits" for day_time in day_times]
         dt_percents = [0 if sum_day == 0 else round((day_time / sum_day) * 100, 2) for day_time in day_times]
         title = FM.t("I am an Early") if sum(day_times[0:2]) >= sum(day_times[2:4]) else FM.t("I am a Night")
-        stats += f"**{title}** \n\n```text\n{make_list(names=dt_names, texts=dt_texts, percents=dt_percents, top_num=7, sort=False)}\n```\n"
+        if EM.BAR_STYLE == "svg":
+            stats += f"**{title}** \n\n{make_list(names=dt_names, texts=dt_texts, percents=dt_percents, top_num=7, sort=False)}\n"
+        else:
+            stats += f"**{title}** \n\n```text\n{make_list(names=dt_names, texts=dt_texts, percents=dt_percents, top_num=7, sort=False)}\n```\n"
 
     if EM.SHOW_DAYS_OF_WEEK:
         wd_names = [FM.t(week_day) for week_day in WEEK_DAY_NAMES]
         wd_texts = [f"{week_day} commits" for week_day in week_days]
         wd_percents = [0 if sum_week == 0 else round((week_day / sum_week) * 100, 2) for week_day in week_days]
         title = FM.t("I am Most Productive on") % wd_names[wd_percents.index(max(wd_percents))]
-        stats += f"📅 **{title}** \n\n```text\n{make_list(names=wd_names, texts=wd_texts, percents=wd_percents, top_num=7, sort=False)}\n```\n"
+        if EM.BAR_STYLE == "svg":
+            stats += f"📅 **{title}** \n\n{make_list(names=wd_names, texts=wd_texts, percents=wd_percents, top_num=7, sort=False)}\n"
+        else:
+            stats += f"📅 **{title}** \n\n```text\n{make_list(names=wd_names, texts=wd_texts, percents=wd_percents, top_num=7, sort=False)}\n```\n"
 
     return stats
 
@@ -131,9 +171,10 @@ def make_language_per_repo_list(repositories: Dict) -> str:
     language_count = dict()
     repos_with_language = [repo for repo in repositories if repo["primaryLanguage"] is not None]
     for repo in repos_with_language:
-        language = repo["primaryLanguage"]["name"]
-        language_count[language] = language_count.get(language, {"count": 0})
-        language_count[language]["count"] += 1
+        if repo["name"] not in EM.IGNORED_REPOS:
+            language = repo["primaryLanguage"]["name"]
+            language_count[language] = language_count.get(language, {"count": 0})
+            language_count[language]["count"] += 1
 
     names = list(language_count.keys())
     texts = [f"{language_count[lang]['count']} {'repo' if language_count[lang]['count'] == 1 else 'repos'}" for lang in names]
@@ -144,7 +185,10 @@ def make_language_per_repo_list(repositories: Dict) -> str:
         title = f"**{FM.t('I Mostly Code in') % top_language}** \n\n"
     else:
         title = ""
-    return f"{title}```text\n{make_list(names=names, texts=texts, percents=percents)}\n```\n\n"
+    if EM.BAR_STYLE == "svg":
+        return f"{title}{make_list(names=names, texts=texts, percents=percents)}\n\n"
+    else:
+        return f"{title}```text\n{make_list(names=names, texts=texts, percents=percents)}\n```\n\n"
 
 def pad_string(string: str, length: int) -> str:
     """

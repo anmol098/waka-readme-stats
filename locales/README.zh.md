@@ -1,6 +1,6 @@
 <!--START_SECTION:navbar-->
 <div align="center">
-  <a href="README.md">🇺🇸 English</a> | <a href="locales/README.de.md">🇩🇪 Deutsch</a> | <a href="locales/README.es.md">🇪🇸 Español</a> | <a href="locales/README.fr.md">🇫🇷 Français</a> | <a href="locales/README.hi.md">🇮🇳 हिंदी</a> | <a href="locales/README.ja.md">🇯🇵 日本語</a> | <a href="locales/README.ko.md">🇰🇷 한국어</a> | <a href="locales/README.pt.md">🇵🇹 Português</a> | <a href="locales/README.ru.md">🇷🇺 Русский</a> | <a href="locales/README.zh.md">🇨🇳 中文</a>
+  <a href="../README.md">🇺🇸 English</a> | <a href="README.de.md">🇩🇪 Deutsch</a> | <a href="README.es.md">🇪🇸 Español</a> | <a href="README.fr.md">🇫🇷 Français</a> | <a href="README.hi.md">🇮🇳 हिंदी</a> | <a href="README.ja.md">🇯🇵 日本語</a> | <a href="README.ko.md">🇰🇷 한국어</a> | <a href="README.pt.md">🇵🇹 Português</a> | <a href="README.ru.md">🇷🇺 Русский</a> | <a href="README.zh.md">🇨🇳 中文</a>
 </div>
 <!--END_SECTION:navbar-->
 
@@ -278,6 +278,57 @@ CSS          2 个仓库        █░░░░░░░░░░░░░░░
 |    2    |      ⣿     |       ⣀     |
 |    3    |      ⬛    |       ⬜    |
 
+**SVG 进度条**
+
+您可以使用以下标志从 Unicode 文本条形图切换到彩色 SVG 条形图:
+
+- `BAR_STYLE` — 设置为 `"svg"` 以启用 SVG 条形图，或 `"text"` (默认) 用于 Unicode 条形图
+- `BAR_COLOR` — 填充部分的十六进制颜色 (默认: `"#90CAF9"` 浅蓝色)
+- `BAR_TRACK_COLOR` — 背景轨道的十六进制颜色 (默认: `"#172f45"` 深蓝色)
+- `BAR_RADIUS` — 圆角的边框半径 (默认: `"0"` 为正方形)
+  - `"0"` = 锐利的方形边缘
+  - `"4"` = 微妙的圆角
+  - 任何正整数都可以工作
+- `TEXT_PRIMARY_COLOR` — SVG 列表主要文本（如语言/项目名称）的十六进制颜色 (默认: `"#c9d1d9"`)
+- `TEXT_SECONDARY_COLOR` — SVG 列表次要文本（如时间和百分比）的十六进制颜色 (默认: `"#8b949e"`)
+
+启用 SVG 条形图的工作流示例:
+
+```yaml
+- uses: anmol098/waka-readme-stats@master
+  with:
+    WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+    GH_TOKEN: ${{ secrets.GH_TOKEN }}
+    BAR_STYLE: "svg"
+    BAR_COLOR: "#90CAF9"
+    BAR_TRACK_COLOR: "#172f45"
+    BAR_RADIUS: "4"
+    TEXT_PRIMARY_COLOR: "#c9d1d9"
+    TEXT_SECONDARY_COLOR: "#8b949e"
+```
+
+**变更前后**
+
+默认 Unicode 条形（`BAR_STYLE: "text"`，或省略 `BAR_STYLE`）：
+
+```text
+Vue          8 repos        ██████░░░░░░░░░░░░░░░░░░░   25.0%
+Java         6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75%
+JavaScript   6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75%
+PHP          3 repos        ██░░░░░░░░░░░░░░░░░░░░░░░   9.38%
+Python       2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+Dart         2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+CSS          2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+```
+
+SVG 条形，直角（`BAR_STYLE: "svg"`，`BAR_RADIUS: "0"`，默认 `BAR_COLOR` / `BAR_TRACK_COLOR`）：
+
+![SVG 进度条（直角）](https://i.imgur.com/eShKuJH.png)
+
+SVG 条形，圆角（`BAR_STYLE: "svg"`，例如 `BAR_RADIUS: "4"`）：
+
+![SVG 进度条（圆角）](https://i.imgur.com/dYOgG6I.png)
+
 `DEBUG_LOGGING` 标志可以让 Github Action 的日志更长，默认情况下与内部运行调试设置同步。
 `BADGE_STYLE` 标志决定了生成徽章的样式，可以设置为 `flat`, `flat-square`、`plastic`、`for-the-badge` 或者 `social`。
 |    徽章样式    |                                             预览                                               |
@@ -327,6 +378,7 @@ CSS          2 个仓库        █░░░░░░░░░░░░░░░
 10. [Arnav Jindal](https://github.com/Daggy1234)：贡献了合并请求 [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
 11. [Daniel Rowe](https://github.com/DanRowe)：贡献了合并请求 [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
 12. [Ss5h](https://github.com/tlatkdgus1)：添加了自然语言文本的翻译支持 [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
+13. [acheronx0577](https://github.com/acheronx0577)：添加了带有颜色和形状选项的 SVG 进度条支持 [#657](https://github.com/anmol098/waka-readme-stats/pull/657)
 
 <details>
 
@@ -471,6 +523,8 @@ CSS          2 个仓库        █░░░░░░░░░░░░░░░
   - [Luicen Loua](https://github.com/lucien-loua)
 
   - [DataBoySu](https://github.com/DataBoySu)
+
+  - [AcheronX.](https://github.com/acheronx0577)
 
 </details>
 

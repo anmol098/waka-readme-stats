@@ -157,6 +157,50 @@ The `SHOW_TOTAL_CODE_TIME` flag can be set to `False` to hide *Code Time*.
 
 ![Code Time](http://img.shields.io/badge/Code%20Time-1%2C438%20hrs%2054%20mins-blue)
 
+> [!NOTE]
+> The `SHOW_AI_CODE_TIME` and `SHOW_AI_CODING` flags below require WakaTime's AI coding tracking to be recording activity on your account. If your account has no all-time AI data the **AI Code Time** badge is hidden entirely; if it has no AI data for the current week, the weekly block still shows with a "No AI Coding Activity Tracked This Week" message instead of numbers.
+
+The `SHOW_AI_CODE_TIME` flag can be set to `False` to hide the all-time **AI Code Time** badge.
+
+![AI Code Time](http://img.shields.io/badge/AI%20Code%20Time-77%20hrs%2022%20mins-blue)
+
+The `SHOW_AI_CODING` flag can be set to `False` to hide the weekly AI coding breakdown: AI coding time, AI vs. human written lines, token usage, estimated AI cost, sessions/prompts, a per-model breakdown, and a few deduced insights.
+
+**🤖 AI Coding This Week**
+
+```text
+⏱ AI Coding Time: 1 hr 53 mins (3.59%)
+
+✍️ 1,245 lines written by AI, 3,120 lines written by hand (28.52% AI-written)
+
+🔤 845,000 Input Tokens, 21,000 Output Tokens
+
+💵 $12.48 Estimated AI Cost This Week
+
+🧠 5 AI Sessions, 20 AI Prompts
+
+Sonnet                   1,200 lines         ██████████████████████░░░   89.96 %
+GPT-4                    134 lines           ███░░░░░░░░░░░░░░░░░░░░░░   10.04 %
+
+🔎 AI Coding Insights:
+🧑‍💻 Mostly Hands-On — 28.52% of written lines came from AI
+📄 Detailed Prompter — average 925 characters per prompt
+🔁 Iterative Prompter — average 4 prompts per session
+🔍 Hands-On Reviewer — 73.29% of changed lines were hand-edited
+```
+
+The insight lines are all deduced from the raw numbers above, not extra API data:
+- **AI Reliance** (`🤖 AI-Driven` / `⚖️ Balanced with AI` / `🧑‍💻 Mostly Hands-On`) — from the share of added lines written by AI.
+- **Prompt Style** (`📝 Concise` / `📄 Detailed` / `📚 Verbose`) — from the average prompt length.
+- **Session Style** (`🎯 One-Shot` / `🔁 Iterative`) — from the average number of prompts per AI session, i.e. whether you tend to get it right in one prompt or rely on follow-ups.
+- **Review Style** (`🔍 Hands-On Reviewer` / `🚀 High AI Trust`) — from the share of all changed lines that were still hand-edited, as a proxy for how much AI output gets manually reviewed/reworked.
+
+If there was no AI coding activity that week, the block still renders with a fallback message instead of disappearing:
+
+```text
+No AI Coding Activity Tracked This Week
+```
+
 The `SHOW_PROFILE_VIEWS` flag can be set to `False` to hide **Profile Views**
 
 ![Profile Views](http://img.shields.io/badge/Profile%20Views-2189-blue)
@@ -282,6 +326,57 @@ The `SYMBOL_VERSION` flag can be set for the symbol for the progress bar (defaul
 |    2    |      ⣿     |       ⣀     |
 |    3    |      ⬛    |       ⬜    |
 
+**SVG Progress Bars**
+
+You can switch from Unicode text bars to colorful SVG bars with the following flags:
+
+- `BAR_STYLE` — Set to `"svg"` to enable SVG bars, or `"text"` (default) for Unicode bars
+- `BAR_COLOR` — Hex color for the filled portion (default: `"#90CAF9"` light blue)
+- `BAR_TRACK_COLOR` — Hex color for the background track (default: `"#172f45"` dark blue)
+- `BAR_RADIUS` — Border radius for rounded corners (default: `"0"` for square)
+  - `"0"` = Sharp square edges
+  - `"4"` = Subtle rounded corners
+  - Any positive integer works
+- `TEXT_PRIMARY_COLOR` — Hex color for primary SVG list text such as language/project names (default: `"#c9d1d9"`)
+- `TEXT_SECONDARY_COLOR` — Hex color for secondary SVG list text such as times and percentages (default: `"#8b949e"`)
+
+Example workflow with SVG bars enabled:
+
+```yaml
+- uses: anmol098/waka-readme-stats@master
+  with:
+    WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+    GH_TOKEN: ${{ secrets.GH_TOKEN }}
+    BAR_STYLE: "svg"
+    BAR_COLOR: "#90CAF9"
+    BAR_TRACK_COLOR: "#172f45"
+    BAR_RADIUS: "4"
+    TEXT_PRIMARY_COLOR: "#c9d1d9"
+    TEXT_SECONDARY_COLOR: "#8b949e"
+```
+
+**Before / after**
+
+Default Unicode bars (`BAR_STYLE: "text"`, or omitting `BAR_STYLE`):
+
+```text
+Vue          8 repos        ██████░░░░░░░░░░░░░░░░░░░   25.0%
+Java         6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75%
+JavaScript   6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75%
+PHP          3 repos        ██░░░░░░░░░░░░░░░░░░░░░░░   9.38%
+Python       2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+Dart         2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+CSS          2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+```
+
+SVG bars, square corners (`BAR_STYLE: "svg"`, `BAR_RADIUS: "0"`, default `BAR_COLOR` / `BAR_TRACK_COLOR`):
+
+![SVG progress bars (square)](https://i.imgur.com/eShKuJH.png)
+
+SVG bars, rounded corners (`BAR_STYLE: "svg"`, `BAR_RADIUS: "4"`):
+
+![SVG progress bars (rounded)](https://i.imgur.com/dYOgG6I.png)
+
 The `DEBUG_LOGGING` flag can be set to increase the GitHub Action's output verbosity, The default is the internal runner's debug property.
 The `BADGE_STYLE` flag defines the style for the generated badges and can be set to `flat`, `flat-square`, `plastic`, `for-the-badge`, or `social`.
 |    Badge Style    |                                             Preview                                               |
@@ -325,12 +420,13 @@ Please share any features, and add unit tests! Use the pull request and issue sy
 4. [okcoder1](https://github.com/ok-coder1): Maintainer
 5. [Aravind V. Nair](https://github.com/aravindvnair99): Maintainer
 6. [Prabhat Singh](https://github.com/prabhatdev): For code timeline graph [#18](https://github.com/anmol098/waka-readme-stats/pull/18)
-7. [Hedy Li](https://github.com/hedythedev): For Pull Request [#34](https://github.com/anmol098/waka-readme-stats/pull/34) and [#23](https://github.com/anmol098/waka-readme-stats/pull/23)
+7. [Hedy Li](https://github.com/hedyhli): For Pull Request [#34](https://github.com/anmol098/waka-readme-stats/pull/34) and [#23](https://github.com/anmol098/waka-readme-stats/pull/23)
 8. [Pedro Torres](https://github.com/Corfucinas): For Pull Request [#29](https://github.com/anmol098/waka-readme-stats/pull/29)
 9. [Aaron Meese](https://github.com/ajmeese7): For Pull Request [#45](https://github.com/anmol098/waka-readme-stats/pull/45)
 10. [Arnav Jindal](https://github.com/Daggy1234): For Pull Request [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
 11. [Daniel Rowe](https://github.com/DanRowe): For Pull Request [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
 12. [Ss5h](https://github.com/tlatkdgus1): For adding support for natural sentence writing for translation [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
+13. [acheronx0577](https://github.com/acheronx0577): For adding SVG progress bar support with color and shape options [#657](https://github.com/anmol098/waka-readme-stats/pull/657)
 
 <details>
 
@@ -475,6 +571,8 @@ Please share any features, and add unit tests! Use the pull request and issue sy
 - [Luicen Loua](https://github.com/lucien-loua)
 
 - [DataBoySu](https://github.com/DataBoySu)
+
+- [AcheronX.](https://github.com/acheronx0577)
 
 </details>
 

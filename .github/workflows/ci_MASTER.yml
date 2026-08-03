@@ -26,7 +26,7 @@ jobs:
       - name: Detect changed paths (push)
         if: ${{ github.event_name == 'push' }}
         id: filter
-        uses: dorny/paths-filter@v3
+        uses: dorny/paths-filter@v4
         with:
           base: ${{ github.event.before }}
           ref: ${{ github.sha }}
@@ -61,7 +61,7 @@ jobs:
 
       - name: Setup Python 3.13 🐍
         if: ${{ steps.gate.outputs.code == 'true' }}
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: 3.13
           cache: 'pip'
@@ -113,7 +113,7 @@ jobs:
 
       - name: Upload Artifact 📦
         if: ${{ steps.gate.outputs.code == 'true' }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ format('assets-{0}', steps.branch.outputs.branch_name) }}
           path: assets
