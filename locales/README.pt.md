@@ -275,6 +275,57 @@ A bandeira `SYMBOL_VERSION` pode ser definida para o símbolo da barra de progre
 |    2    |      ⣿     |       ⣀     |
 |    3    |      ⬛    |       ⬜    |
 
+**Barras de Progresso SVG**
+
+Você pode alternar entre barras de texto Unicode e barras SVG coloridas com os seguintes sinalizadores:
+
+- `BAR_STYLE` — Defina como `"svg"` para ativar barras SVG, ou `"text"` (padrão) para barras Unicode
+- `BAR_COLOR` — Cor hexadecimal para a parte preenchida (padrão: `"#90CAF9"` azul claro)
+- `BAR_TRACK_COLOR` — Cor hexadecimal para a faixa de fundo (padrão: `"#172f45"` azul escuro)
+- `BAR_RADIUS` — Raio da borda para cantos arredondados (padrão: `"0"` para quadrado)
+  - `"0"` = Bordas quadradas nítidas
+  - `"4"` = Cantos arredondados sutis
+  - Qualquer número inteiro positivo funciona
+- `TEXT_PRIMARY_COLOR` — Cor hexadecimal para o texto principal da lista SVG, como nomes de linguagens/projetos (padrão: `"#c9d1d9"`)
+- `TEXT_SECONDARY_COLOR` — Cor hexadecimal para o texto secundário da lista SVG, como tempos e porcentagens (padrão: `"#8b949e"`)
+
+Exemplo de fluxo de trabalho com barras SVG ativadas:
+
+```yaml
+- uses: anmol098/waka-readme-stats@master
+  with:
+    WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+    GH_TOKEN: ${{ secrets.GH_TOKEN }}
+    BAR_STYLE: "svg"
+    BAR_COLOR: "#90CAF9"
+    BAR_TRACK_COLOR: "#172f45"
+    BAR_RADIUS: "4"
+    TEXT_PRIMARY_COLOR: "#c9d1d9"
+    TEXT_SECONDARY_COLOR: "#8b949e"
+```
+
+**Antes e depois**
+
+Barras Unicode padrão (`BAR_STYLE: "text"`, ou omitindo `BAR_STYLE`):
+
+```text
+Vue          8 repos        ██████░░░░░░░░░░░░░░░░░░░   25.0%
+Java         6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75%
+JavaScript   6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75%
+PHP          3 repos        ██░░░░░░░░░░░░░░░░░░░░░░░   9.38%
+Python       2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+Dart         2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+CSS          2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+```
+
+Barras SVG, cantos retos (`BAR_STYLE: "svg"`, `BAR_RADIUS: "0"`, `BAR_COLOR` / `BAR_TRACK_COLOR` padrão):
+
+![Barras de progresso SVG (retas)](https://i.imgur.com/eShKuJH.png)
+
+Barras SVG, cantos arredondados (`BAR_STYLE: "svg"`, `BAR_RADIUS: "4"`):
+
+![Barras de progresso SVG (arredondadas)](https://i.imgur.com/dYOgG6I.png)
+
 A bandeira `DEBUG_LOGGING` pode ser definida para aumentar a verbosidade da saída da Ação do GitHub, por padrão igual à propriedade de depuração do executor interno
 
 **Linha do Tempo**
@@ -312,6 +363,7 @@ Contribuições são bem-vindas ♥! Por favor, compartilhe quaisquer funcionali
 10. [Arnav Jindal](https://github.com/Daggy1234): Por Pull Request [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
 11. [Daniel Rowe](https://github.com/DanRowe): Por Pull Request [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
 12. [Ss5h](https://github.com/tlatkdgus1): Por adicionar suporte para escrita de frase natural para tradução [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
+13. [acheronx0577](https://github.com/acheronx0577): Por adicionar suporte a barras de progresso SVG com opções de cor e forma [#657](https://github.com/anmol098/waka-readme-stats/pull/657)
 
 <details>
 
@@ -456,6 +508,8 @@ Contribuições são bem-vindas ♥! Por favor, compartilhe quaisquer funcionali
 - [Luicen Loua](https://github.com/lucien-loua)
 
 - [DataBoySu](https://github.com/DataBoySu)
+
+- [AcheronX.](https://github.com/acheronx0577)
 
 </details>
 
