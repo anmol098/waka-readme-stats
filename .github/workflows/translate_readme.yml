@@ -6,7 +6,7 @@ on:
       languages:
         description: 'Languages to translate (comma-separated)'
         required: false
-        default: 'fr,de,es,ja,zh,ru,pt,ko,hi'
+        default: 'fr,de,es,ja,zh,ru,pt,ko,hi,pl'
   # push:
   #   paths:
   #     - 'README.md'
@@ -25,7 +25,7 @@ jobs:
           if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             LANGS="${{ github.event.inputs.languages }}"
           else
-            LANGS="fr,de,es,ja,zh,ru,pt,ko,hi"
+            LANGS="fr,de,es,ja,zh,ru,pt,ko,hi,pl"
           fi
           # Create JSON array for matrix
           echo "matrix=$(echo $LANGS | jq -R -c 'split(",")')" >> $GITHUB_OUTPUT
