@@ -137,6 +137,11 @@ If you want to add the other info to your stats, you can add multiple `FLAGS` in
 
 The `SECTION_NAME` flag can be set to any string, and will be the name of the section to replace in the README.
 
+The `COMMIT_ENABLED` flag can be set to `False` to disable committing right after waka-readme-stats has been generate changes.
+
+> [!NOTE]
+> Once flag is set to `False` you take responsibility for commiting changes of Readme.md by own. It can be used, for example, if you use waka-readme-stats in workflow with several changes of Readme.md in row.  
+
 The `COMMIT_BY_ME` flag can be set to `True` to commit the code using your name and email.
 
 The `COMMIT_MESSAGE` flag can be set for the commit message. The default is "Updated with Dev Metrics"
