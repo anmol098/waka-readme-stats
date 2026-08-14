@@ -42,10 +42,13 @@ class GitHubManager:
     @staticmethod
     def prepare_github_env():
         """
-        Download and store for future use:
-        - Current GitHub user.
-        - Named repo of the user [username]/[username].
-        - Clone of the named repo.
+        Initialize GitHub API access and the local Git repository.
+
+        When COMMIT_ENABLED is True, a separate clone of the user's repository
+        is created to allow for generating and committing changes.
+
+        When COMMIT_ENABLED is False, the existing GitHub Actions workspace
+        is used instead, allowing the caller to manage Git operations.
         """
         github = Github(auth=Auth.Token(EM.GH_TOKEN))
         clone_path = "repo"
@@ -88,14 +91,17 @@ class GitHubManager:
 
         GitHubManager.REMOTE = github.get_repo(GitHubManager._REMOTE_NAME)
 
-        rmtree(clone_path, ignore_errors=True)
-        GitHubManager.REPO = Repo.clone_from(GitHubManager._REPO_PATH, to_path=clone_path)
-
-        if EM.COMMIT_SINGLE:
-            GitHubManager.REPO.git.checkout(GitHubManager.branch(EM.PULL_BRANCH_NAME))
-            GitHubManager.REPO.git.checkout("--orphan", GitHubManager._SINGLE_COMMIT_BRANCH)
+        if EM.COMMIT_ENABLED:
+            rmtree(clone_path, ignore_errors=True)
+            GitHubManager.REPO = Repo.clone_from(GitHubManager._REPO_PATH, to_path=clone_path)
+            if EM.COMMIT_SINGLE:
+                GitHubManager.REPO.git.checkout(GitHubManager.branch(EM.PULL_BRANCH_NAME))
+                GitHubManager.REPO.git.checkout("--orphan", GitHubManager._SINGLE_COMMIT_BRANCH)
+            else:
+                GitHubManager.REPO.git.checkout(GitHubManager.branch(EM.PUSH_BRANCH_NAME))
         else:
-            GitHubManager.REPO.git.checkout(GitHubManager.branch(EM.PUSH_BRANCH_NAME))
+            DBM.i("Using existing GitHub Actions workspace; commit and push disabled.")
+            GitHubManager.REPO = Repo(environ["GITHUB_WORKSPACE"])
 
     @staticmethod
     def _get_author() -> Actor:
@@ -124,7 +130,8 @@ class GitHubManager:
     @staticmethod
     def _copy_file_and_add_to_repo(src_path: str):
         """
-        Copies file to repository folder, creating path if needed and adds file to git.
+        Copies file to repository folder, creating path if needed and adds file to git,
+        if COMMIT_ENABLED is True.
         The copied file relative to repository root path will be equal the source file relative to work directory path.
 
         :param src_path: Source file path.
@@ -134,14 +141,15 @@ class GitHubManager:
         makedirs(dirname(dst_path), exist_ok=True)
         copy(src_path, dst_path)
 
-        try:
-            GitHubManager.REPO.git.add(dst_path, force=EM.FORCE_ADD)
-        except GitCommandError as e:
-            if "ignored" in str(e):
-                DBM.p(f"Potential Config Error!: '{src_path}' is ignored by .gitignore and was not added.")
-                DBM.p("To fix this, set the 'FORCE_ADD' flag in your workflow file to 'True'.")
-                # Fail fast to avoid continuing with an uncommitted asset
-            raise
+        if EM.COMMIT_ENABLED:
+            try:
+                GitHubManager.REPO.git.add(dst_path, force=EM.FORCE_ADD)
+            except GitCommandError as e:
+                if "ignored" in str(e):
+                    DBM.p(f"Potential Config Error!: '{src_path}' is ignored by .gitignore and was not added.")
+                    DBM.p("To fix this, set the 'FORCE_ADD' flag in your workflow file to 'True'.")
+                    # Fail fast to avoid continuing with an uncommitted asset
+                raise
 
     @staticmethod
     def update_readme(stats: str):
@@ -160,7 +168,8 @@ class GitHubManager:
         with open(readme_path, "w") as readme_file:
             readme_file.write(new_readme)
 
-        GitHubManager.REPO.git.add(readme_path)
+        if EM.COMMIT_ENABLED:
+            GitHubManager.REPO.git.add(readme_path)
         DBM.g("README updated!")
 
     @staticmethod

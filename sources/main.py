@@ -402,7 +402,8 @@ async def main():
     stats = await get_stats()
     if not EM.DEBUG_RUN:
         GHM.update_readme(stats)
-        GHM.commit_update()
+        if EM.COMMIT_ENABLED:
+            GHM.commit_update()
     else:
         GHM.set_github_output(stats)
     await DM.close_remote_resources()
