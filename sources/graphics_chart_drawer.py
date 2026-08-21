@@ -22,6 +22,7 @@ async def create_loc_graph(yearly_data: Dict, save_path: str):
     colors = await DM.get_remote_yaml("linguist")
     if colors is None:
         colors = dict()
+    colors = {k.casefold(): v for k, v in colors.items()}
     years = len(yearly_data.keys())
     year_indexes = np.arange(years)
 
@@ -42,7 +43,7 @@ async def create_loc_graph(yearly_data: Dict, save_path: str):
     cumulative = np.zeros((years, 4, 2), dtype=int)
 
     for key, value in languages_all_loc.items():
-        color = colors[key].get("color", "tab:gray")
+        color = colors[key.casefold()].get("color", "tab:gray")
         language_handles += [mpatches.Patch(color=color, label=key)]
 
         for quarter in range(4):
