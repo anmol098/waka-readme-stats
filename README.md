@@ -164,7 +164,7 @@ The `SHOW_AI_CODE_TIME` flag can be set to `False` to hide the all-time **AI Cod
 
 ![AI Code Time](http://img.shields.io/badge/AI%20Code%20Time-77%20hrs%2022%20mins-blue)
 
-The `SHOW_AI_CODING` flag can be set to `False` to hide the weekly AI coding breakdown: AI coding time, AI vs. human written lines, token usage, estimated AI cost, sessions/prompts, a per-model breakdown, and a few deduced insights.
+The `SHOW_AI_CODING` flag can be set to `False` to hide the weekly AI coding breakdown. Its parts (AI coding time, AI vs. human written lines, token usage, estimated AI cost, sessions/prompts, the per-model breakdown and the deduced insights) can also be hidden individually with the toggles described below.
 
 **🤖 AI Coding This Week**
 
@@ -179,8 +179,8 @@ The `SHOW_AI_CODING` flag can be set to `False` to hide the weekly AI coding bre
 
 🧠 5 AI Sessions, 20 AI Prompts
 
-Sonnet                   1,200 lines         ██████████████████████░░░   89.96 %
-GPT-4                    134 lines           ███░░░░░░░░░░░░░░░░░░░░░░   10.04 %
+Sonnet                   $11.23              ██████████████████████░░░   89.96 %
+GPT-4                    $1.25               ███░░░░░░░░░░░░░░░░░░░░░░   10.04 %
 
 🔎 AI Coding Insights:
 🧑‍💻 Mostly Hands-On — 28.52% of written lines came from AI
@@ -200,6 +200,19 @@ If there was no AI coding activity that week, the block still renders with a fal
 ```text
 No AI Coding Activity Tracked This Week
 ```
+
+Each part of the weekly AI coding breakdown can be toggled independently (all default to `True` except `SHOW_AI_TOTAL`):
+
+- `SHOW_AI_TIME` — the AI coding time.
+- `SHOW_AI_LINES` — the AI vs. human written lines.
+- `SHOW_AI_TOKENS` — the token usage.
+- `SHOW_AI_COST` — the estimated cost.
+- `SHOW_AI_SESSIONS` — the sessions and prompts.
+- `SHOW_AI_MODELS` — the per-model usage breakdown. Percentages are based on the estimated cost, falling back to line changes, so models with activity but no line changes are still shown.
+- `SHOW_AI_INSIGHTS` — the deduced insights.
+- `SHOW_AI_TOTAL` — an extra line with the total AI tokens and cost (all-time, falling back to the week).
+
+The weekly AI numbers are aggregated from WakaTime's daily summaries, which include the current day (the `last_7_days` stats range may exclude today).
 
 The `SHOW_PROFILE_VIEWS` flag can be set to `False` to hide **Profile Views**
 

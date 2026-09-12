@@ -53,6 +53,14 @@ class EnvironmentManager:
     SHOW_TOTAL_CODE_TIME = getenv("INPUT_SHOW_TOTAL_CODE_TIME", "True").lower() in _TRUTHY
     SHOW_AI_CODE_TIME = getenv("INPUT_SHOW_AI_CODE_TIME", "True").lower() in _TRUTHY
     SHOW_AI_CODING = getenv("INPUT_SHOW_AI_CODING", "True").lower() in _TRUTHY
+    SHOW_AI_TIME = getenv("INPUT_SHOW_AI_TIME", "True").lower() in _TRUTHY
+    SHOW_AI_LINES = getenv("INPUT_SHOW_AI_LINES", "True").lower() in _TRUTHY
+    SHOW_AI_TOKENS = getenv("INPUT_SHOW_AI_TOKENS", "True").lower() in _TRUTHY
+    SHOW_AI_COST = getenv("INPUT_SHOW_AI_COST", "True").lower() in _TRUTHY
+    SHOW_AI_SESSIONS = getenv("INPUT_SHOW_AI_SESSIONS", "True").lower() in _TRUTHY
+    SHOW_AI_MODELS = getenv("INPUT_SHOW_AI_MODELS", "True").lower() in _TRUTHY
+    SHOW_AI_INSIGHTS = getenv("INPUT_SHOW_AI_INSIGHTS", "True").lower() in _TRUTHY
+    SHOW_AI_TOTAL = getenv("INPUT_SHOW_AI_TOTAL", "False").lower() in _TRUTHY
 
     COMMIT_BY_ME = getenv("INPUT_COMMIT_BY_ME", "False").lower() in _TRUTHY
     COMMIT_MESSAGE = getenv("INPUT_COMMIT_MESSAGE", "Updated with Dev Metrics")

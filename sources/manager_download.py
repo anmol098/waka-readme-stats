@@ -126,11 +126,13 @@ async def init_download_manager(user_login: str):
     if EM.MOCK_WAKATIME:
         DownloadManager._REMOTE_RESOURCES_CACHE["waka_latest"] = DownloadManager._load_mock_json("mock_wakatime_stats.json")
         DownloadManager._REMOTE_RESOURCES_CACHE["waka_all"] = DownloadManager._load_mock_json("mock_wakatime_all_time.json")
+        DownloadManager._REMOTE_RESOURCES_CACHE["waka_summary"] = DownloadManager._load_mock_json("mock_wakatime_summary.json")
 
     await DownloadManager.load_remote_resources(
         linguist="https://cdn.jsdelivr.net/gh/github/linguist@master/lib/linguist/languages.yml",
         waka_latest=f"{EM.WAKATIME_API_URL}users/current/stats/last_7_days?api_key={EM.WAKATIME_API_KEY}",
         waka_all=f"{EM.WAKATIME_API_URL}users/current/stats/all_time?api_key={EM.WAKATIME_API_KEY}",
+        waka_summary=f"{EM.WAKATIME_API_URL}users/current/summaries?range=Last%207%20Days&api_key={EM.WAKATIME_API_KEY}",
         github_stats=f"https://github-contributions.vercel.app/api/v1/{user_login}",
     )
 

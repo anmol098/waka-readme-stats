@@ -57,7 +57,9 @@
     "Session Style Detail": "%s — average %s prompts per session",
     "Review Style: Hands-On Reviewer": "🔍 Hands-On Reviewer",
     "Review Style: High AI Trust": "🚀 High AI Trust",
-    "Review Style Detail": "%s — %s%% of changed lines were hand-edited"
+    "Review Style Detail": "%s — %s%% of changed lines were hand-edited",
+    "Total AI Tokens": "%s Total Tokens",
+    "Total AI Cost": "$%s Total Cost"
   },
   "fr": {
     "Monday": "Lundi",
@@ -117,7 +119,9 @@
     "Session Style Detail": "%s — average %s prompts per session",
     "Review Style: Hands-On Reviewer": "🔍 Hands-On Reviewer",
     "Review Style: High AI Trust": "🚀 High AI Trust",
-    "Review Style Detail": "%s — %s%% of changed lines were hand-edited"
+    "Review Style Detail": "%s — %s%% of changed lines were hand-edited",
+    "Total AI Tokens": "%s jetons au total",
+    "Total AI Cost": "$%s coût total"
   },
   "bn": {
     "Monday": "সোমবার",
@@ -177,7 +181,9 @@
     "Session Style Detail": "%s — average %s prompts per session",
     "Review Style: Hands-On Reviewer": "🔍 Hands-On Reviewer",
     "Review Style: High AI Trust": "🚀 High AI Trust",
-    "Review Style Detail": "%s — %s%% of changed lines were hand-edited"
+    "Review Style Detail": "%s — %s%% of changed lines were hand-edited",
+    "Total AI Tokens": "%s মোট টোকেন",
+    "Total AI Cost": "$%s মোট খরচ"
   },
   "it": {
     "Monday": "Lunedì",
@@ -237,7 +243,9 @@
     "Session Style Detail": "%s — average %s prompts per session",
     "Review Style: Hands-On Reviewer": "🔍 Hands-On Reviewer",
     "Review Style: High AI Trust": "🚀 High AI Trust",
-    "Review Style Detail": "%s — %s%% of changed lines were hand-edited"
+    "Review Style Detail": "%s — %s%% of changed lines were hand-edited",
+    "Total AI Tokens": "%s token totali",
+    "Total AI Cost": "$%s costo totale"
   },
   "zh": {
     "Monday": "星期一",
@@ -297,7 +305,9 @@
     "Session Style Detail": "%s — average %s prompts per session",
     "Review Style: Hands-On Reviewer": "🔍 Hands-On Reviewer",
     "Review Style: High AI Trust": "🚀 High AI Trust",
-    "Review Style Detail": "%s — %s%% of changed lines were hand-edited"
+    "Review Style Detail": "%s — %s%% of changed lines were hand-edited",
+    "Total AI Tokens": "%s 总 Token 数",
+    "Total AI Cost": "$%s 总费用"
   },
   "zh_TW": {
     "Monday": "星期一",
@@ -357,7 +367,9 @@
     "Session Style Detail": "%s — average %s prompts per session",
     "Review Style: Hands-On Reviewer": "🔍 Hands-On Reviewer",
     "Review Style: High AI Trust": "🚀 High AI Trust",
-    "Review Style Detail": "%s — %s%% of changed lines were hand-edited"
+    "Review Style Detail": "%s — %s%% of changed lines were hand-edited",
+    "Total AI Tokens": "%s 總 Token 數",
+    "Total AI Cost": "$%s 總費用"
   },
   "ar": {
     "Monday": "الأثنين",
@@ -417,7 +429,9 @@
     "Session Style Detail": "%s — average %s prompts per session",
     "Review Style: Hands-On Reviewer": "🔍 Hands-On Reviewer",
     "Review Style: High AI Trust": "🚀 High AI Trust",
-    "Review Style Detail": "%s — %s%% of changed lines were hand-edited"
+    "Review Style Detail": "%s — %s%% of changed lines were hand-edited",
+    "Total AI Tokens": "%s إجمالي الرموز",
+    "Total AI Cost": "$%s التكلفة الإجمالية"
   },
   "pt": {
     "Monday": "Segunda-Feira",
@@ -477,7 +491,9 @@
     "Session Style Detail": "%s — average %s prompts per session",
     "Review Style: Hands-On Reviewer": "🔍 Hands-On Reviewer",
     "Review Style: High AI Trust": "🚀 High AI Trust",
-    "Review Style Detail": "%s — %s%% of changed lines were hand-edited"
+    "Review Style Detail": "%s — %s%% of changed lines were hand-edited",
+    "Total AI Tokens": "%s tokens no total",
+    "Total AI Cost": "$%s custo total"
   },
   "pl": {
     "Monday": "Poniedziałek",
@@ -537,7 +553,9 @@
     "Session Style Detail": "%s — average %s prompts per session",
     "Review Style: Hands-On Reviewer": "🔍 Hands-On Reviewer",
     "Review Style: High AI Trust": "🚀 High AI Trust",
-    "Review Style Detail": "%s — %s%% of changed lines were hand-edited"
+    "Review Style Detail": "%s — %s%% of changed lines were hand-edited",
+    "Total AI Tokens": "%s łącznie tokenów",
+    "Total AI Cost": "$%s łączny koszt"
   },
   "es": {
     "Monday": "Lunes",
@@ -575,14 +593,14 @@
     "private repositories": "%d Repositorios Privados",
     "I am an Early": "Soy diurno 🐤",
     "I am a Night": "Soy nocturno 🦉",
-    "AI Coding This Week": "AI Coding This Week",
+    "AI Coding This Week": "Uso de IA esta semana",
     "AI Coding Time": "AI Coding Time",
     "AI vs Human Lines": "%s lines written by AI, %s lines written by hand (%s%% AI-written)",
-    "Estimated AI Cost": "$%s Estimated AI Cost This Week",
+    "Estimated AI Cost": "$%s costo estimado esta semana",
     "AI Sessions and Prompts": "%s AI Sessions, %s AI Prompts",
     "AI Code Time": "AI Code Time",
-    "No AI Coding Activity Tracked This Week": "No AI Coding Activity Tracked This Week",
-    "AI Token Usage": "%s Input Tokens, %s Output Tokens",
+    "No AI Coding Activity Tracked This Week": "Sin actividad de IA registrada esta semana",
+    "AI Token Usage": "%s tokens de entrada, %s de salida",
     "AI Coding Insights": "AI Coding Insights",
     "AI Reliance: AI-Driven": "🤖 AI-Driven",
     "AI Reliance: Balanced": "⚖️ Balanced with AI",
@@ -597,7 +615,9 @@
     "Session Style Detail": "%s — average %s prompts per session",
     "Review Style: Hands-On Reviewer": "🔍 Hands-On Reviewer",
     "Review Style: High AI Trust": "🚀 High AI Trust",
-    "Review Style Detail": "%s — %s%% of changed lines were hand-edited"
+    "Review Style Detail": "%s — %s%% of changed lines were hand-edited",
+    "Total AI Tokens": "%s tokens en total",
+    "Total AI Cost": "$%s costo total"
   },
   "gl": {
     "Monday": "Luns",
@@ -657,7 +677,9 @@
     "Session Style Detail": "%s — average %s prompts per session",
     "Review Style: Hands-On Reviewer": "🔍 Hands-On Reviewer",
     "Review Style: High AI Trust": "🚀 High AI Trust",
-    "Review Style Detail": "%s — %s%% of changed lines were hand-edited"
+    "Review Style Detail": "%s — %s%% of changed lines were hand-edited",
+    "Total AI Tokens": "%s tokens en total",
+    "Total AI Cost": "$%s custo total"
   },
   "ko": {
     "Monday": "월요일",
@@ -717,7 +739,9 @@
     "Session Style Detail": "%s — average %s prompts per session",
     "Review Style: Hands-On Reviewer": "🔍 Hands-On Reviewer",
     "Review Style: High AI Trust": "🚀 High AI Trust",
-    "Review Style Detail": "%s — %s%% of changed lines were hand-edited"
+    "Review Style Detail": "%s — %s%% of changed lines were hand-edited",
+    "Total AI Tokens": "총 %s 토큰",
+    "Total AI Cost": "$%s 총 비용"
   },
   "tr": {
     "Monday": "Pazartesi",
@@ -777,7 +801,9 @@
     "Session Style Detail": "%s — average %s prompts per session",
     "Review Style: Hands-On Reviewer": "🔍 Hands-On Reviewer",
     "Review Style: High AI Trust": "🚀 High AI Trust",
-    "Review Style Detail": "%s — %s%% of changed lines were hand-edited"
+    "Review Style Detail": "%s — %s%% of changed lines were hand-edited",
+    "Total AI Tokens": "Toplam %s token",
+    "Total AI Cost": "$%s toplam maliyet"
   },
   "ru": {
     "Monday": "Понедельник",
@@ -837,7 +863,9 @@
     "Session Style Detail": "%s — average %s prompts per session",
     "Review Style: Hands-On Reviewer": "🔍 Hands-On Reviewer",
     "Review Style: High AI Trust": "🚀 High AI Trust",
-    "Review Style Detail": "%s — %s%% of changed lines were hand-edited"
+    "Review Style Detail": "%s — %s%% of changed lines were hand-edited",
+    "Total AI Tokens": "Всего %s токенов",
+    "Total AI Cost": "$%s общая стоимость"
   },
   "de": {
     "Monday": "Montag",
@@ -897,7 +925,9 @@
     "Session Style Detail": "%s — average %s prompts per session",
     "Review Style: Hands-On Reviewer": "🔍 Hands-On Reviewer",
     "Review Style: High AI Trust": "🚀 High AI Trust",
-    "Review Style Detail": "%s — %s%% of changed lines were hand-edited"
+    "Review Style Detail": "%s — %s%% of changed lines were hand-edited",
+    "Total AI Tokens": "%s Token insgesamt",
+    "Total AI Cost": "$%s Gesamtkosten"
   },
   "id": {
     "Monday": "Senin",
@@ -957,7 +987,9 @@
     "Session Style Detail": "%s — average %s prompts per session",
     "Review Style: Hands-On Reviewer": "🔍 Hands-On Reviewer",
     "Review Style: High AI Trust": "🚀 High AI Trust",
-    "Review Style Detail": "%s — %s%% of changed lines were hand-edited"
+    "Review Style Detail": "%s — %s%% of changed lines were hand-edited",
+    "Total AI Tokens": "Total %s token",
+    "Total AI Cost": "$%s total biaya"
   },
   "ca": {
     "Monday": "Dilluns",
@@ -1017,7 +1049,9 @@
     "Session Style Detail": "%s — average %s prompts per session",
     "Review Style: Hands-On Reviewer": "🔍 Hands-On Reviewer",
     "Review Style: High AI Trust": "🚀 High AI Trust",
-    "Review Style Detail": "%s — %s%% of changed lines were hand-edited"
+    "Review Style Detail": "%s — %s%% of changed lines were hand-edited",
+    "Total AI Tokens": "%s tokens en total",
+    "Total AI Cost": "$%s cost total"
   },
   "vn": {
     "Monday": "Thứ Hai",
@@ -1077,7 +1111,9 @@
     "Session Style Detail": "%s — average %s prompts per session",
     "Review Style: Hands-On Reviewer": "🔍 Hands-On Reviewer",
     "Review Style: High AI Trust": "🚀 High AI Trust",
-    "Review Style Detail": "%s — %s%% of changed lines were hand-edited"
+    "Review Style Detail": "%s — %s%% of changed lines were hand-edited",
+    "Total AI Tokens": "Tổng %s token",
+    "Total AI Cost": "$%s tổng chi phí"
   },
   "uk": {
     "Monday": "Понеділок",
@@ -1137,7 +1173,9 @@
     "Session Style Detail": "%s — average %s prompts per session",
     "Review Style: Hands-On Reviewer": "🔍 Hands-On Reviewer",
     "Review Style: High AI Trust": "🚀 High AI Trust",
-    "Review Style Detail": "%s — %s%% of changed lines were hand-edited"
+    "Review Style Detail": "%s — %s%% of changed lines were hand-edited",
+    "Total AI Tokens": "Усього %s токенів",
+    "Total AI Cost": "$%s загальна вартість"
   },
   "fa": {
     "Monday": "دوشنبه",
@@ -1197,7 +1235,9 @@
     "Session Style Detail": "%s — average %s prompts per session",
     "Review Style: Hands-On Reviewer": "🔍 Hands-On Reviewer",
     "Review Style: High AI Trust": "🚀 High AI Trust",
-    "Review Style Detail": "%s — %s%% of changed lines were hand-edited"
+    "Review Style Detail": "%s — %s%% of changed lines were hand-edited",
+    "Total AI Tokens": "%s مجموع توکنها",
+    "Total AI Cost": "$%s هزینه کل"
   },
   "sw" : {
     "Monday": "Jumatatu",
@@ -1257,7 +1297,9 @@
     "Session Style Detail": "%s — average %s prompts per session",
     "Review Style: Hands-On Reviewer": "🔍 Hands-On Reviewer",
     "Review Style: High AI Trust": "🚀 High AI Trust",
-    "Review Style Detail": "%s — %s%% of changed lines were hand-edited"
+    "Review Style Detail": "%s — %s%% of changed lines were hand-edited",
+    "Total AI Tokens": "%s Jumla ya Tokeni",
+    "Total AI Cost": "$%s Gharama Jumla"
 },
   "hi": {
     "Monday": "सोमवार",
@@ -1317,6 +1359,8 @@
     "Session Style Detail": "%s — average %s prompts per session",
     "Review Style: Hands-On Reviewer": "🔍 Hands-On Reviewer",
     "Review Style: High AI Trust": "🚀 High AI Trust",
-    "Review Style Detail": "%s — %s%% of changed lines were hand-edited"
+    "Review Style Detail": "%s — %s%% of changed lines were hand-edited",
+    "Total AI Tokens": "कुल %s टोकन",
+    "Total AI Cost": "$%s कुल लागत"
   }
 }

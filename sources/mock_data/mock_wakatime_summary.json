@@ -1,0 +1,79 @@
+{
+    "data": [
+        {
+            "range": {
+                "start": "2026-07-26T03:00:00Z",
+                "end": "2026-07-27T02:59:59Z",
+                "date": "2026-07-26",
+                "text": "Sun Jul 26th 2026",
+                "timezone": "America/Argentina/Buenos_Aires"
+            },
+            "grand_total": {
+                "hours": 1,
+                "minutes": 28,
+                "total_seconds": 5289.28,
+                "digital": "1:28",
+                "decimal": "1.47",
+                "text": "1 hr 28 mins",
+                "ai_additions": 435,
+                "ai_deletions": 17,
+                "human_additions": 120,
+                "human_deletions": 4,
+                "ai_input_tokens": 142470,
+                "ai_output_tokens": 109035,
+                "ai_model_total_cost": 42.52,
+                "ai_model_breakdown": [
+                    {
+                        "name": "Deepseek",
+                        "lines": 289,
+                        "cost": 42.52
+                    }
+                ]
+            }
+        },
+        {
+            "range": {
+                "start": "2026-07-27T03:00:00Z",
+                "end": "2026-07-28T02:59:59Z",
+                "date": "2026-07-27",
+                "text": "Mon Jul 27th 2026",
+                "timezone": "America/Argentina/Buenos_Aires"
+            },
+            "grand_total": {
+                "hours": 2,
+                "minutes": 10,
+                "total_seconds": 7800,
+                "digital": "2:10",
+                "decimal": "2.17",
+                "text": "2 hrs 10 mins",
+                "ai_additions": 900,
+                "ai_deletions": 30,
+                "human_additions": 40,
+                "human_deletions": 10,
+                "ai_input_tokens": 210000,
+                "ai_output_tokens": 80000,
+                "ai_model_total_cost": 18.75,
+                "ai_model_breakdown": [
+                    {
+                        "name": "Deepseek",
+                        "lines": 700,
+                        "cost": 14.5
+                    },
+                    {
+                        "name": "Sonnet",
+                        "lines": 200,
+                        "cost": 4.25
+                    }
+                ]
+            }
+        }
+    ],
+    "start": "2026-07-26T03:00:00Z",
+    "end": "2026-08-02T02:59:59Z",
+    "cumulative_total": {
+        "seconds": 13089.28,
+        "text": "3 hrs 38 mins",
+        "digital": "3:38",
+        "decimal": "3.64"
+    }
+}

@@ -114,8 +114,48 @@ inputs:
 
   SHOW_AI_CODING:
     required: false
-    description: "Show the weekly AI coding breakdown (AI vs human lines, cost, model breakdown, sessions)"
+    description: "Show the weekly AI coding breakdown (AI time, lines, tokens, cost, sessions, model breakdown, insights)"
     default: "True"
+
+  SHOW_AI_TIME:
+    required: false
+    description: "Show the AI coding time line in the weekly AI coding breakdown"
+    default: "True"
+
+  SHOW_AI_LINES:
+    required: false
+    description: "Show the AI vs human written lines in the weekly AI coding breakdown"
+    default: "True"
+
+  SHOW_AI_TOKENS:
+    required: false
+    description: "Show the token usage line in the weekly AI coding breakdown"
+    default: "True"
+
+  SHOW_AI_COST:
+    required: false
+    description: "Show the estimated cost line in the weekly AI coding breakdown"
+    default: "True"
+
+  SHOW_AI_SESSIONS:
+    required: false
+    description: "Show the sessions and prompts line in the weekly AI coding breakdown"
+    default: "True"
+
+  SHOW_AI_MODELS:
+    required: false
+    description: "Show the per-model usage breakdown in the weekly AI coding breakdown"
+    default: "True"
+
+  SHOW_AI_INSIGHTS:
+    required: false
+    description: "Show the deduced insights in the weekly AI coding breakdown"
+    default: "True"
+
+  SHOW_AI_TOTAL:
+    required: false
+    description: "Show the total AI tokens and cost line (all-time, falling back to the week)"
+    default: "False"
 
   COMMIT_BY_ME:
     required: false

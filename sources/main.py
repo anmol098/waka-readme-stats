@@ -69,34 +69,55 @@ def make_ai_coding_insights(ai_written_percent: float, prompt_length_avg: float,
     return insights
 
 
-def make_ai_coding_stats(data: Dict) -> str:
+def make_ai_models_list(breakdown: List[Dict]) -> str:
     """
-    Build the weekly AI coding stats block: AI coding time, AI vs human written lines,
-    token usage, estimated AI cost, sessions/prompts, per-model breakdown and deduced insights.
-    Renders a "no activity" fallback (instead of hiding the section) if the account has no AI coding data this week.
+    Build the per-model usage list. It uses the estimated cost as the metric (falling back to line
+    changes when no cost is available) so models with activity but no line changes still show up.
 
-    :param data: WakaTime weekly stats response (`waka_latest`).
+    :param breakdown: Aggregated per-model entries with `name`, `lines` and `cost`.
+    :returns: String representation of the per-model usage list.
+    """
+    total_cost = sum(model.get("cost", 0) for model in breakdown)
+    if total_cost:
+        texts = [f"${model.get('cost', 0):.2f}" for model in breakdown]
+        percents = [round(model.get("cost", 0) / total_cost * 100, 2) for model in breakdown]
+    else:
+        total_lines = sum(model.get("lines", 0) for model in breakdown) or 1
+        texts = [f"{intcomma(model.get('lines', 0))} lines" for model in breakdown]
+        percents = [round(model.get("lines", 0) / total_lines * 100, 2) for model in breakdown]
+    names = [model["name"] for model in breakdown]
+    return make_list(names=names, texts=texts, percents=percents)
+
+
+def make_ai_coding_stats(data: Dict, summary_data: Optional[Dict], all_time_data: Optional[Dict]) -> str:
+    """
+    Build the weekly AI coding stats block. Each section can be toggled independently: AI coding time,
+    AI vs human written lines, token usage, estimated cost, sessions/prompts, per-model usage and insights.
+    The per-model usage uses the estimated cost (falling back to line changes) so that models with
+    activity but no line changes are still displayed. Renders a "no activity" fallback when there is no
+    AI coding data.
+
+    :param data: WakaTime weekly stats response (`waka_latest`), used for the AI coding time category.
+    :param summary_data: WakaTime last-7-days summaries response (`waka_summary`), the weekly AI source
+        because it includes the current day.
+    :param all_time_data: WakaTime all-time stats response (`waka_all`), used for the optional totals.
     :returns: String representation of the AI coding stats.
     """
-    ai_category = find_category(data["data"].get("categories", []), "AI Coding")
-    ai_sessions = data["data"].get("ai_sessions", 0)
+    stats_data = data["data"]
+    weekly_ai = aggregate_ai_from_summaries(summary_data) or stats_data
+    ai_category = find_category(stats_data.get("categories", []), "AI Coding")
 
-    stats = f"🤖 **{FM.t('AI Coding This Week')}** \n\n```text\n"
-
-    if ai_category is None or not ai_sessions:
-        stats += f"{FM.t('No AI Coding Activity Tracked This Week')}\n\n"
-        return f"{stats[:-1]}```\n\n"
-
-    ai_additions = data["data"].get("ai_additions", 0)
-    ai_deletions = data["data"].get("ai_deletions", 0)
-    human_additions = data["data"].get("human_additions", 0)
-    human_deletions = data["data"].get("human_deletions", 0)
-    ai_input_tokens = data["data"].get("ai_input_tokens", 0)
-    ai_output_tokens = data["data"].get("ai_output_tokens", 0)
-    ai_cost = data["data"].get("ai_model_total_cost", 0)
-    ai_prompts = data["data"].get("ai_prompt_events_total", 0)
-    prompt_length_avg = data["data"].get("ai_prompt_length_avg", 0)
-    prompts_per_session = data["data"].get("ai_prompt_events_avg_per_session", 0)
+    ai_additions = weekly_ai.get("ai_additions", 0)
+    ai_deletions = weekly_ai.get("ai_deletions", 0)
+    human_additions = weekly_ai.get("human_additions", 0)
+    human_deletions = weekly_ai.get("human_deletions", 0)
+    ai_input_tokens = weekly_ai.get("ai_input_tokens", 0)
+    ai_output_tokens = weekly_ai.get("ai_output_tokens", 0)
+    ai_cost = weekly_ai.get("ai_model_total_cost", 0)
+    ai_sessions = weekly_ai.get("ai_sessions", 0)
+    ai_prompts = weekly_ai.get("ai_prompt_events_total", 0)
+    prompt_length_sum = weekly_ai.get("ai_prompt_length_sum", 0)
+    ai_model_breakdown = weekly_ai.get("ai_model_breakdown", [])
 
     total_additions = ai_additions + human_additions
     ai_written_percent = (ai_additions / total_additions * 100) if total_additions else 0
@@ -104,23 +125,92 @@ def make_ai_coding_stats(data: Dict) -> str:
     total_changes = ai_additions + ai_deletions + human_additions + human_deletions
     manual_touch_percent = ((human_additions + human_deletions) / total_changes * 100) if total_changes else 0
 
-    stats += f"⏱ {FM.t('AI Coding Time')}: {ai_category['text']} ({ai_category['percent']}%)\n\n"
-    stats += f"✍️ {FM.t('AI vs Human Lines') % (intcomma(ai_additions), intcomma(human_additions), round(ai_written_percent, 2))}\n\n"
-    stats += f"🔤 {FM.t('AI Token Usage') % (intcomma(ai_input_tokens), intcomma(ai_output_tokens))}\n\n"
-    stats += f"💵 {FM.t('Estimated AI Cost') % f'{ai_cost:.2f}'}\n\n"
-    stats += f"🧠 {FM.t('AI Sessions and Prompts') % (ai_sessions, ai_prompts)}\n\n"
+    prompt_length_avg = (prompt_length_sum / ai_prompts) if ai_prompts else 0
+    prompts_per_session = (ai_prompts / ai_sessions) if ai_sessions else 0
 
-    ai_model_breakdown = data["data"].get("ai_model_breakdown", [])
-    if ai_model_breakdown:
-        total_lines = sum(model["lines"] for model in ai_model_breakdown) or 1
-        names = [model["name"] for model in ai_model_breakdown]
-        texts = [f"{intcomma(model['lines'])} lines" for model in ai_model_breakdown]
-        percents = [round(model["lines"] / total_lines * 100, 2) for model in ai_model_breakdown]
-        stats += f"{make_list(names=names, texts=texts, percents=percents)}\n\n"
+    if not (ai_category or ai_sessions or ai_input_tokens or ai_output_tokens or ai_cost or ai_model_breakdown):
+        return f"🤖 **{FM.t('AI Coding This Week')}** \n\n```text\n{FM.t('No AI Coding Activity Tracked This Week')}\n```\n\n"
 
-    stats += f"{make_ai_coding_insights(ai_written_percent, prompt_length_avg, prompts_per_session, manual_touch_percent)}\n"
+    lines: List[str] = []
+    if EM.SHOW_AI_TIME and ai_category is not None:
+        lines.append(f"⏱ {FM.t('AI Coding Time')}: {ai_category['text']} ({ai_category['percent']}%)")
+    if EM.SHOW_AI_LINES and (ai_additions or human_additions):
+        lines.append(f"✍️ {FM.t('AI vs Human Lines') % (intcomma(ai_additions), intcomma(human_additions), round(ai_written_percent, 2))}")
+    if EM.SHOW_AI_TOKENS and (ai_input_tokens or ai_output_tokens):
+        lines.append(f"🔤 {FM.t('AI Token Usage') % (intcomma(ai_input_tokens), intcomma(ai_output_tokens))}")
+    if EM.SHOW_AI_COST and ai_cost:
+        lines.append(f"💵 {FM.t('Estimated AI Cost') % f'{ai_cost:.2f}'}")
+    if EM.SHOW_AI_SESSIONS and (ai_sessions or ai_prompts):
+        lines.append(f"🧠 {FM.t('AI Sessions and Prompts') % (ai_sessions, ai_prompts)}")
+    if EM.SHOW_AI_MODELS and ai_model_breakdown:
+        lines.append(make_ai_models_list(ai_model_breakdown))
+    if EM.SHOW_AI_INSIGHTS:
+        lines.append(make_ai_coding_insights(ai_written_percent, prompt_length_avg, prompts_per_session, manual_touch_percent))
+    if EM.SHOW_AI_TOTAL:
+        total_tokens = ai_input_tokens + ai_output_tokens
+        total_cost = ai_cost
+        if all_time_data is not None:
+            all_time = all_time_data["data"]
+            if all_time.get("ai_input_tokens") or all_time.get("ai_output_tokens") or all_time.get("ai_model_total_cost"):
+                total_tokens = all_time.get("ai_input_tokens", 0) + all_time.get("ai_output_tokens", 0)
+                total_cost = all_time.get("ai_model_total_cost", 0)
+        if total_tokens or total_cost:
+            lines.append(f"Σ {FM.t('Total AI Tokens') % intcomma(total_tokens)} · {FM.t('Total AI Cost') % f'{total_cost:.2f}'}")
 
-    return f"{stats[:-1]}```\n\n"
+    if not lines:
+        return ""
+
+    body = "\n\n".join(lines)
+    return f"🤖 **{FM.t('AI Coding This Week')}** \n\n```text\n{body}\n```\n\n"
+
+
+def aggregate_ai_from_summaries(summary_data: Optional[Dict]) -> Optional[Dict]:
+    """
+    Aggregate the AI fields of WakaTime's daily summaries into a single weekly-style block.
+    Unlike the `last_7_days` stats range, summaries include the current day, so AI usage shows up
+    as soon as it is tracked.
+
+    :param summary_data: WakaTime summaries response for the last 7 days, or None.
+    :returns: Dictionary with the aggregated `ai_*` weekly fields, or None when there is no AI data.
+    """
+    if not summary_data or not summary_data.get("data"):
+        return None
+
+    totals: Dict[str, float] = {
+        "ai_input_tokens": 0,
+        "ai_output_tokens": 0,
+        "ai_model_total_cost": 0,
+        "ai_additions": 0,
+        "ai_deletions": 0,
+        "human_additions": 0,
+        "human_deletions": 0,
+        "ai_sessions": 0,
+        "ai_prompt_events_total": 0,
+        "ai_prompt_length_sum": 0,
+    }
+    breakdown: Dict[str, Dict] = {}
+
+    for day in summary_data["data"]:
+        grand_total = day.get("grand_total") or {}
+        for key in totals:
+            totals[key] += grand_total.get(key) or 0
+
+        costs = grand_total.get("ai_model_costs") or {}
+        line_changes = grand_total.get("ai_model_line_changes") or {}
+        if not costs and not line_changes:
+            for model in grand_total.get("ai_model_breakdown") or []:
+                costs = {**costs, model["name"]: model.get("cost", 0)}
+                line_changes = {**line_changes, model["name"]: model.get("lines", 0)}
+        for name in set(costs) | set(line_changes):
+            entry = breakdown.setdefault(name, {"name": name, "lines": 0, "cost": 0.0})
+            entry["cost"] += costs.get(name) or 0
+            entry["lines"] += line_changes.get(name) or 0
+
+    if not (totals["ai_input_tokens"] or totals["ai_output_tokens"] or totals["ai_model_total_cost"] or breakdown):
+        return None
+
+    totals["ai_model_breakdown"] = sorted(breakdown.values(), key=lambda model: (model["cost"], model["lines"]), reverse=True)
+    return totals
 
 
 async def get_waka_time_stats(repositories: Dict, commit_dates: Dict) -> str:
@@ -182,7 +272,9 @@ async def get_waka_time_stats(repositories: Dict, commit_dates: Dict) -> str:
 
     if EM.SHOW_AI_CODING:
         DBM.i("Adding AI coding stats...")
-        stats += make_ai_coding_stats(data)
+        summary_data = await DM.get_remote_json("waka_summary")
+        all_time_data = await DM.get_remote_json("waka_all") if EM.SHOW_AI_TOTAL else None
+        stats += make_ai_coding_stats(data, summary_data, all_time_data)
 
     DBM.g("WakaTime stats added!")
     return stats
