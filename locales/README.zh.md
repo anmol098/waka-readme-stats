@@ -52,20 +52,20 @@
 1. 向 markdown（`.md`）文件中插入两行注释。可以参考[这里](#更新你的自述文件)的更新方法。
 2. 你需要一个 WakaTime API 密钥。它可以在 WakaTime 账号设置中获取。
     - 如果你第一次用 WakaTime，你可以翻到[这里](#初入-wakatime)了解更多。
-3. 如果你要通过 Action 获取 commit 数据，则应当在[这里](https://github.com/settings/tokens)创建 Github 的 `repo` 与 `user` API 令牌。
+3. 如果你要通过 Action 获取 commit 数据，则应当在[这里](https://github.com/settings/tokens)创建 GitHub 的 `repo` 与 `user` API 令牌。
    - 你可以参考[这个](#用户页面)示例更好了解这些。
 
 > [!NOTE]
 > 启用 `repo` 范围虽然看起来**很危险**，\
-> 但是这个 Github Action 只会获取你的 commit 时间戳和你在仓库里改动的代码行数。
+> 但是这个 GitHub Action 只会获取你的 commit 时间戳，以及你在参与贡献的仓库里增加或删除的代码行数。
 
-4. 你需要将 WakaTime API 密钥和 Github API 令牌保存在仓库秘密设置中。
+4. 你需要将 WakaTime API 密钥和 GitHub API 令牌保存在仓库秘密设置中。
   确保你按如下格式保存：
     - WakaTime API 密钥，格式为 `WAKATIME_API_KEY=<你的 wakatime API 密钥>`
-    - Github 个人访问令牌（PAT），格式为 `GH_TOKEN=<你的 Github 访问令牌>`
+    - GitHub 个人访问令牌（PAT），格式为 `GH_TOKEN=<你的 GitHub 访问令牌>`
 5. 根据你的需要显示或隐藏标志。
 
-这个 Github Action 可以通过 `cron` 表达式设置为任何时间点。见 [Crontab.guru](https://crontab.guru/) 和[这个网站](https://crontab.cronhub.io/)生成 `cron` 表达式。
+这个 GitHub Action 可以通过 `cron` 表达式设置为任何时间点。见 [Crontab.guru](https://crontab.guru/) 和[这个网站](https://crontab.cronhub.io/)生成 `cron` 表达式。
 
 ## 更新你的自述文件
 
@@ -91,7 +91,7 @@ WakaTime 可以帮你统计出你投身代码的时间长度。这可以帮你�
 
 ### 用户页面
 
-你需要获取 `repo` 与 `user` 范围的 [Github 访问令牌](https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token)，在仓库秘密界面以 `GH_TOKEN = <你的 Github 访问令牌>` 的格式保存。
+你需要获取 `repo` 与 `user` 范围的 [GitHub 访问令牌](https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token)，在仓库秘密界面以 `GH_TOKEN = <你的 GitHub 访问令牌>` 的格式保存。
 
 如下是一份运行用的示例工作流文件：
 
@@ -135,11 +135,11 @@ jobs:
 
 `LOCALE` 标志可以按你的语言显示统计数据。默认为英语。标志变量中需填入本地化[语言键缩写](https://saimana.com/list-of-country-locale-code/)。最终结果示例可以在[这里](https://github.com/anmol098/anmol098/blob/master/Readme-fr.md)找到。
 
-`SCTION_NAME` 标志可以设置成任意字符串，是自述文件中替换部分的名称。
+`SECTION_NAME` 标志可以设置成任意字符串，是自述文件中替换部分的名称。
 
 `COMMIT_BY_ME` 标志设置为 `True` 时会以你的名称与邮箱提交 commit。
 
-`COMMIT_MESSAGE` 标志可以设置 commit 的附言。默认为“更新开发数据统计（Update with Dev Metrics）”。
+`COMMIT_MESSAGE` 标志可以设置 commit 的附言。默认为 "Updated with Dev Metrics"。
 
 `COMMIT_USERNAME` 标志决定了提交 commit 的用户名称。默认为“readme-bot”。
 
@@ -156,6 +156,51 @@ jobs:
 `SHOW_TOTAL_CODE_TIME` 标志设置为 `False` 时，可隐藏*编程时长统计*。
 
 ![编程时长统计](http://img.shields.io/badge/Code%20Time-1%2C438%20hrs%2054%20mins-blue)
+
+> [!NOTE]
+> 下文的 `SHOW_AI_CODE_TIME` 与 `SHOW_AI_CODING` 标志需要你的 WakaTime 账户已开启 AI 编程追踪并有活动记录。如果你的账户没有任何历史 AI 数据，**AI 编程时长**徽章将完全隐藏；如果本周没有 AI 数据，每周 AI 区块仍会显示，并以“本周没有记录到 AI 编程活动”的消息代替具体数字。
+
+`SHOW_AI_CODE_TIME` 标志设置为 `False` 时，可隐藏累计 **AI 编程时长**徽章。
+
+![AI 编程时长](http://img.shields.io/badge/AI%20Code%20Time-77%20hrs%2022%20mins-blue)
+
+`SHOW_AI_CODING` 标志设置为 `False` 时，可隐藏每周 AI 编程明细：AI 编程时长、AI 与人工编写行数、Token 用量、AI 预估花费、会话/提示词数量、按模型细分的数据，以及几条推断得出的洞察。
+
+**🤖 本周 AI 编程**
+
+```text
+⏱ AI 编程时长：1 时 53 分（3.59%）
+
+✍️ AI 编写 1,245 行，人工编写 3,120 行（AI 编写占 28.52%）
+
+🔤 输入 Token 845,000 个，输出 Token 21,000 个
+
+💵 本周 AI 预估花费 $12.48
+
+🧠 5 次 AI 会话，20 条 AI 提示词
+
+Sonnet                   1,200 lines         ██████████████████████░░░   89.96 %
+GPT-4                    134 lines           ███░░░░░░░░░░░░░░░░░░░░░░   10.04 %
+
+🔎 AI 编程洞察：
+🧑‍💻 以人工为主 — AI 编写的行数占 28.52%
+📄 详细提示 — 平均每条提示词 925 个字符
+🔁 多轮迭代 — 平均每个会话 4 条提示词
+🔍 亲力亲为的审查者 — 73.29% 的改动行经过人工编辑
+```
+
+这些洞察全部由上述原始数据推断得出，并非额外的 API 数据：
+
+- **AI 依赖程度**（`🤖 AI 主导` / `⚖️ AI 与人工并重` / `🧑‍💻 以人工为主`）——取决于 AI 编写的新增行数占比。
+- **提示词风格**（`📝 简洁提示` / `📄 详细提示` / `📚 详尽提示`）——取决于提示词的平均长度。
+- **会话风格**（`🎯 一次到位` / `🔁 多轮迭代`）——取决于每次 AI 会话的平均提示词数量，即你倾向于一次提示就完成，还是依赖多轮追问。
+- **审查风格**（`🔍 亲力亲为的审查者` / `🚀 高度信任 AI`）——取决于所有改动行中仍由人工编辑的比例，以此反映 AI 产出的代码被人工审查/返工的程度。
+
+如果那一周没有任何 AI 编程活动，该区块仍会渲染一条兜底消息，而不是直接消失：
+
+```text
+本周没有记录到 AI 编程活动
+```
 
 `SHOW_PROFILE_VIEWS` 标志设置为 `False` 时，可隐藏**资料页浏览量统计**。
 
@@ -252,9 +297,9 @@ CSS          2 个仓库        █░░░░░░░░░░░░░░░
 > [!NOTE]
 > 该部分需要 `user` 范围的个人访问令牌（PAT），否则这里的数据不会正确显示。
 
-**🐱 我的 Github 数据** 
+**🐱 我的 GitHub 数据**
 
-> 🏆 在 2020 年贡献了 433 次
+> 🏆 433 次贡献（2020 年）
  > 
 > 📦 使用了 292.3 kB GitHub 存储空间
  > 
@@ -266,7 +311,11 @@ CSS          2 个仓库        █░░░░░░░░░░░░░░░
 
 `SHOW_LOC_CHART` 标志设置为 `False` 时，会隐藏不同年份不同季度的代码贡献行数。
 
-`IGNORED_REPO` 标志可以设置为 `"waka-readme-stats, my-first-repo"`（仅为示例），去除你不想计入的仓库。
+`IGNORED_REPOS` 标志可以设置为 `"waka-readme-stats, my-first-repo"`（仅为示例），以忽略你不想计入的仓库。
+
+`MAX_REPOS` 标志可以限制获取并分析的 GitHub 仓库数量（默认为 `0`，即不限制）。如果你的账号仓库很多，这有助于加快运行速度。
+
+如果你看到使用 `MAX_CAP` 的示例，那是 `MAX_REPOS` 的已弃用别名。
 
 如果你用诸如 [wakapi](https://github.com/muety/wakapi) 等服务器自托管了兼容 wakatime 的服务，你可以设置 `WAKATIME_API_URL` 标志进行 API 对接。只需将链接按这样的格式填写即可： `https://your-own-wakapi.dev/api/`。
 
@@ -280,19 +329,19 @@ CSS          2 个仓库        █░░░░░░░░░░░░░░░
 
 **SVG 进度条**
 
-您可以使用以下标志从 Unicode 文本条形图切换到彩色 SVG 条形图:
+你可以使用以下标志从 Unicode 文本条形图切换到彩色 SVG 条形图：
 
-- `BAR_STYLE` — 设置为 `"svg"` 以启用 SVG 条形图，或 `"text"` (默认) 用于 Unicode 条形图
-- `BAR_COLOR` — 填充部分的十六进制颜色 (默认: `"#90CAF9"` 浅蓝色)
-- `BAR_TRACK_COLOR` — 背景轨道的十六进制颜色 (默认: `"#172f45"` 深蓝色)
-- `BAR_RADIUS` — 圆角的边框半径 (默认: `"0"` 为正方形)
+- `BAR_STYLE` — 设置为 `"svg"` 以启用 SVG 条形图，或 `"text"`（默认）用于 Unicode 条形图
+- `BAR_COLOR` — 填充部分的十六进制颜色（默认：`"#90CAF9"` 浅蓝色）
+- `BAR_TRACK_COLOR` — 背景轨道的十六进制颜色（默认：`"#172f45"` 深蓝色）
+- `BAR_RADIUS` — 圆角的边框半径（默认：`"0"` 为正方形）
   - `"0"` = 锐利的方形边缘
   - `"4"` = 微妙的圆角
   - 任何正整数都可以工作
-- `TEXT_PRIMARY_COLOR` — SVG 列表主要文本（如语言/项目名称）的十六进制颜色 (默认: `"#c9d1d9"`)
-- `TEXT_SECONDARY_COLOR` — SVG 列表次要文本（如时间和百分比）的十六进制颜色 (默认: `"#8b949e"`)
+- `TEXT_PRIMARY_COLOR` — SVG 列表主要文本（如语言/项目名称）的十六进制颜色（默认：`"#c9d1d9"`）
+- `TEXT_SECONDARY_COLOR` — SVG 列表次要文本（如时间和百分比）的十六进制颜色（默认：`"#8b949e"`）
 
-启用 SVG 条形图的工作流示例:
+启用 SVG 条形图的工作流示例：
 
 ```yaml
 - uses: anmol098/waka-readme-stats@master
@@ -329,7 +378,7 @@ SVG 条形，圆角（`BAR_STYLE: "svg"`，例如 `BAR_RADIUS: "4"`）：
 
 ![SVG 进度条（圆角）](https://i.imgur.com/dYOgG6I.png)
 
-`DEBUG_LOGGING` 标志可以让 Github Action 的日志更长，默认情况下与内部运行调试设置同步。
+`DEBUG_LOGGING` 标志可以让 GitHub Action 的日志更长，默认情况下与内部运行调试设置同步。
 `BADGE_STYLE` 标志决定了生成徽章的样式，可以设置为 `flat`, `flat-square`、`plastic`、`for-the-badge` 或者 `social`。
 |    徽章样式    |                                             预览                                               |
 | ----------------- | ------------------------------------------------------------------------------------------------- |
@@ -362,9 +411,9 @@ SVG 条形，圆角（`BAR_STYLE: "svg"`，例如 `BAR_RADIUS: "4"`）：
 
 欢迎你的贡献 ♥!
 
-想到了什么新功能，或者想帮助我们进行测试？可以通过拉取请求和议题功帮我们把项目变得更好。
+想到了什么新功能，或者想帮助我们进行测试？可以通过拉取请求和议题帮我们把项目变得更好。
 
-# 特定贡献者
+# 精选贡献者
 
 1. [Anmol Pratap Singh](https://github.com/anmol098)：维护者
 2. [Alexander Sergeev](https://github.com/pseusys)：维护者
@@ -372,7 +421,7 @@ SVG 条形，圆角（`BAR_STYLE: "svg"`，例如 `BAR_RADIUS: "4"`）：
 4. [okcoder1](https://github.com/ok-coder1)：维护者
 5. [Aravind V. Nair](https://github.com/aravindvnair99)：维护者
 6. [Prabhat Singh](https://github.com/prabhatdev)：贡献了代码时间线图表 [#18](https://github.com/anmol098/waka-readme-stats/pull/18)
-7. [Hedy Li](https://github.com/hedythedev)：贡献了合并请求 [#34](https://github.com/anmol098/waka-readme-stats/pull/34) and [#23](https://github.com/anmol098/waka-readme-stats/pull/23)
+7. [Hedy Li](https://github.com/hedythedev)：贡献了合并请求 [#34](https://github.com/anmol098/waka-readme-stats/pull/34) 和 [#23](https://github.com/anmol098/waka-readme-stats/pull/23)
 8. [Pedro Torres](https://github.com/Corfucinas)：贡献了合并请求 [#29](https://github.com/anmol098/waka-readme-stats/pull/29)
 9. [Aaron Meese](https://github.com/ajmeese7)：贡献了合并请求 [#45](https://github.com/anmol098/waka-readme-stats/pull/45)
 10. [Arnav Jindal](https://github.com/Daggy1234)：贡献了合并请求 [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
