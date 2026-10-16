@@ -275,6 +275,57 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 |    2    |      ⣿     |       ⣀     |
 |    3    |      ⬛    |       ⬜    |
 
+**SVG प्रोग्रेस बार**
+
+आप निम्नलिखित फ्लैग का उपयोग करके Unicode टेक्स्ट बार से रंगीन SVG बार में स्विच कर सकते हैं:
+
+- `BAR_STYLE` — SVG बार सक्षम करने के लिए `"svg"` पर सेट करें, या Unicode बार के लिए `"text"` (डिफ़ॉल्ट)
+- `BAR_COLOR` — भरे हुए भाग के लिए हेक्स रंग (डिफ़ॉल्ट: `"#90CAF9"` हल्का नीला)
+- `BAR_TRACK_COLOR` — पृष्ठभूमि ट्रैक के लिए हेक्स रंग (डिफ़ॉल्ट: `"#172f45"` गहरा नीला)
+- `BAR_RADIUS` — गोल कोनों के लिए सीमा त्रिज्या (डिफ़ॉल्ट: `"0"` वर्ग के लिए)
+  - `"0"` = तीक्ष्ण वर्गाकार किनारे
+  - `"4"` = सूक्ष्मता से गोल कोने
+  - कोई भी सकारात्मक पूर्णांक काम करता है
+- `TEXT_PRIMARY_COLOR` — SVG सूची के प्राथमिक टेक्स्ट (जैसे भाषा/प्रोजेक्ट नाम) के लिए हेक्स रंग (डिफ़ॉल्ट: `"#c9d1d9"`)
+- `TEXT_SECONDARY_COLOR` — SVG सूची के द्वितीयक टेक्स्ट (जैसे समय और प्रतिशत) के लिए हेक्स रंग (डिफ़ॉल्ट: `"#8b949e"`)
+
+SVG बार सक्षम वर्कफ़्लो उदाहरण:
+
+```yaml
+- uses: anmol098/waka-readme-stats@master
+  with:
+    WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+    GH_TOKEN: ${{ secrets.GH_TOKEN }}
+    BAR_STYLE: "svg"
+    BAR_COLOR: "#90CAF9"
+    BAR_TRACK_COLOR: "#172f45"
+    BAR_RADIUS: "4"
+    TEXT_PRIMARY_COLOR: "#c9d1d9"
+    TEXT_SECONDARY_COLOR: "#8b949e"
+```
+
+**पहले / बाद में**
+
+डिफ़ॉल्ट Unicode बार (`BAR_STYLE: "text"`, या `BAR_STYLE` छोड़ने पर):
+
+```text
+Vue          8 repos        ██████░░░░░░░░░░░░░░░░░░░   25.0%
+Java         6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75%
+JavaScript   6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75%
+PHP          3 repos        ██░░░░░░░░░░░░░░░░░░░░░░░   9.38%
+Python       2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+Dart         2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+CSS          2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+```
+
+SVG बार, चौकोर कोने (`BAR_STYLE: "svg"`, `BAR_RADIUS: "0"`, डिफ़ॉल्ट `BAR_COLOR` / `BAR_TRACK_COLOR`):
+
+![SVG प्रगति बार (चौकोर)](https://i.imgur.com/eShKuJH.png)
+
+SVG बार, गोल कोने (`BAR_STYLE: "svg"`, `BAR_RADIUS: "4"`):
+
+![SVG प्रगति बार (गोल कोने)](https://i.imgur.com/dYOgG6I.png)
+
 `DEBUG_LOGGING` फ्लैग को सेट करके GitHub Action के आउटपुट के विवरण को बढ़ाया जा सकता है, डिफ़ॉल्ट रूप से आंतरिक रनर डिबग संपत्ति के बराबर है
 
 **टाइमलाइन**
@@ -312,6 +363,7 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 10. [अर्नव जिंदल](https://github.com/Daggy1234): पुल रिक्वेस्ट के लिए [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
 11. [डैनियल रोवे](https://github.com/DanRowe): पुल रिक्वेस्ट के लिए [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
 12. [एसएस 5एच](https://github.com/tlatkdgus1): प्राकृतिक वाक्य लेखन के लिए अनुवाद के समर्थन के लिए [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
+13. [acheronx0577](https://github.com/acheronx0577): रंग और आकार विकल्पों के साथ SVG प्रगति बार समर्थन जोड़ने के लिए [#657](https://github.com/anmol098/waka-readme-stats/pull/657)
 
 <details>
 
@@ -456,6 +508,8 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 - [Luicen Loua](https://github.com/lucien-loua)
 
 - [DataBoySu](https://github.com/DataBoySu)
+
+- [AcheronX.](https://github.com/acheronx0577)
 
 </details>
 

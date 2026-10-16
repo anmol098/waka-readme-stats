@@ -276,6 +276,57 @@ Der `SYMBOL_VERSION`-Flag kann für das Symbol der Fortschrittsleiste gesetzt we
 |    2    |      ⣿     |       ⣀     |
 |    3    |      ⬛    |       ⬜    |
 
+**SVG-Fortschrittsbars**
+
+Sie können vom Unicode-Text zu farbigen SVG-Bars mit den folgenden Flags wechseln:
+
+- `BAR_STYLE` — Setzen Sie auf `"svg"` um SVG-Bars zu aktivieren, oder `"text"` (Standard) für Unicode-Bars
+- `BAR_COLOR` — Hex-Farbe für den gefüllten Teil (Standard: `"#90CAF9"` Hellblau)
+- `BAR_TRACK_COLOR` — Hex-Farbe für den Hintergrund-Track (Standard: `"#172f45"` Dunkelblau)
+- `BAR_RADIUS` — Rahmenradius für abgerundete Ecken (Standard: `"0"` für Quadrat)
+  - `"0"` = Scharfe quadratische Kanten
+  - `"4"` = Subtil abgerundete Ecken
+  - Jede positive Ganzzahl funktioniert
+- `TEXT_PRIMARY_COLOR` — Hex-Farbe für den primären Text der SVG-Liste, z. B. Sprach-/Projektnamen (Standard: `"#c9d1d9"`)
+- `TEXT_SECONDARY_COLOR` — Hex-Farbe für den sekundären Text der SVG-Liste, z. B. Zeiten und Prozentangaben (Standard: `"#8b949e"`)
+
+Beispiel-Workflow mit aktivierten SVG-Bars:
+
+```yaml
+- uses: anmol098/waka-readme-stats@master
+  with:
+    WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+    GH_TOKEN: ${{ secrets.GH_TOKEN }}
+    BAR_STYLE: "svg"
+    BAR_COLOR: "#90CAF9"
+    BAR_TRACK_COLOR: "#172f45"
+    BAR_RADIUS: "4"
+    TEXT_PRIMARY_COLOR: "#c9d1d9"
+    TEXT_SECONDARY_COLOR: "#8b949e"
+```
+
+**Vorher / Nachher**
+
+Standard-Unicode-Bars (`BAR_STYLE: "text"` oder wenn `BAR_STYLE` weggelassen wird):
+
+```text
+Vue          8 repos        ██████░░░░░░░░░░░░░░░░░░░   25.0%
+Java         6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75%
+JavaScript   6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75%
+PHP          3 repos        ██░░░░░░░░░░░░░░░░░░░░░░░   9.38%
+Python       2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+Dart         2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+CSS          2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+```
+
+SVG-Bars, quadratische Ecken (`BAR_STYLE: "svg"`, `BAR_RADIUS: "0"`, Standard `BAR_COLOR` / `BAR_TRACK_COLOR`):
+
+![SVG-Fortschrittsbars (eckig)](https://i.imgur.com/eShKuJH.png)
+
+SVG-Bars, abgerundete Ecken (`BAR_STYLE: "svg"`, `BAR_RADIUS: "4"`):
+
+![SVG-Fortschrittsbars (abgerundet)](https://i.imgur.com/dYOgG6I.png)
+
 Der `DEBUG_LOGGING`-Flag kann gesetzt werden, um die Ausgabelautstärke der GitHub-Action zu erhöhen, standardmäßig entspricht er der internen Debug-Eigenschaft des Laufers.
 
 **Zeitstrahl**
@@ -313,6 +364,7 @@ Beiträge sind willkommen ♥! Bitte teile jede Funktion und füge Unit-Tests hi
 10. [Arnav Jindal](https://github.com/Daggy1234): Für den Pull Request [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
 11. [Daniel Rowe](https://github.com/DanRowe): Für den Pull Request [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
 12. [Ss5h](https://github.com/tlatkdgus1): Für die Hinzufügung von Unterstützung für natürliche Satzformulierungen bei der Übersetzung [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
+13. [acheronx0577](https://github.com/acheronx0577): Für die Hinzufügung der Unterstützung von SVG-Fortschrittsbalken mit Farb- und Formoptionen [#657](https://github.com/anmol098/waka-readme-stats/pull/657)
 
 <details>
 
@@ -457,6 +509,8 @@ Beiträge sind willkommen ♥! Bitte teile jede Funktion und füge Unit-Tests hi
 - [Luicen Loua](https://github.com/lucien-loua)
 
 - [DataBoySu](https://github.com/DataBoySu)
+
+- [AcheronX.](https://github.com/acheronx0577)
 
 </details>
 

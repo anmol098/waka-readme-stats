@@ -275,6 +275,57 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 |    2    |      ⣿     |       ⣀     |
 |    3    |      ⬛    |       ⬜    |
 
+**SVG Полосы Прогресса**
+
+Вы можете переключаться с текстовых полос Unicode на цветные полосы SVG, используя следующие флаги:
+
+- `BAR_STYLE` — Установите `"svg"` для включения SVG полос, или `"text"` (по умолчанию) для текстовых полос Unicode
+- `BAR_COLOR` — Шестнадцатеричный цвет для заполненной части (по умолчанию: `"#90CAF9"` светло-синий)
+- `BAR_TRACK_COLOR` — Шестнадцатеричный цвет для фоновой дорожки (по умолчанию: `"#172f45"` тёмно-синий)
+- `BAR_RADIUS` — Радиус границы для скруглённых углов (по умолчанию: `"0"` для квадрата)
+  - `"0"` = Острые квадратные края
+  - `"4"` = Слегка скруглённые углы
+  - Любое положительное целое число работает
+- `TEXT_PRIMARY_COLOR` — Шестнадцатеричный цвет для основного текста SVG-списка, например, названий языков/проектов (по умолчанию: `"#c9d1d9"`)
+- `TEXT_SECONDARY_COLOR` — Шестнадцатеричный цвет для вспомогательного текста SVG-списка, например, времени и процентов (по умолчанию: `"#8b949e"`)
+
+Пример рабочего процесса с включенными SVG полосами:
+
+```yaml
+- uses: anmol098/waka-readme-stats@master
+  with:
+    WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+    GH_TOKEN: ${{ secrets.GH_TOKEN }}
+    BAR_STYLE: "svg"
+    BAR_COLOR: "#90CAF9"
+    BAR_TRACK_COLOR: "#172f45"
+    BAR_RADIUS: "4"
+    TEXT_PRIMARY_COLOR: "#c9d1d9"
+    TEXT_SECONDARY_COLOR: "#8b949e"
+```
+
+**До и после**
+
+Стандартные Unicode-полосы (`BAR_STYLE: "text"` или если `BAR_STYLE` не указан):
+
+```text
+Vue          8 repos        ██████░░░░░░░░░░░░░░░░░░░   25.0%
+Java         6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75%
+JavaScript   6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75%
+PHP          3 repos        ██░░░░░░░░░░░░░░░░░░░░░░░   9.38%
+Python       2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+Dart         2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+CSS          2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+```
+
+SVG-полосы, прямые углы (`BAR_STYLE: "svg"`, `BAR_RADIUS: "0"`, значения `BAR_COLOR` / `BAR_TRACK_COLOR` по умолчанию):
+
+![SVG-индикаторы (прямые углы)](https://i.imgur.com/eShKuJH.png)
+
+SVG-полосы, скруглённые углы (`BAR_STYLE: "svg"`, `BAR_RADIUS: "4"`):
+
+![SVG-индикаторы (скруглённые)](https://i.imgur.com/dYOgG6I.png)
+
 Флаг `DEBUG_LOGGING` может быть установлен для увеличения подробности вывода GitHub Action, по умолчанию равен внутреннему свойству отладки исполнителя
 
 **Таймлайн**
@@ -312,6 +363,7 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 10. [Arnav Jindal](https://github.com/Daggy1234): Для Pull Request [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
 11. [Daniel Rowe](https://github.com/DanRowe): Для Pull Request [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
 12. [Ss5h](https://github.com/tlatkdgus1): Для добавления поддержки естественного написания предложений для перевода [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
+13. [acheronx0577](https://github.com/acheronx0577): Для добавления поддержки SVG прогресс-баров с параметрами цвета и формы [#657](https://github.com/anmol098/waka-readme-stats/pull/657)
 
 <details>
 
@@ -456,6 +508,8 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 - [Luicen Loua](https://github.com/lucien-loua)
 
 - [DataBoySu](https://github.com/DataBoySu)
+
+- [AcheronX.](https://github.com/acheronx0577)
 
 </details>
 

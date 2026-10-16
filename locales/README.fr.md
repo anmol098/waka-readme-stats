@@ -275,6 +275,57 @@ Le drapeau `SYMBOL_VERSION` peut être défini pour le symbole de la barre de pr
 |    2    |      ⣿     |       ⣀     |
 |    3    |      ⬛    |       ⬜    |
 
+**Barres de Progression SVG**
+
+Vous pouvez passer des barres de texte Unicode aux barres SVG colorées avec les drapeaux suivants :
+
+- `BAR_STYLE` — Définissez sur `"svg"` pour activer les barres SVG, ou `"text"` (par défaut) pour les barres Unicode
+- `BAR_COLOR` — Couleur hexadécimale pour la portion remplie (par défaut: `"#90CAF9"` bleu clair)
+- `BAR_TRACK_COLOR` — Couleur hexadécimale pour la piste d'arrière-plan (par défaut: `"#172f45"` bleu foncé)
+- `BAR_RADIUS` — Rayon de bordure pour les coins arrondis (par défaut: `"0"` pour carré)
+  - `"0"` = Bords carrés nets
+  - `"4"` = Coins légèrement arrondis
+  - Tout nombre entier positif fonctionne
+- `TEXT_PRIMARY_COLOR` — Couleur hexadécimale pour le texte principal de la liste SVG, comme les noms de langages/projets (par défaut : `"#c9d1d9"`)
+- `TEXT_SECONDARY_COLOR` — Couleur hexadécimale pour le texte secondaire de la liste SVG, comme les durées et pourcentages (par défaut : `"#8b949e"`)
+
+Exemple de flux de travail avec barres SVG activées :
+
+```yaml
+- uses: anmol098/waka-readme-stats@master
+  with:
+    WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+    GH_TOKEN: ${{ secrets.GH_TOKEN }}
+    BAR_STYLE: "svg"
+    BAR_COLOR: "#90CAF9"
+    BAR_TRACK_COLOR: "#172f45"
+    BAR_RADIUS: "4"
+    TEXT_PRIMARY_COLOR: "#c9d1d9"
+    TEXT_SECONDARY_COLOR: "#8b949e"
+```
+
+**Avant / après**
+
+Barres Unicode par défaut (`BAR_STYLE: "text"`, ou en omettant `BAR_STYLE`) :
+
+```text
+Vue          8 repos        ██████░░░░░░░░░░░░░░░░░░░   25.0%
+Java         6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75%
+JavaScript   6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75%
+PHP          3 repos        ██░░░░░░░░░░░░░░░░░░░░░░░   9.38%
+Python       2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+Dart         2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+CSS          2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+```
+
+Barres SVG, angles carrés (`BAR_STYLE: "svg"`, `BAR_RADIUS: "0"`, `BAR_COLOR` / `BAR_TRACK_COLOR` par défaut) :
+
+![Barres de progression SVG (carrées)](https://i.imgur.com/eShKuJH.png)
+
+Barres SVG, angles arrondis (`BAR_STYLE: "svg"`, `BAR_RADIUS: "4"`) :
+
+![Barres de progression SVG (arrondies)](https://i.imgur.com/dYOgG6I.png)
+
 Le drapeau `DEBUG_LOGGING` peut être défini pour augmenter la verbosité de la sortie de l'action GitHub, par défaut égal à la propriété de débogage interne du runner
 
 **Chronologie**
@@ -312,6 +363,7 @@ Les contributions sont les bienvenues ♥ ! Veuillez partager toute fonctionnali
 10. [Arnav Jindal](https://github.com/Daggy1234): Pour la demande de tirage [#48](https://github.com/anmol098/waka-readme-stats/pull/48)
 11. [Daniel Rowe](https://github.com/DanRowe): Pour la demande de tirage [#57](https://github.com/anmol098/waka-readme-stats/pull/57)
 12. [Ss5h](https://github.com/tlatkdgus1): Pour l'ajout de la prise en charge de l'écriture de phrases naturelles pour la traduction [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
+13. [acheronx0577](https://github.com/acheronx0577): Pour l'ajout de la prise en charge des barres de progression SVG avec des options de couleur et de forme [#657](https://github.com/anmol098/waka-readme-stats/pull/657)
 
 <details>
 
@@ -456,6 +508,8 @@ Les contributions sont les bienvenues ♥ ! Veuillez partager toute fonctionnali
 - [Luicen Loua](https://github.com/lucien-loua)
 
 - [DataBoySu](https://github.com/DataBoySu)
+
+- [AcheronX.](https://github.com/acheronx0577)
 
 </details>
 

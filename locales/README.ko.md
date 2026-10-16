@@ -274,6 +274,57 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 |    2    |      ⣿     |       ⣀     |
 |    3    |      ⬛    |       ⬜    |
 
+**SVG 진행 표시줄**
+
+다음 플래그를 사용하여 Unicode 텍스트 막대에서 화려한 SVG 막대로 전환할 수 있습니다:
+
+- `BAR_STYLE` — SVG 막대를 활성화하려면 `"svg"`로 설정하거나 Unicode 막대의 경우 `"text"` (기본값)
+- `BAR_COLOR` — 채워진 부분의 16진수 색상 (기본값: `"#90CAF9"` 연한 파란색)
+- `BAR_TRACK_COLOR` — 배경 트랙의 16진수 색상 (기본값: `"#172f45"` 진한 파란색)
+- `BAR_RADIUS` — 둥근 모서리의 테두리 반지름 (기본값: `"0"` 정사각형)
+  - `"0"` = 날카로운 정사각형 모서리
+  - `"4"` = 미묘하게 둥근 모서리
+  - 모든 양의 정수가 작동합니다
+- `TEXT_PRIMARY_COLOR` — 언어/프로젝트 이름과 같은 SVG 목록의 기본 텍스트에 대한 16진수 색상 (기본값: `"#c9d1d9"`)
+- `TEXT_SECONDARY_COLOR` — 시간과 백분율과 같은 SVG 목록의 보조 텍스트에 대한 16진수 색상 (기본값: `"#8b949e"`)
+
+SVG 막대가 활성화된 워크플로 예:
+
+```yaml
+- uses: anmol098/waka-readme-stats@master
+  with:
+    WAKATIME_API_KEY: ${{ secrets.WAKATIME_API_KEY }}
+    GH_TOKEN: ${{ secrets.GH_TOKEN }}
+    BAR_STYLE: "svg"
+    BAR_COLOR: "#90CAF9"
+    BAR_TRACK_COLOR: "#172f45"
+    BAR_RADIUS: "4"
+    TEXT_PRIMARY_COLOR: "#c9d1d9"
+    TEXT_SECONDARY_COLOR: "#8b949e"
+```
+
+**변경 전 / 후**
+
+기본 Unicode 막대 (`BAR_STYLE: "text"`, 또는 `BAR_STYLE` 생략):
+
+```text
+Vue          8 repos        ██████░░░░░░░░░░░░░░░░░░░   25.0%
+Java         6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75%
+JavaScript   6 repos        ████░░░░░░░░░░░░░░░░░░░░░   18.75%
+PHP          3 repos        ██░░░░░░░░░░░░░░░░░░░░░░░   9.38%
+Python       2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+Dart         2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+CSS          2 repos        █░░░░░░░░░░░░░░░░░░░░░░░░   6.25%
+```
+
+SVG 막대, 직각 (`BAR_STYLE: "svg"`, `BAR_RADIUS: "0"`, 기본 `BAR_COLOR` / `BAR_TRACK_COLOR`):
+
+![SVG 진행 막대(직각 모서리)](https://i.imgur.com/eShKuJH.png)
+
+SVG 막대, 둥근 모서리 (`BAR_STYLE: "svg"`, `BAR_RADIUS: "4"`):
+
+![SVG 진행 막대(둥근 모서리)](https://i.imgur.com/dYOgG6I.png)
+
 `DEBUG_LOGGING` 플래그를 설정하여 GitHub Action의 출력 세부 정보 수준을 높일 수 있으며, 기본값은 내부 실행자 디버그 속성과 같습니다.
 
 **타임라인**
@@ -311,6 +362,7 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 10. [Arnav Jindal](https://github.com/Daggy1234): Pull Request [#48](https://github.com/anmol098/waka-readme-stats/pull/48)을 위한 기여
 11. [Daniel Rowe](https://github.com/DanRowe): Pull Request [#57](https://github.com/anmol098/waka-readme-stats/pull/57)을 위한 기여
 12. [Ss5h](https://github.com/tlatkdgus1): 번역을 위한 자연어 문장 작성 지원 추가 [#136](https://github.com/anmol098/waka-readme-stats/pull/136)
+13. [acheronx0577](https://github.com/acheronx0577): 색상 및 모양 옵션을 갖춘 SVG 진행 막대 지원 추가 [#657](https://github.com/anmol098/waka-readme-stats/pull/657)
 
 <details>
 
@@ -455,6 +507,8 @@ CSS          2 repos        █░░░░░░░░░░░░░░░░�
 - [Luicen Loua](https://github.com/lucien-loua)
 
 - [DataBoySu](https://github.com/DataBoySu)
+
+- [AcheronX.](https://github.com/acheronx0577)
 
 </details>
 
