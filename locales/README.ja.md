@@ -47,8 +47,15 @@
 
 ## プリペアワーク
 
+> [!IMPORTANT]
+> **お知らせ — WakaTimeアクセストークンの変更（2026年11月1日より有効）**
+>
+> WakaTimeはAPIキーの取得方法を変更しました。従来のAPIキーは**2026年11月1日**以降は無効となるため、以下の方法で新しいものを取得する必要があります。
+>
+> トークンは[WakaTime OAuth](https://wakatime.com/oauth)から取得し、これまでどおり`WAKATIME_API_KEY`としてリポジトリのシークレットに保存してください。
+
 1. `.md`ファイルのマークダウンファイルを2つのコメントで更新する必要があります。更新方法は[こちら](#update-your-readme)を参照してください。
-2. WakaTime APIキーが必要です。これはWakaTimeアカウント設定から取得できます。
+2. WakaTime APIキーが必要です。これは[WakaTime OAuth](https://wakatime.com/oauth)から取得できます。
     - WakaTimeに新規ユーザーの場合、[こちら](#new-to-wakatime)を参照してください。
 3. コミットメトリクスを取得するアクションを実行する場合、[こちら](https://github.com/settings/tokens)から`repo`および`user`スコープを持つGitHub APIトークンが必要です。
    - これについては、[こちら](#profile-repository)の例を参照してください。
@@ -83,7 +90,7 @@
 WakaTimeは、実際にコーディングに費やした時間を把握するのに役立ちます。これにより、生産性と競争力を向上させることができます。
 
 - <https://wakatime.com>にアクセスし、アカウントを作成してください。
-- [WakaTimeのアカウント設定](https://wakatime.com/settings/account)からWakaTime APIキーを取得してください。
+- <https://wakatime.com/oauth>からWakaTime APIトークンを取得してください。
 - お気に入りのエディタ/IDEに[WakaTimeプラグイン](https://wakatime.com/plugins)をインストールしてください。
 - APIキーを貼り付け、分析を開始してください。
 

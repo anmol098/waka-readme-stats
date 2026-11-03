@@ -49,8 +49,15 @@
 
 ## 准备工作
 
+> [!IMPORTANT]
+> **注意 — WakaTime 访问令牌变更（2026 年 11 月 1 日生效）**
+>
+> WakaTime 已更改 API 密钥的获取方式。旧的 API 密钥自 **2026 年 11 月 1 日** 起不再有效，因此你必须通过下面的方法获取一个新的。
+>
+> 你可以从 [WakaTime OAuth](https://wakatime.com/oauth) 获取令牌，并像以前一样，直接将其作为 `WAKATIME_API_KEY` 存入仓库机密中。
+
 1. 向 markdown（`.md`）文件中插入两行注释。可以参考[这里](#更新你的自述文件)的更新方法。
-2. 你需要一个 WakaTime API 密钥。它可以在 WakaTime 账号设置中获取。
+2. 你需要一个 WakaTime API 密钥。你可以从 [WakaTime OAuth](https://wakatime.com/oauth) 获取。
     - 如果你第一次用 WakaTime，你可以翻到[这里](#初入-wakatime)了解更多。
 3. 如果你要通过 Action 获取 commit 数据，则应当在[这里](https://github.com/settings/tokens)创建 Github 的 `repo` 与 `user` API 令牌。
    - 你可以参考[这个](#用户页面)示例更好了解这些。
@@ -85,7 +92,7 @@
 WakaTime 可以帮你统计出你投身代码的时间长度。这可以帮你提高工作效率，增强竞争优势。
 
 - 前往 <https://wakatime.com>，创建一个账户。
-- 从 [WakaTime 账户设置](https://wakatime.com/settings/account)中获取你的 WakaTime API 密钥。
+- 从 [WakaTime OAuth](https://wakatime.com/oauth) 获取你的 WakaTime API Token。
 - 在你的编辑器 / 集成开发环境（IDE）中安装 [WakaTime 插件](https://wakatime.com/plugins)。
 - 填入你的 API 密钥即可开始分析。
 
