@@ -49,20 +49,19 @@
 
 ## Prep Work
 
-1. You need to update the markdown file(`.md`) with 2 comments. You can refer [here](#update-your-readme) for updating it.
-2. You'll need a WakaTime API Key. You can get that from your WakaTime Account Settings
-    - You can refer [here](#new-to-wakatime), if you're new to WakaTime.
+1. You need to update the markdown file (`.md`) with 2 comments. You can refer [here](#update-your-readme) for updating it.
+2. You'll need a **WakaTime OAuth Access Token** to retrieve your coding statistics. See [New to WakaTime](#new-to-wakatime) for setup and token instructions.
 3. You'll need a GitHub API Token with `repo` and `user` scope from [here](https://github.com/settings/tokens) if you're running the action to get commit metrics.
    - You can use [this](#profile-repository) example to work it out.
 
 > [!NOTE]
-> Enabling the `repo` scope seems **DANGEROUS**, \
+> Enabling the `repo` scope seems **DANGEROUS**,\
 > but this GitHub Action only accesses your commit timestamps and the number of lines of code added or deleted in repositories that you contributed to.
 
-4. You need to save the WakaTime API Key and the GitHub API Token in the repository secrets. You can find that in the Settings of your repository. \
-  Be sure to save those as the following:
-    - WakaTime API Key as `WAKATIME_API_KEY=<your wakatime API Key>`
-    - GitHub Personal Access Token (PAT) as `GH_TOKEN=<your github access token>`
+4. You need to save the WakaTime OAuth Access Token and the GitHub API Token in your repository secrets. Go to **Settings → Secrets and variables → Actions** and save them as follows:
+   - WakaTime OAuth Access Token as `WAKATIME_API_KEY=<your WakaTime OAuth Access Token>`
+   - GitHub Personal Access Token (PAT) as `GH_TOKEN=<your GitHub Access Token>`
+
 5. You can enable and disable feature flags based on your requirements.
 
 This GitHub Action can be set to run at any time you want using `cron`. See [Crontab.guru](https://crontab.guru/) and [this](https://crontab.cronhub.io/) website to generate `cron` expressions.
@@ -87,7 +86,14 @@ WakaTime gives you an idea of the time you really spent on coding. This helps yo
 - Head over to <https://wakatime.com> and create an account.
 - Get your WakaTime API Key from your [Account Settings in WakaTime](https://wakatime.com/settings/account).
 - Install the [WakaTime plugin](https://wakatime.com/plugins) in your favourite editor / IDE.
-- Paste in your API key to start the analysis.
+- Paste your API key into the WakaTime plugin in your editor / IDE to start tracking coding activity.
+
+To retrieve your coding statistics with this Action, obtain a **WakaTime OAuth Access Token**:
+
+- Sign in to your [WakaTime account](https://wakatime.com).
+- Visit the [WakaTime OAuth Token page](https://wakatime.com/oauth).
+- Generate and copy your personal OAuth Access Token.
+- **Important:** Do not use the API Key from WakaTime Account Settings. API Keys are intended for editor plugins and cannot be used to retrieve coding statistics. See the [WakaTime API documentation](https://wakatime.com/developers#authentication) for details.
 
 ### Profile Repository
 
