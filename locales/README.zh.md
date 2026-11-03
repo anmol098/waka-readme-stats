@@ -49,6 +49,13 @@
 
 ## 准备工作
 
+> [!IMPORTANT]
+> **WakaTime API 认证策略更新（2026 年 11 月 1 日生效）**
+>
+> 自 2026 年 11 月 1 日起，WakaTime API Key 仅支持受支持的插件使用。其他集成方式（包括此 GitHub Action）必须使用**个人 OAuth Token** 获取编程统计数据。
+>
+> 请从 [WakaTime OAuth](https://wakatime.com/oauth) 获取令牌，并替换仓库中现有 `WAKATIME_API_KEY` Secret 的值。无需修改 Secret 名称或 Workflow 配置。
+
 1. 你需要在 Markdown 文件（`.md`）中添加两条注释。具体方法可以参考[更新 README](#更新你的自述文件)章节。
 
 2. 你需要一个 **WakaTime OAuth Access Token**，用于获取编程活动统计数据。配置追踪和获取 Token 的步骤请参考[初入 WakaTime](#初入-wakatime)章节。

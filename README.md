@@ -49,6 +49,13 @@
 
 ## Prep Work
 
+> [!IMPORTANT]
+> **WakaTime API Authentication Update (Effective November 1, 2026)**
+>
+> Starting November 1, 2026, WakaTime API keys are restricted to supported plugins. Other integrations, including this GitHub Action, must use a **personal OAuth token** to access coding statistics.
+>
+> Obtain your token from [WakaTime OAuth](https://wakatime.com/oauth) and replace the value of your existing `WAKATIME_API_KEY` repository secret. No changes to the secret name or workflow configuration are required.
+
 1. You need to update the markdown file (`.md`) with 2 comments. You can refer [here](#update-your-readme) for updating it.
 2. You'll need a **WakaTime OAuth Access Token** to retrieve your coding statistics. See [New to WakaTime](#new-to-wakatime) for setup and token instructions.
 3. You'll need a GitHub API Token with `repo` and `user` scope from [here](https://github.com/settings/tokens) if you're running the action to get commit metrics.
