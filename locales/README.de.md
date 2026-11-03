@@ -49,8 +49,15 @@
 
 ## Vorbereitung
 
+> [!IMPORTANT]
+> **Hinweis — WakaTime-Zugriffstoken-Änderung (gültig ab 1. November 2026)**
+>
+> WakaTime hat die Art und Weise geändert, wie API-Schlüssel erworben werden. Der bisherige API-Schlüssel ist ab dem **1. November 2026** nicht mehr gültig, du musst also einen neuen über die folgende Methode erhalten.
+>
+> Du solltest den Token von [WakaTime OAuth](https://wakatime.com/oauth) beziehen und ihn wie zuvor einfach als `WAKATIME_API_KEY` in den Repository-Secrets speichern.
+
 1. Du musst die Markdown-Datei(`.md`) mit 2 Kommentaren aktualisieren. Du kannst [hier](#update-your-readme) nachlesen, wie du das machen kannst.
-2. Du benötigst einen WakaTime API-Schlüssel. Du kannst diesen in den Einstellungen deines WakaTime-Kontos abrufen
+2. Du benötigst einen WakaTime API-Schlüssel. Du kannst diesen über [WakaTime OAuth](https://wakatime.com/oauth) abrufen.
     - Du kannst [hier](#new-to-wakatime) nachlesen, wenn du neu bei WakaTime bist.
 3. Wenn du die Aktion zum Abrufen von Commit-Metriken ausführst, benötigst du einen GitHub API-Token mit `repo` und `user` Bereich von [hier](https://github.com/settings/tokens)
    - Du kannst [dieses](#profile-repository) Beispiel verwenden, um es zu verstehen.
@@ -85,7 +92,7 @@ Diese Zeilen werden unsere Einstiegspunkte für die Entwickler-Metriken sein.
 WakaTime gibt dir einen Einblick in die Zeit, die du wirklich für das Coden aufwendest. Dies hilft dir, deine Produktivität und dein Wettbewerbsvorteil zu steigern.
 
 - Gehe zu <https://wakatime.com> und erstelle ein Konto.
-- Hol dir deinen WakaTime API-Schlüssel in den [Kontoeinstellungen in WakaTime](https://wakatime.com/settings/account).
+- Hol dir deinen WakaTime API-Token von [WakaTime OAuth](https://wakatime.com/oauth).
 - Installiere das [WakaTime-Plugin](https://wakatime.com/plugins) in deinem bevorzugten Editor / IDE.
 - Füge deinen API-Schlüssel ein, um die Analyse zu starten.
 

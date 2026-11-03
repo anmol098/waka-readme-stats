@@ -47,8 +47,15 @@
 
 ## 준비 작업
 
+> [!IMPORTANT]
+> **공지 — WakaTime 액세스 토큰 변경(2026년 11월 1일부터 적용)**
+>
+> WakaTime이 API 키를 획득하는 방식을 변경했습니다. 이전 API 키는 **2026년 11월 1일**부터 더 이상 유효하지 않으므로, 아래 방법으로 새 키를 받아야 합니다.
+>
+> 토큰은 [WakaTime OAuth](https://wakatime.com/oauth)에서 받아 이전과 동일하게 저장소 비밀에 `WAKATIME_API_KEY`로 저장하면 됩니다.
+
 1. `.md` 파일의 마크다운 파일을 2개의 주석으로 업데이트해야 합니다. 업데이트 방법은 [여기](#update-your-readme)를 참조하십시오.
-2. WakaTime API 키가 필요합니다. 이는 WakaTime 계정 설정에서 얻을 수 있습니다.
+2. WakaTime API 키가 필요합니다. [WakaTime OAuth](https://wakatime.com/oauth)에서 얻을 수 있습니다.
     - WakaTime에 새로 오셨다면 [여기](#new-to-wakatime)를 참조하십시오.
 3. 커밋 메트릭을 얻기 위해 액션을 실행하는 경우, [여기](https://github.com/settings/tokens)에서 `repo` 및 `user` 범위를 가진 GitHub API 토큰이 필요합니다.
    - [이](#profile-repository) 예제를 사용하여 이를 설정할 수 있습니다.
@@ -83,7 +90,7 @@
 WakaTime은 실제로 코딩에 소요된 시간을 알려줍니다. 이는 생산성과 경쟁력을 높이는 데 도움이 됩니다.
 
 - <https://wakatime.com>으로 이동하여 계정을 생성하십시오.
-- [WakaTime의 계정 설정](https://wakatime.com/settings/account)에서 WakaTime API 키를 가져오십시오.
+- [WakaTime OAuth](https://wakatime.com/oauth)에서 WakaTime API 토큰을 가져오십시오.
 - 좋아하는 편집기 / IDE에 [WakaTime 플러그인](https://wakatime.com/plugins)을 설치하십시오.
 - 분석을 시작하려면 API 키를 붙여넣으십시오.
 
