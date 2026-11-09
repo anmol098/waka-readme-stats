@@ -48,9 +48,15 @@
 
 ## Travail préparatoire
 
+> [!IMPORTANT]
+> **Mise à jour de l'authentification de l'API WakaTime (à compter du 1er novembre 2026)**
+>
+> Depuis le 1er novembre 2026, les clés API WakaTime sont réservées aux plugins pris en charge. Les autres intégrations, y compris cette action GitHub, doivent utiliser un **jeton OAuth personnel** pour accéder aux statistiques de programmation.
+>
+> Obtenez votre jeton sur [WakaTime OAuth](https://wakatime.com/oauth) et remplacez la valeur du secret existant `WAKATIME_API_KEY` de votre dépôt. Il n'est pas nécessaire de modifier le nom du secret ni la configuration du workflow.
+
 1. Vous devez mettre à jour le fichier markdown (`.md`) avec 2 commentaires. Vous pouvez vous référer [ici](#update-your-readme) pour le mettre à jour.
-2. Vous aurez besoin d'une clé API WakaTime. Vous pouvez l'obtenir depuis les paramètres du compte WakaTime
-    - Vous pouvez vous référer [ici](#new-to-wakatime), si vous êtes nouveau sur WakaTime.
+2. Vous aurez besoin d'un **jeton d'accès OAuth WakaTime** pour récupérer vos statistiques de programmation. Consultez [Nouveau sur WakaTime](#new-to-wakatime) pour configurer le suivi et obtenir le jeton.
 3. Vous aurez besoin d'un jeton API GitHub avec les portées `repo` et `user` depuis [ici](https://github.com/settings/tokens) si vous exécutez l'action pour obtenir les métriques de commit.
    - Vous pouvez utiliser [cet exemple](#profile-repository) pour vous y retrouver.
 
@@ -58,10 +64,10 @@
 > Enabling the `repo` scope seems **DANGEROUS**, \
 > but this GitHub Action only accesses your commit timestamps and the number of lines of code added or deleted in repositories that you contributed to.
 
-4. Vous devez enregistrer la clé API WakaTime et le jeton d'accès personnel (PAT) GitHub dans les secrets du dépôt. Vous pouvez les trouver dans les Paramètres de votre dépôt. \
-  Assurez-vous de les enregistrer comme suit :
-    - Clé API WakaTime comme `WAKATIME_API_KEY=<votre clé API WakaTime>`
-    - Jeton d'accès personnel (PAT) GitHub comme `GH_TOKEN=<votre jeton d'accès GitHub>`
+4. Enregistrez le jeton d'accès OAuth WakaTime et le jeton API GitHub dans les secrets du dépôt. Ouvrez **Settings → Secrets and variables → Actions** et enregistrez-les comme suit :
+   - Jeton d'accès OAuth WakaTime sous `WAKATIME_API_KEY=<votre jeton d'accès OAuth WakaTime>`
+   - Jeton d'accès personnel GitHub (PAT) sous `GH_TOKEN=<votre jeton d'accès GitHub>`
+
 5. Vous pouvez activer et désactiver les drapeaux de fonctionnalité selon vos besoins.
 
 Cette action GitHub peut être configurée pour s'exécuter à tout moment souhaité à l'aide de `cron`. Consultez [Crontab.guru](https://crontab.guru/) et [celui-ci](https://crontab.cronhub.io/) pour générer des expressions `cron`.
@@ -79,6 +85,8 @@ Ajoutez un commentaire à votre `README.md` comme ceci :
 
 Ces lignes seront nos points d'entrée pour les métriques de développement.
 
+<a id="new-to-wakatime"></a>
+
 ## Nouveau sur WakaTime
 
 WakaTime vous donne une idée du temps réellement passé à coder. Cela vous aide à améliorer votre productivité et votre avantage concurrentiel.
@@ -86,7 +94,14 @@ WakaTime vous donne une idée du temps réellement passé à coder. Cela vous ai
 - Allez sur <https://wakatime.com> et créez un compte.
 - Obtenez votre clé API WakaTime depuis vos [Paramètres du compte sur WakaTime](https://wakatime.com/settings/account).
 - Installez le [plugin WakaTime](https://wakatime.com/plugins) dans votre éditeur / IDE préféré.
-- Collez votre clé API pour commencer l'analyse.
+- Collez votre clé API dans le plugin WakaTime de votre éditeur / IDE pour commencer à suivre votre activité de programmation.
+
+Pour récupérer vos statistiques de programmation avec cette action, obtenez un **jeton d'accès OAuth WakaTime** :
+
+- Connectez-vous à votre [compte WakaTime](https://wakatime.com).
+- Ouvrez la [page des jetons OAuth WakaTime](https://wakatime.com/oauth).
+- Générez et copiez votre jeton d'accès OAuth personnel.
+- **Important :** N'utilisez pas la clé API des paramètres de votre compte WakaTime. Les clés API sont destinées aux plugins des éditeurs et ne peuvent pas servir à récupérer les statistiques de programmation. Consultez la [documentation de l'API WakaTime](https://wakatime.com/developers#authentication) pour en savoir plus.
 
 ### Répertoire de profil
 

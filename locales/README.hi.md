@@ -48,9 +48,15 @@
 
 ## प्रीप वर्क
 
+> [!IMPORTANT]
+> **WakaTime API प्रमाणीकरण में बदलाव (1 नवंबर 2026 से प्रभावी)**
+>
+> 1 नवंबर 2026 से WakaTime API कुंजियों का उपयोग केवल समर्थित प्लगइन में किया जा सकता है। इस GitHub Action सहित अन्य इंटीग्रेशन को प्रोग्रामिंग के आँकड़े प्राप्त करने के लिए **व्यक्तिगत OAuth टोकन** का उपयोग करना होगा।
+>
+> [WakaTime OAuth](https://wakatime.com/oauth) से अपना टोकन प्राप्त करें और रिपॉजिटरी के मौजूदा `WAKATIME_API_KEY` सीक्रेट का मान बदलें। सीक्रेट का नाम या वर्कफ़्लो कॉन्फ़िगरेशन बदलने की आवश्यकता नहीं है।
+
 1. आपको मार्कडाउन फ़ाइल(`.md`) को 2 कमेंट से अपडेट करना होगा। आप इसे अपडेट करने के लिए [यहां](#update-your-readme) देख सकते हैं।
-2. आपको एक WakaTime API की आवश्यकता होगी। आप अपने WakaTime अकाउंट सेटिंग्स से इसे प्राप्त कर सकते हैं
-    - यदि आप WakaTime के नए हैं, तो [यहां](#new-to-wakatime) देख सकते हैं।
+2. प्रोग्रामिंग के आँकड़े प्राप्त करने के लिए आपको **WakaTime OAuth एक्सेस टोकन** की आवश्यकता होगी। ट्रैकिंग सेट अप करने और टोकन प्राप्त करने के निर्देशों के लिए [नए WakaTime के लिए](#new-to-wakatime) खंड देखें।
 3. आपको आवश्यकता होगी एक GitHub API टोकन जो `repo` और `user` के स्कोप के साथ हो, यदि आप कमिट मेट्रिक्स प्राप्त करने के लिए एक्शन चला रहे हैं।
    - आप [इस](#profile-repository) उदाहरण का उपयोग कर सकते हैं।
 
@@ -58,10 +64,10 @@
 > Enabling the `repo` scope seems **DANGEROUS**, \
 > but this GitHub Action only accesses your commit timestamps and the number of lines of code added or deleted in repositories that you contributed to.
 
-4. आपको WakaTime API कुंजी और GitHub API टोकन को रिपॉजिटरी सीक्रेट्स में सेव करना होगा। आप इसे अपनी रिपॉजिटरी के सेटिंग्स में पाएंगे। \
-  इन्हें निम्नानुसार सेव करने सुनिश्चित करें:
-    - WakaTime API कुंजी के रूप में `WAKATIME_API_KEY=<your wakatime API Key>`
-    - GitHub प्राइवेट एक्सेस टोकन (PAT) के रूप में `GH_TOKEN=<your github access token>`
+4. WakaTime OAuth एक्सेस टोकन और GitHub API टोकन को रिपॉजिटरी सीक्रेट्स में सहेजें। **Settings → Secrets and variables → Actions** पर जाएँ और उन्हें इस प्रकार सहेजें:
+   - WakaTime OAuth एक्सेस टोकन: `WAKATIME_API_KEY=<आपका WakaTime OAuth एक्सेस टोकन>`
+   - GitHub व्यक्तिगत एक्सेस टोकन (PAT): `GH_TOKEN=<आपका GitHub एक्सेस टोकन>`
+
 5. आप अपनी आवश्यकताओं के आधार पर फीचर फ्लैग्स को एनेबल या डिसेबल कर सकते हैं।
 
 यह GitHub Action किसी भी समय चलाया जा सकता है `cron` का उपयोग करके। [Crontab.guru](https://crontab.guru/) और [this](https://crontab.cronhub.io/) वेबसाइट देखें `cron` अभिव्यक्ति उत्पन्न करने के लिए।
@@ -79,6 +85,8 @@
 
 ये लाइनें हमारे डेव मीट्रिक्स के प्रवेश-बिंदु होंगे।
 
+<a id="new-to-wakatime"></a>
+
 ## नए WakaTime के लिए
 
 WakaTime आपको बताता है कि आपने कोडिंग पर वास्तव में कितना समय खर्च किया। यह आपकी उत्पादकता और प्रतिस्पर्धी बढ़त को बढ़ाने में मदद करता है।
@@ -86,7 +94,14 @@ WakaTime आपको बताता है कि आपने कोडिं
 - <https://wakatime.com> पर जाएं और एक खाता बनाएं।
 - अपने [WakaTime में खाता सेटिंग्स](https://wakatime.com/settings/account) से WakaTime API कुंजी प्राप्त करें।
 - अपने पसंदीदा संपादक / IDE में [WakaTime प्लगइन](https://wakatime.com/plugins) को इंस्टॉल करें।
-- विश्लेषण शुरू करने के लिए अपनी API कुंजी पेस्ट करें।
+- प्रोग्रामिंग गतिविधि की ट्रैकिंग शुरू करने के लिए अपने संपादक / IDE के WakaTime प्लगइन में API कुंजी पेस्ट करें।
+
+इस Action से प्रोग्रामिंग के आँकड़े प्राप्त करने के लिए **WakaTime OAuth एक्सेस टोकन** प्राप्त करें:
+
+- अपने [WakaTime खाते](https://wakatime.com) में लॉग इन करें।
+- [WakaTime OAuth टोकन पृष्ठ](https://wakatime.com/oauth) खोलें।
+- अपना व्यक्तिगत OAuth एक्सेस टोकन बनाएँ और कॉपी करें।
+- **महत्वपूर्ण:** WakaTime खाते की सेटिंग्स वाली API कुंजी का उपयोग न करें। API कुंजियाँ संपादक प्लगइन के लिए हैं और प्रोग्रामिंग के आँकड़े प्राप्त करने के लिए उपयोग नहीं की जा सकतीं। अधिक जानकारी के लिए [WakaTime API दस्तावेज़](https://wakatime.com/developers#authentication) देखें।
 
 ### प्रोफ़ाइल रिपॉजिटरी
 

@@ -48,9 +48,15 @@
 
 ## Trabalho de Preparação
 
+> [!IMPORTANT]
+> **Atualização da autenticação da API do WakaTime (em vigor desde 1º de novembro de 2026)**
+>
+> Desde 1º de novembro de 2026, as chaves de API do WakaTime estão restritas aos plugins compatíveis. Outras integrações, incluindo esta GitHub Action, devem usar um **token OAuth pessoal** para acessar as estatísticas de programação.
+>
+> Obtenha seu token em [WakaTime OAuth](https://wakatime.com/oauth) e substitua o valor do segredo existente `WAKATIME_API_KEY` do repositório. Não é necessário alterar o nome do segredo nem a configuração do workflow.
+
 1. Você precisa atualizar o arquivo markdown(`.md`) com 2 comentários. Você pode se referir [aqui](#update-your-readme) para atualizá-lo.
-2. Você precisará de uma chave de API WakaTime. Você pode obtê-la nas Configurações da Conta WakaTime
-    - Você pode se referir [aqui](#new-to-wakatime), se for novo no WakaTime.
+2. Você precisará de um **token de acesso OAuth do WakaTime** para obter suas estatísticas de programação. Consulte [Novo para WakaTime](#new-to-wakatime) para configurar o rastreamento e obter o token.
 3. Você precisará de um token de API do GitHub com escopo `repo` e `user` de [aqui](https://github.com/settings/tokens) se estiver executando a ação para obter métricas de commit.
    - Você pode usar [este](#profile-repository) exemplo para trabalhar nisso.
 
@@ -58,10 +64,10 @@
 > Enabling the `repo` scope seems **DANGEROUS**, \
 > but this GitHub Action only accesses your commit timestamps and the number of lines of code added or deleted in repositories that you contributed to.
 
-4. Você precisa salvar a chave da API WakaTime e o token de acesso pessoal (PAT) do GitHub nos segredos do repositório. Você pode encontrá-los nas Configurações do seu repositório. \
-  Certifique-se de salvá-los da seguinte forma:
-    - Chave da API WakaTime como `WAKATIME_API_KEY=<sua chave da API WakaTime>`
-    - Token de Acesso Pessoal (PAT) do GitHub como `GH_TOKEN=<seu token de acesso do github>`
+4. Salve o token de acesso OAuth do WakaTime e o token de API do GitHub nos segredos do repositório. Acesse **Settings → Secrets and variables → Actions** e salve-os da seguinte forma:
+   - Token de acesso OAuth do WakaTime como `WAKATIME_API_KEY=<seu token de acesso OAuth do WakaTime>`
+   - Token de acesso pessoal do GitHub (PAT) como `GH_TOKEN=<seu token de acesso do GitHub>`
+
 5. Você pode habilitar e desabilitar bandeiras de recurso com base em suas necessidades.
 
 Esta ação do GitHub pode ser configurada para executar em qualquer momento que você quiser usando `cron`. Veja [Crontab.guru](https://crontab.guru/) e [este](https://crontab.cronhub.io/) site para gerar expressões `cron`.
@@ -79,6 +85,8 @@ Adicione um comentário ao seu `README.md` assim:
 
 Essas linhas serão nossos pontos de entrada para as métricas de dev.
 
+<a id="new-to-wakatime"></a>
+
 ## Novo para WakaTime
 
 WakaTime fornece uma ideia do tempo realmente gasto em codificação. Isso ajuda você a aumentar sua produtividade e vantagem competitiva.
@@ -86,7 +94,14 @@ WakaTime fornece uma ideia do tempo realmente gasto em codificação. Isso ajuda
 - Vá para <https://wakatime.com> e crie uma conta.
 - Obtenha sua chave de API WakaTime nas [Configurações da Conta no WakaTime](https://wakatime.com/settings/account).
 - Instale o [plugin WakaTime](https://wakatime.com/plugins) em seu editor / IDE favorito.
-- Cole sua chave de API para iniciar a análise.
+- Cole sua chave de API no plugin do WakaTime do seu editor / IDE para começar a registrar sua atividade de programação.
+
+Para obter suas estatísticas de programação com esta Action, obtenha um **token de acesso OAuth do WakaTime**:
+
+- Entre na sua [conta do WakaTime](https://wakatime.com).
+- Acesse a [página de tokens OAuth do WakaTime](https://wakatime.com/oauth).
+- Gere e copie seu token de acesso OAuth pessoal.
+- **Importante:** Não use a chave de API das configurações da sua conta do WakaTime. As chaves de API são destinadas aos plugins dos editores e não podem ser usadas para obter estatísticas de programação. Consulte a [documentação da API do WakaTime](https://wakatime.com/developers#authentication) para mais detalhes.
 
 ### Repositório de Perfil
 
