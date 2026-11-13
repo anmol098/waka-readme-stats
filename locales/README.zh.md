@@ -49,23 +49,31 @@
 
 ## 准备工作
 
-1. 向 markdown（`.md`）文件中插入两行注释。可以参考[这里](#更新你的自述文件)的更新方法。
-2. 你需要一个 WakaTime API 密钥。它可以在 WakaTime 账号设置中获取。
-    - 如果你第一次用 WakaTime，你可以翻到[这里](#初入-wakatime)了解更多。
-3. 如果你要通过 Action 获取 commit 数据，则应当在[这里](https://github.com/settings/tokens)创建 Github 的 `repo` 与 `user` API 令牌。
-   - 你可以参考[这个](#用户页面)示例更好了解这些。
+> [!IMPORTANT]
+> **WakaTime API 认证策略更新（2026 年 11 月 1 日生效）**
+>
+> 自 2026 年 11 月 1 日起，WakaTime API Key 仅支持受支持的插件使用。其他集成方式（包括此 GitHub Action）必须使用**个人 OAuth Token** 获取编程统计数据。
+>
+> 请从 [WakaTime OAuth](https://wakatime.com/oauth) 获取令牌，并替换仓库中现有 `WAKATIME_API_KEY` Secret 的值。无需修改 Secret 名称或 Workflow 配置。
+
+1. 你需要在 Markdown 文件（`.md`）中添加两条注释。具体方法可以参考[更新 README](#更新你的自述文件)章节。
+
+2. 你需要一个 **WakaTime OAuth Access Token**，用于获取编程活动统计数据。配置追踪和获取 Token 的步骤请参考[初入 WakaTime](#初入-wakatime)章节。
+
+3. 如果你需要通过此 Action 获取 GitHub 提交统计信息，则需要在[此处](https://github.com/settings/tokens)创建一个具有 `repo` 和 `user` 权限范围的 GitHub API Token。
+   - 你可以参考[用户页面](#用户页面)章节中的示例完成配置。
 
 > [!NOTE]
-> 启用 `repo` 范围虽然看起来**很危险**，\
-> 但是这个 Github Action 只会获取你的 commit 时间戳和你在仓库里改动的代码行数。
+> 启用 `repo` 权限范围看起来可能存在一定的**安全风险**，\
+> 但此 GitHub Action 仅访问你参与贡献的仓库中的提交时间、代码新增行数和删除行数。
 
-4. 你需要将 WakaTime API 密钥和 Github API 令牌保存在仓库秘密设置中。
-  确保你按如下格式保存：
-    - WakaTime API 密钥，格式为 `WAKATIME_API_KEY=<你的 wakatime API 密钥>`
-    - Github 个人访问令牌（PAT），格式为 `GH_TOKEN=<你的 Github 访问令牌>`
-5. 根据你的需要显示或隐藏标志。
+4. 你需要将 WakaTime OAuth Access Token 和 GitHub API Token 保存到仓库的 Secrets 中。进入 GitHub 仓库的 **Settings → Secrets and variables → Actions**，按照以下方式配置：
+   - WakaTime OAuth Access Token：`WAKATIME_API_KEY=<你的 WakaTime OAuth Access Token>`
+   - GitHub Personal Access Token（PAT）：`GH_TOKEN=<你的 GitHub Access Token>`
 
-这个 Github Action 可以通过 `cron` 表达式设置为任何时间点。见 [Crontab.guru](https://crontab.guru/) 和[这个网站](https://crontab.cronhub.io/)生成 `cron` 表达式。
+5. 你可以根据实际需求启用或禁用不同的功能开关（Feature Flags）。
+
+你可以使用 `cron` 设置此 GitHub Action 的定时执行时间。可参考 [Crontab.guru](https://crontab.guru/) 或[此网站](https://crontab.cronhub.io/)生成 `cron` 表达式。
 
 ## 更新你的自述文件
 
@@ -82,12 +90,19 @@
 
 ## 初入 WakaTime
 
-WakaTime 可以帮你统计出你投身代码的时间长度。这可以帮你提高工作效率，增强竞争优势。
+WakaTime 能够帮助你了解实际投入编程的时间，从而更好地分析和管理开发活动。
 
 - 前往 <https://wakatime.com>，创建一个账户。
 - 从 [WakaTime 账户设置](https://wakatime.com/settings/account)中获取你的 WakaTime API 密钥。
 - 在你的编辑器 / 集成开发环境（IDE）中安装 [WakaTime 插件](https://wakatime.com/plugins)。
-- 填入你的 API 密钥即可开始分析。
+- 在编辑器 / IDE 的 WakaTime 插件中填入你的 API 密钥，即可开始追踪编程活动。
+
+要通过此 Action 获取编程活动统计数据，请获取一个 **WakaTime OAuth Access Token**：
+
+- 登录你的 [WakaTime 账户](https://wakatime.com)。
+- 访问 [WakaTime OAuth Token 页面](https://wakatime.com/oauth)。
+- 生成并复制你的个人 OAuth Access Token。
+- **注意：** 请勿使用 WakaTime 账户设置中的普通 API Key。普通 API Key 主要用于编辑器插件，不能用于获取此 Action 所需的编程统计数据。详情请参考 [WakaTime API 官方文档](https://wakatime.com/developers#authentication)。
 
 ### 用户页面
 

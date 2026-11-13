@@ -47,9 +47,15 @@
 
 ## 준비 작업
 
+> [!IMPORTANT]
+> **WakaTime API 인증 정책 변경 (2026년 11월 1일부터 적용)**
+>
+> 2026년 11월 1일부터 WakaTime API 키는 지원되는 플러그인에서만 사용할 수 있습니다. 이 GitHub Action을 포함한 다른 연동에서는 코딩 통계를 조회하려면 **개인 OAuth 토큰**을 사용해야 합니다.
+>
+> [WakaTime OAuth](https://wakatime.com/oauth)에서 토큰을 발급받고 저장소의 기존 `WAKATIME_API_KEY` 시크릿 값을 교체하세요. 시크릿 이름이나 워크플로 설정은 변경할 필요가 없습니다.
+
 1. `.md` 파일의 마크다운 파일을 2개의 주석으로 업데이트해야 합니다. 업데이트 방법은 [여기](#update-your-readme)를 참조하십시오.
-2. WakaTime API 키가 필요합니다. 이는 WakaTime 계정 설정에서 얻을 수 있습니다.
-    - WakaTime에 새로 오셨다면 [여기](#new-to-wakatime)를 참조하십시오.
+2. 코딩 통계를 조회하려면 **WakaTime OAuth 액세스 토큰**이 필요합니다. 활동 추적 설정과 토큰 발급 방법은 [WakaTime을 처음 사용하는 경우](#new-to-wakatime)를 참조하세요.
 3. 커밋 메트릭을 얻기 위해 액션을 실행하는 경우, [여기](https://github.com/settings/tokens)에서 `repo` 및 `user` 범위를 가진 GitHub API 토큰이 필요합니다.
    - [이](#profile-repository) 예제를 사용하여 이를 설정할 수 있습니다.
 
@@ -57,10 +63,10 @@
 > Enabling the `repo` scope seems **DANGEROUS**, \
 > but this GitHub Action only accesses your commit timestamps and the number of lines of code added or deleted in repositories that you contributed to.
 
-4. 저장소 비밀에 WakaTime API 키와 GitHub API 토큰을 저장해야 합니다. 이는 저장소의 설정에서 찾을 수 있습니다. \
-  다음처럼 저장해야 합니다:
-    - WakaTime API 키를 `WAKATIME_API_KEY=<your wakatime API Key>`로 저장
-    - GitHub 개인 액세스 토큰(PAT)을 `GH_TOKEN=<your github access token>`로 저장
+4. WakaTime OAuth 액세스 토큰과 GitHub API 토큰을 저장소 시크릿에 저장하세요. **Settings → Secrets and variables → Actions**에서 다음과 같이 설정하세요:
+   - WakaTime OAuth 액세스 토큰: `WAKATIME_API_KEY=<본인의 WakaTime OAuth 액세스 토큰>`
+   - GitHub 개인 액세스 토큰(PAT): `GH_TOKEN=<본인의 GitHub 액세스 토큰>`
+
 5. 요구사항에 따라 기능 플래그를 활성화하거나 비활성화할 수 있습니다.
 
 이 GitHub Action은 원하는 시간에 `cron`을 사용하여 실행할 수 있습니다. `cron` 표현식을 생성하려면 [Crontab.guru](https://crontab.guru/) 및 [this](https://crontab.cronhub.io/) 웹사이트를 참조하세요.
@@ -78,6 +84,8 @@
 
 이 줄들은 개발 메트릭스의 진입점이 될 것입니다.
 
+<a id="new-to-wakatime"></a>
+
 ## WakaTime을 처음 사용하는 경우
 
 WakaTime은 실제로 코딩에 소요된 시간을 알려줍니다. 이는 생산성과 경쟁력을 높이는 데 도움이 됩니다.
@@ -85,7 +93,14 @@ WakaTime은 실제로 코딩에 소요된 시간을 알려줍니다. 이는 생�
 - <https://wakatime.com>으로 이동하여 계정을 생성하십시오.
 - [WakaTime의 계정 설정](https://wakatime.com/settings/account)에서 WakaTime API 키를 가져오십시오.
 - 좋아하는 편집기 / IDE에 [WakaTime 플러그인](https://wakatime.com/plugins)을 설치하십시오.
-- 분석을 시작하려면 API 키를 붙여넣으십시오.
+- 편집기 / IDE의 WakaTime 플러그인에 API 키를 붙여넣어 코딩 활동 추적을 시작하세요.
+
+이 Action으로 코딩 통계를 조회하려면 **WakaTime OAuth 액세스 토큰**을 발급받으세요:
+
+- [WakaTime 계정](https://wakatime.com)에 로그인하세요.
+- [WakaTime OAuth 토큰 페이지](https://wakatime.com/oauth)를 여세요.
+- 개인 OAuth 액세스 토큰을 생성하고 복사하세요.
+- **중요:** WakaTime 계정 설정에 있는 API 키를 사용하지 마세요. API 키는 편집기 플러그인용이며 코딩 통계 조회에는 사용할 수 없습니다. 자세한 내용은 [WakaTime API 문서](https://wakatime.com/developers#authentication)를 참조하세요.
 
 ### 프로필 저장소
 

@@ -47,9 +47,15 @@
 
 ## プリペアワーク
 
+> [!IMPORTANT]
+> **WakaTime API の認証方式の変更（2026年11月1日より適用）**
+>
+> 2026年11月1日以降、WakaTime API キーは対応するプラグインでのみ使用できます。この GitHub Action を含むその他の連携では、コーディング統計の取得に**個人用 OAuth トークン**が必要です。
+>
+> [WakaTime OAuth](https://wakatime.com/oauth) でトークンを取得し、リポジトリの既存のシークレット `WAKATIME_API_KEY` の値を置き換えてください。シークレット名やワークフローの設定を変更する必要はありません。
+
 1. `.md`ファイルのマークダウンファイルを2つのコメントで更新する必要があります。更新方法は[こちら](#update-your-readme)を参照してください。
-2. WakaTime APIキーが必要です。これはWakaTimeアカウント設定から取得できます。
-    - WakaTimeに新規ユーザーの場合、[こちら](#new-to-wakatime)を参照してください。
+2. コーディング統計を取得するには、**WakaTime OAuth アクセストークン**が必要です。トラッキングの設定とトークンの取得手順は、[WakaTimeに新規登録](#new-to-wakatime)を参照してください。
 3. コミットメトリクスを取得するアクションを実行する場合、[こちら](https://github.com/settings/tokens)から`repo`および`user`スコープを持つGitHub APIトークンが必要です。
    - これについては、[こちら](#profile-repository)の例を参照してください。
 
@@ -57,10 +63,10 @@
 > Enabling the `repo` scope seems **DANGEROUS**, \
 > but this GitHub Action only accesses your commit timestamps and the number of lines of code added or deleted in repositories that you contributed to.
 
-4. リポジトリのシークレットにWakaTime APIキーおよびGitHub APIトークンを保存する必要があります。リポジトリの「設定」で確認できます。  
-  以下の通りに保存してください:
-    - WakaTime APIキーを`WAKATIME_API_KEY=<your wakatime API Key>`として保存
-    - GitHubパーソナルアクセストークン(PAT)を`GH_TOKEN=<your github access token>`として保存
+4. WakaTime OAuth アクセストークンと GitHub API トークンをリポジトリのシークレットに保存してください。**Settings → Secrets and variables → Actions** を開き、次のように設定します:
+   - WakaTime OAuth アクセストークン: `WAKATIME_API_KEY=<あなたの WakaTime OAuth アクセストークン>`
+   - GitHub 個人用アクセストークン（PAT）: `GH_TOKEN=<あなたの GitHub アクセストークン>`
+
 5. ご要望に応じて、機能フラグを有効または無効にできます。
 
 このGitHub Actionは、`cron`を使用していつでも実行できます。`cron`式を生成するには、[Crontab.guru](https://crontab.guru/)および[this](https://crontab.cronhub.io/)のウェブサイトをご覧ください。
@@ -78,6 +84,8 @@
 
 これらの行は、開発者メトリクスのエントリポイントとなります。
 
+<a id="new-to-wakatime"></a>
+
 ## WakaTimeに新規登録
 
 WakaTimeは、実際にコーディングに費やした時間を把握するのに役立ちます。これにより、生産性と競争力を向上させることができます。
@@ -85,7 +93,14 @@ WakaTimeは、実際にコーディングに費やした時間を把握するの
 - <https://wakatime.com>にアクセスし、アカウントを作成してください。
 - [WakaTimeのアカウント設定](https://wakatime.com/settings/account)からWakaTime APIキーを取得してください。
 - お気に入りのエディタ/IDEに[WakaTimeプラグイン](https://wakatime.com/plugins)をインストールしてください。
-- APIキーを貼り付け、分析を開始してください。
+- エディタ / IDE の WakaTime プラグインに API キーを貼り付けて、コーディング活動の記録を開始してください。
+
+この Action でコーディング統計を取得するには、**WakaTime OAuth アクセストークン**を取得してください:
+
+- [WakaTime アカウント](https://wakatime.com)にログインします。
+- [WakaTime OAuth トークンページ](https://wakatime.com/oauth)を開きます。
+- 個人用 OAuth アクセストークンを生成してコピーします。
+- **重要:** WakaTime のアカウント設定にある API キーは使用しないでください。API キーはエディタのプラグイン用であり、コーディング統計の取得には使用できません。詳細は [WakaTime API ドキュメント](https://wakatime.com/developers#authentication)を参照してください。
 
 ### プロファイル リポジトリ
 

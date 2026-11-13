@@ -49,9 +49,15 @@
 
 ## Vorbereitung
 
+> [!IMPORTANT]
+> **Änderung der WakaTime-API-Authentifizierung (ab 1. November 2026)**
+>
+> Seit dem 1. November 2026 können WakaTime-API-Schlüssel nur noch von unterstützten Plugins verwendet werden. Andere Integrationen, einschließlich dieser GitHub Action, benötigen ein **persönliches OAuth-Token**, um auf Programmierstatistiken zuzugreifen.
+>
+> Erstelle dein Token unter [WakaTime OAuth](https://wakatime.com/oauth) und ersetze den Wert des vorhandenen Repository-Secrets `WAKATIME_API_KEY`. Der Name des Secrets und die Workflow-Konfiguration müssen nicht geändert werden.
+
 1. Du musst die Markdown-Datei(`.md`) mit 2 Kommentaren aktualisieren. Du kannst [hier](#update-your-readme) nachlesen, wie du das machen kannst.
-2. Du benötigst einen WakaTime API-Schlüssel. Du kannst diesen in den Einstellungen deines WakaTime-Kontos abrufen
-    - Du kannst [hier](#new-to-wakatime) nachlesen, wenn du neu bei WakaTime bist.
+2. Du benötigst ein **WakaTime OAuth Access Token**, um deine Programmierstatistiken abzurufen. Eine Anleitung zur Einrichtung und zum Erstellen des Tokens findest du unter [Neu bei WakaTime](#new-to-wakatime).
 3. Wenn du die Aktion zum Abrufen von Commit-Metriken ausführst, benötigst du einen GitHub API-Token mit `repo` und `user` Bereich von [hier](https://github.com/settings/tokens)
    - Du kannst [dieses](#profile-repository) Beispiel verwenden, um es zu verstehen.
 
@@ -59,10 +65,10 @@
 > Enabling the `repo` scope seems **DANGEROUS**, \
 > but this GitHub Action only accesses your commit timestamps and the number of lines of code added or deleted in repositories that you contributed to.
 
-4. Du musst den WakaTime API Key und den GitHub API Token in den Repository-Secrets speichern. Du kannst das in den Einstellungen deines Repositorys finden. \
-  Stelle sicher, sie unter folgenden Namen zu speichern:
-    - WakaTime API Key als `WAKATIME_API_KEY=<deiner wakatime API Key>`
-    - GitHub Personal Access Token (PAT) als `GH_TOKEN=<dein github access token>`
+4. Speichere das WakaTime OAuth Access Token und das GitHub API-Token in den Repository-Secrets. Öffne **Settings → Secrets and variables → Actions** und speichere sie wie folgt:
+   - WakaTime OAuth Access Token als `WAKATIME_API_KEY=<dein WakaTime OAuth Access Token>`
+   - GitHub Personal Access Token (PAT) als `GH_TOKEN=<dein GitHub Access Token>`
+
 5. Du kannst Feature-Flags basierend auf deinen Anforderungen aktivieren und deaktivieren.
 
 Dieser GitHub Action kann so konfiguriert werden, dass er zu jedem Zeitpunkt, den du möchtest, mit `cron` läuft. Sieh dir [Crontab.guru](https://crontab.guru/) und [dieses](https://crontab.cronhub.io/) Website an, um `cron` Ausdrücke zu generieren.
@@ -80,6 +86,8 @@ Füge einem Kommentar zu deinem `README.md` wie diesem hinzu:
 
 Diese Zeilen werden unsere Einstiegspunkte für die Entwickler-Metriken sein.
 
+<a id="new-to-wakatime"></a>
+
 ## Neu bei WakaTime
 
 WakaTime gibt dir einen Einblick in die Zeit, die du wirklich für das Coden aufwendest. Dies hilft dir, deine Produktivität und dein Wettbewerbsvorteil zu steigern.
@@ -87,7 +95,14 @@ WakaTime gibt dir einen Einblick in die Zeit, die du wirklich für das Coden auf
 - Gehe zu <https://wakatime.com> und erstelle ein Konto.
 - Hol dir deinen WakaTime API-Schlüssel in den [Kontoeinstellungen in WakaTime](https://wakatime.com/settings/account).
 - Installiere das [WakaTime-Plugin](https://wakatime.com/plugins) in deinem bevorzugten Editor / IDE.
-- Füge deinen API-Schlüssel ein, um die Analyse zu starten.
+- Füge deinen API-Schlüssel in das WakaTime-Plugin deines Editors / deiner IDE ein, um deine Programmieraktivität zu erfassen.
+
+Um deine Programmierstatistiken mit dieser Action abzurufen, erstelle ein **WakaTime OAuth Access Token**:
+
+- Melde dich bei deinem [WakaTime-Konto](https://wakatime.com) an.
+- Öffne die [WakaTime-OAuth-Token-Seite](https://wakatime.com/oauth).
+- Erstelle und kopiere dein persönliches OAuth Access Token.
+- **Wichtig:** Verwende nicht den API-Schlüssel aus den WakaTime-Kontoeinstellungen. API-Schlüssel sind für Editor-Plugins vorgesehen und können nicht zum Abrufen von Programmierstatistiken verwendet werden. Weitere Informationen findest du in der [WakaTime-API-Dokumentation](https://wakatime.com/developers#authentication).
 
 ### Profil-Repository
 
