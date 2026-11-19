@@ -3,6 +3,7 @@ from os.path import join, isfile, dirname
 from pickle import load as load_pickle, dump as dump_pickle
 from json import load as load_json
 from typing import Dict, Optional, Any
+from humanize.i18n import activate
 
 from manager_environment import EnvironmentManager as EM
 
@@ -13,6 +14,7 @@ def init_localization_manager():
     Load GUI translations JSON file.
     """
     FileManager.load_localization("translation.json")
+    FileManager.init_humanize()
 
 
 class FileManager:
@@ -22,6 +24,11 @@ class FileManager:
     """
 
     ASSETS_DIR = "assets"
+
+    HUMANIZE_LOCALE_MAP = {
+        "pt": "pt_BR",
+    }
+
     _LOCALIZATION: Dict[str, str] = dict()
 
     @staticmethod
@@ -34,6 +41,17 @@ class FileManager:
         with open(join(dirname(__file__), file), encoding="utf-8") as config_file:
             data = load_json(config_file)
         FileManager._LOCALIZATION = data[EM.LOCALE]
+
+    @staticmethod
+    def init_humanize():
+        """
+        Initialize humanize localization.
+
+        Activate the locale used by the humanize library.
+        Uses locale mapping when required while preserving
+        the project's existing locale system.
+        """
+        activate(FileManager.HUMANIZE_LOCALE_MAP.get(EM.LOCALE, EM.LOCALE))
 
     @staticmethod
     def t(key: str) -> str:
