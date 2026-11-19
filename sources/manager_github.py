@@ -154,7 +154,7 @@ class GitHubManager:
 
         with open(readme_path, "r") as readme_file:
             readme_contents = readme_file.read()
-        readme_stats = f"{GitHubManager._START_COMMENT}\n{stats}\n{GitHubManager._END_COMMENT}"
+        readme_stats = f"{GitHubManager._START_COMMENT}\n\n{stats}\n{GitHubManager._END_COMMENT}"
         new_readme = sub(GitHubManager._README_REGEX, readme_stats, readme_contents)
 
         with open(readme_path, "w") as readme_file:
