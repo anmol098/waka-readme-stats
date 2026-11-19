@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 from manager_download import DownloadManager as DM
 from manager_file import FileManager as FM
 
-
 MAX_LANGUAGES = 5  # Number of top languages to add to chart, for each year quarter
 GRAPH_PATH = f"{FM.ASSETS_DIR}/bar_graph.png"  # Chart saving path.
 

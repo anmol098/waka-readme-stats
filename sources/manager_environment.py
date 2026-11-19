@@ -8,7 +8,7 @@ class EnvironmentManager:
     The others have a provided default value.
     For all boolean variables a 'truthy'-list is checked (not only true/false, but also 1, t, y and yes are accepted).
     List variable `IGNORED_REPOS` is split and parsed.
-    Integer variables `SYMBOL_VERSION` and `MAX_REPOS` are parsed.
+    Integer variables `SYMBOL_VERSION`, `MAX_REPOS` and `SHOW_LANGUAGE_COUNT` are parsed.
     """
 
     _TRUTHY = ["true", "1", "t", "y", "yes"]
@@ -71,6 +71,12 @@ class EnvironmentManager:
     MAX_REPOS = int(_raw_repo_cap) if _raw_repo_cap else 0
     if MAX_REPOS < 0:
         MAX_REPOS = 0
+
+    _raw_show_language_count = getenv("INPUT_SHOW_LANGUAGE_COUNT", "5").strip()
+    SHOW_LANGUAGE_COUNT = int(_raw_show_language_count) if _raw_show_language_count.lstrip("-").isdigit() else 5
+    if SHOW_LANGUAGE_COUNT < 1:
+        SHOW_LANGUAGE_COUNT = 1
+
     SYMBOL_VERSION = int(getenv("INPUT_SYMBOL_VERSION", "1"))
     BADGE_STYLE = getenv("INPUT_BADGE_STYLE") or getenv("BADGE_STYLE", "flat")
     BAR_STYLE = (getenv("INPUT_BAR_STYLE") or getenv("BAR_STYLE", "text")).strip()  # "text" or "svg"

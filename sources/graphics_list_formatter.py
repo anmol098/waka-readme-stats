@@ -8,7 +8,6 @@ from pytz import timezone, utc
 from manager_environment import EnvironmentManager as EM
 from manager_file import FileManager as FM
 
-
 DAY_TIME_EMOJI = ["🌞", "🌆", "🌃", "🌙"]  # Emojis, representing different times of day.
 DAY_TIME_NAMES = ["Morning", "Daytime", "Evening", "Night"]  # Localization identifiers for different times of day.
 WEEK_DAY_NAMES = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]  # Localization identifiers for different days of week.
@@ -73,7 +72,7 @@ def make_list(data: List = None, names: List[str] = None, texts: List[str] = Non
         percents = [value for item in data for key, value in item.items() if key == "percent"] if percents is None else percents
 
     data = list(zip(names, texts, percents))
-    top_data = sorted(data[:top_num], key=lambda record: record[2], reverse=True) if sort else data[:top_num]
+    top_data = sorted(data, key=lambda record: record[2], reverse=True)[:top_num] if sort else data[:top_num]
 
     if EM.BAR_STYLE == "svg":
         # Fixed column layout (widths in user units; total view width = sum of columns + trailing margin):

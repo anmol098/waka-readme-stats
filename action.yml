@@ -16,7 +16,7 @@ inputs:
   WAKATIME_API_KEY:
     description: 'Your Wakatime API Key'
     required: true
-  
+
   WAKATIME_API_URL:
     description: 'Your Wakatime API URL'
     required: false
@@ -121,7 +121,7 @@ inputs:
     required: false
     description: "Git commit with your own name and email"
     default: "False"
-  
+
   COMMIT_MESSAGE:
     required: false
     description: "Git commit message"
@@ -131,7 +131,7 @@ inputs:
     required: false
     description: "Git commit custom username"
     default: ""
-  
+
   COMMIT_EMAIL:
     required: false
     description: "Git commit custom email"
@@ -166,6 +166,11 @@ inputs:
     required: false
     description: "(Deprecated) Alias for MAX_REPOS"
     default: "0"
+
+  SHOW_LANGUAGE_COUNT:
+    required: false
+    description: "Number of languages to show in the languages section (default: 5, minimum: 1)"
+    default: "5"
 
   SYMBOL_VERSION:
     required: false
