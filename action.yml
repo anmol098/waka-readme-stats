@@ -117,6 +117,11 @@ inputs:
     description: "Show the weekly AI coding breakdown (AI vs human lines, cost, model breakdown, sessions)"
     default: "True"
 
+  COMMIT_ENABLED:
+    required: false
+    description: "Whether to commit the updated readme back to the repository by the action itself"
+    default: "True"
+
   COMMIT_BY_ME:
     required: false
     description: "Git commit with your own name and email"
